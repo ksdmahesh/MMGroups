@@ -1,0 +1,14 @@
+﻿<div class="toolbox" >
+    <div id="mySidenavRight" class="sidenav" style="right:0;padding-top:0;z-index:30;">
+        <div class="row p-0 m-0">
+            <a id="add_new_prop_to_toolbox" class="btn btn-light col-md-6 rounded-0" data-toggle="modal" data-target="#editPropItems">
+                add
+            </a>
+            <a class="btn btn-light col-md-6 rounded-0 closeNavBarRight">close</a>
+        </div>
+        <div class="overflow-auto" style="position:relative;height:100%" id="propHolderSidenavbar">
+            @Html.Partial("~/Views/Partial/ToolBoxItem.cshtml")
+        </div>
+    </div>
+</div>
+<div class="overlay3 closeNavBarRight" id="myCanvasNavRight" style="width: 0%; opacity: 0;right:0;"></div>

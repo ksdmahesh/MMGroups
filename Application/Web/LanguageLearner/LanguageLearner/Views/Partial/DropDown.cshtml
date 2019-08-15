@@ -1,0 +1,74 @@
+﻿<ul class="dropright right item-custom-fill" id="dropdown_ul">
+    <li class="btn-group item-custom-fill btn-block group-focus" id="dropdown_li">
+        <button type="button" class="btn btn-custom-fill p-3 m-0" id="dropdown_Name"></button>
+        <button type="button" class="btn dropdown-toggle btn-custom-auto p-3 m-0 btn-secondary" style="opacity:0.5" id="dropdown_toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+        <ul class="dropdown-menu menu-custom-fill" id="under_dropdown_toggle"></ul>
+    </li>
+</ul>
+
+@*@model DropdownModel
+    @{
+        string id = string.Join("-", Model.Id);
+        int count = 0;
+        string className = "dropright right item-custom-fill";
+        string btnFill = "btn btn-custom-fill p-3 m-0";
+        string btnAuto = "btn dropdown-toggle btn-custom-auto p-3 m-0 btn-secondary";
+        string ddMenu = "dropdown-menu menu-custom-fill";
+        string ddItem = "dropdown-item item-custom-fill";
+        string extraStyle = "";
+        if (Model.Id.Count > 1)
+        {
+            extraStyle = " custom-list-group-item-action";
+        }
+        string ddChild = "btn-group item-custom-fill btn-block group-focus" + extraStyle;
+        string ddRight = "btn-group dropright item-custom-fill group-focus" + extraStyle;
+    }
+    <ul class="@className" id="@id-ul">
+        <li class="@ddChild">
+            <button type="button" class="@btnFill">@Model.CurrentKey</button>
+            <button type="button" class="@btnAuto" style="opacity:0.5" id="@id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ></button>
+            <ul class="@ddMenu" aria-labelledby="@id" >
+                <li class="@ddItem">
+                    @foreach (var item in Model.Items)
+                    {
+                        if (item.Value is string)
+                        {
+                            <div class="@ddRight">
+                                <button type="button" class="@btnFill">@item.Value</button>
+                            </div>
+                        }
+                        else if (item.Value is Dictionary<string, object>)
+                        {
+                            //count++;
+                            Model.Id.Add(item.Key.Replace(" ", "_"));
+                            @Html.Partial("~/Views/Partial/DropDown.cshtml", new DropdownModel(Model.Id, item.Value as Dictionary<string, object>, item.Key))
+                            Model.Id.RemoveAt(Model.Id.Count - 1);
+                        }
+                        else if (item.Value is List<string>)
+                        {
+                            //count++;
+                            Model.Id.Add(item.Key.Replace(" ","_"));
+                            id = string.Join("-", Model.Id);
+                            Model.Id.RemoveAt(Model.Id.Count - 1);
+                            <ul class="@className-ul">
+                                <li class="@ddChild">
+                                    <button type="button" class="@btnFill">@item.Key</button>
+                                    <button type="button" class="@btnAuto" style="opacity:0.5" id="@id" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                    <ul class="@ddMenu" aria-labelledby="@id">
+                                        @foreach (var item1 in item.Value as List<string>)
+                                        {
+                                            <li class="@ddItem">
+                                                <div class="@ddRight">
+                                                    <button type="button" class="@btnFill">@item1</button>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
+                    }
+                </li>
+            </ul>
+        </li>
+    </ul>*@

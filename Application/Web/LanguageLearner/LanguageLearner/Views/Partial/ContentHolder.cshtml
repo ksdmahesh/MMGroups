@@ -1,0 +1,16 @@
+﻿<div id="mainRight">
+    @*<nav class="sticky-top" style="width:100%" id="flow-editor-tabs">
+        <div class="nav nav-tabs" role="tablist">
+            <a class="nav-item nav-link active" id="nav-flow-design-tab" data-toggle="tab" href="#nav-flow-design" role="tab" aria-controls="nav-flow-design" aria-selected="true">Flow Designer</a>
+            <a class="nav-item nav-link" id="nav-editor-tab" data-toggle="tab" href="#nav-editor" role="tab" aria-controls="nav-editor" aria-selected="false">Editor</a>
+        </div>
+    </nav>*@
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="nav-flow-design" role="tabpanel" aria-labelledby="nav-flow-design-tab" style="background-color:transparent">
+                @Html.Partial("~/Views/Partial/Designer.cshtml")
+            </div>
+            <div class="tab-pane fade" id="nav-editor" role="tabpanel" aria-labelledby="nav-editor-tab" style="background-color:transparent">
+                @Html.Partial("~/Views/Partial/Editor.cshtml")
+            </div>
+        </div>
+</div>
