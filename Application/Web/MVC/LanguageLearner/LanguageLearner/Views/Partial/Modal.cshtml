@@ -1,0 +1,565 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="editPropItems" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header btn-group">
+                <nav style="width:100%" id="prop_nav_modal_edit">
+                    <div class="nav nav-tabs" id="nav-tab-prop" role="tablist">
+                        <a class="nav-item nav-link active propHeader" id="nav-edit-add-tab" data-toggle="tab" href="#nav-edit-add" role="tab" aria-controls="nav-edit-add" aria-selected="true">Edit</a>
+                        <a class="nav-item nav-link propItem" id="nav-edit-tab" data-toggle="tab" href="#nav-edit" role="tab" aria-controls="nav-edit" aria-selected="false">Edit</a>
+                        <a class="nav-item nav-link" id="nav-delete-tab" data-toggle="tab" href="#nav-delete" role="tab" aria-controls="nav-delete" aria-selected="false">Delete</a>
+                        <a class="nav-item nav-link" id="nav-clone-tab" data-toggle="tab" href="#nav-clone" role="tab" aria-controls="nav-clone" aria-selected="true">Clone</a>
+                        <a class="nav-item nav-link propHeader toolItem" id="nav-merge-tab" data-toggle="tab" href="#nav-merge" role="tab" aria-controls="nav-merge" aria-selected="false">Merge</a>
+                        <a class="nav-item nav-link propItem" id="nav-send-tab" data-toggle="tab" href="#nav-send" role="tab" aria-controls="nav-send" aria-selected="true">Send</a>
+                    </div>
+                </nav>
+                <nav style="width:100%" id="prop_nav_modal_add">
+                    <div class="nav nav-tabs" id="nav-tab-prop-add" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-edit-add-tab-add" data-toggle="tab" href="#nav-edit-add" role="tab" aria-controls="nav-edit-add" aria-selected="true">Add</a>
+                    </div>
+                </nav>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content" id="nav-tab-content-prop">
+                    <div class="tab-pane fade show active" id="nav-edit-add" role="tabpanel" aria-labelledby="nav-edit-add-tab" style="background-color:transparent">
+                        <form>
+                            <div class="row">
+                                <div class="input-group col-md-6">
+                                    <input type="text" class="form-control" id="modal_prop_name_textbox" placeholder="Property Name">
+                                </div>
+                                <div class="input-group col-md-6">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Position</span>
+                                    </div>
+                                    <select class="form-control" id="position_modal_prop_count" aria-label="Small" aria-describedby="inputGroup-sizing-sm"><option value="">Select</option></select>
+                                </div>
+                            </div>
+                            <hr />
+                            <div id="checkbox-header-control-div">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text d-flex align-items-center">
+                                            <div class="form-check d-flex align-items-center">
+                                                <input type="checkbox" name="edit-add-prop-checkbox-item" id="edit-add-prop-checkbox-item-id" value="header" class="form-check-input"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-danger rounded-0" id="switch-delete-tab-items" aria-flowto="#nav-delete">delete</button>
+                                    <button type="button" class="btn btn-danger rounded-0" id="switch-clone-tab-items" aria-flowto="#nav-clone">clone</button>
+                                    <button type="button" class="btn btn-danger rounded-0" id="switch-send-tab-items" aria-flowto="#nav-merge">send</button>
+                                </div>
+                                <hr />
+                            </div>
+                            <div id="modal_prop_list_content_toggler">
+                                <div class="alert alert-secondary text-center" role="alert" id="alert-for-no-child-element">
+                                    nothing to show
+                                </div>
+                                <div id="modal_prop_list_content">
+                                    <div class="input-group p-1" id="modal_prop_list_content_div">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text bg-transparent">
+                                                <i class="material-icons">unfold_more</i>
+                                            </div>
+                                        </div>
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text bg-transparent d-flex align-items-center">
+                                                <div class="form-check d-flex align-items-center">
+                                                    <input name="edit-add-prop-checkbox-item" type="checkbox" value="body" class="modal_prop_item_chckbx form-check-input" id="modal_prop_item_chckbx" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input class="form-control" type="text" placeholder="Item Name" id="modal_prop_item_name" />
+                                        <select class="form-control" id="modal_prop_item_type">
+                                            <option value="Textbox">Textbox</option>
+                                            <option value="Textarea">Textarea</option>
+                                            <option value="Table">Table</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="add_prop_edit_textbox_name" placeholder="Item Name">
+                                <select class="form-control" id="add_prop_edit_select_type">
+                                    <option value="">Select</option>
+                                    <option value="Textbox">Textbox</option>
+                                    <option value="Textarea">Textarea</option>
+                                    <option value="Table">Table</option>
+                                </select>
+                                <button type="button" class="btn btn-primary" id="add_prop_item_new">add</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab" style="background-color:transparent">
+                        <form>
+                            <div class="form-group">
+                                <label for="edit_textbox_name_prop">Item Name</label>
+                                <input type="text" class="form-control" id="edit_textbox_name_prop" placeholder="Item Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_textbox_name_type">Item Type</label>
+                                <select class="form-control" id="edit_textbox_name_type">
+                                    <option value="">Select</option>
+                                    <option value="Textbox">Textbox</option>
+                                    <option value="Textarea">Textarea</option>
+                                    <option value="Table">Table</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="nav-delete" role="tabpanel" aria-labelledby="nav-delete-tab" style="background-color:transparent">
+                        <form>
+                            @*<div class="input-group mb-2 align-items-center border rounded">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Include changes : </div>
+                                    </div>
+                                    <div class="flex-fill text-center">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="true-for-item-delete-include-changes" name="for-item-delete-include-changes" class="custom-control-input" checked>
+                                            <label class="custom-control-label" for="true-for-item-delete-include-changes">Yes</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="false-for-item-delete-include-changes" name="for-item-delete-include-changes" class="custom-control-input">
+                                            <label class="custom-control-label" for="false-for-item-delete-include-changes">No</label>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <div class="alert alert-danger" role="alert">
+                                Remove Permanently.
+                            </div>
+                            <div class="input-group mb-2 align-items-center border rounded divHeader">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text changeText">Delete selected items only : </div>
+                                </div>
+                                <div class="flex-fill text-center">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="true-for-item-delete-only" name="for-item-delete-only" class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="true-for-item-delete-only">Yes</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="false-for-item-delete-only" name="for-item-delete-only" class="custom-control-input">
+                                        <label class="custom-control-label" for="false-for-item-delete-only">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="nav-clone" role="tabpanel" aria-labelledby="nav-clone-tab" style="background-color:transparent">
+                        <form>
+                            @*<div class="input-group mb-2 align-items-center border rounded">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Include changes : </div>
+                                    </div>
+                                    <div class="flex-fill text-center">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="true-for-item-clone-include-changes" name="for-item-clone-include-changes" class="custom-control-input" checked>
+                                            <label class="custom-control-label" for="true-for-item-clone-include-changes">Yes</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="false-for-item-clone-include-changes" name="for-item-clone-include-changes" class="custom-control-input">
+                                            <label class="custom-control-label" for="false-for-item-clone-include-changes">No</label>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <div class="form-group">
+                                <label for="clone_select_option">Select Panel</label>
+                                <select class="form-control" id="clone_select_option">
+                                    <option value="">Select</option>
+                                    <option value="ToolBox" aria-labelledby="mySidenavRight">ToolBox</option>
+                                    <option value="ContentHolder" aria-labelledby="mainRight">ContentHolder</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="clone_select_option_sub_div">
+                                <label for="clone_select_option_sub">Select Property</label>
+                                <select class="form-control" id="clone_select_option_sub">
+                                    <option value="" selected>Select</option>
+                                </select>
+                                @*<label for="cloneBreadCrumb">Select Location</label>
+                                    <nav aria-label="breadcrumb" id="cloneBreadCrumb">
+                                        <ol class="breadcrumb" id="cloneBreadCrumb-ol"></ol>
+                                        <ol class="breadcrumb" id="null_breadcrumb">
+                                            <li class="btn-group border-0 breadcrumb-item btn-block d-flex justify-content-center align-content-center">
+                                                <a class="disabled">Select Location From Select Panel.</a>
+                                            </li>
+                                        </ol>
+                                    </nav>*@
+                            </div>
+                            <div class="form-group">
+                                <label for="clone_select_option_index">Select Index</label>
+                                <select class="form-control" id="clone_select_option_index">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-2 align-items-center border rounded divHeader" id="item-clone-only-div">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text changeText">Clone selected items only : </div>
+                                </div>
+                                <div class="flex-fill text-center">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="true-for-item-clone-only" name="for-item-clone-only" class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="true-for-item-clone-only">Yes</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="false-for-item-clone-only" name="for-item-clone-only" class="custom-control-input">
+                                        <label class="custom-control-label" for="false-for-item-clone-only">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="nav-merge" role="tabpanel" aria-labelledby="nav-merge-tab" style="background-color:transparent">
+                        <form>
+                            @*<div class="input-group mb-2 align-items-center border rounded">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Include changes : </div>
+                                    </div>
+                                    <div class="flex-fill text-center">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="true-for-item-merge-include-changes" name="for-item-merge-include-changes" class="custom-control-input" checked>
+                                            <label class="custom-control-label" for="true-for-item-merge-include-changes">Yes</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="false-for-item-merge-include-changes" name="for-item-merge-include-changes" class="custom-control-input">
+                                            <label class="custom-control-label" for="false-for-item-merge-include-changes">No</label>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <div class="form-group" id="merge_prop_to_other-parent">
+                                <label for="merge_prop_to_other">Select Panel</label>
+                                <select class="form-control" id="merge_prop_to_other"><option value="">Select</option></select>
+                            </div>
+                            <div class="form-group" id="merge_tool_to_other-parent">
+                                <label for="merge_tool_to_other">Select Panel</label>
+                                <select class="form-control" id="merge_tool_to_other"><option value="">Select</option></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="merge_select_option_index">Select Index</label>
+                                <select class="form-control" id="merge_select_option_index">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-2 align-items-center border rounded divHeader" id="item-merge-only-div">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text changeText">Send selected items only : </div>
+                                </div>
+                                <div class="flex-fill text-center">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="true-for-item-merge-only" name="for-item-merge-only" class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="true-for-item-merge-only">Yes</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="false-for-item-merge-only" name="for-item-merge-only" class="custom-control-input">
+                                        <label class="custom-control-label" for="false-for-item-merge-only">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="alert alert-info divHeader" role="alert">
+                                <a> This section is for : </a>
+                                <ul>
+                                    <li>
+                                        <a>Yes : Send selected items(selected checkbox in edit tab) to selected Property(in Select Panel).</a>
+                                    </li>
+                                    <li>
+                                        <a>No :  Merge Property(current Property) to selected Property(in Select Panel).</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="nav-send" role="tabpanel" aria-labelledby="nav-send-tab" style="background-color:transparent">
+                        <form>
+                            @*<div class="input-group mb-2 align-items-center border rounded">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Include changes : </div>
+                                    </div>
+                                    <div class="flex-fill text-center">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="true-for-item-send-include-changes" name="for-item-send-include-changes" class="custom-control-input" checked>
+                                            <label class="custom-control-label" for="true-for-item-send-include-changes">Yes</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="false-for-item-send-include-changes" name="for-item-send-include-changes" class="custom-control-input">
+                                            <label class="custom-control-label" for="false-for-item-send-include-changes">No</label>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <div class="form-group" id="send_prop_to_other-parent">
+                                <label for="send_prop_to_other">Select Panel</label>
+                                <select class="form-control" id="send_prop_to_other"><option value="">Select</option></select>
+                            </div>
+                            <div class="form-group" id="send_tool_to_other-parent">
+                                <label for="send_tool_to_other">Select Panel</label>
+                                <select class="form-control" id="send_tool_to_other"><option value="">Select</option></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="send_select_option_index">Select Index</label>
+                                <select class="form-control" id="send_select_option_index">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-2 align-items-center border rounded divHeader" id="item-send-only-div">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text changeText">Send selected items only : </div>
+                                </div>
+                                <div class="flex-fill text-center">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="true-for-item-send-only" name="for-item-send-only" class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="true-for-item-send-only">Yes</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="false-for-item-send-only" name="for-item-send-only" class="custom-control-input">
+                                        <label class="custom-control-label" for="false-for-item-send-only">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="save_this_modal_footer" data-dismiss="modal" >Update</button>
+                @*<button type="button" class="btn btn-primary" id="save_this_and_exit_modal_footer">Update and Exit</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="signIn_signUp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header btn-group">
+                <nav style="width:100%">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-signUp-tab" data-toggle="tab" href="#nav-signUp" role="tab" aria-controls="nav-signUp" aria-selected="true">Sign Up</a>
+                        <a class="nav-item nav-link" id="nav-signIn-tab" data-toggle="tab" href="#nav-signIn" role="tab" aria-controls="nav-signIn" aria-selected="false">Sign In</a>
+                    </div>
+                </nav>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-signUp" role="tabpanel" aria-labelledby="nav-signUp-tab" style="background-color:transparent">
+                        <form>
+                            <div class="form-group">
+                                <label for="sign-up-email">Email address</label>
+                                <input type="email" class="form-control" id="sign-up-email" aria-describedby="emailHelp" placeholder="Enter email">
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="sign-up-password">Password</label>
+                                <input type="password" class="form-control" id="sign-up-password" placeholder="Password" aria-describedby="passwordHelpBlock">
+                                <small id="passwordHelpBlock" class="form-text text-muted">
+                                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="sign-up-confirm-password">Confirm Password</label>
+                                <input type="password" class="form-control" id="sign-up-confirm-password" placeholder="Password" aria-describedby="passwordHelpBlock">
+                                <small id="passwordHelpBlock" class="form-text text-muted">
+                                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                                </small>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="nav-signIn" role="tabpanel" aria-labelledby="nav-signIn-tab" style="background-color:transparent">
+                        <form>
+                            <div class="form-group">
+                                <label for="sign-in-email">Email address</label>
+                                <input type="email" class="form-control" id="sign-in-email" aria-describedby="emailHelp" placeholder="Enter email">
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="sign-in-password">Password</label>
+                                <input type="password" class="form-control" id="sign-in-password" placeholder="Password" aria-describedby="passwordHelpBlock">
+                                <small id="passwordHelpBlock" class="form-text text-muted">
+                                    Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+                                </small>
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="sign-in-remember-me">
+                                <label class="form-check-label" for="sign-in-remember-me">Remember me</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addLanguageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header btn-group">
+                <nav style="width:100%">
+                    <div class="nav nav-tabs" role="tablist" id="teacher-learner-modal-tab">
+                        <a class="nav-item nav-link active" id="nav-learner-tab" data-toggle="tab" href="#nav-learner" role="tab" aria-controls="nav-learner" aria-selected="true">Learner</a>
+                        <a class="nav-item nav-link" id="nav-teacher-tab" data-toggle="tab" href="#nav-teacher" role="tab" aria-controls="nav-teacher" aria-selected="false">Teacher</a>
+                    </div>
+                </nav>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="nav-learner" role="tabpanel" aria-labelledby="nav-learner-tab" style="background-color:transparent">
+                        <form>
+                            <div class="row">
+                                <div class="input-group col-md-6">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="learnerFromGroupSelect">From</label>
+                                    </div>
+                                    <select class="custom-select" id="learnerFromGroupSelect">
+                                        <option value="" selected>Choose...</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="input-group col-md-6">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="learnerToGroupSelect">To</label>
+                                    </div>
+                                    <select class="custom-select" id="learnerToGroupSelect">
+                                        <option value="" selected>Choose...</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="nav-teacher" role="tabpanel" aria-labelledby="nav-teacher-tab" style="background-color:transparent">
+                        <form>
+                            <div class="row">
+                                <div class="input-group col-md-6">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="teacherFromGroupSelect">From</label>
+                                    </div>
+                                    <select class="custom-select" id="teacherFromGroupSelect">
+                                        <option value="" selected>Choose...</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="input-group col-md-6">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="teacherToGroupSelect">To</label>
+                                    </div>
+                                    <select class="custom-select" id="teacherToGroupSelect">
+                                        <option value="" selected>Choose...</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="activityModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Your Activities</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="activity-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addToDesignerModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select Items to add</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="">
+                    <div class="d-flex">
+                        <div class="input-group-prepend flex-wrap">
+                            <div class="input-group-text bg-transparent border border-0 d-flex align-items-center">
+                                <div class="form-check d-flex align-items-center">
+                                    <input type="checkbox" name="designer-add-modal-checkbox-item-select-all" id="designer-add-modal-checkbox-item-select-all" value="header" class="form-check-input" />
+                                </div>
+                            </div>
+                            </div>
+                        <span class="flex-fill text-left" for="designer-add-modal-checkbox-item-select-all">Select All</span>
+                    </div>
+                    <hr />
+                    <div id="designer-add-modal-body">
+                        <div id="designer-add-modal-body-div">
+                            <ul class="list-group" id="designer-add-modal-body-ul">
+                                <li class="list-group-item d-flex justify-content-between align-items-center dropdown">
+                                    <div class="input-group-prepend flex-wrap">
+                                        <div class="input-group-text bg-transparent border border-0 d-flex align-items-center">
+                                            <div class="form-check d-flex align-items-center">
+                                                <input type="checkbox" name="designer-add-prop-checkbox-item" id="designer-add-prop-checkbox-item-id" value="header" class="form-check-input"/>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    <span class="flex-fill text-center" id="designer-add-modal-body-li-prop-name">Cras justo odio</span>
+                                    <span class="badge badge-primary badge-pill flex-wrap" id="designer-add-modal-body-li-prop-count">14</span>
+                                    <i class="btn dropdown-toggle collapseProp flex-wrap" id="designer-add-modal-body-li-toggle-button-context" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1"></i>
+                                </li>
+                            </ul>
+                            <div class="collapse" id="collapseExample1">
+                                <div class="card card-body">
+                                    <ul class="list-group" role="tablist">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center dropdown">
+                                            <div class="input-group-prepend flex-wrap">
+                                                <div class="input-group-text bg-transparent border border-0 d-flex align-items-center">
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input type="checkbox" name="designer-add-prop-checkbox-item" id="designer-add-prop-checkbox-item-id-inner" value="body" class="form-check-input"/>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            <span class="flex-fill text-center" id="designer-add-modal-body-innerlist-li-item-name">Cras justo odio</span>
+                                            <span class="flex-fill text-center" id="designer-add-modal-body-innerlist-li-item-type">Type</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="designer-add-modal-done-single">Add as single section</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="designer-add-modal-done-multi">Add as multiple section</button>
+            </div>
+        </div>
+    </div>
+</div>

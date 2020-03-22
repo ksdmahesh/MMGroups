@@ -1,0 +1,97 @@
+﻿<div id="flow-diagram-designer">
+    <button type="button" class="btn btn-primary btn-block addhere" data-target="#addToDesignerModal" data-toggle="modal" id="designer-prop-more">Add here...</button>
+    <div class="card" id="flow-diagram-designer-item">
+        <div class="card-header m-0 d-flex justify-content-between align-items-center dropdown">
+            <input type="text" class="form-control flex-fill" placeholder="Property Value" id="designer-prop-name" />
+            <i class="btn material-icons propMore Header" data-target="#editPropItems" data-toggle="modal" id="designer-prop-more">edit</i>
+            <i class="btn dropdown-toggle collapseProp" id="toggle-button-context-designer" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3"></i>
+        </div>
+        <div class="collapse m-0" id="collapseExample3">
+            <div class="card-body" role="tablist">
+                <button type="button" class="btn btn-primary btn-block addhere item" data-target="#addToDesignerModal" data-toggle="modal" id="designer-prop-more-inner-btn">Add here...</button>
+                <div class="row m-0 d-flex justify-content-between align-items-center">
+                    <div class="col-md-11 input-group data">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text type" id="designer-prop-item-type"></span>
+                        </div>
+                        <input type="text" class="form-control name" placeholder="Property Item Value" id="designer-prop-item-name" />
+                    </div>
+                    <div class="col-md-1 text-right">
+                        <i class="btn material-icons propMore Item" data-target="#editPropItems" data-toggle="modal" id="designer-prop-item-more">edit</i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted d-flex justify-content-end">
+                <button type="button" class="btn btn-primary mr-2">Editor for this content</button>
+                <button type="button" class="btn btn-primary mr-2">Editor for whole content</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="container text-center">
+    <div class="btn-group border border-dark btn-info">
+        <i class="btn material-icons border border-bottom-0 border-left-0 border-top-0 border-right border-dark" >
+            add
+        </i>
+        <span class="btn" >Add Here...</span>
+    </div>
+</div>
+<hr />
+<div style="padding:10px;" class="border border-primary bg-info" >   
+    <div class="card text-center">
+        <div class="card-header item-custom-fill" style="cursor:pointer">
+                <ul class="list-group list-group-flush" >
+                    <li class="btn-group list-group-item d-flex justify-content-between align-items-center button-view row">
+                        <div class="col-md-4 input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Position:</div>
+                            </div>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                <option selected>Position</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <div style="color:black" class="col-md-4 ddItemCollect">Featured</div>
+                        <div class="float-right text-right col-md-4 d-flex justify-content-end align-items-end" style="color:black">
+                            <i class="material-icons">file_copy</i>
+                            <i class="material-icons">send</i>
+                            <i class="material-icons">edit</i>
+                            <i class="material-icons">delete</i>
+                            <i class="material-icons">speaker_notes</i>
+                            <i class="material-icons">add</i>
+                            <i class="dropdown-toggle" data-toggle="collapse" data-target="#collapseExample1,#collapseExample2,#collapseExample3" aria-expanded="false" aria-controls="collapseExample1"></i>
+                        </div>
+                    </li>
+                </ul>
+        </div>
+        <div class="card-body collapse" id="collapseExample1">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+        <div class="card-footer text-muted collapse" id="collapseExample2">
+            2 days ago
+        </div>
+    </div>
+    <div class="container collapse" style="padding-right:0;" id="collapseExample3">
+        <i class="text-center material-icons" style="width:100%;font-size:200%;padding:10px">arrow_downward</i>
+        <div class="container" style="padding-right:0">
+            <div class="card text-center">
+                <div class="card-header ddItemCollect">
+                    Featured
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+                <div class="card-footer text-muted">
+                    2 days ago
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />*@

@@ -1,0 +1,73 @@
+﻿@model UserDetails
+<div id="mySidenav" class="sidenav leftSidenav" style="padding:0">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item button-custom" style="padding:0;background-image:url(/Content/Images/926845-best-nice-desktop-backgrounds-1920x1200-windows-7.jpg);background-size:cover">
+            <div class="card text-center button-view">
+                <div class="card-header button-custom">
+                    <a href="javascript:void(0)" class="closeNavBar float-right" style="color:white;font-size:150%">&times;</a>
+                </div>
+                <div class="card-body button-custom" style="color:white;">
+                    <h5 class="card-title" id="sideBar_Username">@Model.UserName</h5>
+                </div>
+                <div class="card-footer button-custom" style="color:white;">
+                    <a class="float-right btn" data-toggle="modal" data-target="#signIn_signUp" id="sideBarSignIn">@Model.SignIn_SignOut_SignUp</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div id="sideBarList" class="overflow-auto" style="height:100%;position:relative;"></div>
+</div>
+<!-- Use any element to open the sidenav -->
+<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+@*<div id="main"></div>*@
+
+<div class="overlay3 closeNavBar" id="myCanvasNav" style="width: 0%; opacity: 0;left:0"></div>
+
+
+@*@model LeftSideBar
+    @{
+        KeyValuePair<string, object> currentObject;
+        string ddRight = "btn-group dropright item-custom-fill";
+        string btnFill = "btn btn-custom-fill p-3 m-0";
+        string[] color = new string[] { "red", "yellow", "orange", "green", "blue" };
+        int i = 0;
+    }
+    <div id="mySidenav" class="sidenav leftSidenav" style="padding:0">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item button-custom" style="padding:0;background-image:url(/Content/Images/926845-best-nice-desktop-backgrounds-1920x1200-windows-7.jpg);background-size:cover">
+                <div class="card text-center button-view">
+                    <div class="card-header button-custom">
+                        <a href="javascript:void(0)" class="closeNavBar float-right" style="color:white;font-size:150%">&times;</a>
+                    </div>
+                    <div class="card-body button-custom" style="color:white;">
+                        <h5 class="card-title">@Model.UserName</h5>
+                    </div>
+                    <div class="card-footer button-custom" style="color:white;">
+                        <a class="float-right btn" data-toggle="modal" data-target="#exampleModalCenter2">@Model.SignIn_SignOut_SignUp</a>
+                    </div>
+                </div>
+            </li>
+            @foreach (var item in Model.Items)
+            {
+                if (item is string)
+                {
+                    <li class="button-view scroll btn btn-block border border-top-0 m-0 p-0 @color[i]">
+                        <div class="@ddRight">
+                            <button type="button" class="@btnFill">@item</button>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    currentObject = (KeyValuePair<string, object>)item;
+                    <li class="button-view scroll btn btn-block border border-top-0 m-0 p-0 @color[i]">@Html.Partial("~/Views/Partial/DropDown.cshtml", new DropdownModel(new List<string>() { "Header_" + currentObject.Key }, currentObject.Value as Dictionary<string, object>, currentObject.Key))</li>
+                }
+                i++;
+            }
+        </ul>
+    </div>
+    <!-- Use any element to open the sidenav -->
+    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+    @*<div id="main"></div>
+
+    <div class="overlay3 closeNavBar" id="myCanvasNav" style="width: 0%; opacity: 0;left:0"></div>*@
