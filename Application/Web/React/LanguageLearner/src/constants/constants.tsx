@@ -8,7 +8,17 @@ import CheckImage from '../assets/content/images/checkbox.svg';
 import RadioImage from '../assets/content/images/radio-button.svg';
 import TextAreaImage from '../assets/content/images/text.svg';
 import FileUploadImage from '../assets/content/images/file.svg';
-import { Typography, ListItem } from '@material-ui/core';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import LinkIcon from '@material-ui/icons/Link';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import TextFieldsIcon from '@material-ui/icons/TextFields';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
+import FormatColorTextIcon from '@material-ui/icons/FormatColorText';
+import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
+import { ListItem, Button } from '@material-ui/core';
 import InputText from '../view/shared/materialUI/textField';
 import Dropdown from '../view/shared/materialUI/dropdown';
 import DatePicker from '../view/shared/materialUI/datePicker';
@@ -32,32 +42,41 @@ var propertyWindowId = uuid();
 export default function getIconByName(name: string): JSX.Element {
     var absoluteName = (name || '').replace(' ', '').toLowerCase();
     switch (absoluteName) {
-        case 'textfield': {
-            return <img src={TextImage} alt={'Text Field'} />;
+        case 'textbox': {
+            return <TextFieldsIcon width={18} height={18} />;
         }
-        case 'select': {
-            return <img src={SelectImage} alt={'Select'} />;
+        case 'dropdown': {
+            return <ArrowDropDownCircleIcon width={18} height={18} />;
         }
         case 'address': {
             return <img src={AddressImage} alt={'Address'} />;
         }
         case 'paragraph': {
-            return <img src={ParagraphImage} alt={'Paragraph'} />;
+            return <FormatColorTextIcon width={18} height={18} />;
         }
         case 'datepicker': {
-            return <img src={DateTimePickerImage} alt={'Date Picker'} />;
+            return <DateRangeIcon width={18} height={18} />;
+        }
+        case 'timepicker': {
+            return <AccessAlarmIcon width={18} height={18} />;
         }
         case 'checkbox': {
-            return <img src={CheckImage} alt={'Check Box'} />;
+            return <CheckBoxIcon width={18} height={18} />;
         }
         case 'radiobutton': {
-            return <img src={RadioImage} alt={'Radio Button'} />;
+            return <RadioButtonCheckedIcon width={18} height={18} />;
         }
         case 'textarea': {
             return <img src={TextAreaImage} alt={'Text Area'} />;
         }
         case 'fileupload': {
-            return <img src={FileUploadImage} alt={'File Upload'} />;
+            return <CloudUploadIcon width={18} height={18} />;
+        }
+        case 'list': {
+            return <FormatListNumberedIcon width={18} height={18} />
+        }
+        case 'link': {
+            return <LinkIcon width={18} height={18} />
         }
         default: {
             return <></>;
@@ -84,7 +103,7 @@ export function getControlByName(
             return <Address {...control} disabled={disabled} />;
         }
         case controlTypes.paragraph: {
-            return <Typography align={'justify'} id={control.id} >{control.label}</Typography>;
+            return <Button disabled={true} id={control.id}>{control.label}</Button>;
         }
         case controlTypes.datepicker: {
             return <DatePicker {...control} disabled={disabled} />;
@@ -124,17 +143,20 @@ export function getPropertiesByControl(control: AllControlProps) {
     );
 }
 
-export function getLeftBarControlsJSON() {
+export function getLeftBarControlsJSON(): AllControlProps[] {
     return [
         { label: 'Text Field', type: 'textbox', id: uuid(), name: 'test1' },
         { label: 'Select', type: 'dropdown', id: uuid(), name: 'test1' },
-        { label: 'Address', type: 'Address', id: uuid(), name: 'test1' },
-        { label: 'Paragraph', type: 'Paragraph', id: uuid(), name: 'test1' },
+        // { label: 'Address', type: 'Address', id: uuid(), name: 'test1' },
+        { label: 'Rich TextBox', type: 'Paragraph', id: uuid(), name: 'test1' },
         { label: 'Date Picker', type: 'DatePicker', id: uuid(), name: 'test1' },
+        { label: 'Time Picker', type: 'TimePicker', id: uuid(), name: 'test1' },
         { label: 'Check Box', type: 'CheckBox', id: uuid(), name: 'test1' },
         { label: 'Radio Button', type: 'RadioButton', id: uuid(), name: 'test1' },
-        { label: 'Text Area', type: 'TextArea', id: uuid(), name: 'test1' },
-        { label: 'File Upload', type: 'textbox', id: uuid(), name: 'test1' }
+        // { label: 'Text Area', type: 'TextArea', id: uuid(), name: 'test1' },
+        { label: 'File Upload', type: 'fileupload', id: uuid(), name: 'test1' },
+        // { label: 'List', type: 'list', id: uuid(), name: 'test1' },
+        // { label: 'HyperLink', type: 'link', id: uuid(), name: 'test1' }
     ];
 }
 
@@ -170,8 +192,11 @@ function setJSON(control: AllControlProps): ControlsProps {
         case controlTypes.fileupload: {
             return setJSONBasedOnType(control, types.ExtendedFileUploadProps);
         }
-        case controlTypes.multiselect: {
-            return setJSONBasedOnType(control, types.ExtendedSelectProps);
+        case controlTypes.list: {
+            return setJSONBasedOnType(control, types.ExtendedListProps);
+        }
+        case controlTypes.link: {
+            return setJSONBasedOnType(control, types.ExtendedLinkProps);
         }
         case controlTypes.step: {
             return setJSONBasedOnType(control, types.ExtendedStepProps);
@@ -185,7 +210,7 @@ function setJSON(control: AllControlProps): ControlsProps {
 }
 
 // need to loop T and get props return as json T may be any of AllControlProps
-function setJSONBasedOnType(control: AllControlProps, dataType: string) {
+function setJSONBasedOnType(control: AllControlProps, dataType: string): AllControlProps[] {
     var currentObject: { [x: string]: controlTypes } = {};
     if (dataType === types.ExtendedStepProps || dataType === types.ExtendedSectionProps) {
         currentObject = TypesProps[dataType];
@@ -212,8 +237,15 @@ function setJSONBasedOnType(control: AllControlProps, dataType: string) {
                         // tslint:disable-next-line: no-any
                         { 'value': (control as any)[keyValuePair[0]] }
                 ),
+                ...(
+                    keyValuePair[0] === 'defaultValue'
+                        ?
+                        { 'value': control.label }
+                        :
+                        {}
+                ),
                 'location': `rightWindow.${keyValuePair[0]}`,
-                disabled: false
-            }
+                'disabled': false
+            } as AllControlProps
     ));
 }

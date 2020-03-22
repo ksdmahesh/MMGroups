@@ -19,7 +19,6 @@ var dropId = '';
 var listId = '';
 var contentId = '';
 var rawItems = getLeftBarControlsJSON();
-var items: Array<{ id: string, content: string }> = [];
 
 export default class LeftBar extends BaseComponent<LeftBarProps> {
 
@@ -29,14 +28,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
         dropId = uuid();
         listId = uuid();
         contentId = uuid();
-        if (rawItems.length > 0) {
-            items = rawItems.map(item => {
-                return {
-                    id: uuid(),
-                    content: item.label
-                };
-            });
-        }
+        
         leftControlItems[baseId] = rawItems;
     }
 
@@ -393,7 +385,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                             >
                                 {this.getButtonHolder()}
                                 <Divider />
-                                <RenderLeftBarItems isDraggable={this.props.isDraggable} id={listId} items={items} />
+                                <RenderLeftBarItems isDraggable={this.props.isDraggable} id={listId} items={rawItems} />
                             </Drawer>
                         </div>
                     )}

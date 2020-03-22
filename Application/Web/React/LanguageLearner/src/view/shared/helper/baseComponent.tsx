@@ -49,7 +49,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
     }
 
     // tslint:disable-next-line: no-any
-    setAttributes(control: AllControlProps, callback?: any, isCheckbox?: boolean, isArray?: boolean) {
+    setAttributes(control: AllControlProps, callback?: any, isCheckbox?: boolean, isArray?: boolean, defaultValue?: string) {
         if (callback) {
             return callback;
         }
@@ -73,7 +73,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             };
         }
         return {
-            value: this.getState(name, control.location) || control.value || (isArray ? [] : ''),
+            value: this.getState(name, control.location) || control.value || (isArray ? [] : '') || defaultValue,
             onChange: (control.disabled
                 ?
                 // tslint:disable-next-line: no-any

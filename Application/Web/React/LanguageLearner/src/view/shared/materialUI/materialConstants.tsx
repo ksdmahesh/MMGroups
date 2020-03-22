@@ -7,7 +7,9 @@ import {
     ExtendedDateProps,
     ExtendedTimeProps,
     ExtendedFileUploadProps,
-    ExtendedProps
+    ExtendedProps,
+    ExtendedListProps,
+    ExtendedLinkProps
 } from '../../dynamic/renderViewConstants';
 
 //#region Button
@@ -184,6 +186,22 @@ export interface TogglerProps extends HtmlProps, ExtendedProps {
 //#region FileUpload
 
 export interface FileUploadProps extends ExtendedFileUploadProps, ButtonProps {
+    onChange: ((event: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
+}
+
+//#endregion
+
+//#region List
+
+export interface ListProps extends ExtendedListProps {
+    
+}
+
+//#endregion
+
+//#region List
+
+export interface LinkProps extends ExtendedLinkProps {
     onChange: ((event: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
 }
 

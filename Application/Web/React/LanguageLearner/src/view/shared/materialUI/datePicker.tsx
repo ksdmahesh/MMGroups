@@ -18,11 +18,12 @@ export default class DatePicker extends BaseComponent<DatePickerProps> {
                         disabled={this.props.disabled}
                         variant={this.props.variant}
                         margin={this.props.margin}
+                        defaultValue={this.props.defaultValue || '01/01/0001'}
                         id={this.props.id}
                         label={this.props.label}
                         format={this.props.format || 'MM/dd/yyyy'}
                         color={this.props.color}
-                        {...this.setAttributes(this.props)}
+                        {...this.setAttributes(this.props, undefined, undefined, undefined, '01/01/0001')}
                         KeyboardButtonProps={{
                             'aria-label': 'change date',
                         }}

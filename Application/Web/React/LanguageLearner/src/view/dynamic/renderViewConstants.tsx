@@ -18,7 +18,7 @@ export type ExtendedCheckboxProps = {
 } & HtmlProps;
 
 export type ExtendedParagraphProps = {
-    textAlign?: string
+    // textAlign?: string
 } & HtmlProps;
 
 export type ExtendedSelectProps = {
@@ -50,6 +50,17 @@ export type ExtendedTimeProps = {
 export type ExtendedFileUploadProps = {
     accept?: string,
     multiple?: boolean
+} & HtmlProps;
+
+export type ExtendedLinkProps = {
+    href?: string,
+    target?: '_blank' | '_self' | '_parent' | '_top'
+} & HtmlProps;
+
+export type ExtendedListProps = {
+    listType?: 'ul'|'ol'|'dl',
+    items?: Array<string>|Array<string[]>;
+    subHeading?: string;
 } & HtmlProps;
 
 export type ExtendedProps = {
@@ -155,7 +166,7 @@ export interface LeftBarProps {
 
 export interface RenderLeftBarItemsProps {
     id: string;
-    items: DraggerProps;
+    items: ControlsProps;
     isDraggable: boolean;
 }
 
@@ -187,6 +198,8 @@ export type AllControlProps = (
     ExtendedDateProps &
     ExtendedTimeProps &
     ExtendedFileUploadProps &
+    ExtendedLinkProps &
+    ExtendedListProps &
     ExtendedAddressProps &
     ExtendedParagraphProps &
     ExtendedProps
@@ -216,6 +229,8 @@ export enum types {
     ExtendedDateProps = 'ExtendedDateProps',
     ExtendedTimeProps = 'ExtendedTimeProps',
     ExtendedFileUploadProps = 'ExtendedFileUploadProps',
+    ExtendedLinkProps = 'ExtendedLinkProps',
+    ExtendedListProps = 'ExtendedListProps',
     ExtendedAddressProps = 'ExtendedAddressProps',
     ExtendedParagraphProps = 'ExtendedParagraphProps',
     ExtendedStepProps = 'ExtendedStepProps',
@@ -233,6 +248,8 @@ export enum controlTypes {
     textarea = 'textarea',
     timepicker = 'timepicker',
     fileupload = 'fileupload',
+    link = 'link',
+    list = 'list',
     multiselect = 'multiselect',
     step = 'step',
     section = 'section'
@@ -273,6 +290,11 @@ export var TypesProps: { [x: string]: { [x: string]: controlTypes } } = {
     }, ExtendedFileUploadProps: {
         accept: controlTypes.textbox,
         multiple: controlTypes.checkbox
+    }, ExtendedListProps: {
+        listType: controlTypes.dropdown
+    }, ExtendedLinkProps: {
+        href: controlTypes.textbox,
+        target: controlTypes.dropdown
     }, ExtendedStepProps: {
         name: controlTypes.textbox,
         label: controlTypes.textbox

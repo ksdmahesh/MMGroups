@@ -4,11 +4,11 @@ import { Kiosk, Item, Clone } from '../dnd/dndConstants';
 import { Draggable, DraggableStateSnapshot, DraggableProvided } from 'react-beautiful-dnd';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import getIconByName from '../../../constants/constants';
-import { DraggerProps, RenderLeftBarItemsProps } from '../../dynamic/renderViewConstants';
+import { AllControlProps, RenderLeftBarItemsProps } from '../../dynamic/renderViewConstants';
 
 export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItemsProps> {
 
-    getInnerHtml(item: DraggerProps[0]) {
+    getInnerHtml(item: AllControlProps) {
         return (
             <ListItem
                 style={
@@ -16,14 +16,14 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                         height: '56px'
                     }
                 }
-                title={item.content}
+                title={item.label}
             >
                 <ListItemIcon>
-                    {getIconByName(item.content)}
+                    {getIconByName(`${item.type}`)}
                 </ListItemIcon>
                 <ListItemText
                     className={'leftbar-container-item-animate'}
-                    primary={item.content}
+                    primary={item.label}
                 />
             </ListItem>
         );
