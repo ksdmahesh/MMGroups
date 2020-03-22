@@ -7,7 +7,7 @@ class Footer extends BaseComponent {
         return (
             <footer id="footer">
                 <div>
-                    &nbsp;{'(C) JNET Technologies Pvt Ltd'}
+                    &nbsp;{`Language Learner `}&copy;
                 </div>
             </footer>
         );
