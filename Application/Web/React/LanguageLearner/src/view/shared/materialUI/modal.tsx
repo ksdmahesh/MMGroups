@@ -18,42 +18,42 @@ export default class ScrollDialog extends BaseComponent<ModalProps> {
         };
 
         return (
-            <div>
-                <Dialog
-                    open={this.props.open}
-                    onClose={handleClose}
-                    scroll={'paper'}
-                    aria-labelledby={this.props.id}
-                    aria-describedby={`${this.props.id}-description`}
+            <Dialog
+                open={this.props.open}
+                onClose={handleClose}
+                scroll={'paper'}
+                fullWidth={this.props.fullWidth}
+                fullScreen={this.props.fullWidth}
+                aria-labelledby={this.props.id}
+                aria-describedby={`${this.props.id}-description`}
+            >
+                <DialogTitle id={this.props.id}>{this.props.title}</DialogTitle>
+                <DialogContent
+                // dividers={this.state.scroll === 'paper'}
                 >
-                    <DialogTitle id={this.props.id}>{this.props.title}</DialogTitle>
-                    <DialogContent
-                    // dividers={this.state.scroll === 'paper'}
+                    <DialogContentText
+                        id={`${this.props.id}-description`}
+                        // ref={descriptionElementRef}
+                        tabIndex={-1}
                     >
-                        <DialogContentText
-                            id={`${this.props.id}-description`}
-                            // ref={descriptionElementRef}
-                            tabIndex={-1}
-                        >
-                            {this.props.content}
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.props.modalCloseCallback || handleClose} color="primary">
-                            {this.props.okButtonText || 'Ok'}
-                        </Button>
-                        {
-                            this.props.showCancelButton
-                                ?
-                                <Button onClick={handleClose} color="primary">
-                                    {this.props.cancelButtonText || 'Cancel'}
-                                </Button>
-                                :
-                                ''
-                        }
-                    </DialogActions>
-                </Dialog>
-            </div>
+                        {this.props.content}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={this.props.modalCloseCallback || handleClose} color="primary">
+                        {this.props.okButtonText || 'Ok'}
+                    </Button>
+                    {
+                        this.props.showCancelButton
+                            ?
+                            <Button onClick={handleClose} color="primary">
+                                {this.props.cancelButtonText || 'Cancel'}
+                            </Button>
+                            :
+                            ''
+                    }
+                </DialogActions>
+            </Dialog>
         );
     }
 }

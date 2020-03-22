@@ -2,7 +2,7 @@ import React from 'react';
 import JoditEditor from 'jodit-react';
 import BaseComponent from '../helper/baseComponent';
 
-export default class RichTextbox extends BaseComponent {
+export default class RichTextbox extends BaseComponent<{ name: string }> {
   render() {
     const config = {
       readonly: false // all options from https://xdsoft.net/jodit/doc/

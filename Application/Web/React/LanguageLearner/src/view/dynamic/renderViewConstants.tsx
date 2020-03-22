@@ -180,10 +180,11 @@ export type ModalProps = {
     id: string,
     title: string,
     content: string,
+    fullWidth?: boolean
     showCancelButton?: boolean,
     modalCloseCallback?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
     okButtonText?: string,
-    cancelButtonText?: string
+    cancelButtonText?: string,
 };
 
 export type HeaderProps = { id: string };
@@ -270,7 +271,9 @@ export var TypesProps: { [x: string]: { [x: string]: controlTypes } } = {
     }, ExtendedCheckboxProps: {
         checked: controlTypes.checkbox
     }, ExtendedParagraphProps: {
-        textAlign: controlTypes.dropdown
+        textAlign: controlTypes.dropdown,
+        value: controlTypes.paragraph,
+        defaultValue: controlTypes.paragraph
     }, ExtendedSelectProps: {
         options: controlTypes.textarea,
         isMultiSelect: controlTypes.checkbox

@@ -9,7 +9,8 @@ import {
     ExtendedFileUploadProps,
     ExtendedProps,
     ExtendedListProps,
-    ExtendedLinkProps
+    ExtendedLinkProps,
+    ExtendedParagraphProps
 } from '../../dynamic/renderViewConstants';
 
 //#region Button
@@ -203,6 +204,14 @@ export interface ListProps extends ExtendedListProps {
 
 export interface LinkProps extends ExtendedLinkProps {
     onChange: ((event: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
+}
+
+//#endregion
+
+//#region List
+
+export interface ParagraphProps extends ExtendedParagraphProps, ExtendedProps {
+    // onChange: ((event: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
 }
 
 //#endregion

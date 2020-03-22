@@ -1,13 +1,13 @@
 import React from 'react';
-import TextImage from '../assets/content/images/type.svg';
-import SelectImage from '../assets/content/images/drop-down-list.svg';
 import AddressImage from '../assets/content/images/address.svg';
-import ParagraphImage from '../assets/content/images/paragraph.svg';
-import DateTimePickerImage from '../assets/content/images/calendar.svg';
-import CheckImage from '../assets/content/images/checkbox.svg';
-import RadioImage from '../assets/content/images/radio-button.svg';
 import TextAreaImage from '../assets/content/images/text.svg';
-import FileUploadImage from '../assets/content/images/file.svg';
+// import SelectImage from '../assets/content/images/drop-down-list.svg';
+// import TextImage from '../assets/content/images/type.svg';
+// import ParagraphImage from '../assets/content/images/paragraph.svg';
+// import DateTimePickerImage from '../assets/content/images/calendar.svg';
+// import CheckImage from '../assets/content/images/checkbox.svg';
+// import RadioImage from '../assets/content/images/radio-button.svg';
+// import FileUploadImage from '../assets/content/images/file.svg';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import LinkIcon from '@material-ui/icons/Link';
 import DateRangeIcon from '@material-ui/icons/DateRange';
@@ -18,7 +18,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import FormatColorTextIcon from '@material-ui/icons/FormatColorText';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
-import { ListItem, Button } from '@material-ui/core';
+import { ListItem } from '@material-ui/core';
 import InputText from '../view/shared/materialUI/textField';
 import Dropdown from '../view/shared/materialUI/dropdown';
 import DatePicker from '../view/shared/materialUI/datePicker';
@@ -36,6 +36,7 @@ import {
 import Textarea from '../view/shared/materialUI/textarea';
 import TimePicker from '../view/shared/materialUI/timePicker';
 import FileUpload from '../view/shared/materialUI/fileUpload';
+import Paragraph from '../view/shared/materialUI/paragraph';
 
 var propertyWindowId = uuid();
 
@@ -103,7 +104,7 @@ export function getControlByName(
             return <Address {...control} disabled={disabled} />;
         }
         case controlTypes.paragraph: {
-            return <Button disabled={true} id={control.id}>{control.label}</Button>;
+            return <Paragraph disabled={disabled} {...control} />;
         }
         case controlTypes.datepicker: {
             return <DatePicker {...control} disabled={disabled} />;
@@ -215,11 +216,13 @@ function setJSONBasedOnType(control: AllControlProps, dataType: string): AllCont
     if (dataType === types.ExtendedStepProps || dataType === types.ExtendedSectionProps) {
         currentObject = TypesProps[dataType];
     } else {
-        currentObject = { ...TypesProps[dataType], ...TypesProps.HtmlProps };
+        // currentObject = { ...TypesProps[dataType], ...TypesProps.HtmlProps };
+        currentObject = { ...TypesProps.HtmlProps, ...TypesProps[dataType] };
     }
-
     return Object.entries(currentObject).map((keyValuePair, index) => (
-        control.type !== controlTypes.textbox && `${keyValuePair[0]}` === 'type'
+        (control.type !== controlTypes.textbox && `${keyValuePair[0]}` === 'type')
+        ||
+        (dataType === types.ExtendedParagraphProps && `${keyValuePair[0]}` === 'label')
             ?
             {} as AllControlProps
             :
@@ -236,13 +239,6 @@ function setJSONBasedOnType(control: AllControlProps, dataType: string): AllCont
                         :
                         // tslint:disable-next-line: no-any
                         { 'value': (control as any)[keyValuePair[0]] }
-                ),
-                ...(
-                    keyValuePair[0] === 'defaultValue'
-                        ?
-                        { 'value': control.label }
-                        :
-                        {}
                 ),
                 'location': `rightWindow.${keyValuePair[0]}`,
                 'disabled': false

@@ -39,7 +39,10 @@ export default class RenderView extends BaseComponent {
                     content={state.modalContent}
                     id={dialogId}
                     open={state.modalOpen}
+                    fullWidth={state.fullWidth}
                     showCancelButton={state.showCancelButton}
+                    okButtonText={state.okButtonText}
+                    cancelButtonText={state.cancelButtonText}
                     modalCloseCallback={state.modalCloseCallback}
                 />
             </div>
