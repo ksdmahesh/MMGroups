@@ -22,14 +22,15 @@ export default class Controls extends BaseComponent<ControlProps> {
             <Grid {...provided.dragHandleProps} container={true} direction="row">
                 <Grid item={true} xs={12} md={12}>
                     <Card
-                        {...{ 'aria-label': 'children' }}
+                        {...{ 'aria-label': 'control' }}
                         onClick={(e) => this.cardRaised(
                             e,
-                            control.name + index,
+                            'control' + control.name + index,
                             {
                                 control: this.getPropertyWindowControl(control),
                                 stepIndex: currentStep,
                                 sectionIndex: sectionIndex,
+                                rowIndex: -1,
                                 columnIndex: columnIndex,
                                 controlIndex: index
                             }

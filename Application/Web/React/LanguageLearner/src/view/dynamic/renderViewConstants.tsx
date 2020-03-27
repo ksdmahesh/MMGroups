@@ -58,8 +58,8 @@ export type ExtendedLinkProps = {
 } & HtmlProps;
 
 export type ExtendedListProps = {
-    listType?: 'ul'|'ol'|'dl',
-    items?: Array<string>|Array<string[]>;
+    listType?: 'ul' | 'ol' | 'dl',
+    items?: Array<string> | Array<string[]>;
     subHeading?: string;
 } & HtmlProps;
 
@@ -74,6 +74,7 @@ export type PropertyWindowProps = {
     control: AllControlProps,
     stepIndex: number,
     sectionIndex: number,
+    rowIndex: number,
     columnIndex: number,
     controlIndex: number
 };
@@ -90,17 +91,37 @@ export type ColumnIdProps = {
 }[];
 export type StepsProps = DataProps['steps'];
 export type SectionProps = StepsProps[0]['sections'];
-export type ColumnProps = SectionProps[0]['columns'];
+export type RowProps = SectionProps[0]['rows'];
+export type ColumnProps = RowProps[0]['columns'];
 export type ControlsProps = ColumnProps[0]['controls'];
+
+export type LeftBarData = {
+    steps: StepsProps,
+    sections: SectionProps,
+    rows: RowProps,
+    columns: ColumnProps,
+    controls: ControlsProps
+};
+
+export type LeftBarItems = {
+    [x: string]: LeftBarData
+};
 
 export interface TabProps {
     tabHeaders: StepsProps;
 }
 
-export interface ColumnsProps {
+export interface RowsProps {
     isDropDisabled: boolean;
     section: SectionProps[0];
     sectionIndex: number;
+}
+
+export interface ColumnsProps {
+    isDropDisabled: boolean;
+    sectionIndex: number;
+    rowIndex: number;
+    row: RowProps[0];
 }
 
 export interface ControlProps {
@@ -115,6 +136,7 @@ export interface DroppableContainerProps {
     isDropDisabled: boolean;
     sectionIndex: number;
     column: ColumnProps[0];
+    rowIndex: number;
     columnIndex: number;
 }
 
@@ -166,7 +188,7 @@ export interface LeftBarProps {
 
 export interface RenderLeftBarItemsProps {
     id: string;
-    items: ControlsProps;
+    items: LeftBarData;
     isDraggable: boolean;
 }
 
@@ -210,13 +232,21 @@ export interface DataProps {
     steps: {
         id: string,
         name: string,
+        label: string,
         sections: {
             id: string,
             name: string,
-            columns: {
+            label: string,
+            rows: {
                 id: string,
                 name: string,
-                controls: AllControlProps[]
+                label: string,
+                columns: {
+                    id: string,
+                    name: string,
+                    label: string,
+                    controls: AllControlProps[]
+                }[]
             }[]
         }[]
     }[];

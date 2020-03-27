@@ -2,9 +2,10 @@ import React from 'react';
 import BaseComponent from '../helper/baseComponent';
 import { Kiosk, Item, Clone } from '../dnd/dndConstants';
 import { Draggable, DraggableStateSnapshot, DraggableProvided } from 'react-beautiful-dnd';
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { ListItem, ListItemIcon, ListItemText, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
 import getIconByName from '../../../constants/constants';
 import { AllControlProps, RenderLeftBarItemsProps } from '../../dynamic/renderViewConstants';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItemsProps> {
 
@@ -39,36 +40,71 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
         };
     }
 
+    handleChange = (event: string) => {
+        this.dispatchStore({ leftExpander: event });
+    };
+
     render() {
         return (
             <Kiosk
                 id={this.props.id}
                 style={{ padding: '0' }}
             >
-                {this.props.items.map((item, index) => (
-                    <Draggable
-                        isDragDisabled={!this.props.isDraggable}
-                        key={item.id}
-                        draggableId={item.id}
-                        index={index}
-                    >
-                        {
-                            (provided, snapshot) => (
-                                <React.Fragment>
-                                    <Item
-                                        {...this.getItemProps(provided, snapshot)}
-                                    >
-                                        {this.getInnerHtml(item)}
-                                    </Item>
-                                    {snapshot.isDragging && (
-                                        <Clone>
-                                            {this.getInnerHtml(item)}
-                                        </Clone>
-                                    )}
-                                </React.Fragment>
-                            )}
-                    </Draggable>
-                ))}
+                {
+                    Object.entries(this.props.items).map((dataItem: any, dataIndex: number) => {
+                        var name = (dataItem[0]) + dataIndex;
+                        return (
+                            <ExpansionPanel
+                                key={name}
+                                square={true}
+                                id={name}
+                                expanded={name === this.getState('leftExpander')}
+                                onChange={(e, y) => this.handleChange(name)}
+                            >
+                                <ExpansionPanelSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-label="Expand"
+                                    aria-controls={name + '-content'}
+                                    id={name + 'summary'}
+                                >
+                                    {dataItem[0]}
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails
+                                    style={{ width: '100%', userSelect: 'none' }}
+                                >
+                                    <div>
+                                        {dataItem[1].map((item: any, index: number) => {
+                                            return (
+                                                <Draggable
+                                                    isDragDisabled={!this.props.isDraggable}
+                                                    key={item.id}
+                                                    draggableId={item.id}
+                                                    index={index}
+                                                >
+                                                    {
+                                                        (provided, snapshot) => (
+                                                            <React.Fragment>
+                                                                <Item
+                                                                    {...this.getItemProps(provided, snapshot)}
+                                                                >
+                                                                    {this.getInnerHtml(item)}
+                                                                </Item>
+                                                                {snapshot.isDragging && (
+                                                                    <Clone>
+                                                                        {this.getInnerHtml(item)}
+                                                                    </Clone>
+                                                                )}
+                                                            </React.Fragment>
+                                                        )}
+                                                </Draggable>
+                                            );
+                                        })}
+                                    </div>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        );
+                    })
+                }
             </Kiosk>
         );
     }

@@ -21,19 +21,23 @@ export default class PanelDnd extends BaseComponent<PanelProps, PanelState> {
                             {...provided.draggableProps}
                         >
                             <Card
-                                {...{ 'aria-label': 'parent' }}
-                                onClick={(e) => this.cardRaised(e, `${this.props.index}`, {
-                                    control: this.getPropertyWindowControl({
-                                        name: this.props.section.name,
-                                        type: 'section',
-                                        label: this.props.section.name,
-                                        id: this.props.section.id
-                                    }),
-                                    stepIndex: currentStep,
-                                    sectionIndex: this.props.index,
-                                    columnIndex: -1,
-                                    controlIndex: -1
-                                })}
+                                {...{ 'aria-label': 'section' }}
+                                onClick={(e) => this.cardRaised(
+                                    e,
+                                    'section' + this.props.section.name + this.props.index,
+                                    {
+                                        control: this.getPropertyWindowControl({
+                                            name: this.props.section.name,
+                                            type: 'section',
+                                            label: this.props.section.label,
+                                            id: this.props.section.id
+                                        }),
+                                        stepIndex: currentStep,
+                                        sectionIndex: this.props.index,
+                                        rowIndex: -1,
+                                        columnIndex: -1,
+                                        controlIndex: -1
+                                    })}
                                 raised={raised}
                                 color={'primary'}
                                 style={

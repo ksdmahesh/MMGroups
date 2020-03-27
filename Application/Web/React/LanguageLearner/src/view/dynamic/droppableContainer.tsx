@@ -47,6 +47,7 @@ export default class DroppableContainer extends BaseComponent<DroppableContainer
     render() {
         controlItems.controlItems[this.props.column.id] = {
             sectionIndex: this.props.sectionIndex,
+            rowIndex: this.props.rowIndex,
             columnIndex: this.props.columnIndex,
             controls: this.props.column.controls
         };

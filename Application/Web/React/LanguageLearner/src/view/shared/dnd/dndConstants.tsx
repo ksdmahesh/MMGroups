@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ControlsProps, ColumnIdProps } from '../../dynamic/renderViewConstants';
+import { ControlsProps, LeftBarItems } from '../../dynamic/renderViewConstants';
 
 export const Content = styled.div`
   margin-left: 200px;
@@ -112,6 +112,7 @@ export var controlItems: {
   controlItems: {
     [x: string]: {
       sectionIndex: number,
+      rowIndex: number,
       columnIndex: number,
       controls: ControlsProps
     }
@@ -122,4 +123,4 @@ export var controlItems: {
   }
 };
 
-export var leftControlItems: ColumnIdProps[0] = {};
+export var leftControlItems: LeftBarItems = {};

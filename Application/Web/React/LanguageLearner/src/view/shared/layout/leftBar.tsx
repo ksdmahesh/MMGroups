@@ -161,192 +161,192 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     }
 
     onDragEnd = (result: DropResult) => {
-        const { source, destination } = result;
+        // const { source, destination } = result;
 
-        // dropped outside the list
-        if (!destination) {
-            return;
-        }
+        // // dropped outside the list
+        // if (!destination) {
+        //     return;
+        // }
 
-        var formdata: DataProps;
-        var currentStep: number;
-        var sectionIndex: number;
-        var columnIndex: number;
-        var droppedControlData;
-        var control;
-        var controlsDetails;
-        switch (source.droppableId) {
-            case 'panelHeaders': {
-                formdata = this.getState('formdata');
-                currentStep = this.getState('currentStep');
-                droppedControlData = formdata.steps[currentStep].sections;
-                droppedControlData = this.reorderPanel(
-                    droppedControlData,
-                    source.index,
-                    destination.index
-                );
-                formdata.steps[currentStep].sections = droppedControlData;
-                control = {
-                    control: this.getPropertyWindowControl({
-                        name: droppedControlData[destination.index].name,
-                        type: 'section',
-                        label: droppedControlData[destination.index].name,
-                        id: droppedControlData[destination.index].id
-                    }),
-                    stepIndex: currentStep,
-                    sectionIndex: destination.index,
-                    columnIndex: -1,
-                    controlIndex: -1
-                };
+        // var formdata: DataProps;
+        // var currentStep: number;
+        // var sectionIndex: number;
+        // var columnIndex: number;
+        // var droppedControlData;
+        // var control;
+        // var controlsDetails;
+        // switch (source.droppableId) {
+        //     case 'panelHeaders': {
+        //         formdata = this.getState('formdata');
+        //         currentStep = this.getState('currentStep');
+        //         droppedControlData = formdata.steps[currentStep].sections;
+        //         droppedControlData = this.reorderPanel(
+        //             droppedControlData,
+        //             source.index,
+        //             destination.index
+        //         );
+        //         formdata.steps[currentStep].sections = droppedControlData;
+        //         control = {
+        //             control: this.getPropertyWindowControl({
+        //                 name: droppedControlData[destination.index].name,
+        //                 type: 'section',
+        //                 label: droppedControlData[destination.index].name,
+        //                 id: droppedControlData[destination.index].id
+        //             }),
+        //             stepIndex: currentStep,
+        //             sectionIndex: destination.index,
+        //             columnIndex: -1,
+        //             controlIndex: -1
+        //         };
 
-                this.dispatchStore({
-                    formdata: formdata,
-                    isDropDisabled: true,
-                    propertyWindow: control,
-                    controlRaised: '',
-                    isChildCalled: false,
-                    raised: 'raised' + destination.index
-                });
+        //         this.dispatchStore({
+        //             formdata: formdata,
+        //             isDropDisabled: true,
+        //             propertyWindow: control,
+        //             controlRaised: '',
+        //             isChildCalled: false,
+        //             raised: 'raised' + destination.index
+        //         });
 
-                break;
-            }
-            case destination.droppableId: {
-                formdata = this.getState('formdata');
-                currentStep = this.getState('currentStep');
+        //         break;
+        //     }
+        //     case destination.droppableId: {
+        //         formdata = this.getState('formdata');
+        //         currentStep = this.getState('currentStep');
 
-                controlsDetails = controlItems.controlItems[destination.droppableId];
-                sectionIndex = controlsDetails.sectionIndex;
-                columnIndex = controlsDetails.columnIndex;
+        //         controlsDetails = controlItems.controlItems[destination.droppableId];
+        //         sectionIndex = controlsDetails.sectionIndex;
+        //         columnIndex = controlsDetails.columnIndex;
 
-                droppedControlData = formdata.steps[currentStep].sections[sectionIndex].columns[columnIndex].controls;
-                droppedControlData = this.reorder(
-                    droppedControlData,
-                    source.index,
-                    destination.index
-                );
-                formdata.steps[currentStep].sections[sectionIndex].columns[columnIndex].controls = droppedControlData;
+        //         droppedControlData = formdata.steps[currentStep].sections[sectionIndex].columns[columnIndex].controls;
+        //         droppedControlData = this.reorder(
+        //             droppedControlData,
+        //             source.index,
+        //             destination.index
+        //         );
+        //         formdata.steps[currentStep].sections[sectionIndex].columns[columnIndex].controls = droppedControlData;
 
-                control = {
-                    control: this.getPropertyWindowControl({
-                        name: droppedControlData[destination.index].name,
-                        type: droppedControlData[destination.index].type,
-                        label: droppedControlData[destination.index].label,
-                        id: droppedControlData[destination.index].id
-                    }),
-                    stepIndex: currentStep,
-                    sectionIndex: sectionIndex,
-                    columnIndex: columnIndex,
-                    controlIndex: destination.index
-                };
+        //         control = {
+        //             control: this.getPropertyWindowControl({
+        //                 name: droppedControlData[destination.index].name,
+        //                 type: droppedControlData[destination.index].type,
+        //                 label: droppedControlData[destination.index].label,
+        //                 id: droppedControlData[destination.index].id
+        //             }),
+        //             stepIndex: currentStep,
+        //             sectionIndex: sectionIndex,
+        //             columnIndex: columnIndex,
+        //             controlIndex: destination.index
+        //         };
 
-                this.dispatchStore({
-                    formdata: formdata,
-                    isDropDisabled: false,
-                    propertyWindow: control,
-                    controlRaised: 'controlRaised' + control.control.name + destination.index,
-                    isChildCalled: false,
-                    raised: ''
-                });
+        //         this.dispatchStore({
+        //             formdata: formdata,
+        //             isDropDisabled: false,
+        //             propertyWindow: control,
+        //             controlRaised: 'controlRaised' + control.control.name + destination.index,
+        //             isChildCalled: false,
+        //             raised: ''
+        //         });
 
-                break;
-            }
-            case baseId: {
-                formdata = this.getState('formdata');
-                currentStep = this.getState('currentStep');
+        //         break;
+        //     }
+        //     case baseId: {
+        //         formdata = this.getState('formdata');
+        //         currentStep = this.getState('currentStep');
 
-                controlsDetails = controlItems.controlItems[destination.droppableId];
-                sectionIndex = controlsDetails.sectionIndex;
-                columnIndex = controlsDetails.columnIndex;
+        //         controlsDetails = controlItems.controlItems[destination.droppableId];
+        //         sectionIndex = controlsDetails.sectionIndex;
+        //         columnIndex = controlsDetails.columnIndex;
 
-                droppedControlData = formdata.steps[currentStep].sections[sectionIndex].columns[columnIndex].controls;
-                droppedControlData = this.copy(
-                    leftControlItems[baseId],
-                    droppedControlData,
-                    source,
-                    destination
-                );
-                formdata.steps[currentStep].sections[sectionIndex].columns[columnIndex].controls = droppedControlData;
+        //         droppedControlData = formdata.steps[currentStep].sections[sectionIndex].columns[columnIndex].controls;
+        //         droppedControlData = this.copy(
+        //             leftControlItems[baseId],
+        //             droppedControlData,
+        //             source,
+        //             destination
+        //         );
+        //         formdata.steps[currentStep].sections[sectionIndex].columns[columnIndex].controls = droppedControlData;
 
-                control = {
-                    control: this.getPropertyWindowControl({
-                        name: droppedControlData[destination.index].name,
-                        type: droppedControlData[destination.index].type,
-                        label: droppedControlData[destination.index].label,
-                        id: droppedControlData[destination.index].id
-                    }),
-                    stepIndex: currentStep,
-                    sectionIndex: sectionIndex,
-                    columnIndex: columnIndex,
-                    controlIndex: destination.index
-                };
+        //         control = {
+        //             control: this.getPropertyWindowControl({
+        //                 name: droppedControlData[destination.index].name,
+        //                 type: droppedControlData[destination.index].type,
+        //                 label: droppedControlData[destination.index].label,
+        //                 id: droppedControlData[destination.index].id
+        //             }),
+        //             stepIndex: currentStep,
+        //             sectionIndex: sectionIndex,
+        //             columnIndex: columnIndex,
+        //             controlIndex: destination.index
+        //         };
 
-                this.dispatchStore({
-                    formdata: formdata,
-                    isDropDisabled: false,
-                    propertyWindow: control,
-                    controlRaised: 'controlRaised' + control.control.name + destination.index,
-                    isChildCalled: false,
-                    raised: ''
-                });
+        //         this.dispatchStore({
+        //             formdata: formdata,
+        //             isDropDisabled: false,
+        //             propertyWindow: control,
+        //             controlRaised: 'controlRaised' + control.control.name + destination.index,
+        //             isChildCalled: false,
+        //             raised: ''
+        //         });
 
-                break;
-            }
-            default: {
-                formdata = this.getState('formdata');
-                currentStep = this.getState('currentStep');
+        //         break;
+        //     }
+        //     default: {
+        //         formdata = this.getState('formdata');
+        //         currentStep = this.getState('currentStep');
 
-                var controlsDetailsDefaultId = controlItems.controlItems[destination.droppableId];
-                sectionIndex = controlsDetailsDefaultId.sectionIndex;
-                columnIndex = controlsDetailsDefaultId.columnIndex;
+        //         var controlsDetailsDefaultId = controlItems.controlItems[destination.droppableId];
+        //         sectionIndex = controlsDetailsDefaultId.sectionIndex;
+        //         columnIndex = controlsDetailsDefaultId.columnIndex;
 
-                var controlsDetailsDefaultSourceId = controlItems.controlItems[source.droppableId];
-                var sectionSourceIndex = controlsDetailsDefaultSourceId.sectionIndex;
-                var columnSourceIndex = controlsDetailsDefaultSourceId.columnIndex;
+        //         var controlsDetailsDefaultSourceId = controlItems.controlItems[source.droppableId];
+        //         var sectionSourceIndex = controlsDetailsDefaultSourceId.sectionIndex;
+        //         var columnSourceIndex = controlsDetailsDefaultSourceId.columnIndex;
 
-                droppedControlData = formdata.steps[currentStep].sections[sectionIndex].columns[columnIndex].controls;
-                controlsDetails = formdata.steps[currentStep].sections[sectionSourceIndex]
-                    .columns[columnSourceIndex].controls;
+        //         droppedControlData = formdata.steps[currentStep].sections[sectionIndex].columns[columnIndex].controls;
+        //         controlsDetails = formdata.steps[currentStep].sections[sectionSourceIndex]
+        //             .columns[columnSourceIndex].controls;
 
-                var dragDropResults = this.move(
-                    controlsDetails,
-                    droppedControlData,
-                    source,
-                    destination
-                );
+        //         var dragDropResults = this.move(
+        //             controlsDetails,
+        //             droppedControlData,
+        //             source,
+        //             destination
+        //         );
 
-                formdata.steps[currentStep].sections[sectionIndex]
-                    .columns[columnIndex].controls = dragDropResults[destination.droppableId];
+        //         formdata.steps[currentStep].sections[sectionIndex]
+        //             .columns[columnIndex].controls = dragDropResults[destination.droppableId];
 
-                formdata.steps[currentStep].sections[sectionSourceIndex]
-                    .columns[columnSourceIndex].controls = dragDropResults[source.droppableId];
+        //         formdata.steps[currentStep].sections[sectionSourceIndex]
+        //             .columns[columnSourceIndex].controls = dragDropResults[source.droppableId];
 
-                var controlData = dragDropResults[destination.droppableId];
+        //         var controlData = dragDropResults[destination.droppableId];
 
-                control = {
-                    control: this.getPropertyWindowControl({
-                        name: controlData[destination.index].name,
-                        type: controlData[destination.index].type,
-                        label: controlData[destination.index].label,
-                        id: controlData[destination.index].id
-                    }),
-                    stepIndex: currentStep,
-                    sectionIndex: sectionIndex,
-                    columnIndex: columnIndex,
-                    controlIndex: destination.index
-                };
+        //         control = {
+        //             control: this.getPropertyWindowControl({
+        //                 name: controlData[destination.index].name,
+        //                 type: controlData[destination.index].type,
+        //                 label: controlData[destination.index].label,
+        //                 id: controlData[destination.index].id
+        //             }),
+        //             stepIndex: currentStep,
+        //             sectionIndex: sectionIndex,
+        //             columnIndex: columnIndex,
+        //             controlIndex: destination.index
+        //         };
 
-                this.dispatchStore({
-                    formdata: formdata,
-                    isDropDisabled: false,
-                    propertyWindow: control,
-                    controlRaised: 'controlRaised' + control.control.name + destination.index,
-                    isChildCalled: false,
-                    raised: ''
-                });
+        //         this.dispatchStore({
+        //             formdata: formdata,
+        //             isDropDisabled: false,
+        //             propertyWindow: control,
+        //             controlRaised: 'controlRaised' + control.control.name + destination.index,
+        //             isChildCalled: false,
+        //             raised: ''
+        //         });
 
-                break;
-            }
-        }
+        //         break;
+        //     }
+        // }
 
     }
 

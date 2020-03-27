@@ -31,7 +31,8 @@ import {
     AllControlProps,
     types,
     controlTypes,
-    TypesProps
+    TypesProps,
+    LeftBarData
 } from '../view/dynamic/renderViewConstants';
 import Textarea from '../view/shared/materialUI/textarea';
 import TimePicker from '../view/shared/materialUI/timePicker';
@@ -144,21 +145,27 @@ export function getPropertiesByControl(control: AllControlProps) {
     );
 }
 
-export function getLeftBarControlsJSON(): AllControlProps[] {
-    return [
-        { label: 'Text Field', type: 'textbox', id: uuid(), name: 'test1' },
-        { label: 'Select', type: 'dropdown', id: uuid(), name: 'test1' },
-        // { label: 'Address', type: 'Address', id: uuid(), name: 'test1' },
-        { label: 'Rich TextBox', type: 'Paragraph', id: uuid(), name: 'test1' },
-        { label: 'Date Picker', type: 'DatePicker', id: uuid(), name: 'test1' },
-        { label: 'Time Picker', type: 'TimePicker', id: uuid(), name: 'test1' },
-        { label: 'Check Box', type: 'CheckBox', id: uuid(), name: 'test1' },
-        { label: 'Radio Button', type: 'RadioButton', id: uuid(), name: 'test1' },
-        // { label: 'Text Area', type: 'TextArea', id: uuid(), name: 'test1' },
-        { label: 'File Upload', type: 'fileupload', id: uuid(), name: 'test1' },
-        // { label: 'List', type: 'list', id: uuid(), name: 'test1' },
-        // { label: 'HyperLink', type: 'link', id: uuid(), name: 'test1' }
-    ];
+export function getLeftBarControlsJSON(): LeftBarData {
+    return {
+        steps: [],
+        sections: [],
+        rows: [],
+        columns: [],
+        controls: [
+            { label: 'Text Field', type: 'textbox', id: uuid(), name: 'test1' },
+            { label: 'Select', type: 'dropdown', id: uuid(), name: 'test1' },
+            // { label: 'Address', type: 'Address', id: uuid(), name: 'test1' },
+            { label: 'Rich TextBox', type: 'Paragraph', id: uuid(), name: 'test1' },
+            { label: 'Date Picker', type: 'DatePicker', id: uuid(), name: 'test1' },
+            { label: 'Time Picker', type: 'TimePicker', id: uuid(), name: 'test1' },
+            { label: 'Check Box', type: 'CheckBox', id: uuid(), name: 'test1' },
+            { label: 'Radio Button', type: 'RadioButton', id: uuid(), name: 'test1' },
+            // { label: 'Text Area', type: 'TextArea', id: uuid(), name: 'test1' },
+            { label: 'File Upload', type: 'fileupload', id: uuid(), name: 'test1' },
+            // { label: 'List', type: 'list', id: uuid(), name: 'test1' },
+            // { label: 'HyperLink', type: 'link', id: uuid(), name: 'test1' }
+        ]
+    };
 }
 
 function setJSON(control: AllControlProps): ControlsProps {
@@ -221,8 +228,8 @@ function setJSONBasedOnType(control: AllControlProps, dataType: string): AllCont
     }
     return Object.entries(currentObject).map((keyValuePair, index) => (
         (control.type !== controlTypes.textbox && `${keyValuePair[0]}` === 'type')
-        ||
-        (dataType === types.ExtendedParagraphProps && `${keyValuePair[0]}` === 'label')
+            ||
+            (dataType === types.ExtendedParagraphProps && `${keyValuePair[0]}` === 'label')
             ?
             {} as AllControlProps
             :
