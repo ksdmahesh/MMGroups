@@ -117,7 +117,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
 
     // tslint:disable-next-line: no-any
     cardRaised = (e: any, index: string, control: PropertyWindowProps) => {
-        if (e.currentTarget.getAttribute('aria-label') === 'section') {
+        if (e.currentTarget.getAttribute('aria-label') === 'sections') {
             if (this.getState('isChildCalled') !== false) {
                 this.dispatchStore({ isChildCalled: false });
             } else {
@@ -257,7 +257,6 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             baseId: baseId,
             isChildCalled: false,
             raised: '',
-            controlRaised: '',
             modalOpen: false,
             exceptionalStepsId: exceptionalStepsId,
             propertyWindow: {},

@@ -62,11 +62,10 @@ export default class TabDnd extends BaseComponent<TabProps> {
                     id: tabHeaders[result.destination.index].id
                 }),
                 stepIndex: result.destination.index,
-                sectionIndex: -1,
+                sectionIndex: -2,
                 columnIndex: -1,
                 controlIndex: -1
             },
-            controlRaised: '',
             isChildCalled: false,
             raised: ''
         });
@@ -87,7 +86,6 @@ export default class TabDnd extends BaseComponent<TabProps> {
                 columnIndex: -1,
                 controlIndex: -1
             },
-            controlRaised: '',
             isChildCalled: false,
             raised: ''
         });
@@ -97,9 +95,9 @@ export default class TabDnd extends BaseComponent<TabProps> {
         var currentState = this.getState();
         currentStep = currentState.currentStep;
         var stepIndex = -1;
-        if (!currentState.controlRaised && !currentState.raised) {
-            stepIndex = currentState.propertyWindow?.stepIndex;
-        }
+        // if (!currentState.controlRaised && !currentState.raised) {
+        //     stepIndex = currentState.propertyWindow?.stepIndex;
+        // }
 
         const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
             var item = this.props.tabHeaders[newValue];
@@ -118,7 +116,6 @@ export default class TabDnd extends BaseComponent<TabProps> {
                         columnIndex: -1,
                         controlIndex: -1
                     },
-                    controlRaised: '',
                     isChildCalled: false,
                     raised: ''
                 });
@@ -137,7 +134,6 @@ export default class TabDnd extends BaseComponent<TabProps> {
                         columnIndex: -1,
                         controlIndex: -1
                     },
-                    controlRaised: '',
                     isChildCalled: false,
                     raised: ''
                 });

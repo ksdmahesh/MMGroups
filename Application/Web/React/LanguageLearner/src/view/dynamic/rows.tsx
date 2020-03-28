@@ -1,108 +1,34 @@
 import * as React from 'react';
 import BaseComponent from '../shared/helper/baseComponent';
-import { Grid, Card, CardContent, IconButton, Badge } from '@material-ui/core';
-import { RowsProps, DataProps } from './renderViewConstants';
+import { Grid, Card, CardContent, Chip } from '@material-ui/core';
+import { RowsProps } from './renderViewConstants';
 import Columns from './columns';
 import uuid from 'uuid';
+// import { Notice } from '../shared/dnd/dndConstants';
 
 export default class Rows extends BaseComponent<RowsProps> {
 
-    addList = (count: number, sectionIndex: number, cellIndex: number) => {
-        var currentState = this.getState();
-        var formdata: DataProps = currentState.formdata;
-        var currentStep: number = currentState.currentStep;
-        var colHeaders = formdata.steps[currentStep].sections[sectionIndex].cells;
-        var droppedControlData = colHeaders[cellIndex];
-        var keys = droppedControlData.rows;
-
-        if (count > keys.length) {
-            while (formdata.steps[currentStep].sections[sectionIndex].cells[cellIndex].rows.length < count) {
-                var newId = uuid();
-                var newCol = { id: newId, name: newId, label: newId, columns: [] };
-                formdata.steps[currentStep].sections[sectionIndex].cells[cellIndex].rows.push(newCol);
-            }
-            this.dispatchStore({
-                formdata: formdata
-            });
-        } else if (keys.length - count > 0) {
-            this.dispatchStore({
-                showCancelButton: true,
-                modalTitle: 'Alert',
-                modalContent: `Need to delete last ${keys.length - count} (column)s`,
-                modalOpen: true,
-                modalCloseCallback: (event: React.MouseEvent<
-                    HTMLAnchorElement,
-                    MouseEvent
-                >) => this.removeRows(count, sectionIndex, cellIndex)
-            });
-        }
-    }
-
-    removeRows = (count: number, sectionIndex: number, cellIndex: number) => {
-        var currentState = this.getState();
-        var formdata: DataProps = currentState.formdata;
-        var currentStep: number = currentState.currentStep;
-        var colHeaders = formdata.steps[currentStep].sections[sectionIndex].cells;
-        var droppedControlData = colHeaders[cellIndex];
-        var keys = droppedControlData.rows;
-
-        for (let index = keys.length; index > count; index--) {
-            formdata.steps[currentStep].sections[sectionIndex].cells[cellIndex].rows.pop();
-        }
-        this.dispatchStore({
-            formdata: formdata,
-            modalOpen: false,
-        });
-    }
-
-    getRowButtons(sectionIndex: number, cellIndex: number, length: number) {
-        return (
-            <>
-                <IconButton color={'primary'} onClick={(e) => this.addList(1, sectionIndex, cellIndex)}>
-                    <Badge color={length >= 1 ? 'primary' : 'default'} badgeContent={1} >
-                        {/* <MailIcon /> */}
-                    </Badge>
-                </IconButton>
-                <IconButton color={'primary'} onClick={(e) => this.addList(2, sectionIndex, cellIndex)}>
-                    <Badge color={length >= 2 ? 'primary' : 'default'} badgeContent={2} >
-                        {/* <MailIcon /> */}
-                    </Badge>
-                </IconButton>
-                <IconButton color={'primary'} onClick={(e) => this.addList(3, sectionIndex, cellIndex)}>
-                    <Badge color={length >= 3 ? 'primary' : 'default'} badgeContent={3} >
-                        {/* <MailIcon /> */}
-                    </Badge>
-                </IconButton>
-                <IconButton color={'primary'} onClick={(e) => this.addList(4, sectionIndex, cellIndex)}>
-                    <Badge color={length === 4 ? 'primary' : 'default'} badgeContent={4} >
-                        {/* <MailIcon /> */}
-                    </Badge>
-                </IconButton>
-            </>
-        );
-    }
-
-    getRowCount(length: number) {
-        var gridWidth: boolean | 'auto' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | undefined = 'auto';
-        switch (length) {
-            case 0:
-            case 1:
-                gridWidth = 12;
-                break;
-            case 2:
-                gridWidth = 6;
-                break;
-            case 3:
-                gridWidth = 4;
-                break;
-            case 4:
-                gridWidth = 3;
-                break;
-            default:
-                break;
-        }
-        return gridWidth;
-    }
+    // handleClick = (currentStep: number, sectionIndex: number, cellIndex: number, rowIndex: number) => {
+    //     this.dispatchStore({
+    //         rightSideBar: true,
+    //         propertyWindow: {
+    //             control: this.getPropertyWindowControl({
+    //                 name: 'New Row',
+    //                 type: 'column',
+    //                 label: 'Add Row',
+    //                 id: uuid()
+    //             }),
+    //             stepIndex: currentStep,
+    //             sectionIndex: sectionIndex,
+    //             cellIndex: cellIndex,
+    //             rowIndex: cellIndex,
+    //             columnIndex: -1,
+    //             controlIndex: -1
+    //         },
+    //         isChildCalled: true,
+    //         raised: ''
+    //     });
+    // }
 
     render() {
         var currentState = this.getState();
@@ -111,16 +37,15 @@ export default class Rows extends BaseComponent<RowsProps> {
         var cellIndex = this.props.cellIndex || 0;
         return (
             <>
-                {this.getRowButtons(sectionIndex, cellIndex, this.props.cell?.rows?.length || 0)}
                 <Grid container={true} >
                     {this.props.cell.rows.map((row, index) => {
-                        var raised = currentState.raised === `row${row.id + index}`;
+                        var raised = currentState.raised === `rows${row.id + index}`;
                         return (
                             <Card
-                                {...{ 'aria-label': 'row' }}
+                                {...{ 'aria-label': 'rows' }}
                                 onClick={(e) => this.cardRaised(
                                     e,
-                                    'row' + row.id + index,
+                                    'rows' + row.id + index,
                                     {
                                         control: this.getPropertyWindowControl({
                                             name: row.name,
@@ -132,7 +57,7 @@ export default class Rows extends BaseComponent<RowsProps> {
                                         sectionIndex: sectionIndex,
                                         cellIndex: cellIndex,
                                         rowIndex: index,
-                                        columnIndex: -1,
+                                        columnIndex: -2,
                                         controlIndex: -1
                                     }
                                 )}
@@ -152,13 +77,30 @@ export default class Rows extends BaseComponent<RowsProps> {
                                 key={row.id + index}
                             >
                                 <CardContent style={{ padding: 10 }}>
-                                    <Columns
-                                        sectionIndex={sectionIndex}
-                                        cellIndex={cellIndex}
-                                        rowIndex={index}
-                                        row={row}
-                                        isDropDisabled={this.props.isDropDisabled}
-                                    />
+                                    {
+                                        // row.columns.length === 0
+                                        //     ?
+                                        //     <Grid container={true} direction="row">
+                                        //         <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
+                                        //             <Chip
+                                        //                 label="Add Column"
+                                        //                 style={{ width: '50%' }}
+                                        //                 onClick={() => this.handleClick(currentStep, sectionIndex, cellIndex, index)}
+                                        //             />
+                                        //         </Grid>
+                                        //     </Grid>
+                                            // <Notice style={{ userSelect: 'none' }} >
+                                            //     {'No Columns'}
+                                            // </Notice>
+                                            // :
+                                            <Columns
+                                                sectionIndex={sectionIndex}
+                                                cellIndex={cellIndex}
+                                                rowIndex={index}
+                                                row={row}
+                                                isDropDisabled={this.props.isDropDisabled}
+                                            />
+                                    }
                                 </CardContent>
                             </Card>
                         );

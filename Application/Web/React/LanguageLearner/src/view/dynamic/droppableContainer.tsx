@@ -11,7 +11,7 @@ export default class DroppableContainer extends BaseComponent<DroppableContainer
         return (
             !provided.placeholder && (
                 <Notice style={{ userSelect: 'none' }} >
-                    {'Drop items here'}
+                    {'No Controls'}
                 </Notice>
             )
         );

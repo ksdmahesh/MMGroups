@@ -7,6 +7,8 @@ import Box from '@material-ui/core/Box';
 import { Droppable } from 'react-beautiful-dnd';
 import { Notice } from '../shared/dnd/dndConstants';
 import Cells from './cells';
+import uuid from 'uuid';
+import { Grid, Chip } from '@material-ui/core';
 
 function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
@@ -26,7 +28,27 @@ function TabPanel(props: TabPanelProps) {
 }
 
 export default class Sections extends BaseComponent<SectionsProps> {
-
+    handleClick = (currentStep: number, sectionIndex: number) => {
+        this.dispatchStore({
+            rightSideBar: true,
+            propertyWindow: {
+                control: this.getPropertyWindowControl({
+                    name: 'New Cell',
+                    type: 'section',
+                    label: 'Add Cell',
+                    id: uuid()
+                }),
+                stepIndex: currentStep,
+                sectionIndex: sectionIndex,
+                cellIndex: -1,
+                rowIndex: -1,
+                columnIndex: -1,
+                controlIndex: -1
+            },
+            isChildCalled: true,
+            raised: ''
+        });
+    }
     render() {
 
         return (
@@ -55,9 +77,18 @@ export default class Sections extends BaseComponent<SectionsProps> {
                                             <React.Fragment>
                                                 {section.cells.length === 0
                                                     ?
-                                                    <Notice style={{ userSelect: 'none' }} >
-                                                        {'No Cells'}
-                                                    </Notice>
+                                                    <Grid container={true} direction="row">
+                                                        <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
+                                                            <Chip
+                                                                label="Add Cell"
+                                                                style={{ width: '50%' }}
+                                                                onClick={() => this.handleClick(this.getState('currentStep'), index)}
+                                                            />
+                                                        </Grid>
+                                                    </Grid>
+                                                    // <Notice style={{ userSelect: 'none' }} >
+                                                    //     {'No Cells'}
+                                                    // </Notice>
                                                     :
                                                     <Cells
                                                         sectionIndex={index}

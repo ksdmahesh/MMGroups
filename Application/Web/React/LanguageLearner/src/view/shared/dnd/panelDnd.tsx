@@ -11,7 +11,7 @@ export default class PanelDnd extends BaseComponent<PanelProps, PanelState> {
 
     render() {
         currentStep = this.getState('currentStep');
-        var raised = this.getState(`raised`) === `section${this.props.section.id + this.props.index}`;
+        var raised = this.getState(`raised`) === `sections${this.props.section.id + this.props.index}`;
         return (
             <Draggable draggableId={this.props.section.id} index={this.props.index}>
                 {
@@ -21,10 +21,10 @@ export default class PanelDnd extends BaseComponent<PanelProps, PanelState> {
                             {...provided.draggableProps}
                         >
                             <Card
-                                {...{ 'aria-label': 'section' }}
+                                {...{ 'aria-label': 'sections' }}
                                 onClick={(e) => this.cardRaised(
                                     e,
-                                    'section' + this.props.section.id + this.props.index,
+                                    'sections' + this.props.section.id + this.props.index,
                                     {
                                         control: this.getPropertyWindowControl({
                                             name: this.props.section.name,
@@ -34,7 +34,7 @@ export default class PanelDnd extends BaseComponent<PanelProps, PanelState> {
                                         }),
                                         stepIndex: currentStep,
                                         sectionIndex: this.props.index,
-                                        cellIndex: -1,
+                                        cellIndex: -2,
                                         rowIndex: -1,
                                         columnIndex: -1,
                                         controlIndex: -1

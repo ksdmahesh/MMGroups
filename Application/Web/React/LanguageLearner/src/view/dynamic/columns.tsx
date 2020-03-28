@@ -5,6 +5,7 @@ import { Grid, Card, CardContent } from '@material-ui/core';
 import { ColumnsProps, DataProps } from './renderViewConstants';
 import { IconButton, Badge } from '@material-ui/core';
 import uuid from 'uuid';
+import { Notice } from '../shared/dnd/dndConstants';
 
 export default class Columns extends BaseComponent<ColumnsProps> {
 
@@ -116,60 +117,71 @@ export default class Columns extends BaseComponent<ColumnsProps> {
             <>
                 {this.getColumnButtons(sectionIndex, cellIndex, rowIndex, this.props.row?.columns?.length || 0)}
                 <Grid container={true} >
-                    {this.props.row.columns.map((column, index) => {
-                        var raised = currentState.raised === `column${column.id + index}`;
-                        return (
+                    {
+                        this.props.row.columns.length === 0
+                            ?
                             <Grid
-                                item={true} xs={12} key={`${column.id}-${index}`} md={gridWidth} sm={gridWidth}
+                                item={true} xs={12} md={12} sm={12}
                             >
-                                <Card
-                                    {...{ 'aria-label': 'column' }}
-                                    onClick={(e) => this.cardRaised(
-                                        e,
-                                        'column' + column.id + index,
-                                        {
-                                            control: this.getPropertyWindowControl({
-                                                name: column.name,
-                                                type: 'column',
-                                                label: column.label,
-                                                id: column.id
-                                            }),
-                                            stepIndex: currentStep,
-                                            sectionIndex: sectionIndex,
-                                            cellIndex: cellIndex,
-                                            rowIndex: rowIndex,
-                                            columnIndex: index,
-                                            controlIndex: -1
-                                        }
-                                    )}
-                                    raised={raised}
-                                    color={'primary'}
-                                    style={
-                                        raised
-                                            ?
-                                            { width: '100%' }
-                                            :
-                                            {
-                                                backgroundColor: 'transparent',
-                                                width: '100%',
-                                                boxShadow: 'none'
-                                            }
-                                    }
-                                >
-                                    <CardContent style={{ padding: 10 }}>
-                                        <DroppableContainer
-                                            isDropDisabled={this.props.isDropDisabled}
-                                            column={column}
-                                            sectionIndex={sectionIndex}
-                                            cellIndex={cellIndex}
-                                            rowIndex={rowIndex}
-                                            columnIndex={index}
-                                        />
-                                    </CardContent>
-                                </Card>
+                                <Notice style={{ userSelect: 'none' }} >
+                                    {'No Columns'}
+                                </Notice>
                             </Grid>
-                        )
-                    })}
+                            :
+                            this.props.row.columns.map((column, index) => {
+                                var raised = currentState.raised === `columns${column.id + index}`;
+                                return (
+                                    <Grid
+                                        item={true} xs={12} key={`${column.id}-${index}`} md={gridWidth} sm={gridWidth}
+                                    >
+                                        <Card
+                                            {...{ 'aria-label': 'columns' }}
+                                            onClick={(e) => this.cardRaised(
+                                                e,
+                                                'columns' + column.id + index,
+                                                {
+                                                    control: this.getPropertyWindowControl({
+                                                        name: column.name,
+                                                        type: 'column',
+                                                        label: column.label,
+                                                        id: column.id
+                                                    }),
+                                                    stepIndex: currentStep,
+                                                    sectionIndex: sectionIndex,
+                                                    cellIndex: cellIndex,
+                                                    rowIndex: rowIndex,
+                                                    columnIndex: index,
+                                                    controlIndex: -2
+                                                }
+                                            )}
+                                            raised={raised}
+                                            color={'primary'}
+                                            style={
+                                                raised
+                                                    ?
+                                                    { width: '100%' }
+                                                    :
+                                                    {
+                                                        backgroundColor: 'transparent',
+                                                        width: '100%',
+                                                        boxShadow: 'none'
+                                                    }
+                                            }
+                                        >
+                                            <CardContent style={{ padding: 10 }}>
+                                                <DroppableContainer
+                                                    isDropDisabled={this.props.isDropDisabled}
+                                                    column={column}
+                                                    sectionIndex={sectionIndex}
+                                                    cellIndex={cellIndex}
+                                                    rowIndex={rowIndex}
+                                                    columnIndex={index}
+                                                />
+                                            </CardContent>
+                                        </Card>
+                                    </Grid>
+                                )
+                            })}
                 </Grid>
             </>
         );

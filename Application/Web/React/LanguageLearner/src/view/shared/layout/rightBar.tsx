@@ -39,7 +39,6 @@ export default class RightBar extends BaseComponent {
         result.control.id = uuid();
         var raised: string = currentState.raised;
         var isChildCalled: boolean = currentState.isChildCalled;
-        var controlRaised: string = currentState.controlRaised;
 
         var obj = currentState.formdata;
         debugger;
@@ -51,16 +50,17 @@ export default class RightBar extends BaseComponent {
                 currentStep = obj[element].length - 1;
                 raised = '';
                 isChildCalled = false;
-                obj[element].splice(currentStep, 0, { ...result.control, ...{ [this.DataHeader[index + 1]]: [] } });
+                obj[element].splice(currentStep, 0, { ...{ [this.DataHeader[index + 1]]: [] }, ...result.control });
                 stepIndex = currentStep;
                 break;
             }
             if (nextElementIndex === -1) {
-                // obj = obj[element];
-                obj[element][currentElementIndex].push({ ...{ [this.DataHeader[index + 2]]: [] }, ...result.control });
+                debugger
+                obj = obj[element];
+                obj[currentElementIndex][this.DataHeader[index + 1]].push({ ...{ [this.DataHeader[index + 2]]: [] }, ...result.control });
 
-                result[currentElementIndex] = obj[currentElementIndex + 1].length - 1;
-                // raised = `raised${sectionIndex}`;
+                result[this.DataIndex[index + 1]] =  result[this.DataIndex[index + 1]] + 1;
+                raised = this.DataHeader[index + 1] + result.control.id + result[this.DataIndex[index + 1]];
                 break;
             } else if (nextElementIndex === -2) {
                 obj[element][currentElementIndex] = {
@@ -82,7 +82,6 @@ export default class RightBar extends BaseComponent {
         currentState.rightSideBar = false;
         currentState.rightWindow = {};
         currentState.propertyWindow = result;
-        currentState.controlRaised = controlRaised;
         currentState.isChildCalled = isChildCalled;
         currentState.raised = raised;
         currentState.currentStep = currentStep;
@@ -126,7 +125,6 @@ export default class RightBar extends BaseComponent {
         currentState.rightSideBar = false;
         currentState.rightWindow = {};
         currentState.propertyWindow = {};
-        currentState.controlRaised = '';
         currentState.isChildCalled = false;
         currentState.raised = '';
         currentState.currentStep = currentStep;

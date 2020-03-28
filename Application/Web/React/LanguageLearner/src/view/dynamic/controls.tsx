@@ -19,15 +19,15 @@ export default class Controls extends BaseComponent<ControlProps> {
         rowIndex: number,
         columnIndex: number
     ) {
-        var raised = this.getState(`raised`) === `control${control.id + index}`;
+        var raised = this.getState(`raised`) === `controls${control.id + index}`;
         return (
             <Grid {...provided.dragHandleProps} container={true} direction="row">
                 <Grid item={true} xs={12} md={12}>
                     <Card
-                        {...{ 'aria-label': 'control' }}
+                        {...{ 'aria-label': 'controls' }}
                         onClick={(e) => this.cardRaised(
                             e,
-                            'control' + control.id + index,
+                            'controls' + control.id + index,
                             {
                                 control: this.getPropertyWindowControl(control),
                                 stepIndex: currentStep,
