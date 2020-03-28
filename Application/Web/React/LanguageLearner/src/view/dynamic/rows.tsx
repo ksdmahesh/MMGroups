@@ -8,28 +8,6 @@ import uuid from 'uuid';
 
 export default class Rows extends BaseComponent<RowsProps> {
 
-    // handleClick = (currentStep: number, sectionIndex: number, cellIndex: number, rowIndex: number) => {
-    //     this.dispatchStore({
-    //         rightSideBar: true,
-    //         propertyWindow: {
-    //             control: this.getPropertyWindowControl({
-    //                 name: 'New Row',
-    //                 type: 'column',
-    //                 label: 'Add Row',
-    //                 id: uuid()
-    //             }),
-    //             stepIndex: currentStep,
-    //             sectionIndex: sectionIndex,
-    //             cellIndex: cellIndex,
-    //             rowIndex: cellIndex,
-    //             columnIndex: -1,
-    //             controlIndex: -1
-    //         },
-    //         isChildCalled: true,
-    //         raised: ''
-    //     });
-    // }
-
     render() {
         var currentState = this.getState();
         var currentStep = currentState.currentStep;

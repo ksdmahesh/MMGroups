@@ -63,6 +63,7 @@ export default class TabDnd extends BaseComponent<TabProps> {
                 }),
                 stepIndex: result.destination.index,
                 sectionIndex: -2,
+                rowIndex: -1,
                 columnIndex: -1,
                 controlIndex: -1
             },
@@ -83,6 +84,7 @@ export default class TabDnd extends BaseComponent<TabProps> {
                 }),
                 stepIndex: currentStep,
                 sectionIndex: -1,
+                rowIndex: -1,
                 columnIndex: -1,
                 controlIndex: -1
             },
@@ -95,12 +97,10 @@ export default class TabDnd extends BaseComponent<TabProps> {
         var currentState = this.getState();
         currentStep = currentState.currentStep;
         var stepIndex = -1;
-        // if (!currentState.controlRaised && !currentState.raised) {
-        //     stepIndex = currentState.propertyWindow?.stepIndex;
-        // }
 
         const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
             var item = this.props.tabHeaders[newValue];
+            var itemId = `tabs${item.id + newValue}`;
             if (newValue === this.props.tabHeaders.length - 1) {
                 this.dispatchStore({
                     rightSideBar: true,
@@ -113,11 +113,12 @@ export default class TabDnd extends BaseComponent<TabProps> {
                         }),
                         stepIndex: -1,
                         sectionIndex: -2,
+                        rowIndex: -1,
                         columnIndex: -1,
                         controlIndex: -1
                     },
                     isChildCalled: false,
-                    raised: ''
+                    raised: itemId
                 });
             } else {
                 this.dispatchStore({
@@ -131,14 +132,16 @@ export default class TabDnd extends BaseComponent<TabProps> {
                         }),
                         stepIndex: newValue,
                         sectionIndex: -2,
+                        rowIndex: -1,
                         columnIndex: -1,
                         controlIndex: -1
                     },
                     isChildCalled: false,
-                    raised: ''
+                    raised: itemId
                 });
             }
         };
+
         return (
             <>
                 <DragDropContext onDragEnd={this.onDragEnd}>
@@ -156,43 +159,46 @@ export default class TabDnd extends BaseComponent<TabProps> {
                                 aria-label="scrollable auto tabs example"
                             >
                                 {
-                                    this.props.tabHeaders.map((item, index) => (
-                                        <Draggable
-                                            isDragDisabled={this.props.tabHeaders.length - 1 === index}
-                                            key={item.id}
-                                            draggableId={item.id}
-                                            index={index}
-                                            disableInteractiveElementBlocking={true}
-                                        >
-                                            {
-                                                (dragProvided, dragSnapshot) => (
-                                                    <Tab
-                                                        onClick={(e) => handleChange(e, index)}
-                                                        ref={dragProvided.innerRef}
-                                                        {...dragProvided.draggableProps}
-                                                        {...dragProvided.dragHandleProps}
-                                                        style={{
-                                                            ...getItemStyle(
-                                                                dragSnapshot.isDragging,
-                                                                dragProvided.draggableProps.style
-                                                            ),
-                                                            ...(
-                                                                stepIndex === index ?
-                                                                    {
-                                                                        boxShadow: '0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12)',
-                                                                        color: 'blue'
-                                                                    }
-                                                                    :
-                                                                    {}
-                                                            )
-                                                        }
-                                                        }
-                                                        label={item.label}
-                                                        {...a11yProps(index)}
-                                                    />
-                                                )}
-                                        </Draggable>
-                                    ))}
+                                    this.props.tabHeaders.map((item, index) => {
+                                        var raised = currentState.raised === `tabs${item.id + index}`;
+                                        return (
+                                            <Draggable
+                                                isDragDisabled={this.props.tabHeaders.length - 1 === index}
+                                                key={item.id}
+                                                draggableId={item.id}
+                                                index={index}
+                                                disableInteractiveElementBlocking={true}
+                                            >
+                                                {
+                                                    (dragProvided, dragSnapshot) => (
+                                                        <Tab
+                                                            onClick={(e) => handleChange(e, index)}
+                                                            ref={dragProvided.innerRef}
+                                                            {...dragProvided.draggableProps}
+                                                            {...dragProvided.dragHandleProps}
+                                                            style={{
+                                                                ...getItemStyle(
+                                                                    dragSnapshot.isDragging,
+                                                                    dragProvided.draggableProps.style
+                                                                ),
+                                                                ...(
+                                                                    raised ?
+                                                                        {
+                                                                            boxShadow: '0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12)',
+                                                                            color: 'blue'
+                                                                        }
+                                                                        :
+                                                                        {}
+                                                                )
+                                                            }
+                                                            }
+                                                            label={item.label}
+                                                            {...a11yProps(index)}
+                                                        />
+                                                    )}
+                                            </Draggable>
+                                        );
+                                    })}
                                 {provided.placeholder}
                             </Tabs>
                         )}

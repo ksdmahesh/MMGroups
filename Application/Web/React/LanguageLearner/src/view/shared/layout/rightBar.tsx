@@ -52,7 +52,7 @@ export default class RightBar extends BaseComponent {
                 obj = obj[element];
                 obj[currentElementIndex][this.DataHeader[index + 1]].push({ ...{ [this.DataHeader[index + 2]]: [] }, ...result.control });
 
-                result[this.DataIndex[index + 1]] =  result[this.DataIndex[index + 1]] + 1;
+                result[this.DataIndex[index + 1]] = result[this.DataIndex[index + 1]] + 1;
                 raised = this.DataHeader[index + 1] + result.control.id + result[this.DataIndex[index + 1]];
                 break;
             } else if (nextElementIndex === -2) {
@@ -81,34 +81,26 @@ export default class RightBar extends BaseComponent {
 
     removeItem = () => {
         var currentState = this.getState();
-        var result: PropertyWindowProps = currentState.propertyWindow;
-        var stepIndex: number = result.stepIndex;
-        var sectionIndex: number = result.sectionIndex;
-        var columnIndex: number = result.columnIndex;
-        var controlIndex: number = result.controlIndex;
-        var currentStep: number = currentState.currentStep;
+        var result: any = currentState.propertyWindow;
 
-        var obj = currentState.formdata;
-        if (stepIndex !== -1) {
-            if (sectionIndex === -2) {
-                obj = obj.steps;
-                // obj.steps[stepIndex];
-                obj.splice(stepIndex, 1);
+        var obj = currentState.formdata; debugger
+        for (let index = 0; index < this.DataHeader.length; index++) {
+            const element = this.DataHeader[index];
+            const currentElementIndex: number = result[this.DataIndex[index]];
+            const nextElementIndex: number = result[this.DataIndex[index + 1]];
+            if (nextElementIndex >= 0) {
+                obj = obj[element][currentElementIndex];
             } else {
-                obj = obj.steps[stepIndex];
-                if (columnIndex !== -1) {
-                    obj = obj.sections[sectionIndex];
-                    obj = obj.columns[columnIndex];
-                    if (controlIndex !== -1) {
-                        obj = obj.controls;
-                        // obj = obj[controlIndex];
-                        obj.splice(controlIndex, 1);
+                obj[element].splice(currentElementIndex, 1);
+                if (element === this.DataHeader[0]) {
+                    if ((currentState.currentStep - 1) >= 0) {
+                        currentState.currentStep = (currentState.currentStep - 1);
+                    } else {
+                        currentState.currentStep = 0;
                     }
-                } else {
-                    obj = obj.sections;
-                    // obj.sections[sectionIndex];
-                    obj.splice(sectionIndex, 1);
+
                 }
+                break;
             }
         }
 
@@ -117,7 +109,6 @@ export default class RightBar extends BaseComponent {
         currentState.propertyWindow = {};
         currentState.isChildCalled = false;
         currentState.raised = '';
-        currentState.currentStep = currentStep;
 
         this.dispatchStore(currentState);
     }
