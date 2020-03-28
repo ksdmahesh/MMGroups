@@ -3,7 +3,7 @@ import BaseComponent from '../shared/helper/baseComponent';
 import { Grid, Card, CardContent, Chip } from '@material-ui/core';
 import { CellsProps } from './renderViewConstants';
 import Rows from './rows';
-import { Notice } from '../shared/dnd/dndConstants';
+// import { Notice } from '../shared/dnd/dndConstants';
 import uuid from 'uuid';
 
 export default class Cells extends BaseComponent<CellsProps> {

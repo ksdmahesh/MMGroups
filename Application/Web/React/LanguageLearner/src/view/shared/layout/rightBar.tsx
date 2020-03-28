@@ -26,11 +26,6 @@ export default class RightBar extends BaseComponent {
         var result: any = currentState.propertyWindow;
 
         var stepIndex: number = result.stepIndex;
-        var sectionIndex: number = result.sectionIndex;
-        var cellIndex: number = result.cellIndex;
-        var rowIndex: number = result.rowIndex;
-        var columnIndex: number = result.columnIndex;
-        var controlIndex: number = result.controlIndex;
 
         var currentStep: number = currentState.currentStep;
 
@@ -41,7 +36,6 @@ export default class RightBar extends BaseComponent {
         var isChildCalled: boolean = currentState.isChildCalled;
 
         var obj = currentState.formdata;
-        debugger;
         for (let index = 0; index < this.DataHeader.length; index++) {
             const element = this.DataHeader[index];
             const currentElementIndex: number = result[this.DataIndex[index]];
@@ -55,7 +49,6 @@ export default class RightBar extends BaseComponent {
                 break;
             }
             if (nextElementIndex === -1) {
-                debugger
                 obj = obj[element];
                 obj[currentElementIndex][this.DataHeader[index + 1]].push({ ...{ [this.DataHeader[index + 2]]: [] }, ...result.control });
 
@@ -75,9 +68,6 @@ export default class RightBar extends BaseComponent {
         }
 
         result.stepIndex = stepIndex;
-        result.sectionIndex = sectionIndex;
-        result.columnIndex = columnIndex;
-        result.controlIndex = controlIndex;
 
         currentState.rightSideBar = false;
         currentState.rightWindow = {};

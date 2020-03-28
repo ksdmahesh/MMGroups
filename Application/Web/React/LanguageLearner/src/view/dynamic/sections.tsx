@@ -5,7 +5,7 @@ import { TabPanelProps, SectionsProps } from './renderViewConstants';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Droppable } from 'react-beautiful-dnd';
-import { Notice } from '../shared/dnd/dndConstants';
+// import { Notice } from '../shared/dnd/dndConstants';
 import Cells from './cells';
 import uuid from 'uuid';
 import { Grid, Chip } from '@material-ui/core';
