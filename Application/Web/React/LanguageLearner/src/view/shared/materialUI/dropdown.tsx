@@ -52,9 +52,7 @@ export default class Dropdown extends BaseComponent<SelectProps> {
                         disabled={this.props.disabled}
                         id={`${this.props.id}`}
                         multiple={this.props.isMultiSelect}
-                        name={this.props.name}
                         {...this.setAttributes(this.props, undefined, undefined, this.props.isMultiSelect)}
-                        // onChange={(e) => handleChange(e)}
                         {
                         ...this.props.isMultiSelect
                             ?
@@ -87,7 +85,7 @@ export default class Dropdown extends BaseComponent<SelectProps> {
                                                 ?
                                                 <Checkbox
                                                     checked={
-                                                        this.getState(this.props.name)?.indexOf(currentName[0])
+                                                        this.getState(this.props.id)?.indexOf(currentName[0])
                                                         >
                                                         -1
                                                     }

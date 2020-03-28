@@ -8,19 +8,19 @@ import uuid from 'uuid';
 
 export default class Columns extends BaseComponent<ColumnsProps> {
 
-    addList = (count: number, sectionIndex: number, rowIndex: number) => {
+    addList = (count: number, sectionIndex: number, cellIndex: number, rowIndex: number) => {
         var currentState = this.getState();
         var formdata: DataProps = currentState.formdata;
         var currentStep: number = currentState.currentStep;
-        var colHeaders = formdata.steps[currentStep].sections[sectionIndex].rows;
+        var colHeaders = formdata.steps[currentStep].sections[sectionIndex].cells[cellIndex].rows;
         var droppedControlData = colHeaders[rowIndex];
         var keys = droppedControlData.columns;
 
         if (count > keys.length) {
-            while (formdata.steps[currentStep].sections[sectionIndex].rows[rowIndex].columns.length < count) {
+            while (formdata.steps[currentStep].sections[sectionIndex].cells[cellIndex].rows[rowIndex].columns.length < count) {
                 var newId = uuid();
                 var newCol = { id: newId, name: newId, label: newId, controls: [] };
-                formdata.steps[currentStep].sections[sectionIndex].rows[rowIndex].columns.push(newCol);
+                formdata.steps[currentStep].sections[sectionIndex].cells[cellIndex].rows[rowIndex].columns.push(newCol);
             }
             this.dispatchStore({
                 formdata: formdata
@@ -34,21 +34,21 @@ export default class Columns extends BaseComponent<ColumnsProps> {
                 modalCloseCallback: (event: React.MouseEvent<
                     HTMLAnchorElement,
                     MouseEvent
-                >) => this.removeColumns(count, sectionIndex, rowIndex)
+                >) => this.removeColumns(count, sectionIndex, cellIndex, rowIndex)
             });
         }
     }
 
-    removeColumns = (count: number, sectionIndex: number, rowIndex: number) => {
+    removeColumns = (count: number, sectionIndex: number, cellIndex: number, rowIndex: number) => {
         var currentState = this.getState();
         var formdata: DataProps = currentState.formdata;
         var currentStep: number = currentState.currentStep;
-        var colHeaders = formdata.steps[currentStep].sections[sectionIndex].rows;
+        var colHeaders = formdata.steps[currentStep].sections[sectionIndex].cells[cellIndex].rows;
         var droppedControlData = colHeaders[rowIndex];
         var keys = droppedControlData.columns;
 
         for (let index = keys.length; index > count; index--) {
-            formdata.steps[currentStep].sections[sectionIndex].rows[rowIndex].columns.pop();
+            formdata.steps[currentStep].sections[sectionIndex].cells[cellIndex].rows[rowIndex].columns.pop();
         }
         this.dispatchStore({
             formdata: formdata,
@@ -56,25 +56,25 @@ export default class Columns extends BaseComponent<ColumnsProps> {
         });
     }
 
-    getColumnButtons(sectionIndex: number, rowIndex: number, length: number) {
+    getColumnButtons(sectionIndex: number, cellIndex: number, rowIndex: number, length: number) {
         return (
             <>
-                <IconButton color={'primary'} onClick={(e) => this.addList(1, sectionIndex, rowIndex)}>
+                <IconButton color={'primary'} onClick={(e) => this.addList(1, sectionIndex, cellIndex, rowIndex)}>
                     <Badge color={length >= 1 ? 'primary' : 'default'} badgeContent={1} >
                         {/* <MailIcon /> */}
                     </Badge>
                 </IconButton>
-                <IconButton color={'primary'} onClick={(e) => this.addList(2, sectionIndex, rowIndex)}>
+                <IconButton color={'primary'} onClick={(e) => this.addList(2, sectionIndex, cellIndex, rowIndex)}>
                     <Badge color={length >= 2 ? 'primary' : 'default'} badgeContent={2} >
                         {/* <MailIcon /> */}
                     </Badge>
                 </IconButton>
-                <IconButton color={'primary'} onClick={(e) => this.addList(3, sectionIndex, rowIndex)}>
+                <IconButton color={'primary'} onClick={(e) => this.addList(3, sectionIndex, cellIndex, rowIndex)}>
                     <Badge color={length >= 3 ? 'primary' : 'default'} badgeContent={3} >
                         {/* <MailIcon /> */}
                     </Badge>
                 </IconButton>
-                <IconButton color={'primary'} onClick={(e) => this.addList(4, sectionIndex, rowIndex)}>
+                <IconButton color={'primary'} onClick={(e) => this.addList(4, sectionIndex, cellIndex, rowIndex)}>
                     <Badge color={length === 4 ? 'primary' : 'default'} badgeContent={4} >
                         {/* <MailIcon /> */}
                     </Badge>
@@ -109,14 +109,15 @@ export default class Columns extends BaseComponent<ColumnsProps> {
         var gridWidth = this.getColumnCount(this.props.row.columns.length);
         var currentState = this.getState();
         var currentStep = currentState.currentStep;
-        var sectionIndex = this.props.sectionIndex;
-        var rowIndex = this.props.rowIndex;
+        var sectionIndex = this.props.sectionIndex || 0;
+        var cellIndex = this.props.cellIndex || 0;
+        var rowIndex = this.props.rowIndex || 0;
         return (
             <>
-                {this.getColumnButtons(this.props.sectionIndex || 0, this.props.rowIndex || 0, this.props.row?.columns?.length || 0)}
+                {this.getColumnButtons(sectionIndex, cellIndex, rowIndex, this.props.row?.columns?.length || 0)}
                 <Grid container={true} >
                     {this.props.row.columns.map((column, index) => {
-                        var raised = currentState.controlRaised === `columnRaised${column.name + index}`;
+                        var raised = currentState.raised === `column${column.id + index}`;
                         return (
                             <Grid
                                 item={true} xs={12} key={`${column.id}-${index}`} md={gridWidth} sm={gridWidth}
@@ -125,7 +126,7 @@ export default class Columns extends BaseComponent<ColumnsProps> {
                                     {...{ 'aria-label': 'column' }}
                                     onClick={(e) => this.cardRaised(
                                         e,
-                                        'column' + column.name + index,
+                                        'column' + column.id + index,
                                         {
                                             control: this.getPropertyWindowControl({
                                                 name: column.name,
@@ -135,6 +136,7 @@ export default class Columns extends BaseComponent<ColumnsProps> {
                                             }),
                                             stepIndex: currentStep,
                                             sectionIndex: sectionIndex,
+                                            cellIndex: cellIndex,
                                             rowIndex: rowIndex,
                                             columnIndex: index,
                                             controlIndex: -1
@@ -156,11 +158,12 @@ export default class Columns extends BaseComponent<ColumnsProps> {
                                 >
                                     <CardContent style={{ padding: 10 }}>
                                         <DroppableContainer
-                                            sectionIndex={this.props.sectionIndex}
                                             isDropDisabled={this.props.isDropDisabled}
                                             column={column}
+                                            sectionIndex={sectionIndex}
+                                            cellIndex={cellIndex}
+                                            rowIndex={rowIndex}
                                             columnIndex={index}
-                                            rowIndex={this.props.rowIndex}
                                         />
                                     </CardContent>
                                 </Card>

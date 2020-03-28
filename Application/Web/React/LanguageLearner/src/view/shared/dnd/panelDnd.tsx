@@ -11,7 +11,7 @@ export default class PanelDnd extends BaseComponent<PanelProps, PanelState> {
 
     render() {
         currentStep = this.getState('currentStep');
-        var raised = this.getState(`raised`) === `raised${this.props.index}`;
+        var raised = this.getState(`raised`) === `section${this.props.section.id + this.props.index}`;
         return (
             <Draggable draggableId={this.props.section.id} index={this.props.index}>
                 {
@@ -24,7 +24,7 @@ export default class PanelDnd extends BaseComponent<PanelProps, PanelState> {
                                 {...{ 'aria-label': 'section' }}
                                 onClick={(e) => this.cardRaised(
                                     e,
-                                    'section' + this.props.section.name + this.props.index,
+                                    'section' + this.props.section.id + this.props.index,
                                     {
                                         control: this.getPropertyWindowControl({
                                             name: this.props.section.name,
@@ -34,6 +34,7 @@ export default class PanelDnd extends BaseComponent<PanelProps, PanelState> {
                                         }),
                                         stepIndex: currentStep,
                                         sectionIndex: this.props.index,
+                                        cellIndex: -1,
                                         rowIndex: -1,
                                         columnIndex: -1,
                                         controlIndex: -1
@@ -54,7 +55,7 @@ export default class PanelDnd extends BaseComponent<PanelProps, PanelState> {
                                 <CardContent>
                                     <ExpansionPanels
                                         dragHandleProps={provided.dragHandleProps}
-                                        panelHeader={this.props.section.name}
+                                        panelHeader={this.props.section.label}
                                     >
                                         {this.props.children}
                                     </ExpansionPanels>

@@ -52,20 +52,20 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
             >
                 {
                     Object.entries(this.props.items).map((dataItem: any, dataIndex: number) => {
-                        var name = (dataItem[0]) + dataIndex;
+                        var id = (dataItem[0]) + dataIndex;
                         return (
                             <ExpansionPanel
-                                key={name}
+                                key={id}
                                 square={true}
-                                id={name}
-                                expanded={name === this.getState('leftExpander')}
-                                onChange={(e, y) => this.handleChange(name)}
+                                id={id}
+                                expanded={id === this.getState('leftExpander')}
+                                onChange={(e, y) => this.handleChange(id)}
                             >
                                 <ExpansionPanelSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-label="Expand"
-                                    aria-controls={name + '-content'}
-                                    id={name + 'summary'}
+                                    aria-controls={id + '-content'}
+                                    id={id + 'summary'}
                                 >
                                     {dataItem[0]}
                                 </ExpansionPanelSummary>

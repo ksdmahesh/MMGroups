@@ -21,6 +21,8 @@ export default class DroppableContainer extends BaseComponent<DroppableContainer
         control: AllControlProps,
         index: number,
         sectionIndex: number,
+        cellIndex: number,
+        rowIndex: number,
         columnIndex: number
     ) {
         return (
@@ -33,11 +35,13 @@ export default class DroppableContainer extends BaseComponent<DroppableContainer
                 {
                     (provided, snapshot) => (
                         <Controls
-                            key={`${control.name}-${index}`}
+                            key={`${control.id}-${index}`}
                             control={control}
                             provided={provided}
                             index={index}
                             sectionIndex={sectionIndex}
+                            cellIndex={cellIndex}
+                            rowIndex={rowIndex}
                             columnIndex={columnIndex}
                         />
                     )}
@@ -47,6 +51,7 @@ export default class DroppableContainer extends BaseComponent<DroppableContainer
     render() {
         controlItems.controlItems[this.props.column.id] = {
             sectionIndex: this.props.sectionIndex,
+            cellIndex: this.props.cellIndex,
             rowIndex: this.props.rowIndex,
             columnIndex: this.props.columnIndex,
             controls: this.props.column.controls
@@ -64,6 +69,8 @@ export default class DroppableContainer extends BaseComponent<DroppableContainer
                                             control,
                                             index,
                                             this.props.sectionIndex,
+                                            this.props.cellIndex,
+                                            this.props.rowIndex,
                                             this.props.columnIndex
                                         )
                                     );

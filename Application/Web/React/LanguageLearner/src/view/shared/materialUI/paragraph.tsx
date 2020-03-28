@@ -9,7 +9,7 @@ export default class Paragraph extends BaseComponent<ParagraphProps> {
     openRTEModal = (props: ParagraphProps) => {
         this.dispatchStore({
             modalTitle: `Set ${props.label}`,
-            modalContent: this.getEditor(props.name),
+            modalContent: this.getEditor(props.id),
             modalOpen: true,
             showCancelButton: true,
             fullWidth: true,
@@ -18,20 +18,20 @@ export default class Paragraph extends BaseComponent<ParagraphProps> {
             modalCloseCallback: (event: React.MouseEvent<
                 HTMLAnchorElement,
                 MouseEvent
-            >) => this.saveValue(props.name)
+            >) => this.saveValue(props.id)
         });
     }
 
-    getEditor = (name: string) => {
+    getEditor = (id: string) => {
         return (
             <RichTextbox
-                name={name}
+                id={id}
             />
         );
     }
 
-    saveValue = (name: string) => {
-        var rteValue = this.getState(name);
+    saveValue = (id: string) => {
+        var rteValue = this.getState(id);
         var rightWindow = this.getState('rightWindow') || {};
         rightWindow.label = rteValue;
         this.dispatchStore({
@@ -46,7 +46,7 @@ export default class Paragraph extends BaseComponent<ParagraphProps> {
         return (
             this.props.disabled
                 ?
-                <div style={{padding: '10px', color: 'rgba(0, 0, 0, 0.38)'}} dangerouslySetInnerHTML={{ __html: this.props.label }} />
+                <div style={{ padding: '10px', color: 'rgba(0, 0, 0, 0.38)' }} dangerouslySetInnerHTML={{ __html: this.props.label }} />
                 :
                 <Button
                     fullWidth={true}

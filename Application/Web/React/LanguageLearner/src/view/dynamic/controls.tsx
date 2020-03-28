@@ -15,9 +15,11 @@ export default class Controls extends BaseComponent<ControlProps> {
         provided: DraggableProvided,
         index: number,
         sectionIndex: number,
+        cellIndex: number,
+        rowIndex: number,
         columnIndex: number
     ) {
-        var raised = this.getState(`controlRaised`) === `controlRaised${control.name + index}`;
+        var raised = this.getState(`raised`) === `control${control.id + index}`;
         return (
             <Grid {...provided.dragHandleProps} container={true} direction="row">
                 <Grid item={true} xs={12} md={12}>
@@ -25,12 +27,13 @@ export default class Controls extends BaseComponent<ControlProps> {
                         {...{ 'aria-label': 'control' }}
                         onClick={(e) => this.cardRaised(
                             e,
-                            'control' + control.name + index,
+                            'control' + control.id + index,
                             {
                                 control: this.getPropertyWindowControl(control),
                                 stepIndex: currentStep,
                                 sectionIndex: sectionIndex,
-                                rowIndex: -1,
+                                cellIndex: cellIndex,
+                                rowIndex: rowIndex,
                                 columnIndex: columnIndex,
                                 controlIndex: index
                             }
@@ -62,6 +65,8 @@ export default class Controls extends BaseComponent<ControlProps> {
         var provided = this.props.provided;
         var index = this.props.index;
         var sectionIndex = this.props.sectionIndex;
+        var cellIndex = this.props.cellIndex;
+        var rowIndex = this.props.rowIndex;
         var columnIndex = this.props.columnIndex;
         currentStep = this.getState('currentStep');
         return (
@@ -70,7 +75,7 @@ export default class Controls extends BaseComponent<ControlProps> {
                 {...provided.draggableProps}
                 style={provided.draggableProps.style}
             >
-                {this.getControlByType(control, provided, index, sectionIndex, columnIndex)}
+                {this.getControlByType(control, provided, index, sectionIndex, cellIndex, rowIndex, columnIndex)}
             </DroppedItem>
         );
     }

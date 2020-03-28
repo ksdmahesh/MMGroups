@@ -74,6 +74,7 @@ export type PropertyWindowProps = {
     control: AllControlProps,
     stepIndex: number,
     sectionIndex: number,
+    cellIndex: number,
     rowIndex: number,
     columnIndex: number,
     controlIndex: number
@@ -91,13 +92,15 @@ export type ColumnIdProps = {
 }[];
 export type StepsProps = DataProps['steps'];
 export type SectionProps = StepsProps[0]['sections'];
-export type RowProps = SectionProps[0]['rows'];
+export type CellProps = SectionProps[0]['cells'];
+export type RowProps = CellProps[0]['rows'];
 export type ColumnProps = RowProps[0]['columns'];
 export type ControlsProps = ColumnProps[0]['controls'];
 
 export type LeftBarData = {
     steps: StepsProps,
     sections: SectionProps,
+    cells: CellProps,
     rows: RowProps,
     columns: ColumnProps,
     controls: ControlsProps
@@ -113,6 +116,13 @@ export interface TabProps {
 
 export interface RowsProps {
     isDropDisabled: boolean;
+    cell: CellProps[0];
+    sectionIndex: number;
+    cellIndex: number;
+}
+
+export interface CellsProps {
+    isDropDisabled: boolean;
     section: SectionProps[0];
     sectionIndex: number;
 }
@@ -120,6 +130,7 @@ export interface RowsProps {
 export interface ColumnsProps {
     isDropDisabled: boolean;
     sectionIndex: number;
+    cellIndex: number;
     rowIndex: number;
     row: RowProps[0];
 }
@@ -129,13 +140,16 @@ export interface ControlProps {
     provided: DraggableProvided;
     index: number;
     sectionIndex: number;
+    cellIndex: number;
+    rowIndex: number;
     columnIndex: number;
 }
 
 export interface DroppableContainerProps {
     isDropDisabled: boolean;
-    sectionIndex: number;
     column: ColumnProps[0];
+    sectionIndex: number;
+    cellIndex: number;
     rowIndex: number;
     columnIndex: number;
 }
@@ -229,6 +243,9 @@ export type AllControlProps = (
 );
 
 export interface DataProps {
+    id: string,
+    name: string,
+    label: string,
     steps: {
         id: string,
         name: string,
@@ -237,15 +254,20 @@ export interface DataProps {
             id: string,
             name: string,
             label: string,
-            rows: {
+            cells: {
                 id: string,
                 name: string,
                 label: string,
-                columns: {
+                rows: {
                     id: string,
                     name: string,
                     label: string,
-                    controls: AllControlProps[]
+                    columns: {
+                        id: string,
+                        name: string,
+                        label: string,
+                        controls: AllControlProps[]
+                    }[]
                 }[]
             }[]
         }[]

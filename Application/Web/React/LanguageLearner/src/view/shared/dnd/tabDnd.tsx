@@ -58,7 +58,7 @@ export default class TabDnd extends BaseComponent<TabProps> {
                 control: this.getPropertyWindowControl({
                     name: tabHeaders[result.destination.index].name,
                     type: 'step',
-                    label: tabHeaders[result.destination.index].name,
+                    label: tabHeaders[result.destination.index].label,
                     id: tabHeaders[result.destination.index].id
                 }),
                 stepIndex: result.destination.index,
@@ -110,7 +110,7 @@ export default class TabDnd extends BaseComponent<TabProps> {
                         control: this.getPropertyWindowControl({
                             name: item.name,
                             type: 'step',
-                            label: item.name,
+                            label: item.label,
                             id: item.id
                         }),
                         stepIndex: -1,
@@ -129,7 +129,7 @@ export default class TabDnd extends BaseComponent<TabProps> {
                         control: this.getPropertyWindowControl({
                             name: item.name,
                             type: 'step',
-                            label: item.name,
+                            label: item.label,
                             id: item.id
                         }),
                         stepIndex: newValue,
@@ -191,7 +191,7 @@ export default class TabDnd extends BaseComponent<TabProps> {
                                                             )
                                                         }
                                                         }
-                                                        label={item.name}
+                                                        label={item.label}
                                                         {...a11yProps(index)}
                                                     />
                                                 )}

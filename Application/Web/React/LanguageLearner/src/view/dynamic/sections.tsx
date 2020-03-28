@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Droppable } from 'react-beautiful-dnd';
 import { Notice } from '../shared/dnd/dndConstants';
-import Rows from './rows';
+import Cells from './cells';
 
 function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
@@ -53,13 +53,13 @@ export default class Sections extends BaseComponent<SectionsProps> {
                                             index={index}
                                         >
                                             <React.Fragment>
-                                                {section.rows.length === 0
+                                                {section.cells.length === 0
                                                     ?
                                                     <Notice style={{ userSelect: 'none' }} >
-                                                        {'No Columns'}
+                                                        {'No Cells'}
                                                     </Notice>
                                                     :
-                                                    <Rows
+                                                    <Cells
                                                         sectionIndex={index}
                                                         section={section}
                                                         isDropDisabled={this.props.isDropDisabled}

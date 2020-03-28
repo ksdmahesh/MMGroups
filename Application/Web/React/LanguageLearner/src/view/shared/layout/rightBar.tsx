@@ -23,11 +23,15 @@ export default class RightBar extends BaseComponent {
 
     updatePropertyToControl = () => {
         var currentState = this.getState();
-        var result: PropertyWindowProps = currentState.propertyWindow;
+        var result: any = currentState.propertyWindow;
+
         var stepIndex: number = result.stepIndex;
         var sectionIndex: number = result.sectionIndex;
+        var cellIndex: number = result.cellIndex;
+        var rowIndex: number = result.rowIndex;
         var columnIndex: number = result.columnIndex;
         var controlIndex: number = result.controlIndex;
+
         var currentStep: number = currentState.currentStep;
 
         result.control = { ...result.control, ...currentState.rightWindow };
@@ -36,55 +40,38 @@ export default class RightBar extends BaseComponent {
         var raised: string = currentState.raised;
         var isChildCalled: boolean = currentState.isChildCalled;
         var controlRaised: string = currentState.controlRaised;
-        
-        var obj = currentState.formdata;
-        if (stepIndex !== -1) {
-            if (sectionIndex === -1) {
-                obj = obj.steps[stepIndex];
-                obj.sections.push({
-                    id: result.control.id,
-                    name: result.control.label,
-                    columns: []
-                });
 
-                sectionIndex = obj.sections.length - 1;
-                raised = `raised${sectionIndex}`;
-            } else if (sectionIndex === -2) {
-                obj.steps[stepIndex] = {
-                    ...obj.steps[stepIndex],
-                    id: result.control.id,
-                    name: result.control.label
-                };
-            } else {
-                obj = obj.steps[stepIndex];
-                if (columnIndex !== -1) {
-                    obj = obj.sections[sectionIndex];
-                    obj = obj.columns[columnIndex];
-                    if (controlIndex !== -1) {
-                        obj = obj.controls;
-                        obj[controlIndex] = result.control;
-                    } else {
-                        // obj.controls.push(result);
-                    }
-                } else {
-                    obj.sections[sectionIndex] = {
-                        ...obj.sections[sectionIndex],
-                        id: result.control.id,
-                        name: result.control.label
-                    };
-                }
+        var obj = currentState.formdata;
+        debugger;
+        for (let index = 0; index < this.DataHeader.length; index++) {
+            const element = this.DataHeader[index];
+            const currentElementIndex: number = result[this.DataIndex[index]];
+            const nextElementIndex: number = result[this.DataIndex[index + 1]];
+            if (currentElementIndex === -1) {
+                currentStep = obj[element].length - 1;
+                raised = '';
+                isChildCalled = false;
+                obj[element].splice(currentStep, 0, { ...result.control, ...{ [this.DataHeader[index + 1]]: [] } });
+                stepIndex = currentStep;
+                break;
             }
-        } else {
-            currentStep = obj.steps.length - 1;
-            controlRaised = '';
-            raised = '';
-            isChildCalled = false;
-            obj.steps.splice(currentStep, 0, {
-                id: result.control.id,
-                name: result.control.label,
-                sections: []
-            });
-            stepIndex = currentStep;
+            if (nextElementIndex === -1) {
+                // obj = obj[element];
+                obj[element][currentElementIndex].push({ ...{ [this.DataHeader[index + 2]]: [] }, ...result.control });
+
+                result[currentElementIndex] = obj[currentElementIndex + 1].length - 1;
+                // raised = `raised${sectionIndex}`;
+                break;
+            } else if (nextElementIndex === -2) {
+                obj[element][currentElementIndex] = {
+                    ...{ [this.DataHeader[index + 1]]: [] },
+                    ...obj[element][currentElementIndex],
+                    ...result.control
+                };
+                break;
+            } else if (nextElementIndex >= 0) {
+                obj = obj[element][currentElementIndex];
+            }
         }
 
         result.stepIndex = stepIndex;
@@ -127,7 +114,7 @@ export default class RightBar extends BaseComponent {
                         obj = obj.controls;
                         // obj = obj[controlIndex];
                         obj.splice(controlIndex, 1);
-                    } 
+                    }
                 } else {
                     obj = obj.sections;
                     // obj.sections[sectionIndex];

@@ -149,6 +149,7 @@ export function getLeftBarControlsJSON(): LeftBarData {
     return {
         steps: [],
         sections: [],
+        cells: [],
         rows: [],
         columns: [],
         controls: [

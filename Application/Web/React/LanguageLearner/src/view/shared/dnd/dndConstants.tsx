@@ -112,6 +112,7 @@ export var controlItems: {
   controlItems: {
     [x: string]: {
       sectionIndex: number,
+      cellIndex: number,
       rowIndex: number,
       columnIndex: number,
       controls: ControlsProps

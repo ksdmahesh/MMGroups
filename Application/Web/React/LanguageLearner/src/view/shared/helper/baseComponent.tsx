@@ -6,6 +6,24 @@ import uuid from 'uuid';
 
 var dispatch: Dispatch;
 
+const AllDataProps = [
+    'steps',
+    'sections',
+    'cells',
+    'rows',
+    'columns',
+    'controls'
+];
+
+const AllDataIndex = [
+    'stepIndex',
+    'sectionIndex',
+    'cellIndex',
+    'rowIndex',
+    'columnIndex',
+    'controlIndex'
+];
+
 // tslint:disable-next-line: no-any
 export default class BaseComponent<T = any, U = any> extends React.Component<T, U> {
 
@@ -13,6 +31,10 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
     clone(data: any) {
         return JSON.parse(JSON.stringify(data));
     }
+
+    DataHeader = AllDataProps;
+
+    DataIndex: any = AllDataIndex;
 
     // tslint:disable-next-line: no-any
     constructor(props: any) {
@@ -54,26 +76,27 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             return callback;
         }
 
-        var name = control.name;
+        var id = control.id;
         if (control.location) {
-            name = control.location.substr(control.location.lastIndexOf('.') + 1);
+            id = control.location.substr(control.location.lastIndexOf('.') + 1);
         }
 
         if (isCheckbox) {
             return {
-                checked: this.getState(name, control.location) || control.checked || false,
+                checked: this.getState(id, control.location) || control.checked || false,
                 // tslint:disable-next-line: no-any
                 onChange: (e: any) => this.dispatchStore(
                     {
-                        [name || '']: this.getDataFromEvent(e, isCheckbox)
+                        [id || '']: this.getDataFromEvent(e, isCheckbox)
                     },
                     control.location
                 ),
-                name: name
+                name: control.name,
+                id: id
             };
         }
         return {
-            value: this.getState(name, control.location) || control.value || (isArray ? [] : '') || defaultValue,
+            value: this.getState(id, control.location) || control.value || (isArray ? [] : '') || defaultValue,
             onChange: (control.disabled
                 ?
                 // tslint:disable-next-line: no-any
@@ -82,36 +105,36 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
                 // tslint:disable-next-line: no-any
                 (e: any) => this.dispatchStore(
                     {
-                        [name || '']: this.getDataFromEvent(e)
+                        [id || '']: this.getDataFromEvent(e)
                     },
                     control.location
                 )
             ),
-            name: name
+            name: control.name,
+            id: id
         };
     }
 
     // tslint:disable-next-line: no-any
     cardRaised = (e: any, index: string, control: PropertyWindowProps) => {
-        debugger
-        if (e.currentTarget.getAttribute('aria-label') === 'parent') {
+        if (e.currentTarget.getAttribute('aria-label') === 'section') {
             if (this.getState('isChildCalled') !== false) {
                 this.dispatchStore({ isChildCalled: false });
             } else {
                 this.dispatchStore({
-                    raised: `raised${index}`,
-                    controlRaised: '',
+                    raised: index,
                     isChildCalled: false,
                     propertyWindow: control
                 });
             }
         } else {
-            this.dispatchStore({
-                controlRaised: `controlRaised${index}`,
-                raised: '',
-                isChildCalled: true,
-                propertyWindow: control
-            });
+            if (this.getState('isChildCalled') !== true) {
+                this.dispatchStore({
+                    raised: index,
+                    isChildCalled: true,
+                    propertyWindow: control
+                });
+            }
         }
     }
 
@@ -188,12 +211,30 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
         return root;
     }
 
+    setUuid(formdata: any) {
+        formdata.id = uuid();
+        if (!formdata.name) {
+            formdata.name = uuid();
+        }
+        var items: any = [];
+        for (let index = 0; index < this.DataHeader.length; index++) {
+            items = formdata[this.DataHeader[index]];
+            if (items) {
+                for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
+                    this.setUuid(items[itemIndex]);
+                }
+            }
+        }
+
+    }
+
     setInitializeValues(formdata: DataProps, props: {} = {}) {
         var data = { formdata: formdata };
         var baseId = uuid();
         var exceptionalStepsId = [uuid(), uuid()];
 
-        if (data.formdata.steps) {
+        if (data.formdata.steps && !data.formdata.id) {
+            this.setUuid(data.formdata);
             data.formdata.steps.push(
                 {
                     id: exceptionalStepsId[0],

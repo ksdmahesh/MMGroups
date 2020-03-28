@@ -1,66 +1,75 @@
-import uuid from 'uuid';
 import { DataProps } from '../view/dynamic/renderViewConstants';
 
 export const formdata: DataProps = {
+    'id': '',
+    'label': 'Language Learner',
+    'name': '',
     'steps': [
         {
-            'name': 'Name Information',
+            'name': '',
             'label': 'Name Information',
-            'id': uuid(),
+            'id': '',
             'sections': [
                 {
-                    'name': 'RESERVED NAME',
+                    'name': '',
                     'label': 'RESERVED NAME',
-                    'id': uuid(),
-                    'rows': [
+                    'id': '',
+                    'cells': [
                         {
-                            'name': 'RESERVED NAME',
+                            'name': '',
                             'label': 'RESERVED NAME',
-                            'id': uuid(),
-                            'columns': [
+                            'id': '',
+                            'rows': [
                                 {
-                                    'name': 'RESERVED NAME',
+                                    'name': '',
                                     'label': 'RESERVED NAME',
-                                    'id': uuid(),
-                                    'controls': [
+                                    'id': '',
+                                    'columns': [
                                         {
-                                            'name': uuid(),
-                                            'id': 'PrincipalTitle1',
-                                            'type': 'checkbox',
-                                            'label': 'Test'
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            'name': 'RESERVED NAME',
-                            'label': 'RESERVED NAME',
-                            'id': uuid(),
-                            'columns': [
-                                {
-                                    'name': 'RESERVED NAME',
-                                    'label': 'RESERVED NAME',
-                                    'id': uuid(),
-                                    'controls': [
-                                        {
-                                            'name': uuid(),
-                                            'id': 'PrincipalTitle1',
-                                            'type': 'checkbox',
-                                            'label': 'Test'
+                                            'name': 'RESERVED NAME',
+                                            'label': 'RESERVED NAME',
+                                            'id': '',
+                                            'controls': [
+                                                {
+                                                    'name': '',
+                                                    'id': 'PrincipalTitle1',
+                                                    'type': 'checkbox',
+                                                    'label': 'Test'
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
                                 {
-                                    'name': 'RESERVED NAME',
+                                    'name': '',
                                     'label': 'RESERVED NAME',
-                                    'id': uuid(),
-                                    'controls': [
+                                    'id': '',
+                                    'columns': [
                                         {
-                                            'name': uuid(),
-                                            'id': 'PrincipalTitle1',
-                                            'type': 'checkbox',
-                                            'label': 'Test'
+                                            'name': '',
+                                            'label': 'RESERVED NAME',
+                                            'id': '',
+                                            'controls': [
+                                                {
+                                                    'name': '',
+                                                    'id': '',
+                                                    'type': 'checkbox',
+                                                    'label': 'Test'
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            'name': '',
+                                            'label': 'RESERVED NAME',
+                                            'id': '',
+                                            'controls': [
+                                                {
+                                                    'name': '',
+                                                    'id': '',
+                                                    'type': 'checkbox',
+                                                    'label': 'Test'
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -71,56 +80,36 @@ export const formdata: DataProps = {
                 {
                     'name': 'RESERVED',
                     'label': 'RESERVED',
-                    'id': uuid(),
-                    'rows': [
+                    'id': '',
+                    'cells': [
                         {
-                            'name': 'RESERVED',
+                            'name': '',
                             'label': 'RESERVED',
-                            'id': uuid(),
-                            'columns': [
+                            'id': '',
+                            'rows': [
                                 {
-                                    'name': 'RESERVED',
+                                    'name': '',
                                     'label': 'RESERVED',
-                                    'id': uuid(),
-                                    'controls': [
+                                    'id': '',
+                                    'columns': [
                                         {
-                                            'name': uuid(),
-                                            'id': 'PrincipalTitle10',
-                                            'type': 'textbox',
-                                            'label': 'Principal Title 1'
-                                        },
-                                        {
-                                            'name': uuid(),
-                                            'id': 'PrincipalTitle102',
-                                            'type': 'textbox',
-                                            'label': 'Principal Title 2'
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    'label': 'NAME',
-                    'name': 'NAME',
-                    'id': uuid(),
-                    'rows': [
-                        {
-                            'name': 'RESERVED NAME',
-                            'label': 'RESERVED NAME',
-                            'id': uuid(),
-                            'columns': [
-                                {
-                                    'name': 'RESERVED NAME',
-                                    'label': 'RESERVED NAME',
-                                    'id': uuid(),
-                                    'controls': [
-                                        {
-                                            'name': uuid(),
-                                            'id': 'PrincipalTitle2',
-                                            'type': 'textbox',
-                                            'label': 'Principal Title'
+                                            'name': '',
+                                            'label': 'RESERVED',
+                                            'id': '',
+                                            'controls': [
+                                                {
+                                                    'name': '',
+                                                    'id': 'PrincipalTitle10',
+                                                    'type': 'textbox',
+                                                    'label': 'Principal Title 1'
+                                                },
+                                                {
+                                                    'name': '',
+                                                    'id': 'PrincipalTitle102',
+                                                    'type': 'textbox',
+                                                    'label': 'Principal Title 2'
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -131,30 +120,37 @@ export const formdata: DataProps = {
             ]
         },
         {
-            'name': 'Signature',
+            'name': '',
             'label': 'Signature',
-            'id': uuid(),
+            'id': '',
             'sections': [
                 {
-                    'name': 'SIGNATURE',
+                    'name': '',
                     'label': 'SIGNATURE',
-                    'id': uuid(),
-                    'rows': [
+                    'id': '',
+                    'cells': [
                         {
-                            'name': 'RESERVED NAME',
-                            'label': 'RESERVED NAME',
-                            'id': uuid(),
-                            'columns': [
+                            'name': '',
+                            'label': 'SIGNATURE',
+                            'id': '',
+                            'rows': [
                                 {
-                                    'name': 'RESERVED NAME',
+                                    'name': '',
                                     'label': 'RESERVED NAME',
-                                    'id': uuid(),
-                                    'controls': [
+                                    'id': '',
+                                    'columns': [
                                         {
-                                            'name': uuid(),
-                                            'id': 'PrincipalTitle3',
-                                            'type': 'textbox',
-                                            'label': 'Principal Title'
+                                            'name': '',
+                                            'label': 'RESERVED NAME',
+                                            'id': '',
+                                            'controls': [
+                                                {
+                                                    'name': '',
+                                                    'id': 'PrincipalTitle3',
+                                                    'type': 'textbox',
+                                                    'label': 'Principal Title'
+                                                }
+                                            ]
                                         }
                                     ]
                                 }

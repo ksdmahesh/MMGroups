@@ -17,7 +17,7 @@ export default class Steps extends BaseComponent<StepProps> {
                             currentStep === index
                                 ?
                                 <Sections
-                                    key={`${step.name}-${index}`}
+                                    key={`${step.id}-${index}`}
                                     sections={step.sections}
                                     isDropDisabled={this.props.isDropDisabled || false}
                                     index={index}

@@ -13,12 +13,10 @@ export default class CheckBox extends BaseComponent<CheckBoxProps> {
                 <FormControlLabel
                     control={
                         <Checkbox
-                            name={this.props.name}
                             {...this.setAttributes(this.props, undefined, true)}
                             value={this.props.value}
                             color={this.props.color}
                             disabled={this.props.disabled}
-                            id={this.props.id}
                             size={this.props.size}
                         />
                     }
