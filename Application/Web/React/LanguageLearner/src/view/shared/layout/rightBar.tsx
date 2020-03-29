@@ -40,12 +40,19 @@ export default class RightBar extends BaseComponent {
             const element = this.DataHeader[index];
             const currentElementIndex: number = result[this.DataIndex[index]];
             const nextElementIndex: number = result[this.DataIndex[index + 1]];
+            if (index === this.DataHeader.length - 1) {
+                obj[element][currentElementIndex] = {
+                    ...obj[element][currentElementIndex],
+                    ...result.control
+                };
+            }
             if (currentElementIndex === -1) {
                 currentStep = obj[element].length - 1;
                 raised = '';
                 isChildCalled = false;
                 obj[element].splice(currentStep, 0, { ...{ [this.DataHeader[index + 1]]: [] }, ...result.control });
                 stepIndex = currentStep;
+                raised = this.DataHeader[index] + result.control.id + (stepIndex);
                 break;
             }
             if (nextElementIndex === -1) {
@@ -53,6 +60,7 @@ export default class RightBar extends BaseComponent {
                 obj[currentElementIndex][this.DataHeader[index + 1]].push({ ...{ [this.DataHeader[index + 2]]: [] }, ...result.control });
 
                 result[this.DataIndex[index + 1]] = result[this.DataIndex[index + 1]] + 1;
+                result[this.DataIndex[index + 2]] = -2;
                 raised = this.DataHeader[index + 1] + result.control.id + result[this.DataIndex[index + 1]];
                 break;
             } else if (nextElementIndex === -2) {
@@ -61,6 +69,7 @@ export default class RightBar extends BaseComponent {
                     ...obj[element][currentElementIndex],
                     ...result.control
                 };
+                raised = this.DataHeader[index] + result.control.id + result[this.DataIndex[index]];
                 break;
             } else if (nextElementIndex >= 0) {
                 obj = obj[element][currentElementIndex];

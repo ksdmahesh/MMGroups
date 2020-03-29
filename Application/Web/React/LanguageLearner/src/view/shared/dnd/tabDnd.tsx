@@ -79,7 +79,7 @@ export default class TabDnd extends BaseComponent<TabProps> {
 
         const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
             var item = this.props.tabHeaders[newValue];
-            var itemId = `tabs${item.id + newValue}`;
+            var itemId = `steps${item.id + newValue}`;
             if (newValue === this.props.tabHeaders.length - 1) {
                 this.dispatchStore({
                     rightSideBar: true,
@@ -139,7 +139,7 @@ export default class TabDnd extends BaseComponent<TabProps> {
                             >
                                 {
                                     this.props.tabHeaders.map((item, index) => {
-                                        var raised = currentState.raised === `tabs${item.id + index}`;
+                                        var raised = currentState.raised === `steps${item.id + index}`;
                                         return (
                                             <Draggable
                                                 isDragDisabled={this.props.tabHeaders.length - 1 === index}

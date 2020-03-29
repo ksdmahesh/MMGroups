@@ -8,29 +8,9 @@ import uuid from 'uuid';
 import { Grid, Chip } from '@material-ui/core';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { DroppedItem } from '../shared/dnd/dndConstants';
+import ExpansionPanels from '../shared/materialUI/expansionPanel';
 
 export default class Sections extends BaseComponent<SectionsProps> {
-    handleClick = (currentStep: number, sectionIndex: number) => {
-        this.dispatchStore({
-            rightSideBar: true,
-            propertyWindow: {
-                control: this.getPropertyWindowControl({
-                    name: 'New Cell',
-                    type: 'section',
-                    label: 'Add Cell',
-                    id: uuid()
-                }),
-                stepIndex: currentStep,
-                sectionIndex: sectionIndex,
-                cellIndex: -1,
-                rowIndex: -1,
-                columnIndex: -1,
-                controlIndex: -1
-            },
-            isChildCalled: true,
-            raised: ''
-        });
-    }
 
     onLoad = () => {
         var currentState = this.getState();
@@ -79,7 +59,10 @@ export default class Sections extends BaseComponent<SectionsProps> {
                                 {...item(section)}
                                 key={section.id + index}
                                 content={(dragProvider, dropProvider) => (
-                                    <>
+                                    <ExpansionPanels
+                                        dragHandleProps={dragProvider.dragHandleProps}
+                                        panelHeader={section.label}
+                                    >
                                         {
                                             itemProp.length === 0
                                                 ?
@@ -90,11 +73,11 @@ export default class Sections extends BaseComponent<SectionsProps> {
                                                             <Chip
                                                                 label="Add Cell"
                                                                 style={{ width: '50%' }}
-                                                                onClick={() => 
+                                                                onClick={() =>
                                                                     this.chipClick(
                                                                         'Cell',
                                                                         'section',
-                                                                        { ...itemProp }
+                                                                        { ...itemProp, ...{ cellIndex: -1 } }
                                                                     )}
                                                             />
                                                         </Grid>
@@ -108,7 +91,7 @@ export default class Sections extends BaseComponent<SectionsProps> {
                                                 />
                                         }
                                         {dropProvider.placeholder}
-                                    </>
+                                    </ExpansionPanels>
                                 )}
                             />);
                     })

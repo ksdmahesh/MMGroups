@@ -71,7 +71,7 @@ export default class Cells extends BaseComponent<CellsProps> {
                                                                 this.chipClick(
                                                                     'Row',
                                                                     'section',
-                                                                    { ...itemProp }
+                                                                    { ...itemProp, ...{ rowIndex: -1 } }
                                                                 )}
                                                         />
                                                     </Grid>

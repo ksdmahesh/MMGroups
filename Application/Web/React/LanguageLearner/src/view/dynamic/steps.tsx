@@ -40,6 +40,7 @@ export default class Steps extends BaseComponent<StepProps> {
                 }),
                 stepIndex: currentStep,
                 sectionIndex: -1,
+                cellIndex: -1,
                 rowIndex: -1,
                 columnIndex: -1,
                 controlIndex: -1

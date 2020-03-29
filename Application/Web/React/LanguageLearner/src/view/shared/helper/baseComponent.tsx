@@ -335,7 +335,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
                                                 }),
                                                 stepIndex: props.stepIndex,
                                                 sectionIndex: props.sectionIndex,
-                                                cellIndex: props.index,
+                                                cellIndex: props.cellIndex,
                                                 rowIndex: props.rowIndex,
                                                 columnIndex: props.columnIndex,
                                                 controlIndex: props.controlIndex
