@@ -64,7 +64,7 @@ export default class Steps extends BaseComponent<StepProps> {
                                 index={index}
                             >
                                 <Droppable
-                                    droppableId={`steps${step.id}`}
+                                    droppableId={`sections${step.id}`}
                                     isDropDisabled={!this.props.isDropDisabled}
                                 >
                                     {(provided, snapshot) => (

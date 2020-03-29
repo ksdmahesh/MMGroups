@@ -309,7 +309,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             <Draggable
                 disableInteractiveElementBlocking={true}
                 key={item.id}
-                draggableId={item.id}
+                draggableId={item.aria + item.id}
                 index={props.index}
             >
                 {

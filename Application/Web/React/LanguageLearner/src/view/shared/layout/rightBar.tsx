@@ -45,6 +45,7 @@ export default class RightBar extends BaseComponent {
                     ...obj[element][currentElementIndex],
                     ...result.control
                 };
+                raised = this.DataHeader[index] + result.control.id + result[this.DataIndex[index]];
             }
             if (currentElementIndex === -1) {
                 currentStep = obj[element].length - 1;
