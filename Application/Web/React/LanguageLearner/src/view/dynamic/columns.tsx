@@ -1,11 +1,7 @@
 import * as React from 'react';
 import BaseComponent from '../shared/helper/baseComponent';
-import { Grid, Card, CardContent } from '@material-ui/core';
-import { ColumnsProps, DataProps, ColumnProps } from './renderViewConstants';
-import { IconButton, Badge } from '@material-ui/core';
-import uuid from 'uuid';
-import { Notice, Container, DroppedItem } from '../shared/dnd/dndConstants';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { Grid } from '@material-ui/core';
+import { ColumnsProps, ColumnProps } from './renderViewConstants';
 import Controls from './controls';
 
 export default class Columns extends BaseComponent<ColumnsProps> {
@@ -70,7 +66,6 @@ export default class Columns extends BaseComponent<ColumnsProps> {
     }
 
     render() {
-        var gridWidth = this.getColumnCount(this.props.columns.length);
 
         const { props, item } = this.onLoad();
 

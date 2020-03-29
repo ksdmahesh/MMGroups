@@ -1,4 +1,4 @@
-import { DraggableProvided, DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
+import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 
 export type HtmlProps = {
     name: string,

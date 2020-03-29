@@ -1,12 +1,10 @@
 import * as React from 'react';
 import BaseComponent from '../shared/helper/baseComponent';
-import { Grid, Card, CardContent } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { RowsProps, DataProps, RowProps } from './renderViewConstants';
 import Columns from './columns';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
 import uuid from 'uuid';
 import { IconButton, Badge } from '@material-ui/core';
-import { DroppedItem } from '../shared/dnd/dndConstants';
 // import uuid from 'uuid';
 // import { Notice } from '../shared/dnd/dndConstants';
 

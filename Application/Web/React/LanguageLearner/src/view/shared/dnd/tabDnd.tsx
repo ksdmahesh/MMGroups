@@ -3,8 +3,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import BaseComponent from '../helper/baseComponent';
 import { DragDropContext, Droppable, Draggable, DropResult, ResponderProvided, DraggingStyle, NotDraggingStyle } from 'react-beautiful-dnd';
-import { Chip, Grid } from '@material-ui/core';
-import uuid from 'uuid';
 import { TabProps, StepsProps } from '../../dynamic/renderViewConstants';
 
 const reorder = (list: StepsProps, startIndex: number, endIndex: number) => {
@@ -75,7 +73,6 @@ export default class TabDnd extends BaseComponent<TabProps> {
     render() {
         var currentState = this.getState();
         currentStep = currentState.currentStep;
-        var stepIndex = -1;
 
         const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
             var item = this.props.tabHeaders[newValue];

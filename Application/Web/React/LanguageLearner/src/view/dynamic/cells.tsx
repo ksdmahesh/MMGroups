@@ -1,12 +1,9 @@
 import * as React from 'react';
 import BaseComponent from '../shared/helper/baseComponent';
-import { Grid, Card, CardContent, Chip } from '@material-ui/core';
+import { Grid, Chip } from '@material-ui/core';
 import { CellsProps, CellProps } from './renderViewConstants';
 import Rows from './rows';
 // import { Notice } from '../shared/dnd/dndConstants';
-import uuid from 'uuid';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { DroppedItem } from '../shared/dnd/dndConstants';
 
 export default class Cells extends BaseComponent<CellsProps> {
 

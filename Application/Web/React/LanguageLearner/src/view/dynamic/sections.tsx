@@ -1,13 +1,9 @@
 import * as React from 'react';
 import BaseComponent from '../shared/helper/baseComponent';
-import PanelDnd from '../shared/dnd/panelDnd';
 import { SectionsProps, SectionProps } from './renderViewConstants';
 // import { Notice } from '../shared/dnd/dndConstants';
 import Cells from './cells';
-import uuid from 'uuid';
 import { Grid, Chip } from '@material-ui/core';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { DroppedItem } from '../shared/dnd/dndConstants';
 import ExpansionPanels from '../shared/materialUI/expansionPanel';
 
 export default class Sections extends BaseComponent<SectionsProps> {

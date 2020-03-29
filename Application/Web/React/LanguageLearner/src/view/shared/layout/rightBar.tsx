@@ -7,7 +7,7 @@ import BaseComponent from '../helper/baseComponent';
 import { IconButton, Typography } from '@material-ui/core';
 import RenderRightBarItems from './renderRightBarItems';
 import CheckIcon from '@material-ui/icons/Check';
-import { PropertyWindowProps } from '../../dynamic/renderViewConstants';
+// import { PropertyWindowProps } from '../../dynamic/renderViewConstants';
 import uuid from 'uuid';
 import { HelperClass } from '../helper/typeCheck';
 import { Notice } from '../dnd/dndConstants';
