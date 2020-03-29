@@ -11,7 +11,7 @@ export default class Cells extends BaseComponent<CellsProps> {
         var currentState = this.getState();
         var currentStep = currentState.currentStep || 0;
         var sectionIndex = this.props.sectionIndex || 0;
-        const props = (index: number, isDropDisabled: boolean, cell: CellProps[0]) => (
+        const props = (index: number, cell: CellProps[0]) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
@@ -21,8 +21,9 @@ export default class Cells extends BaseComponent<CellsProps> {
                 controlIndex: -1,
                 index: index,
                 itemRaised: currentState.raised,
-                isDropDisabled: isDropDisabled,
-                length: cell?.rows?.length || 0
+                isDropDisabled: currentState.dropId !== 'cells',
+                length: cell?.rows?.length || 0,
+                isVertical: true
             }
         )
 
@@ -46,7 +47,7 @@ export default class Cells extends BaseComponent<CellsProps> {
         return (
             <Grid container={true} style={{ width: '100%' }}>
                 {this.props.section.cells.map((cell, index) => {
-                    var itemProp = props(index, false, cell);
+                    var itemProp = props(index, cell);
                     return (
                         <this.GetDragDropItems
                             {...itemProp}

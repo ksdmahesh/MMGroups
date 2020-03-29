@@ -90,7 +90,7 @@ export default class Rows extends BaseComponent<RowsProps> {
         var currentStep = currentState.currentStep || 0;
         var sectionIndex = this.props.sectionIndex || 0;
         var cellIndex = this.props.cellIndex || 0;
-        const props = (index: number, isDropDisabled: boolean, row: RowProps[0]) => (
+        const props = (index: number, row: RowProps[0]) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
@@ -100,8 +100,9 @@ export default class Rows extends BaseComponent<RowsProps> {
                 controlIndex: -1,
                 index: index,
                 itemRaised: currentState.raised,
-                isDropDisabled: isDropDisabled,
-                length: row?.columns?.length || 0
+                isDropDisabled: currentState.dropId !== 'rows',
+                length: row?.columns?.length || 0,
+                isVertical: false
             }
         )
 
@@ -126,7 +127,7 @@ export default class Rows extends BaseComponent<RowsProps> {
             <>
                 <Grid container={true} >
                     {this.props.cell.rows.map((row, index) => {
-                        var itemProp = props(index, false, row);
+                        var itemProp = props(index, row);
                         return (
                             <this.GetDragDropItems
                                 {...itemProp}

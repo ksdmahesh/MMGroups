@@ -300,6 +300,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             columnIndex: number,
             controlIndex: number,
             isDropDisabled: boolean,
+            isVertical: boolean,
             content: (dragProvider: DraggableProvided, dropProvider: DroppableProvided) => JSX.Element
         }
     ) => {
@@ -360,6 +361,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
                                             <Droppable
                                                 droppableId={`${item.aria + item.id}`}
                                                 isDropDisabled={props.isDropDisabled}
+                                                direction={props.isVertical ? 'vertical' : 'horizontal'}
                                             >
                                                 {(dropProvided, snapshot) => (
                                                     <div
@@ -392,20 +394,20 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             columnIndex: number,
             controlIndex: number
         }) => {
-            this.dispatchStore({
-                rightSideBar: true,
-                propertyWindow: {
-                    control: this.getPropertyWindowControl({
-                        name: `New ${name}`,
-                        type: type,
-                        label: `New ${name}`,
-                        id: uuid()
-                    }),
-                    ...props
-                },
-                isChildCalled: true,
-                raised: ''
-            })
-        }
+        this.dispatchStore({
+            rightSideBar: true,
+            propertyWindow: {
+                control: this.getPropertyWindowControl({
+                    name: `New ${name}`,
+                    type: type,
+                    label: `New ${name}`,
+                    id: uuid()
+                }),
+                ...props
+            },
+            isChildCalled: true,
+            raised: ''
+        })
+    }
 
 }

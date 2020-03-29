@@ -35,7 +35,7 @@ export default class Columns extends BaseComponent<ColumnsProps> {
         var cellIndex = this.props.cellIndex || 0;
         var rowIndex = this.props.rowIndex || 0;
 
-        const props = (index: number, isDropDisabled: boolean, column: ColumnProps[0]) => (
+        const props = (index: number, column: ColumnProps[0]) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
@@ -45,8 +45,9 @@ export default class Columns extends BaseComponent<ColumnsProps> {
                 controlIndex: -2,
                 index: index,
                 itemRaised: currentState.raised,
-                isDropDisabled: isDropDisabled,
-                length: column?.controls?.length || 0
+                isDropDisabled: currentState.dropId !== 'columns',
+                length: column?.controls?.length || 0,
+                isVertical: true
             }
         )
 
@@ -75,7 +76,7 @@ export default class Columns extends BaseComponent<ColumnsProps> {
             <Grid container={true} >
                 {
                     this.props.columns.map((column, index) => {
-                        var itemProp = props(index, false, column);
+                        var itemProp = props(index, column);
                         return (
                             <Grid
                                 item={true} xs={12} key={`${column.id}-${index}`} md={gridWidth} sm={gridWidth}

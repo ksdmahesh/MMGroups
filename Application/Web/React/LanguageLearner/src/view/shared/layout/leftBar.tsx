@@ -353,19 +353,16 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     }
 
     onDragStart = (result: DropResult) => {
-        // const { source } = result;
-
-        // switch (source.droppableId) {
-        //     case 'panelHeaders':
-        //         this.dispatchStore({
-        //             isDropDisabled: true,
-        //             isChildCalled: true,
-        //         });
-        //         break;
-        //     default:
-        //         this.dispatchStore({ isDropDisabled: false, isChildCalled: true, });
-        //         break;
-        // }
+        const { source } = result;
+        var currentSourceId = source.droppableId;
+        var currentActiveHeader = this.DataHeader.find(header => (
+            currentSourceId.startsWith(header)
+        ));
+        console.log(currentActiveHeader)
+        this.dispatchStore({
+            dropId: currentActiveHeader,
+            isChildCalled: true,
+        });
     }
 
     render() {

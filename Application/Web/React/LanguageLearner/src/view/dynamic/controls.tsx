@@ -13,7 +13,7 @@ export default class Controls extends BaseComponent<ControlProps> {
         var cellIndex = this.props.cellIndex || 0;
         var rowIndex = this.props.rowIndex || 0;
         var columnIndex = this.props.columnIndex || 0;
-        const props = (index: number, isDropDisabled: boolean) => (
+        const props = (index: number) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
@@ -23,7 +23,8 @@ export default class Controls extends BaseComponent<ControlProps> {
                 controlIndex: index,
                 index: index,
                 itemRaised: currentState.raised,
-                isDropDisabled: isDropDisabled
+                isDropDisabled: currentState.dropId !== 'controls',
+                isVertical: true
             }
         )
 
@@ -58,7 +59,7 @@ export default class Controls extends BaseComponent<ControlProps> {
             <>
                 {
                     controls.map((control, index) => {
-                        var itemProp = props(index, false);
+                        var itemProp = props(index);
                         return (
                             <this.GetDragDropItems
                                 {...itemProp}

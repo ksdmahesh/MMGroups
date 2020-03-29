@@ -11,7 +11,7 @@ export default class Sections extends BaseComponent<SectionsProps> {
     onLoad = () => {
         var currentState = this.getState();
         var currentStep = currentState.currentStep || 0;
-        const props = (index: number, isDropDisabled: boolean, section: SectionProps[0]) => (
+        const props = (index: number, section: SectionProps[0]) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: index,
@@ -21,8 +21,9 @@ export default class Sections extends BaseComponent<SectionsProps> {
                 controlIndex: -1,
                 index: index,
                 itemRaised: currentState.raised,
-                isDropDisabled: isDropDisabled,
-                length: section?.cells?.length || 0
+                isDropDisabled: currentState.dropId !== 'sections',
+                length: section?.cells?.length || 0,
+                isVertical: true
             }
         )
 
@@ -48,7 +49,7 @@ export default class Sections extends BaseComponent<SectionsProps> {
             <>
                 {
                     sections.map((section, index) => {
-                        var itemProp = props(index, false, section);
+                        var itemProp = props(index, section);
                         return (
                             <this.GetDragDropItems
                                 {...itemProp}
