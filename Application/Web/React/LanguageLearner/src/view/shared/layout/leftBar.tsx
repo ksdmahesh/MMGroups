@@ -161,22 +161,22 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     }
 
     onDragEnd = (result: DropResult) => {
-        const { source, destination } = result;
+        // const { source, destination } = result;
 
         // dropped outside the list
-        if (!destination) {
-            return;
-        }
+        // if (!destination) {
+        //     return;
+        // }
         console.log(result);
-        var formdata: DataProps;
-        var currentStep: number;
-        var sectionIndex: number;
-        var cellIndex: number;
-        var rowIndex: number;
-        var columnIndex: number;
-        var droppedControlData;
-        var control;
-        var controlsDetails;
+        // var formdata: DataProps;
+        // var currentStep: number;
+        // var sectionIndex: number;
+        // var cellIndex: number;
+        // var rowIndex: number;
+        // var columnIndex: number;
+        // var droppedControlData;
+        // var control;
+        // var controlsDetails;
         // switch (source.droppableId) {
         //     case 'panelHeaders': {
         //         formdata = this.getState('formdata');
@@ -353,7 +353,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     }
 
     onDragStart = (result: DropResult) => {
-        const { source } = result;
+        // const { source } = result;
 
         // switch (source.droppableId) {
         //     case 'panelHeaders':

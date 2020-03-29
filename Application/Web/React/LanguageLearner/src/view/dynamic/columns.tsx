@@ -67,6 +67,8 @@ export default class Columns extends BaseComponent<ColumnsProps> {
 
     render() {
 
+        const gridWidth = this.getColumnCount(this.props.columns.length);
+
         const { props, item } = this.onLoad();
 
         return (
@@ -75,27 +77,32 @@ export default class Columns extends BaseComponent<ColumnsProps> {
                     this.props.columns.map((column, index) => {
                         var itemProp = props(index, false, column);
                         return (
-                            <this.GetDragDropItems
-                                {...itemProp}
-                                {...item(column)}
-                                key={column.id + index}
-                                content={(dragProvider, dropProvider) => (
-                                    <>
-                                        {
-                                            itemProp.length === 0
-                                                ?
-                                                this.getPlaceholder(dropProvider, 'No Controls')
-                                                :
-                                                <Controls
-                                                    {...itemProp}
-                                                    controls={column.controls}
-                                                    columnId={column.id}
-                                                />
-                                        }
-                                        {dropProvider.placeholder}
-                                    </>
-                                )}
-                            />);
+                            <Grid
+                                item={true} xs={12} key={`${column.id}-${index}`} md={gridWidth} sm={gridWidth}
+                            >
+                                <this.GetDragDropItems
+                                    {...itemProp}
+                                    {...item(column)}
+                                    key={column.id + index}
+                                    content={(dragProvider, dropProvider) => (
+                                        <>
+                                            {
+                                                itemProp.length === 0
+                                                    ?
+                                                    this.getPlaceholder(dropProvider, 'No Controls')
+                                                    :
+                                                    <Controls
+                                                        {...itemProp}
+                                                        controls={column.controls}
+                                                        columnId={column.id}
+                                                    />
+                                            }
+                                            {dropProvider.placeholder}
+                                        </>
+                                    )}
+                                />
+                            </Grid>
+                        );
                     })}
             </Grid>
         );
