@@ -3,6 +3,9 @@ import { Dispatch, store } from '../../../constants/defaultConstants';
 import { PropertyWindowProps, DataProps, AllControlProps } from '../../dynamic/renderViewConstants';
 import TypeCheck, { HelperClass } from './typeCheck';
 import uuid from 'uuid';
+import { DroppableProvided, Draggable, Droppable, DraggableProvided } from 'react-beautiful-dnd';
+import { Notice, DroppedItem } from '../dnd/dndConstants';
+import { Grid, Card, CardContent } from '@material-ui/core';
 
 var dispatch: Dispatch;
 
@@ -26,6 +29,16 @@ const AllDataIndex = [
 
 // tslint:disable-next-line: no-any
 export default class BaseComponent<T = any, U = any> extends React.Component<T, U> {
+
+    getPlaceholder(provided: DroppableProvided, value: string) {
+        return (
+            !provided.placeholder && (
+                <Notice style={{ userSelect: 'none' }} >
+                    {value}
+                </Notice>
+            )
+        );
+    }
 
     // tslint:disable-next-line: no-any
     clone(data: any) {
@@ -268,5 +281,131 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
     getPropertyWindowControl(control: AllControlProps) {
         return control;
     }
+
+    GetDragDropItems = (
+        props: {
+            item: {
+                id: string,
+                name: string,
+                label: string,
+                type: string,
+                aria: string
+            },
+            index: number,
+            itemRaised: string,
+            stepIndex: number,
+            sectionIndex: number,
+            cellIndex: number,
+            rowIndex: number,
+            columnIndex: number,
+            controlIndex: number,
+            isDropDisabled: boolean,
+            content: (dragProvider: DraggableProvided, dropProvider: DroppableProvided) => JSX.Element
+        }
+    ) => {
+        var item = props.item;
+        var raised = props.itemRaised === `${item.aria + item.id + props.index}`;
+        return (
+            <Draggable
+                disableInteractiveElementBlocking={true}
+                key={item.id}
+                draggableId={item.id}
+                index={props.index}
+            >
+                {
+                    (provided, snapshot) => (
+                        <DroppedItem
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            style={provided.draggableProps.style}
+                        >
+                            <Grid {...provided.dragHandleProps} container={true} direction="row">
+                                <Grid item={true} xs={12} md={12}>
+                                    <Card
+                                        {...{ 'aria-label': item.aria }}
+                                        onClick={(e) => this.cardRaised(
+                                            e,
+                                            item.aria + item.id + props.index,
+                                            {
+                                                control: this.getPropertyWindowControl({
+                                                    name: item.name,
+                                                    type: item.type,
+                                                    label: item.label,
+                                                    id: item.id
+                                                }),
+                                                stepIndex: props.stepIndex,
+                                                sectionIndex: props.sectionIndex,
+                                                cellIndex: props.index,
+                                                rowIndex: props.rowIndex,
+                                                columnIndex: props.columnIndex,
+                                                controlIndex: props.controlIndex
+                                            }
+                                        )}
+                                        raised={raised}
+                                        color={'primary'}
+                                        style={
+                                            raised
+                                                ?
+                                                { width: '100%' }
+                                                :
+                                                {
+                                                    backgroundColor: 'transparent',
+                                                    width: '100%',
+                                                    boxShadow: 'none'
+                                                }
+                                        }
+                                        key={item.id + props.index}
+                                    >
+                                        <CardContent style={{ padding: 10 }}>
+                                            <Droppable
+                                                droppableId={`${item.aria + item.id}`}
+                                                isDropDisabled={props.isDropDisabled}
+                                            >
+                                                {(dropProvided, snapshot) => (
+                                                    <div
+                                                        ref={dropProvided.innerRef}
+                                                        {...dropProvided.droppableProps}
+                                                    >
+                                                        {props.content(provided, dropProvided)}
+                                                    </div>
+                                                )}
+                                            </Droppable>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            </Grid>
+                        </DroppedItem>
+                    )
+                }
+            </Draggable>
+        );
+    }
+
+    chipClick = (
+        name: string,
+        type: string,
+        props: {
+            stepIndex: number,
+            sectionIndex: number,
+            cellIndex: number,
+            rowIndex: number,
+            columnIndex: number,
+            controlIndex: number
+        }) => {
+            this.dispatchStore({
+                rightSideBar: true,
+                propertyWindow: {
+                    control: this.getPropertyWindowControl({
+                        name: `New ${name}`,
+                        type: type,
+                        label: `New ${name}`,
+                        id: uuid()
+                    }),
+                    ...props
+                },
+                isChildCalled: true,
+                raised: ''
+            })
+        }
 
 }

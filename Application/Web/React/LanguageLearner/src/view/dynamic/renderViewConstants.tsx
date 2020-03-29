@@ -132,13 +132,12 @@ export interface ColumnsProps {
     sectionIndex: number;
     cellIndex: number;
     rowIndex: number;
-    row: RowProps[0];
+    columns: ColumnProps;
 }
 
 export interface ControlProps {
-    control: AllControlProps;
-    provided: DraggableProvided;
-    index: number;
+    columnId: string;
+    controls: ControlsProps;
     sectionIndex: number;
     cellIndex: number;
     rowIndex: number;

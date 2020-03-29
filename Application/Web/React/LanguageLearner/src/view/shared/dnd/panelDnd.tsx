@@ -13,7 +13,7 @@ export default class PanelDnd extends BaseComponent<PanelProps, PanelState> {
         currentStep = this.getState('currentStep');
         var raised = this.getState(`raised`) === `sections${this.props.section.id + this.props.index}`;
         return (
-            <Draggable draggableId={this.props.section.id} index={this.props.index}>
+            <Draggable draggableId={`sections${this.props.section.id}`} index={this.props.index}>
                 {
                     (provided, snapshot) => (
                         <div

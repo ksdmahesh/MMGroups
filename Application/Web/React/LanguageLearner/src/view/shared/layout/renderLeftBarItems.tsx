@@ -40,8 +40,12 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
         };
     }
 
-    handleChange = (event: string) => {
-        this.dispatchStore({ leftExpander: event });
+    handleChange = (event: string, s: any, d: any) => {
+        if (!d) {
+            this.dispatchStore({ leftExpander: '' });
+        } else {
+            this.dispatchStore({ leftExpander: event });
+        }
     };
 
     render() {
@@ -59,7 +63,7 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                                 square={true}
                                 id={id}
                                 expanded={id === this.getState('leftExpander')}
-                                onChange={(e, y) => this.handleChange(id)}
+                                onChange={(e, y) => this.handleChange(id, e, y)}
                             >
                                 <ExpansionPanelSummary
                                     expandIcon={<ExpandMoreIcon />}

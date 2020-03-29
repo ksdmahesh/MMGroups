@@ -1,10 +1,10 @@
 import * as React from 'react';
 import BaseComponent from '../shared/helper/baseComponent';
 import { AllControlProps, ControlProps } from './renderViewConstants';
-import { DroppedItem } from '../shared/dnd/dndConstants';
+import { DroppedItem, controlItems } from '../shared/dnd/dndConstants';
 import { getControlByName } from '../../constants/constants';
 import { Grid, Card, CardContent } from '@material-ui/core';
-import { DraggableProvided } from 'react-beautiful-dnd';
+import { DraggableProvided, Draggable } from 'react-beautiful-dnd';
 
 var currentStep = 0;
 
@@ -61,22 +61,44 @@ export default class Controls extends BaseComponent<ControlProps> {
     }
 
     render() {
-        var control = this.props.control;
-        var provided = this.props.provided;
-        var index = this.props.index;
+        var controls = this.props.controls || [];
         var sectionIndex = this.props.sectionIndex;
         var cellIndex = this.props.cellIndex;
         var rowIndex = this.props.rowIndex;
         var columnIndex = this.props.columnIndex;
         currentStep = this.getState('currentStep');
+        controlItems.controlItems[this.props.columnId] = {
+            sectionIndex: this.props.sectionIndex,
+            cellIndex: this.props.cellIndex,
+            rowIndex: this.props.rowIndex,
+            columnIndex: this.props.columnIndex,
+            controls: this.props.controls
+        };
         return (
-            <DroppedItem
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                style={provided.draggableProps.style}
-            >
-                {this.getControlByType(control, provided, index, sectionIndex, cellIndex, rowIndex, columnIndex)}
-            </DroppedItem>
+            <>
+                {
+                    controls.map((control, index) => (
+                        <Draggable
+                            disableInteractiveElementBlocking={true}
+                            key={control.id}
+                            draggableId={control.id}
+                            index={index}
+                        >
+                            {
+                                (provided, snapshot) => (
+                                    <DroppedItem
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        style={provided.draggableProps.style}
+                                    >
+                                        {this.getControlByType(control, provided, index, sectionIndex, cellIndex, rowIndex, columnIndex)}
+                                    </DroppedItem>
+                                )
+                            }
+                        </Draggable>
+                    ))
+                }
+            </>
         );
     }
 }

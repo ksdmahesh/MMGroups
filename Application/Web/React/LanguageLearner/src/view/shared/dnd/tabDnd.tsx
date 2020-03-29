@@ -72,27 +72,6 @@ export default class TabDnd extends BaseComponent<TabProps> {
         });
     }
 
-    handleClick = () => {
-        this.dispatchStore({
-            rightSideBar: true,
-            propertyWindow: {
-                control: this.getPropertyWindowControl({
-                    name: 'New Section',
-                    type: 'section',
-                    label: 'Add Section',
-                    id: uuid()
-                }),
-                stepIndex: currentStep,
-                sectionIndex: -1,
-                rowIndex: -1,
-                columnIndex: -1,
-                controlIndex: -1
-            },
-            isChildCalled: false,
-            raised: ''
-        });
-    }
-
     render() {
         var currentState = this.getState();
         currentStep = currentState.currentStep;
@@ -205,13 +184,6 @@ export default class TabDnd extends BaseComponent<TabProps> {
                     </Droppable>
                 </DragDropContext>
                 {this.props.children}
-                <Grid container={true} direction="row">
-                    <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
-                        <Chip label="Add Section" style={{ width: '50%' }} onClick={this.handleClick} />
-                    </Grid>
-                </Grid>
-                <br />
-                <br />
             </>
         );
     }

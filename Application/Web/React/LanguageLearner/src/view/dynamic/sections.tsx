@@ -1,31 +1,13 @@
 import * as React from 'react';
 import BaseComponent from '../shared/helper/baseComponent';
 import PanelDnd from '../shared/dnd/panelDnd';
-import { TabPanelProps, SectionsProps } from './renderViewConstants';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import { Droppable } from 'react-beautiful-dnd';
+import { SectionsProps, SectionProps } from './renderViewConstants';
 // import { Notice } from '../shared/dnd/dndConstants';
 import Cells from './cells';
 import uuid from 'uuid';
 import { Grid, Chip } from '@material-ui/core';
-
-function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <Typography
-            component="div"
-            role="tabpanel"
-            hidden={value !== index}
-            id={`scrollable-auto-tabpanel-${index}`}
-            aria-labelledby={`scrollable-auto-tab-${index}`}
-            {...other}
-        >
-            {value === index && <Box p={3}>{children}</Box>}
-        </Typography>
-    );
-}
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { DroppedItem } from '../shared/dnd/dndConstants';
 
 export default class Sections extends BaseComponent<SectionsProps> {
     handleClick = (currentStep: number, sectionIndex: number) => {
@@ -49,63 +31,89 @@ export default class Sections extends BaseComponent<SectionsProps> {
             raised: ''
         });
     }
-    render() {
 
+    onLoad = () => {
+        var currentState = this.getState();
+        var currentStep = currentState.currentStep || 0;
+        const props = (index: number, isDropDisabled: boolean, section: SectionProps[0]) => (
+            {
+                stepIndex: currentStep,
+                sectionIndex: index,
+                cellIndex: -2,
+                rowIndex: -1,
+                columnIndex: -1,
+                controlIndex: -1,
+                index: index,
+                itemRaised: currentState.raised,
+                isDropDisabled: isDropDisabled,
+                length: section?.cells?.length || 0
+            }
+        )
+
+        const item = (item: any) => (
+            {
+                item: {
+                    aria: 'sections',
+                    id: item.id,
+                    label: item.label,
+                    name: item.name,
+                    type: 'section'
+                }
+            }
+        )
+
+        return { props, item };
+    }
+
+    render() {
+        const { props, item } = this.onLoad();
+        var sections = this.props.sections || [];
         return (
-            <TabPanel
-                value={this.props.currentStep}
-                index={this.props.index}
-            >
-                <Droppable
-                    droppableId="panelHeaders"
-                    isDropDisabled={!this.props.isDropDisabled}
-                >
-                    {(provided, snapshot) => (
-                        <div
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                        >
-                            {
-                                this.props.sections.map((section, index) => {
-                                    return (
-                                        <PanelDnd
-                                            key={`${section.id}-${index}`}
-                                            isDropDisabled={this.props.isDropDisabled}
-                                            section={section}
-                                            index={index}
-                                        >
-                                            <React.Fragment>
-                                                {section.cells.length === 0
-                                                    ?
+            <>
+                {
+                    sections.map((section, index) => {
+                        var itemProp = props(index, false, section);
+                        return (
+                            <this.GetDragDropItems
+                                {...itemProp}
+                                {...item(section)}
+                                key={section.id + index}
+                                content={(dragProvider, dropProvider) => (
+                                    <>
+                                        {
+                                            itemProp.length === 0
+                                                ?
+                                                <>
+                                                    {this.getPlaceholder(dropProvider, 'No Cells')}
                                                     <Grid container={true} direction="row">
                                                         <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
                                                             <Chip
                                                                 label="Add Cell"
                                                                 style={{ width: '50%' }}
-                                                                onClick={() => this.handleClick(this.getState('currentStep'), index)}
+                                                                onClick={() => 
+                                                                    this.chipClick(
+                                                                        'Cell',
+                                                                        'section',
+                                                                        { ...itemProp }
+                                                                    )}
                                                             />
                                                         </Grid>
                                                     </Grid>
-                                                    // <Notice style={{ userSelect: 'none' }} >
-                                                    //     {'No Cells'}
-                                                    // </Notice>
-                                                    :
-                                                    <Cells
-                                                        sectionIndex={index}
-                                                        section={section}
-                                                        isDropDisabled={this.props.isDropDisabled}
-                                                    />
-                                                }
-                                            </React.Fragment>
-                                        </PanelDnd>
-                                    );
-                                })
-                            }
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
-            </TabPanel>
+                                                </>
+                                                :
+                                                <Cells
+                                                    sectionIndex={index}
+                                                    section={section}
+                                                    isDropDisabled={this.props.isDropDisabled}
+                                                />
+                                        }
+                                        {dropProvider.placeholder}
+                                    </>
+                                )}
+                            />);
+                    })
+                }
+            </>
         );
     }
 }

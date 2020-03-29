@@ -27,6 +27,7 @@ export const DroppedItem = styled.div`
   align-content: flex-start;
   line-height: 1.5;
   border-radius: 3px;
+  width: 100%;
   background: #fff;
   border: 1px ${
   (props: { isDragging?: boolean }) => (props.isDragging ? 'dashed #000' : 'solid #ddd')};

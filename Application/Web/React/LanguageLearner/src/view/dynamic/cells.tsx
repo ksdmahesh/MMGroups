@@ -1,105 +1,96 @@
 import * as React from 'react';
 import BaseComponent from '../shared/helper/baseComponent';
 import { Grid, Card, CardContent, Chip } from '@material-ui/core';
-import { CellsProps } from './renderViewConstants';
+import { CellsProps, CellProps } from './renderViewConstants';
 import Rows from './rows';
 // import { Notice } from '../shared/dnd/dndConstants';
 import uuid from 'uuid';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { DroppedItem } from '../shared/dnd/dndConstants';
 
 export default class Cells extends BaseComponent<CellsProps> {
-    handleClick = (currentStep: number, sectionIndex: number, cellIndex: number) => {
-        this.dispatchStore({
-            rightSideBar: true,
-            propertyWindow: {
-                control: this.getPropertyWindowControl({
-                    name: 'New Row',
-                    type: 'section',
-                    label: 'Add Row',
-                    id: uuid()
-                }),
+
+    onLoad = () => {
+        var currentState = this.getState();
+        var currentStep = currentState.currentStep || 0;
+        var sectionIndex = this.props.sectionIndex || 0;
+        const props = (index: number, isDropDisabled: boolean, cell: CellProps[0]) => (
+            {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
-                cellIndex: cellIndex,
-                rowIndex: -1,
+                cellIndex: index,
+                rowIndex: -2,
                 columnIndex: -1,
-                controlIndex: -1
-            },
-            isChildCalled: true,
-            raised: ''
-        });
+                controlIndex: -1,
+                index: index,
+                itemRaised: currentState.raised,
+                isDropDisabled: isDropDisabled,
+                length: cell?.rows?.length || 0
+            }
+        )
+
+        const item = (item: any) => (
+            {
+                item: {
+                    aria: 'cells',
+                    id: item.id,
+                    label: item.label,
+                    name: item.name,
+                    type: 'cell'
+                }
+            }
+        )
+
+        return { props, item };
     }
+
     render() {
-        var currentState = this.getState();
-        var currentStep = currentState.currentStep;
-        var sectionIndex = this.props.sectionIndex;
+        const { props, item } = this.onLoad();
         return (
-            <Grid container={true} >
+            <Grid container={true} style={{ width: '100%' }}>
                 {this.props.section.cells.map((cell, index) => {
-                    var raised = currentState.raised === `cells${cell.id + index}`;
+                    var itemProp = props(index, false, cell);
                     return (
-                        <Card
-                            {...{ 'aria-label': 'cells' }}
-                            onClick={(e) => this.cardRaised(
-                                e,
-                                'cells' + cell.id + index,
-                                {
-                                    control: this.getPropertyWindowControl({
-                                        name: cell.name,
-                                        type: 'cell',
-                                        label: cell.label,
-                                        id: cell.id
-                                    }),
-                                    stepIndex: currentStep,
-                                    sectionIndex: sectionIndex,
-                                    cellIndex: index,
-                                    rowIndex: -2,
-                                    columnIndex: -1,
-                                    controlIndex: -1
-                                }
-                            )}
-                            raised={raised}
-                            color={'primary'}
-                            style={
-                                raised
-                                    ?
-                                    { width: '100%' }
-                                    :
-                                    {
-                                        backgroundColor: 'transparent',
-                                        width: '100%',
-                                        boxShadow: 'none'
-                                    }
-                            }
+                        <this.GetDragDropItems
+                            {...itemProp}
+                            {...item(cell)}
                             key={cell.id + index}
-                        >
-                            <CardContent style={{ padding: 10 }}>
-                                {
-                                    cell.rows.length === 0
-                                        ?
-                                        <Grid container={true} direction="row">
-                                            <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
-                                                <Chip
-                                                    label="Add Row"
-                                                    style={{ width: '50%' }}
-                                                    onClick={() => this.handleClick(currentStep, sectionIndex, index)}
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                        // <Notice style={{ userSelect: 'none' }} >
-                                        //     {'No Rows'}
-                                        // </Notice>
-                                        :
-                                        <Rows
-                                            cell={cell}
-                                            sectionIndex={this.props.sectionIndex}
-                                            cellIndex={index}
-                                            isDropDisabled={this.props.isDropDisabled}
-                                        />
-                                }
-                            </CardContent>
-                        </Card>
-                    );
-                })}
+                            content={(dragProvider, dropProvider) => (
+                                <>
+                                    {
+                                        itemProp.length === 0
+                                            ?
+                                            <>
+                                                {this.getPlaceholder(dropProvider, 'No Rows')}
+                                                <Grid container={true} direction="row">
+                                                    <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
+                                                        <Chip
+                                                            label="Add Row"
+                                                            style={{ width: '50%' }}
+                                                            onClick={() =>
+                                                                this.chipClick(
+                                                                    'Row',
+                                                                    'section',
+                                                                    { ...itemProp }
+                                                                )}
+                                                        />
+                                                    </Grid>
+                                                </Grid>
+                                            </>
+                                            :
+                                            <Rows
+                                                cell={cell}
+                                                sectionIndex={this.props.sectionIndex}
+                                                cellIndex={index}
+                                                isDropDisabled={this.props.isDropDisabled}
+                                            />
+                                    }
+                                    {dropProvider.placeholder}
+                                </>
+                            )}
+                        />);
+                })
+                }
             </Grid>
         );
     }

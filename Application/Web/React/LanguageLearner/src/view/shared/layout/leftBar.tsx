@@ -28,7 +28,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
         dropId = uuid();
         listId = uuid();
         contentId = uuid();
-        
+
         leftControlItems[baseId] = rawItems;
     }
 
@@ -161,20 +161,22 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     }
 
     onDragEnd = (result: DropResult) => {
-        // const { source, destination } = result;
+        const { source, destination } = result;
 
-        // // dropped outside the list
-        // if (!destination) {
-        //     return;
-        // }
-
-        // var formdata: DataProps;
-        // var currentStep: number;
-        // var sectionIndex: number;
-        // var columnIndex: number;
-        // var droppedControlData;
-        // var control;
-        // var controlsDetails;
+        // dropped outside the list
+        if (!destination) {
+            return;
+        }
+        console.log(result);
+        var formdata: DataProps;
+        var currentStep: number;
+        var sectionIndex: number;
+        var cellIndex: number;
+        var rowIndex: number;
+        var columnIndex: number;
+        var droppedControlData;
+        var control;
+        var controlsDetails;
         // switch (source.droppableId) {
         //     case 'panelHeaders': {
         //         formdata = this.getState('formdata');
@@ -353,17 +355,17 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     onDragStart = (result: DropResult) => {
         const { source } = result;
 
-        switch (source.droppableId) {
-            case 'panelHeaders':
-                this.dispatchStore({
-                    isDropDisabled: true,
-                    isChildCalled: true,
-                });
-                break;
-            default:
-                this.dispatchStore({ isDropDisabled: false, isChildCalled: true, });
-                break;
-        }
+        // switch (source.droppableId) {
+        //     case 'panelHeaders':
+        //         this.dispatchStore({
+        //             isDropDisabled: true,
+        //             isChildCalled: true,
+        //         });
+        //         break;
+        //     default:
+        //         this.dispatchStore({ isDropDisabled: false, isChildCalled: true, });
+        //         break;
+        // }
     }
 
     render() {
