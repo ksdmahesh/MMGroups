@@ -8,6 +8,7 @@ import Header from '../shared/layout/header';
 import RightBar from '../shared/layout/rightBar';
 import Footer from '../shared/layout/footer';
 import ScrollDialog from '../shared/materialUI/modal';
+import BottomBar from '../shared/layout/bottomBar';
 
 var dialogId = '';
 
@@ -32,6 +33,7 @@ export default class RenderView extends BaseComponent {
                         />
                     </div>
                     <RightBar />
+                    <BottomBar />
                     <Footer />
                 </LeftBar>
                 <ScrollDialog

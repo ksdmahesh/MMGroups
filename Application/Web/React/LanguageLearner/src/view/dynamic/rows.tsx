@@ -21,7 +21,7 @@ export default class Rows extends BaseComponent<RowsProps> {
         if (count > keys.length) {
             while (formdata.steps[currentStep].sections[sectionIndex].cells[cellIndex].rows[rowIndex].columns.length < count) {
                 var newId = uuid();
-                var newCol = { id: newId, name: newId, label: newId, controls: [] };
+                var newCol = { id: newId, name: newId, label: 'Columns', controls: [] };
                 formdata.steps[currentStep].sections[sectionIndex].cells[cellIndex].rows[rowIndex].columns.push(newCol);
             }
             this.dispatchStore({

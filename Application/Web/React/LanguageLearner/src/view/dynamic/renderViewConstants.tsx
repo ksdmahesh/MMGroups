@@ -226,6 +226,8 @@ export type HeaderProps = { id: string };
 
 export type RightBarItemsProps = { propertyWindow: PropertyWindowProps };
 
+export type BottomBarItemsProps = { propertyWindow: PropertyWindowProps };
+
 export type AllControlProps = (
     ExtendedCheckboxProps &
     ExtendedSelectProps &

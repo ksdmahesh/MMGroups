@@ -161,13 +161,21 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     }
 
     onDragEnd = (result: DropResult) => {
-        // const { source, destination } = result;
+        const { source, destination } = result;
 
         // dropped outside the list
-        // if (!destination) {
-        //     return;
-        // }
-        console.log(result);
+        if (!destination) {
+            return;
+        }
+
+        var currentState = this.getState();
+
+        switch (currentState.dropId) {
+            case 'panelHeaders': {
+                break;
+            }
+        }
+
         // var formdata: DataProps;
         // var currentStep: number;
         // var sectionIndex: number;

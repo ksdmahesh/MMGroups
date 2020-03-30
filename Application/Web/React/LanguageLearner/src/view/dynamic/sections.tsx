@@ -4,7 +4,7 @@ import { SectionsProps, SectionProps } from './renderViewConstants';
 // import { Notice } from '../shared/dnd/dndConstants';
 import Cells from './cells';
 import { Grid, Chip } from '@material-ui/core';
-import ExpansionPanels from '../shared/materialUI/expansionPanel';
+// import ExpansionPanels from '../shared/materialUI/expansionPanel';
 
 export default class Sections extends BaseComponent<SectionsProps> {
 
@@ -56,41 +56,34 @@ export default class Sections extends BaseComponent<SectionsProps> {
                                 {...item(section)}
                                 key={section.id + index}
                                 content={(dragProvider, dropProvider) => (
-                                    <ExpansionPanels
-                                        dragHandleProps={dragProvider.dragHandleProps}
-                                        panelHeader={section.label}
-                                    >
-                                        {
-                                            itemProp.length === 0
-                                                ?
-                                                <>
-                                                    {this.getPlaceholder(dropProvider, 'No Cells')}
-                                                    <Grid container={true} direction="row">
-                                                        <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
-                                                            <Chip
-                                                                label="Add Cell"
-                                                                style={{ width: '50%' }}
-                                                                onClick={() =>
-                                                                    this.chipClick(
-                                                                        'Cell',
-                                                                        'section',
-                                                                        { ...itemProp, ...{ cellIndex: -1 } }
-                                                                    )}
-                                                            />
-                                                        </Grid>
-                                                    </Grid>
-                                                </>
-                                                :
-                                                <Cells
-                                                    sectionIndex={index}
-                                                    section={section}
-                                                    isDropDisabled={this.props.isDropDisabled}
-                                                />
-                                        }
-                                        {dropProvider.placeholder}
-                                    </ExpansionPanels>
+                                    itemProp.length === 0
+                                        ?
+                                        <>
+                                            {this.getPlaceholder(dropProvider, 'No Cells')}
+                                            <Grid container={true} direction="row">
+                                                <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
+                                                    <Chip
+                                                        label="Add Cell"
+                                                        style={{ width: '50%' }}
+                                                        onClick={() =>
+                                                            this.chipClick(
+                                                                'Cell',
+                                                                'section',
+                                                                { ...itemProp, ...{ cellIndex: -1 } }
+                                                            )}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </>
+                                        :
+                                        <Cells
+                                            sectionIndex={index}
+                                            section={section}
+                                            isDropDisabled={this.props.isDropDisabled}
+                                        />
                                 )}
-                            />);
+                            />
+                        );
                     })
                 }
             </>

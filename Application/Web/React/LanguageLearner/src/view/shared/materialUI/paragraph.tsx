@@ -32,13 +32,13 @@ export default class Paragraph extends BaseComponent<ParagraphProps> {
 
     saveValue = (id: string) => {
         var rteValue = this.getState(id);
-        var rightWindow = this.getState('rightWindow') || {};
-        rightWindow.label = rteValue;
+        var bottomWindow = this.getState('bottomWindow') || {};
+        bottomWindow.label = rteValue;
         this.dispatchStore({
             modalOpen: false,
             fullWidth: false,
             modalContent: '',
-            rightWindow: rightWindow
+            bottomWindow: bottomWindow
         });
     }
 

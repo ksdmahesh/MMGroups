@@ -248,7 +248,7 @@ function setJSONBasedOnType(control: AllControlProps, dataType: string): AllCont
                         // tslint:disable-next-line: no-any
                         { 'value': (control as any)[keyValuePair[0]] }
                 ),
-                'location': `rightWindow.${keyValuePair[0]}`,
+                'location': `bottomWindow.${keyValuePair[0]}`,
                 'disabled': false
             } as AllControlProps
     ));

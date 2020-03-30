@@ -1,6 +1,6 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
+// import MenuIcon from '@material-ui/icons/Menu';
 import BaseComponent from '../helper/baseComponent';
 import { DataProps, HeaderProps } from '../../dynamic/renderViewConstants';
 import FileUpload from '../materialUI/fileUpload';
@@ -45,9 +45,9 @@ export default class Header extends BaseComponent<HeaderProps> {
     }
 
     render() {
-        const onClick = () => {
-            this.dispatchStore({ rightSideBar: true });
-        };
+        // const onClick = () => {
+        //     this.dispatchStore({ rightSideBar: false, bottomSideBar: true });
+        // };
         return (
             <div style={{ flexGrow: 1 }}>
                 <AppBar position="static">
@@ -65,14 +65,14 @@ export default class Header extends BaseComponent<HeaderProps> {
                             label={'Import JSON'}
                         />
                         <Button color="inherit" onClick={this.exportFile}>{'Export JSON'}</Button>
-                        <IconButton
+                        {/* <IconButton
                             onClick={onClick}
                             edge={false}
                             color="inherit"
                             aria-label="menu"
                         >
                             <MenuIcon />
-                        </IconButton>
+                        </IconButton> */}
                     </Toolbar>
                 </AppBar>
             </div>

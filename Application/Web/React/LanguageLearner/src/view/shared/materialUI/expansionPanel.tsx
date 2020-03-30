@@ -2,11 +2,13 @@ import React from 'react';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import BaseComponent from '../helper/baseComponent';
-import { Typography, Grid } from '@material-ui/core';
+// import BaseComponent from '../helper/baseComponent';
+import { Typography, Grid, IconButton, Box } from '@material-ui/core';
 import { ExpanderProps } from '../../dynamic/renderViewConstants';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
+import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 
-export default class ExpansionPanels extends BaseComponent<ExpanderProps> {
+export default class ExpansionPanels extends React.Component<ExpanderProps> {
 
     render() {
         return (
@@ -21,13 +23,23 @@ export default class ExpansionPanels extends BaseComponent<ExpanderProps> {
                         id="additional-actions1-header"
                         style={{
                             borderBottom: '1px solid #ddd',
-                            cursor: 'grab'
+                            // cursor: 'grab'
                         }}
-                        {...this.props.dragHandleProps}
+                    // {...this.props.dragHandleProps}
                     >
                         <Grid container={true} direction="row">
-                            <Grid item={true} xs={12}>
-                                <Typography>{this.props.panelHeader}</Typography>
+                            <Grid item={true} xs={12} >
+                                <Typography
+                                    
+                                >
+                                    <IconButton
+                                        edge={false}
+                                        color="inherit"
+                                        aria-label="drag"
+                                        {...this.props.dragHandleProps}
+                                    >
+                                        <DragHandleIcon />
+                                    </IconButton>{this.props.panelHeader}</Typography>
                             </Grid>
                         </Grid>
                     </ExpansionPanelSummary>

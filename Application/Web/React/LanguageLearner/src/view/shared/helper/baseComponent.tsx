@@ -6,6 +6,7 @@ import uuid from 'uuid';
 import { DroppableProvided, Draggable, Droppable, DraggableProvided } from 'react-beautiful-dnd';
 import { Notice, DroppedItem } from '../dnd/dndConstants';
 import { Grid, Card, CardContent } from '@material-ui/core';
+import ExpansionPanels from '../materialUI/expansionPanel';
 
 var dispatch: Dispatch;
 
@@ -55,6 +56,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
         if (!dispatch) {
             dispatch = store.dispatch;
         }
+        this.GetDragDropItems = this.GetDragDropItems.bind(this);
     }
 
     dispatchStore(data: {}, location: string = '', type: string = 'dispatch') {
@@ -224,17 +226,17 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
         return root;
     }
 
-    setUuid(formdata: any) {
+    setUuid(formdata: any, header: string = 'Steps') {
         formdata.id = uuid();
         if (!formdata.name) {
-            formdata.name = uuid();
+            formdata.name = header;
         }
         var items: any = [];
         for (let index = 0; index < this.DataHeader.length; index++) {
             items = formdata[this.DataHeader[index]];
             if (items) {
                 for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
-                    this.setUuid(items[itemIndex]);
+                    this.setUuid(items[itemIndex], this.DataHeader[index]);
                 }
             }
         }
@@ -320,7 +322,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
                             {...provided.draggableProps}
                             style={provided.draggableProps.style}
                         >
-                            <Grid {...provided.dragHandleProps} container={true} direction="row">
+                            <Grid container={true} direction="row">
                                 <Grid item={true} xs={12} md={12}>
                                     <Card
                                         {...{ 'aria-label': item.aria }}
@@ -357,10 +359,10 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
                                         }
                                         key={item.id + props.index}
                                     >
-                                        <CardContent style={{ padding: 10 }}>
+                                        <CardContent style={{ padding: 0 }}>
                                             <Droppable
                                                 droppableId={`${item.aria + item.id}`}
-                                                isDropDisabled={props.isDropDisabled}
+                                                isDropDisabled={true} // props.isDropDisabled}
                                                 direction={props.isVertical ? 'vertical' : 'horizontal'}
                                             >
                                                 {(dropProvided, snapshot) => (
@@ -368,7 +370,13 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
                                                         ref={dropProvided.innerRef}
                                                         {...dropProvided.droppableProps}
                                                     >
-                                                        {props.content(provided, dropProvided)}
+                                                        <ExpansionPanels
+                                                            dragHandleProps={provided.dragHandleProps}
+                                                            panelHeader={item.label}
+                                                        >
+                                                            {props.content(provided, dropProvided)}
+                                                            {dropProvided.placeholder}
+                                                        </ExpansionPanels>
                                                     </div>
                                                 )}
                                             </Droppable>
