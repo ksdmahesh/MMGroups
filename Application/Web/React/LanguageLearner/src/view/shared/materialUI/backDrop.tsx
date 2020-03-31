@@ -7,9 +7,9 @@ export default class BackDrop extends BaseComponent {
         return (
             <Backdrop
                 open={this.props.open}
-                // onClick={() => {
-                //   this.props.setOpen(false);
-                // }}
+                onClick={() => {
+                    this.dispatchStore({ backDrop: false });
+                }}
             >
                 <CircularProgress color="inherit" />
             </Backdrop>

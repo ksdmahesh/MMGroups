@@ -5,6 +5,7 @@ import { createStore, applyMiddleware, Store } from 'redux';
 import thunk from 'redux-thunk';
 import Reducers from '../appStore/reducers';
 import { connect } from 'react-redux';
+import { Backdrop, CircularProgress } from '@material-ui/core';
 
 //#region Connect
 
@@ -30,7 +31,12 @@ export const ConnectComponent = connect(mapStateToPros, mapDispatchToProps);
 
 //#region Route
 
-export const Loading = () => <div style={{ color: '#474747', fontWeight: 'bold', padding: '5px' }}>Loading...</div>;
+// export const Loading = () => <div style={{ color: '#474747', fontWeight: 'bold', padding: '5px' }}>Loading...</div>;
+export const Loading = () => <Backdrop
+    open={true}
+>
+    <CircularProgress color="inherit" />
+</Backdrop>;
 
 export const PageStart =
     Loadable({
