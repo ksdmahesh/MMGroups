@@ -54,19 +54,20 @@ export default class TabDnd extends BaseComponent<TabProps> {
             currentStep: result.destination.index,
             propertyWindow: {
                 control: this.getPropertyWindowControl({
-                    name: tabHeaders[result.destination.index].name,
+                    name: tabHeaders[result.source.index].name,
                     type: 'step',
-                    label: tabHeaders[result.destination.index].label,
-                    id: tabHeaders[result.destination.index].id
+                    label: tabHeaders[result.source.index].label,
+                    id: tabHeaders[result.source.index].id
                 }),
                 stepIndex: result.destination.index,
                 sectionIndex: -2,
+                cellIndex: -1,
                 rowIndex: -1,
                 columnIndex: -1,
                 controlIndex: -1
             },
             isChildCalled: false,
-            raised: ''
+            raised: `${this.DataHeader[0] + tabHeaders[result.source.index].id + result.destination.index}`
         });
     }
 
@@ -79,7 +80,7 @@ export default class TabDnd extends BaseComponent<TabProps> {
             var itemId = `steps${item.id + newValue}`;
             if (newValue === this.props.tabHeaders.length - 1) {
                 this.dispatchStore({
-                    rightSideBar: true,
+                    bottomSideBar: true,
                     propertyWindow: {
                         control: this.getPropertyWindowControl({
                             name: item.name,
@@ -94,7 +95,7 @@ export default class TabDnd extends BaseComponent<TabProps> {
                         controlIndex: -1
                     },
                     isChildCalled: false,
-                    raised: itemId
+                    raised: ''
                 });
             } else {
                 this.dispatchStore({

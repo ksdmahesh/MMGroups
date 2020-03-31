@@ -403,7 +403,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             controlIndex: number
         }) => {
         this.dispatchStore({
-            rightSideBar: true,
+            bottomSideBar: true,
             propertyWindow: {
                 control: this.getPropertyWindowControl({
                     name: `New ${name}`,

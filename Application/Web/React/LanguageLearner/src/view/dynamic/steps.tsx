@@ -30,7 +30,7 @@ export default class Steps extends BaseComponent<StepProps> {
 
     handleClick = (currentStep: number) => {
         this.dispatchStore({
-            rightSideBar: true,
+            bottomSideBar: true,
             propertyWindow: {
                 control: this.getPropertyWindowControl({
                     name: 'New Section',

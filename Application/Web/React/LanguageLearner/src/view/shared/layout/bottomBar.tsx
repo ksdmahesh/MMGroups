@@ -5,7 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import EditIcon from '@material-ui/icons/Edit';
 // import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import BaseComponent from '../helper/baseComponent';
-import { IconButton, Typography, Fab } from '@material-ui/core';
+import { IconButton, Typography, Fab, Grid } from '@material-ui/core';
 import RenderBottomBar from './renderBottomBar';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
@@ -16,8 +16,12 @@ import { Notice } from '../dnd/dndConstants';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 // import SaveIcon from '@material-ui/icons/Save';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import { green } from '@material-ui/core/colors';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import BackDrop from '../materialUI/backDrop';
 
 var isDisabled = false;
+var isVisible = false;
 
 export default class BottomBar extends BaseComponent {
 
@@ -89,6 +93,7 @@ export default class BottomBar extends BaseComponent {
         currentState.isChildCalled = isChildCalled;
         currentState.raised = raised;
         currentState.currentStep = currentStep;
+        currentState.showFab = false;
 
         this.dispatchStore(currentState);
     }
@@ -123,20 +128,32 @@ export default class BottomBar extends BaseComponent {
         currentState.propertyWindow = {};
         currentState.isChildCalled = false;
         currentState.raised = '';
+        currentState.showFab = false;
 
         this.dispatchStore(currentState);
     }
 
+    editItem = () => {
+        this.dispatchStore({ bottomSideBar: true, showFab: false });
+    };
+
+    saveItem = () => {
+        this.dispatchStore({ showFab: false });
+    };
+
+    expandFab = () => {
+        this.dispatchStore({ showFab: !isVisible });
+    };
+
     render() {
+        isVisible = this.getState('showFab');
         var propertyWindow = this.getState('propertyWindow');
         if (HelperClass.isObjectEmpty(propertyWindow)) {
             isDisabled = true;
         } else {
             isDisabled = false;
         }
-        const onClick = () => {
-            this.dispatchStore({ bottomSideBar: true });
-        };
+
         return (
             <React.Fragment>
                 <div
@@ -168,12 +185,12 @@ export default class BottomBar extends BaseComponent {
                             >
                                 {'Properties'}
                             </Typography>
-                            <IconButton title={'Save this Item as template for later use'} color={'primary'} onClick={this.removeItem} disabled={isDisabled}>
+                            {/* <IconButton title={'Save this Item as template for later use'} color={'primary'} onClick={this.removeItem} disabled={isDisabled}>
                                 <SaveAltIcon style={{ fill: isDisabled ? 'gray' : '#0069d9' }} />
                             </IconButton>
                             <IconButton title={'Delete this Item'} color={'primary'} onClick={this.removeItem} disabled={isDisabled}>
                                 <DeleteForeverIcon style={{ fill: isDisabled ? 'gray' : 'red' }} />
-                            </IconButton>
+                            </IconButton> */}
                             <IconButton title={'Save Changes'} color={'primary'} onClick={this.updatePropertyToControl} disabled={isDisabled}>
                                 <CheckIcon style={{ fill: isDisabled ? 'gray' : 'green' }} />
                             </IconButton>
@@ -192,23 +209,80 @@ export default class BottomBar extends BaseComponent {
                         }
                     </Drawer>
                 </div>
-                <Fab
-                    color={'default'}
-                    size={'medium'}
-                    aria-label="edit"
-                    style={{
-                        position: 'fixed',
-                        bottom: '10px',
-                        right: '10px',
-                        zIndex: 10
-                    }}
-                    disabled={isDisabled}
-                    onClick={onClick}
-                    title={'Edit Selected Item'}
-                >
-                    <EditIcon />
-                </Fab>
-            </React.Fragment>
+                    <Grid
+                        container={true}
+                        direction={'column-reverse'}
+                        alignItems={'center'}
+                        alignContent={'center'}
+                        style={{
+                            width: 'auto',
+                            position: 'fixed',
+                            right: '10px',
+                            bottom: '10px',
+                            zIndex: 10
+                        }}
+                    >
+                        <Grid item={true} >
+                            <br />
+                            <Fab
+                                color={'default'}
+                                size={'medium'}
+                                aria-label="edit"
+                                disabled={isDisabled}
+                                onClick={this.expandFab}
+                                title={'Selected Item Properties'}
+                            >
+                                <MoreVertIcon />
+                            </Fab>
+                        </Grid>
+                        {
+                            isVisible
+                                ?
+                                <>
+                                    <Grid item={true} >
+                                        <br />
+                                        <Fab
+                                            color={'primary'}
+                                            size={'medium'}
+                                            aria-label="edit"
+                                            disabled={isDisabled}
+                                            onClick={this.editItem}
+                                            title={'Edit Selected Item'}
+                                        >
+                                            <EditIcon />
+                                        </Fab>
+                                    </Grid>
+                                    <Grid item={true} >
+                                        <br />
+                                        <Fab
+                                            color={'secondary'}
+                                            size={'medium'}
+                                            aria-label="delete"
+                                            disabled={isDisabled}
+                                            onClick={this.removeItem}
+                                            title={'Remove Selected Item'}
+                                        >
+                                            <DeleteForeverIcon />
+                                        </Fab>
+                                    </Grid>
+                                    <Grid item={true} >
+                                        <Fab
+                                            color={'default'}
+                                            size={'medium'}
+                                            aria-label="save"
+                                            disabled={isDisabled}
+                                            onClick={this.saveItem}
+                                            title={'Save Selected Item as Template for later use'}
+                                        >
+                                            <SaveAltIcon />
+                                        </Fab>
+                                    </Grid>
+                                </>
+                                :
+                                ''
+                        }
+                    </Grid>
+                </React.Fragment>
         );
     }
 }
