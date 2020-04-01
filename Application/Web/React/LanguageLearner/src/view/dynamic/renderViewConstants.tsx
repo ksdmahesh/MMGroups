@@ -207,7 +207,7 @@ export interface RenderLeftBarItemsProps {
 
 export interface ExpanderProps {
     panelHeader: string;
-    dragHandleProps: DraggableProvidedDragHandleProps | null;
+    dragHandleProps: DraggableProvidedDragHandleProps | undefined;
 }
 
 export type ModalProps = {

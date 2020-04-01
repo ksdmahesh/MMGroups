@@ -6,19 +6,21 @@ import BaseComponent from '../helper/baseComponent';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Droppable, DragDropContext, DropResult, DraggableLocation } from 'react-beautiful-dnd';
+import { Droppable, DragDropContext, DropResult, DraggableLocation, BeforeCapture } from 'react-beautiful-dnd';
 import RenderLeftBarItems from './renderLeftBarItems';
 import uuid from 'uuid';
 import { Content, controlItems, leftControlItems } from '../dnd/dndConstants';
 import { ControlsProps, LeftBarProps, DataProps, SectionProps } from '../../dynamic/renderViewConstants';
 import $ from 'jquery';
 import { getLeftBarControlsJSON } from '../../../constants/constants';
+import TopBar from './topBar';
 
 var baseId = '';
 var dropId = '';
 var listId = '';
 var contentId = '';
 var rawItems = getLeftBarControlsJSON();
+var isDragging = false;
 
 export default class LeftBar extends BaseComponent<LeftBarProps> {
 
@@ -361,24 +363,35 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     }
 
     onDragStart = (result: DropResult) => {
-        const { source } = result;
-        var currentSourceId = source.droppableId;
-        var currentActiveHeader = this.DataHeader.find(header => (
-            currentSourceId.startsWith(header)
-        ));
-        console.log(currentActiveHeader)
+        isDragging = true;
+        // const { source } = result;
+        // var currentSourceId = source.droppableId;
+        // var currentActiveHeader = this.DataHeader.find(header => (
+        //     currentSourceId.startsWith(header)
+        // ));
+        // console.log(currentActiveHeader)
+        // this.dispatchStore({
+        //     dropId: currentActiveHeader,
+        //     isChildCalled: true,
+        //     topSideBar: true
+        // });
+    }
+
+    onBeforeCapture = (result: BeforeCapture) => {
+        console.log('ok')
         this.dispatchStore({
-            dropId: currentActiveHeader,
             isChildCalled: true,
+            topSideBar: true
         });
+        isDragging = true;
     }
 
     render() {
-
         return (
             <DragDropContext
                 onDragEnd={this.onDragEnd}
                 onDragStart={this.onDragStart}
+                onBeforeCapture={this.onBeforeCapture}
             >
                 <Droppable droppableId={baseId} isDropDisabled={true} >
                     {(provided, snapshot) => (
@@ -400,6 +413,13 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                 <Content id={contentId} >
                     {this.props.children}
                 </Content>
+                {
+                    isDragging
+                        ?
+                        <TopBar />
+                        :
+                        ''
+                }
             </DragDropContext>
         );
     }

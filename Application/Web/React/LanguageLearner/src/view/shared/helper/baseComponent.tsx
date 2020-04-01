@@ -251,12 +251,12 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
         if (data.formdata.steps && !data.formdata.id) {
             this.setUuid(data.formdata);
             data.formdata.steps.push(
-                {
-                    id: exceptionalStepsId[0],
-                    name: 'Review',
-                    label: 'Review',
-                    sections: []
-                },
+                // {
+                //     id: exceptionalStepsId[0],
+                //     name: 'Review',
+                //     label: 'Review',
+                //     sections: []
+                // },
                 {
                     id: exceptionalStepsId[1],
                     name: 'Add Step',

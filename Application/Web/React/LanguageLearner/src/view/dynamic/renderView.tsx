@@ -6,9 +6,11 @@ import Steps from './steps';
 import LeftBar from '../shared/layout/leftBar';
 import Header from '../shared/layout/header';
 import RightBar from '../shared/layout/rightBar';
+import TopBar from '../shared/layout/topBar';
 import Footer from '../shared/layout/footer';
 import ScrollDialog from '../shared/materialUI/modal';
 import BottomBar from '../shared/layout/bottomBar';
+import AddingThings from '../shared/dnd/beautifulDnd';
 
 var dialogId = '';
 
@@ -24,7 +26,8 @@ export default class RenderView extends BaseComponent {
         var state = this.getState() || {};
         return (
             <div className="wrapper">
-                <LeftBar isDraggable={true} id={state.baseId}>
+                <AddingThings />
+                {/* <LeftBar isDraggable={true} id={state.baseId}>
                     <Header id={state.baseId} />
                     <div id="content">
                         <Steps
@@ -46,7 +49,7 @@ export default class RenderView extends BaseComponent {
                     okButtonText={state.okButtonText}
                     cancelButtonText={state.cancelButtonText}
                     modalCloseCallback={state.modalCloseCallback}
-                />
+                /> */}
             </div>
         );
     }
