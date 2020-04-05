@@ -14,7 +14,7 @@ export default class Controls extends BaseComponent<ControlProps> {
         var cellIndex = this.props.cellIndex || 0;
         var rowIndex = this.props.rowIndex || 0;
         var columnIndex = this.props.columnIndex || 0;
-        const props = (index: number, isDropDisabled: boolean = true, dragIndex: number = 0) => (
+        const props = (index: number, isDropDisabled: boolean = true, dragIndex: number = 0, isDarkTheme: boolean = false) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
@@ -26,8 +26,9 @@ export default class Controls extends BaseComponent<ControlProps> {
                 itemRaised: currentState.raised,
                 isDropDisabled: isDropDisabled,
                 isVertical: true,
-                location:`${currentStep},${sectionIndex},${cellIndex},${rowIndex},${columnIndex},${index}`,
-                dragIndex: dragIndex
+                location: `${currentStep},${sectionIndex},${cellIndex},${rowIndex},${columnIndex},${index}`,
+                dragIndex: dragIndex,
+                isDarkTheme: isDarkTheme
             }
         )
 
@@ -57,13 +58,13 @@ export default class Controls extends BaseComponent<ControlProps> {
     render() {
         const controls = this.props.controls;
         const { props, item } = this.onLoad();
-
+        var isDarkTheme = this.props.isDarkTheme;
         return (
             <>
                 {
                     controls.map((control, index) => {
                         dragIndex.index += 1;
-                        var itemProp = props(index, this.props.isDropDisabled, dragIndex.index);
+                        var itemProp = props(index, this.props.isDropDisabled, dragIndex.index, isDarkTheme);
                         return (
                             <this.GetDragDropItems
                                 {...itemProp}
@@ -71,8 +72,8 @@ export default class Controls extends BaseComponent<ControlProps> {
                                 key={control.id + index}
                                 content={(dragProvider, dropProvider, snapshot, dropSnapshot) => (
                                     <>
-                                        {getControlByName(control)}
-                                        {/* {this.props.dropProvider.placeholder} */}
+                                        {getControlByName(control, isDarkTheme)}
+                                        {this.props.dropProvider.placeholder}
                                     </>
                                 )}
                             />

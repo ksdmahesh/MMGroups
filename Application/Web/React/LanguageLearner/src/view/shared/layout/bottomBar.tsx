@@ -154,6 +154,8 @@ export default class BottomBar extends BaseComponent {
             isDisabled = false;
         }
 
+        var isDarkTheme = this.props.isDarkTheme;
+
         return (
             <React.Fragment>
                 <div
@@ -161,7 +163,7 @@ export default class BottomBar extends BaseComponent {
                 >
                     <CssBaseline />
                     <Drawer
-                        style={{ width: '100%' }}
+                        style={{ ...{ width: '100%' }, ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}
                         anchor="bottom"
                         open={this.getState('bottomSideBar')}
                     >
@@ -171,7 +173,8 @@ export default class BottomBar extends BaseComponent {
                                 alignItems: 'center',
                                 padding: '0',
                                 justifyContent: 'flex-end',
-                                width: '100%'
+                                width: '100%',
+                                ...BaseComponent.getTheme(isDarkTheme, 'header')
                             }}
                         >
                             <Typography
@@ -192,97 +195,97 @@ export default class BottomBar extends BaseComponent {
                                 <DeleteForeverIcon style={{ fill: isDisabled ? 'gray' : 'red' }} />
                             </IconButton> */}
                             <IconButton title={'Save Changes'} color={'primary'} onClick={this.updatePropertyToControl} disabled={isDisabled}>
-                                <CheckIcon style={{ fill: isDisabled ? 'gray' : 'green' }} />
+                                <CheckIcon style={{ fill: isDisabled ? 'gray' : 'lightgreen' }} />
                             </IconButton>
                             <IconButton title={'Close'} onClick={this.handleDrawerClose} color={'default'}>
-                                <CloseIcon />
+                                <CloseIcon style={{ fill: 'red' }} />
                             </IconButton>
                         </div>
-                        <Divider />
+                        <Divider style={BaseComponent.getTheme(isDarkTheme, 'divider')} />
                         {
                             isDisabled ?
                                 <Notice style={{ userSelect: 'none', fontSize: 'medium' }} >
                                     {'No Items Selected'}
                                 </Notice>
                                 :
-                                <RenderBottomBar propertyWindow={propertyWindow} />
+                                <RenderBottomBar isDarkTheme={isDarkTheme} propertyWindow={propertyWindow} />
                         }
                     </Drawer>
                 </div>
-                    <Grid
-                        container={true}
-                        direction={'column-reverse'}
-                        alignItems={'center'}
-                        alignContent={'center'}
-                        style={{
-                            width: 'auto',
-                            position: 'fixed',
-                            right: '10px',
-                            bottom: '10px',
-                            zIndex: 10
-                        }}
-                    >
-                        <Grid item={true} >
-                            <br />
-                            <Fab
-                                color={'default'}
-                                size={'medium'}
-                                aria-label="edit"
-                                disabled={isDisabled}
-                                onClick={this.expandFab}
-                                title={'Selected Item Properties'}
-                            >
-                                <MoreVertIcon />
-                            </Fab>
-                        </Grid>
-                        {
-                            isVisible
-                                ?
-                                <>
-                                    <Grid item={true} >
-                                        <br />
-                                        <Fab
-                                            color={'primary'}
-                                            size={'medium'}
-                                            aria-label="edit"
-                                            disabled={isDisabled}
-                                            onClick={this.editItem}
-                                            title={'Edit Selected Item'}
-                                        >
-                                            <EditIcon />
-                                        </Fab>
-                                    </Grid>
-                                    <Grid item={true} >
-                                        <br />
-                                        <Fab
-                                            color={'secondary'}
-                                            size={'medium'}
-                                            aria-label="delete"
-                                            disabled={isDisabled}
-                                            onClick={this.removeItem}
-                                            title={'Remove Selected Item'}
-                                        >
-                                            <DeleteForeverIcon />
-                                        </Fab>
-                                    </Grid>
-                                    <Grid item={true} >
-                                        <Fab
-                                            color={'default'}
-                                            size={'medium'}
-                                            aria-label="save"
-                                            disabled={isDisabled}
-                                            onClick={this.saveItem}
-                                            title={'Save Selected Item as Template for later use'}
-                                        >
-                                            <SaveAltIcon />
-                                        </Fab>
-                                    </Grid>
-                                </>
-                                :
-                                ''
-                        }
+                <Grid
+                    container={true}
+                    direction={'column-reverse'}
+                    alignItems={'center'}
+                    alignContent={'center'}
+                    style={{
+                        width: 'auto',
+                        position: 'fixed',
+                        right: '10px',
+                        bottom: '10px',
+                        zIndex: 10
+                    }}
+                >
+                    <Grid item={true} >
+                        <br />
+                        <Fab
+                            color={'default'}
+                            size={'medium'}
+                            aria-label="edit"
+                            disabled={isDisabled}
+                            onClick={this.expandFab}
+                            title={'Selected Item Properties'}
+                        >
+                            <MoreVertIcon />
+                        </Fab>
                     </Grid>
-                </React.Fragment>
+                    {
+                        isVisible
+                            ?
+                            <>
+                                <Grid item={true} >
+                                    <br />
+                                    <Fab
+                                        color={'primary'}
+                                        size={'medium'}
+                                        aria-label="edit"
+                                        disabled={isDisabled}
+                                        onClick={this.editItem}
+                                        title={'Edit Selected Item'}
+                                    >
+                                        <EditIcon />
+                                    </Fab>
+                                </Grid>
+                                <Grid item={true} >
+                                    <br />
+                                    <Fab
+                                        color={'secondary'}
+                                        size={'medium'}
+                                        aria-label="delete"
+                                        disabled={isDisabled}
+                                        onClick={this.removeItem}
+                                        title={'Remove Selected Item'}
+                                    >
+                                        <DeleteForeverIcon />
+                                    </Fab>
+                                </Grid>
+                                <Grid item={true} >
+                                    <Fab
+                                        color={'default'}
+                                        size={'medium'}
+                                        aria-label="save"
+                                        disabled={isDisabled}
+                                        onClick={this.saveItem}
+                                        title={'Save Selected Item as Template for later use'}
+                                    >
+                                        <SaveAltIcon />
+                                    </Fab>
+                                </Grid>
+                            </>
+                            :
+                            ''
+                    }
+                </Grid>
+            </React.Fragment>
         );
     }
 }

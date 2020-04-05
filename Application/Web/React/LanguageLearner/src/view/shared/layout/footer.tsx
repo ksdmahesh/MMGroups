@@ -1,14 +1,16 @@
 import * as React from 'react';
 import BaseComponent from '../helper/baseComponent';
 import { Toolbar, Typography, AppBar } from '@material-ui/core';
+import { FooterProps } from '../../dynamic/renderViewConstants';
 
-class Footer extends BaseComponent {
+class Footer extends BaseComponent<FooterProps> {
 
     render() {
+        var isDarkTheme = this.props.isDarkTheme;
         return (
             <footer id="footer">
                 <div style={{ flexGrow: 1 }}>
-                    <AppBar position="static">
+                    <AppBar position="static" style={BaseComponent.getTheme(isDarkTheme, 'header')}>
                         <Toolbar
                             style={{ minHeight: '48px' }}
                         >

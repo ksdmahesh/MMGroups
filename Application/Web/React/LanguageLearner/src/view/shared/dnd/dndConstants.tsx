@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ControlsProps, LeftBarItems } from '../../dynamic/renderViewConstants';
+import BaseComponent from '../helper/baseComponent';
 
 export const Content = styled.div`
   margin-left: 200px;
@@ -15,14 +16,13 @@ export const Item = styled.div`
   z-index: 7000 !important;
   background: #fff;
   ${
-  (props: { isDragging?: boolean }) => (
+  (props: { isDragging?: boolean, isDarkTheme?: boolean, isExpander?: boolean }) => (
     props.isDragging
       ?
-      'border: 1px dashed #000;'
+      `border: 1px dashed #000;${BaseComponent.getTheme(props.isDarkTheme || false, props.isExpander ? 'header' : 'control', true)}`
       :
-      'border: 1px solid transparent;'
+      `border: 1px solid transparent;${BaseComponent.getTheme(props.isDarkTheme || false, props.isExpander ? 'header' : 'control', true)}`
   )}
-
  `;
 
 export const DroppedItem = styled.div`
@@ -38,6 +38,11 @@ export const DroppedItem = styled.div`
   height: auto !important;
   width: 100%;
   border: 1px solid #ddd;
+  ${
+    (props: {isDarkTheme?: boolean})=>(
+      BaseComponent.getTheme(props.isDarkTheme || false, 'control2', true))
+    }
+  }
  `;
 
 export const CloneDroppedItem = styled(DroppedItem)`
@@ -109,12 +114,12 @@ export const Kiosk = styled(List)`
   overflow-x: hidden;
   ${
   (props: { isDraggingOver?: boolean }) => (
-    props.isDraggingOver 
-    ? 
-    'overflow-y: hidden;' 
-    : 
-    'overflow-y: auto;'
-    )}
+    props.isDraggingOver
+      ?
+      'overflow-y: hidden;'
+      :
+      'overflow-y: auto;'
+  )}
 
 `;
 

@@ -55,8 +55,9 @@ export default class Steps extends BaseComponent<StepProps> {
         var currentStep = this.getState('currentStep');
         var steps = this.props.steps || [];
         dragIndex.index = 0;
+        var isDarkTheme = this.props.isDarkTheme
         return (
-            <TabDnd tabHeaders={steps} >
+            <TabDnd tabHeaders={steps} isDarkTheme={isDarkTheme}>
                 {
                     steps.map((step, index) => {
                         return (
@@ -77,7 +78,7 @@ export default class Steps extends BaseComponent<StepProps> {
                                                         <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
                                                             <Chip
                                                                 label="Add Section"
-                                                                style={{ width: '50%' }}
+                                                                style={{ width: '50%', ...BaseComponent.getTheme(isDarkTheme, 'control') }}
                                                                 onClick={() => this.handleClick(currentStep)}
                                                             />
                                                         </Grid>
@@ -85,6 +86,7 @@ export default class Steps extends BaseComponent<StepProps> {
                                                 </>
                                                 :
                                                 <Sections
+                                                    isDarkTheme={isDarkTheme}
                                                     dropProvider={this.props.dropProvider}
                                                     currentStep={currentStep}
                                                     index={index}

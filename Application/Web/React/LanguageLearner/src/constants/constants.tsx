@@ -38,6 +38,7 @@ import Textarea from '../view/shared/materialUI/textarea';
 import TimePicker from '../view/shared/materialUI/timePicker';
 import FileUpload from '../view/shared/materialUI/fileUpload';
 import Paragraph from '../view/shared/materialUI/paragraph';
+import BaseComponent from '../view/shared/helper/baseComponent';
 
 var propertyWindowId = uuid();
 
@@ -89,56 +90,58 @@ export default function getIconByName(name: string): JSX.Element {
 export function getControlByName(
     control: AllControlProps,
     disabled: boolean = true,
-    callback?: ((event: React.ChangeEvent<HTMLInputElement>) => void)
+    callback?: ((event: React.ChangeEvent<HTMLInputElement>) => void),
+    isDarkTheme: boolean = false
 ) {
     var absoluteName = (control.type || '').replace(' ', '').toLowerCase() as controlTypes;
     switch (absoluteName) {
         case controlTypes.textbox:
-            return <InputText {...control} disabled={disabled} />;
+            return <InputText {...control} disabled={disabled} isDarkTheme={isDarkTheme} />;
         case controlTypes.dropdown: {
-            return <Dropdown {...control} disabled={disabled} />;
+            return <Dropdown {...control} disabled={disabled} isDarkTheme={isDarkTheme} />;
         }
         case controlTypes.multiselect: {
-            return <Dropdown {...control} isMultiSelect={true} disabled={disabled} />;
+            return <Dropdown {...control} isMultiSelect={true} isDarkTheme={isDarkTheme} disabled={disabled} />;
         }
         case controlTypes.address: {
-            return <Address {...control} disabled={disabled} />;
+            return <Address {...control} disabled={disabled} isDarkTheme={isDarkTheme} />;
         }
         case controlTypes.paragraph: {
-            return <Paragraph disabled={disabled} {...control} />;
+            return <Paragraph disabled={disabled} isDarkTheme={isDarkTheme} {...control} />;
         }
         case controlTypes.datepicker: {
-            return <DatePicker {...control} disabled={disabled} />;
+            return <DatePicker {...control} isDarkTheme={isDarkTheme} disabled={disabled} />;
         }
         case controlTypes.timepicker: {
-            return <TimePicker {...control} disabled={disabled} />;
+            return <TimePicker {...control} isDarkTheme={isDarkTheme} disabled={disabled} />;
         }
         case controlTypes.checkbox: {
-            return <CheckBox {...control} disabled={disabled} />;
+            return <CheckBox {...control} isDarkTheme={isDarkTheme} disabled={disabled} />;
         }
         case controlTypes.radiobutton: {
-            return <RadioButtonsGroup {...control} disabled={disabled} />;
+            return <RadioButtonsGroup {...control} isDarkTheme={isDarkTheme} disabled={disabled} />;
         }
         case controlTypes.textarea: {
-            return <Textarea {...control} disabled={disabled} />;
+            return <Textarea {...control} isDarkTheme={isDarkTheme} disabled={disabled} />;
         }
         case controlTypes.fileupload: {
-            return <FileUpload onChange={callback} {...control} disabled={disabled} />;
+            return <FileUpload onChange={callback} isDarkTheme={isDarkTheme} {...control} disabled={disabled} />;
         }
         default:
             return '';
     }
 }
 
-export function getPropertiesByControl(control: AllControlProps) {
+export function getPropertiesByControl(control: AllControlProps, isDarkTheme: boolean) {
     var json = setJSON(control);
     return (
         json.map((item, index) => {
             return (
                 <ListItem
                     key={item.id + '-' + index}
+                    style={BaseComponent.getTheme(isDarkTheme, 'control')}
                 >
-                    {getControlByName(item, item.disabled)}
+                    {getControlByName(item, item.disabled, undefined, isDarkTheme)}
                 </ListItem>
             );
         })

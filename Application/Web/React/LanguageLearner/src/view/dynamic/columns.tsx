@@ -36,7 +36,7 @@ export default class Columns extends BaseComponent<ColumnsProps> {
         var cellIndex = this.props.cellIndex || 0;
         var rowIndex = this.props.rowIndex || 0;
 
-        const props = (index: number, column: ColumnProps[0], isDropDisabled: boolean = true, dragIndex: number = 0) => (
+        const props = (index: number, column: ColumnProps[0], isDropDisabled: boolean = true, dragIndex: number = 0, isDarkTheme: boolean = false) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
@@ -50,7 +50,8 @@ export default class Columns extends BaseComponent<ColumnsProps> {
                 length: column?.controls?.length || 0,
                 isVertical: true,
                 location: `${currentStep},${sectionIndex},${cellIndex},${rowIndex},${index}`,
-                dragIndex: dragIndex
+                dragIndex: dragIndex,
+                isDarkTheme: isDarkTheme
             }
         )
 
@@ -75,12 +76,13 @@ export default class Columns extends BaseComponent<ColumnsProps> {
 
         const { props, item } = this.onLoad();
 
+        var isDarkTheme = this.props.isDarkTheme;
         return (
             <Grid container={true} >
                 {
                     this.props.columns.map((column, index) => {
                         dragIndex.index += 1;
-                        var itemProp = props(index, column, this.props.isDropDisabled, dragIndex.index);
+                        var itemProp = props(index, column, this.props.isDropDisabled, dragIndex.index, isDarkTheme);
                         return (
                             <Grid
                                 item={true} xs={12} key={`${column.id}-${index}`} md={gridWidth} sm={gridWidth}
@@ -97,13 +99,14 @@ export default class Columns extends BaseComponent<ColumnsProps> {
                                                     this.getPlaceholder(this.props.dropProvider, 'No Controls')
                                                     :
                                                     <Controls
+                                                        isDarkTheme={isDarkTheme}
                                                         dropProvider={this.props.dropProvider}
                                                         {...itemProp}
                                                         controls={column.controls}
                                                         columnId={column.id}
                                                     />
                                             }
-                                            {/* {this.props.dropProvider.placeholder} */}
+                                            {this.props.dropProvider.placeholder}
                                         </>
                                     )}
                                 />

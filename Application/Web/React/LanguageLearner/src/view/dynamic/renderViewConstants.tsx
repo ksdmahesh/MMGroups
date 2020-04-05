@@ -112,6 +112,7 @@ export type LeftBarItems = {
 
 export interface TabProps {
     tabHeaders: StepsProps;
+    isDarkTheme: boolean;
 }
 
 export interface RowsProps {
@@ -120,6 +121,7 @@ export interface RowsProps {
     sectionIndex: number;
     cellIndex: number;
     dropProvider: DroppableProvided;
+    isDarkTheme: boolean;
 }
 
 export interface CellsProps {
@@ -127,6 +129,7 @@ export interface CellsProps {
     section: SectionProps[0];
     sectionIndex: number;
     dropProvider: DroppableProvided;
+    isDarkTheme: boolean;
 }
 
 export interface ColumnsProps {
@@ -136,6 +139,7 @@ export interface ColumnsProps {
     rowIndex: number;
     columns: ColumnProps;
     dropProvider: DroppableProvided;
+    isDarkTheme: boolean;
 }
 
 export interface ControlProps {
@@ -147,6 +151,7 @@ export interface ControlProps {
     rowIndex: number;
     columnIndex: number;
     isDropDisabled: boolean;
+    isDarkTheme: boolean;
 }
 
 export interface DroppableContainerProps {
@@ -164,6 +169,7 @@ export interface SectionsProps {
     currentStep: number;
     index: number;
     dropProvider: DroppableProvided;
+    isDarkTheme: boolean;
 }
 
 export interface TabPanelProps {
@@ -178,6 +184,7 @@ export interface StepProps {
     steps: StepsProps;
     isDropDisabled: boolean;
     dropProvider: DroppableProvided;
+    isDarkTheme: boolean;
 }
 
 export interface PanelProps {
@@ -195,6 +202,7 @@ export interface AddressProps {
     id?: string;
     isRequired?: boolean;
     disabled?: boolean;
+    isDarkTheme: boolean;
 }
 
 export type ExtendedAddressProps = {
@@ -205,6 +213,7 @@ export interface LeftBarProps {
     isDraggable: boolean;
     id: string;
     content: (dropId: string, provider: DroppableProvided) => JSX.Element | string;
+    isDarkTheme: boolean;
 }
 
 export interface RenderLeftBarItemsProps {
@@ -212,12 +221,14 @@ export interface RenderLeftBarItemsProps {
     items: LeftBarData;
     isDraggable: boolean;
     isDragging: boolean;
+    isDarkTheme: boolean;
 }
 
 export interface ExpanderProps {
     panelHeader: string;
     location: string;
     index: number;
+    isDarkTheme: boolean;
     // dragHandleProps?: DraggableProvidedDragHandleProps;
     // isDragging: boolean;
 }
@@ -232,13 +243,16 @@ export type ModalProps = {
     modalCloseCallback?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
     okButtonText?: string,
     cancelButtonText?: string,
+    isDarkTheme: boolean
 };
 
-export type HeaderProps = { id: string };
+export type HeaderProps = { id: string, isDarkTheme: boolean };
+
+export type FooterProps = { isDarkTheme: boolean };
 
 export type RightBarItemsProps = { propertyWindow: PropertyWindowProps };
 
-export type BottomBarItemsProps = { propertyWindow: PropertyWindowProps };
+export type BottomBarItemsProps = { propertyWindow: PropertyWindowProps, isDarkTheme: boolean };
 
 export type AllControlProps = (
     ExtendedCheckboxProps &

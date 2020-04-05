@@ -31,30 +31,36 @@ export default class RenderView extends BaseComponent {
         this.setInitializeValues(formdata);
     }
     render() {
+        var isDarkTheme = true;// this.getState('themeInfo') === 'Dark';
         var state = this.getState() || {};
         var isDrag = state.rightSideBar;
         return (
-            <div>
-                <LeftBar isDraggable={true} id={state.baseId}
+            <div style={BaseComponent.getTheme(isDarkTheme, 'drawer')}>
+                <LeftBar
+                    isDraggable={true}
+                    id={state.baseId}
+                    isDarkTheme={isDarkTheme}
                     content={(contentId, dropProvider) => (
-                        <div className="wrapper" style={contentStyle(isDrag)}>
+                        <div className="wrapper" style={{...contentStyle(isDrag), ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}>
                             <Content id={contentId} >
-                                <Header id={state.baseId} />
-                                <div id="content" >
+                                <Header id={state.baseId} isDarkTheme={isDarkTheme} />
+                                <div id="content" style={BaseComponent.getTheme(isDarkTheme, 'drawer')}>
                                     <Steps
+                                        isDarkTheme={isDarkTheme}
                                         steps={state.formdata.steps}
                                         isDropDisabled={false}
                                         dropProvider={dropProvider}
                                     />
                                 </div>
                                 {/* <TopBar /> */}
-                                <BottomBar />
-                                <Footer />
+                                <BottomBar isDarkTheme={isDarkTheme} />
+                                <Footer isDarkTheme={isDarkTheme} />
                             </Content>
                         </div>
                     )}
                 />
                 <ScrollDialog
+                    isDarkTheme={isDarkTheme}
                     title={state.modalTitle}
                     content={state.modalContent}
                     id={dialogId}

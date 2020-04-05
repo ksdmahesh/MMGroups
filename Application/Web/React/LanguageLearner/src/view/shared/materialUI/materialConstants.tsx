@@ -20,6 +20,7 @@ export interface ButtonProps extends HtmlProps, ExtendedProps {
     color?: buttonColor;
     size?: size;
     orientation?: orientation;
+    isDarkTheme: boolean;
 }
 
 export enum buttonColor {
@@ -53,6 +54,7 @@ export enum orientation {
 export interface CheckBoxProps extends ExtendedCheckboxProps, ExtendedProps {
     color?: color;
     size?: size;
+    isDarkTheme: boolean;
 }
 
 export enum color {
@@ -67,6 +69,7 @@ export enum color {
 
 export interface SelectProps extends ExtendedSelectProps, ExtendedProps {
     color?: datePickerColor;
+    isDarkTheme: boolean;
 }
 
 //#endregion
@@ -94,12 +97,14 @@ export interface DatePickerProps extends ExtendedDateProps, ExtendedProps {
     variant?: datePickerVariant;
     margin?: margin;
     color?: datePickerColor;
+    isDarkTheme: boolean;
 }
 
 export interface TimePickerProps extends ExtendedTimeProps, ExtendedProps {
     variant?: datePickerVariant;
     margin?: margin;
     color?: datePickerColor;
+    isDarkTheme: boolean;
 }
 
 //#endregion
@@ -110,6 +115,7 @@ export interface RadioProps extends ExtendedCheckboxProps, ExtendedProps {
     color?: color;
     size?: size;
     orientation?: orientation;
+    isDarkTheme: boolean;
 }
 
 //#endregion
@@ -120,6 +126,7 @@ export interface TextAreaProps extends ExtendedTextAreaProps, ExtendedProps {
     variant?: textVariant;
     color?: textColor;
     size?: textSize;
+    isDarkTheme: boolean;
 }
 
 export enum textColor {
@@ -147,6 +154,7 @@ export enum textVariant {
 export interface InputTextProps extends ExtendedInputProps, ExtendedProps {
     color?: txtColor;
     size?: txtSize;
+    isDarkTheme: boolean;
 }
 
 export interface StandardVarient extends InputTextProps {
@@ -180,6 +188,7 @@ export enum txtSize {
 export interface TogglerProps extends HtmlProps, ExtendedProps {
     color?: color;
     size?: size;
+    isDarkTheme: boolean;
 }
 
 //#endregion
@@ -188,6 +197,7 @@ export interface TogglerProps extends HtmlProps, ExtendedProps {
 
 export interface FileUploadProps extends ExtendedFileUploadProps, ButtonProps {
     onChange: ((event: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
+    isDarkTheme: boolean;
 }
 
 //#endregion
@@ -195,7 +205,7 @@ export interface FileUploadProps extends ExtendedFileUploadProps, ButtonProps {
 //#region List
 
 export interface ListProps extends ExtendedListProps {
-    
+    isDarkTheme: boolean;
 }
 
 //#endregion
@@ -204,6 +214,7 @@ export interface ListProps extends ExtendedListProps {
 
 export interface LinkProps extends ExtendedLinkProps {
     onChange: ((event: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
+    isDarkTheme: boolean;
 }
 
 //#endregion
@@ -211,6 +222,7 @@ export interface LinkProps extends ExtendedLinkProps {
 //#region List
 
 export interface ParagraphProps extends ExtendedParagraphProps, ExtendedProps {
+    isDarkTheme: boolean;
     // onChange: ((event: React.ChangeEvent<HTMLInputElement>) => void) | undefined;
 }
 

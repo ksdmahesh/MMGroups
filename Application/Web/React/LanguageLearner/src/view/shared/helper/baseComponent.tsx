@@ -28,6 +28,8 @@ const AllDataIndex = [
     'controlIndex'
 ];
 
+type ThemeType = 'header' | 'control' | 'control2' | 'drawer' | 'divider' | 'card';
+
 // tslint:disable-next-line: no-any
 export default class BaseComponent<T = any, U = any> extends React.Component<T, U> {
 
@@ -39,6 +41,83 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
                 </Notice>
             )
         );
+    }
+    static getDrawerTheme() {
+        return {
+            backgroundColor: '#424242',
+            color: 'burlywood',
+            border: '#121212'
+        };
+    }
+    static getCardTheme() {
+        return {
+            backgroundColor: '#121212',
+            color: 'burlywood',
+            border: '#121212',
+            boxShadow: '0px 5px 5px -3px #333, 0px 8px 10px 1px #121212, 0px 3px 14px 2px #424242'
+        };
+    }
+    static getDividerTheme() {
+        return {
+            backgroundColor: '#121212',
+            color: 'burlywood',
+            border: '#121212'
+        };
+    }
+    static getHeaderTheme() {
+        return {
+            backgroundColor: '#333',
+            color: 'burlywood',
+            border: '#121212'
+        };
+    }
+    static getControlTheme() {
+        return {
+            backgroundColor: '#121212',
+            color: 'burlywood',
+            border: '#121212',
+            fill: '#121212'
+        };
+    }
+    static getControlTheme2() {
+        return {
+            backgroundColor: 'gray',
+            color: 'burlywood',
+            border: '#121212'
+        };
+    }
+    static getTheme(isDarkTheme: boolean, type: ThemeType = 'control', isCss: boolean = false): any {
+        if (isDarkTheme) {
+            var switchThemes = BaseComponent.switchTheme(type);
+            if (isCss) {
+                console.log(`background-color: ${switchThemes.backgroundColor};
+                color: ${switchThemes.color};
+                border: ${switchThemes.border};`)
+                return `background-color: ${switchThemes.backgroundColor};
+                    color: ${switchThemes.color};
+                    border: ${switchThemes.border};`;
+            }
+            return switchThemes;
+        }
+    }
+
+    static switchTheme(type: ThemeType) {
+        switch (type) {
+            case 'header':
+                return BaseComponent.getHeaderTheme();
+            case 'drawer':
+                return BaseComponent.getDrawerTheme();
+            case 'control':
+                return BaseComponent.getControlTheme();
+            case 'control2':
+                return BaseComponent.getControlTheme2();
+            case 'divider':
+                return BaseComponent.getDividerTheme();
+            case 'card':
+                return BaseComponent.getCardTheme();
+            default:
+                return BaseComponent.getControlTheme();
+        }
     }
 
     // tslint:disable-next-line: no-any
@@ -305,6 +384,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             isDropDisabled: boolean,
             isVertical: boolean,
             location: string,
+            isDarkTheme: boolean,
             content: (
                 dragProvider?: DraggableProvided,
                 dropProvider?: DroppableProvided,
@@ -315,8 +395,9 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
     ) => {
         var item = props.item;
         var raised = props.itemRaised === `${item.aria + item.id + props.index}`;
+        console.log(props.isDarkTheme)
         return (
-            <DroppedItem>
+            <DroppedItem isDarkTheme={props.isDarkTheme}>
                 <Grid container={true} direction="row">
                     <Grid item={true} xs={12} md={12}>
                         <Card
@@ -344,7 +425,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
                             style={
                                 raised
                                     ?
-                                    { width: '100%' }
+                                    { width: '100%', ...BaseComponent.getTheme(props.isDarkTheme, 'card') }
                                     :
                                     {
                                         backgroundColor: 'transparent',
@@ -354,11 +435,12 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
                             }
                             key={item.id + props.index}
                         >
-                            <CardContent style={{ padding: 0 }}>
+                            <CardContent style={{ padding: 0, ...BaseComponent.getTheme(props.isDarkTheme, 'header') }}>
                                 <ExpansionPanels
                                     location={props.location}
                                     index={props.dragIndex}
                                     panelHeader={item.label}
+                                    isDarkTheme={props.isDarkTheme}
                                 >
                                     {props.content(undefined, undefined, undefined, undefined)}
                                 </ExpansionPanels>

@@ -12,7 +12,7 @@ export default class Cells extends BaseComponent<CellsProps> {
         var currentState = this.getState();
         var currentStep = currentState.currentStep || 0;
         var sectionIndex = this.props.sectionIndex || 0;
-        const props = (index: number, cell: CellProps[0], isDropDisabled: boolean = true, dragIndex: number = 0) => (
+        const props = (index: number, cell: CellProps[0], isDropDisabled: boolean = true, dragIndex: number = 0, isDarkTheme: boolean = false) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
@@ -26,7 +26,8 @@ export default class Cells extends BaseComponent<CellsProps> {
                 length: cell?.rows?.length || 0,
                 isVertical: true,
                 location: `${currentStep},${sectionIndex},${index}`,
-                dragIndex: dragIndex
+                dragIndex: dragIndex,
+                isDarkTheme: isDarkTheme
             }
         )
 
@@ -47,11 +48,12 @@ export default class Cells extends BaseComponent<CellsProps> {
 
     render() {
         const { props, item } = this.onLoad();
+        var isDarkTheme = this.props.isDarkTheme;
         return (
             <Grid container={true} style={{ width: '100%' }}>
                 {this.props.section.cells.map((cell, index) => {
                     dragIndex.index += 1;
-                    var itemProp = props(index, cell, this.props.isDropDisabled, dragIndex.index);
+                    var itemProp = props(index, cell, this.props.isDropDisabled, dragIndex.index, isDarkTheme);
                     return (
                         <this.GetDragDropItems
                             {...itemProp}
@@ -68,7 +70,7 @@ export default class Cells extends BaseComponent<CellsProps> {
                                                     <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
                                                         <Chip
                                                             label="Add Row"
-                                                            style={{ width: '50%' }}
+                                                            style={{ width: '50%', ...BaseComponent.getTheme(isDarkTheme, 'control') }}
                                                             onClick={() =>
                                                                 this.chipClick(
                                                                     'Row',
@@ -81,6 +83,7 @@ export default class Cells extends BaseComponent<CellsProps> {
                                             </>
                                             :
                                             <Rows
+                                                isDarkTheme={isDarkTheme}
                                                 dropProvider={this.props.dropProvider}
                                                 cell={cell}
                                                 sectionIndex={this.props.sectionIndex}
@@ -88,7 +91,7 @@ export default class Cells extends BaseComponent<CellsProps> {
                                                 isDropDisabled={this.props.isDropDisabled}
                                             />
                                     }
-                                    {/* {this.props.dropProvider.placeholder} */}
+                                    {this.props.dropProvider.placeholder}
                                 </>
                             )}
                         />);

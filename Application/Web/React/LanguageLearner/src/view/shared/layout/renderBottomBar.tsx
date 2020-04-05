@@ -11,6 +11,7 @@ export default class RenderBottomBar extends BaseComponent<BottomBarItemsProps> 
         if (!currentProperty) {
             return '';
         }
+        var isDarkTheme = this.props.isDarkTheme;
         return (
             <List
                 component="nav"
@@ -20,10 +21,11 @@ export default class RenderBottomBar extends BaseComponent<BottomBarItemsProps> 
                     right: 0,
                     bottom: 0,
                     border: 0,
-                    overflowX: 'hidden'
+                    overflowX: 'hidden',
+                    ...BaseComponent.getTheme(isDarkTheme, 'drawer')
                 }}
             >
-                {getPropertiesByControl(currentProperty)}
+                {getPropertiesByControl(currentProperty, isDarkTheme)}
             </List>
         );
     }

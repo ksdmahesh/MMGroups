@@ -1,6 +1,6 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
-// import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import BaseComponent from '../helper/baseComponent';
 import { DataProps, HeaderProps } from '../../dynamic/renderViewConstants';
 import FileUpload from '../materialUI/fileUpload';
@@ -45,34 +45,36 @@ export default class Header extends BaseComponent<HeaderProps> {
     }
 
     render() {
-        // const onClick = () => {
-        //     this.dispatchStore({ rightSideBar: false, bottomSideBar: true });
-        // };
+        const onClick = () => {
+            this.dispatchStore({ rightSideBar: true });
+        };
+        var isDarkTheme = this.props.isDarkTheme;
+
         return (
             <div style={{ flexGrow: 1 }}>
-                <AppBar position="static">
+                <AppBar position="static" style={BaseComponent.getTheme(isDarkTheme, 'header')}>
                     <Toolbar
                         style={{ minHeight: '48px' }}
                     >
                         <Typography variant="h6" style={{ flexGrow: 1 }}>
                             {'News'}
                         </Typography>
-                        <FileUpload
+                        {/* <FileUpload
                             color={buttonColor.inherit}
                             name={'uploadFile'}
                             id={'uploadFile'}
                             onChange={this.fileUpload}
                             label={'Import JSON'}
                         />
-                        <Button color="inherit" onClick={this.exportFile}>{'Export JSON'}</Button>
-                        {/* <IconButton
+                        <Button color="inherit" onClick={this.exportFile}>{'Export JSON'}</Button> */}
+                        <IconButton
                             onClick={onClick}
                             edge={false}
                             color="inherit"
                             aria-label="menu"
                         >
                             <MenuIcon />
-                        </IconButton> */}
+                        </IconButton>
                     </Toolbar>
                 </AppBar>
             </div>

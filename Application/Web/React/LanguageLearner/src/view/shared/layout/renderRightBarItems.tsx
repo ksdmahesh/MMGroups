@@ -1,9 +1,11 @@
 import React from 'react';
 import BaseComponent from '../helper/baseComponent';
-import { List, ListItem, Tabs, Tab } from '@material-ui/core';
-import { getPropertiesByControl } from '../../../constants/constants';
+import { List, ListItem, Tabs, Tab, ListItemIcon, ListItemText, ButtonGroup, Button, Divider } from '@material-ui/core';
+import getIconByName, { getPropertiesByControl } from '../../../constants/constants';
 import { RightBarItemsProps } from '../../dynamic/renderViewConstants';
 import { Droppable, Draggable, DragDropContext } from 'react-beautiful-dnd';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 function a11yProps(index: string) {
     return {
@@ -14,14 +16,17 @@ function a11yProps(index: string) {
 
 export default class RenderRightBarItems extends BaseComponent {
 
-    handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-
+    handleChange = (event: React.MouseEvent<HTMLElement, MouseEvent>, value: any) => {
+        if (value) {
+            this.dispatchStore({
+                themeInfo: value
+            })
+        }
     }
 
     render() {
-
+        var theme = this.getState('themeInfo') || 'Dark';
         return (
-            // <DragDropContext onDragEnd={() => { }}>
             <List
                 component="nav"
                 style={{
@@ -33,52 +38,90 @@ export default class RenderRightBarItems extends BaseComponent {
                     overflowX: 'hidden'
                 }}
             >
-                {this.DataHeader.map((header, index) => (
-                    <ListItem
-                        key={header + index}
-                        style={{ overflowX: 'hidden' }}
+                <ListItem
+                    style={{ overflowX: 'hidden' }}
+                >
+                    <ListItemText
+                        style={{ color: '#aaa' }}
+                        primary={'Account Info'}
+                    />
+                </ListItem>
+                <Divider />
+                <ListItem
+                    style={{ overflowX: 'hidden' }}
+                >
+                    <ButtonGroup fullWidth={true} color="primary" aria-label="signInfo">
+                        <Button>{'Sign In'}</Button>
+                        <Button>{'Sign Up'}</Button>
+                    </ButtonGroup>
+                </ListItem>
+                <Divider />
+                <ListItem
+                    style={{ overflowX: 'hidden' }}
+                >
+                    <ListItemText
+                        style={{ color: '#aaa' }}
+                        primary={'Project Info'}
+                    />
+                </ListItem>
+                <Divider />
+                <ListItem
+                    style={{ overflowX: 'hidden' }}
+                >
+                    <ButtonGroup fullWidth={true} color="primary" aria-label="projectinfo">
+                        <Button>{'Save'}</Button>
+                        <Button>{'Open'}</Button>
+                    </ButtonGroup>
+                </ListItem>
+                <Divider />
+                <ListItem
+                    style={{ overflowX: 'hidden' }}
+                >
+                    <ListItemText
+                        style={{ color: '#aaa' }}
+                        primary={'Theme Info'}
+                    />
+                </ListItem>
+                <Divider />
+                <ListItem
+                    style={{ overflowX: 'hidden' }}
+                >
+                    <ToggleButtonGroup
+                        style={{ width: '100%', border: '1px solid rgba(63, 81, 181, 0.5)' }}
+                        value={theme}
+                        exclusive={true}
+                        size={'small'}
+                        color={'primary'}
+                        onChange={(e, v) => this.handleChange(e, v)}
+                        aria-label="themeinfo"
                     >
-                        <Droppable droppableId={header + index} >
-                            {(provided, snapshot) => (
-                                <>
-                                    <Tabs
-                                        {...provided.droppableProps}
-                                        ref={provided.innerRef}
-                                        value={index}
-                                        onChange={this.handleChange}
-                                        indicatorColor="primary"
-                                        textColor="primary"
-                                        variant="scrollable"
-                                        scrollButtons="on"
-                                        aria-label={`${header}DropTabs`}
-                                    >
-                                        {this.DataHeader.map((content, contentIndex) => (
-                                            <Draggable
-                                                disableInteractiveElementBlocking={true}
-                                                key={content + contentIndex}
-                                                draggableId={header + index + content + contentIndex}
-                                                index={contentIndex}
-                                            >
-                                                {
-                                                    (dragProvided, snapshot) => (
-                                                        <Tab
-                                                            ref={dragProvided.innerRef}
-                                                            {...dragProvided.draggableProps}
-                                                            {...dragProvided.dragHandleProps}
-                                                            label={content}
-                                                            {...a11yProps(content + contentIndex)}
-                                                        />
-                                                    )}
-                                            </Draggable>
-                                        ))}
-                                    </Tabs>
-                                </>
-                            )}
-                        </Droppable>
-                    </ListItem>
-                ))}
-            </List>
-            // </DragDropContext>
+                        <ToggleButton color={'primary'} style={{ ...{ width: '50%' }, ...(theme === 'Light' ? { backgroundColor: '#3f51b5', color: '#fff' } : { backgroundColor: '#fff', color: '#3f51b5' }) }} value="Light" aria-label="LightTheme">
+                            {'Light'}
+                        </ToggleButton>
+                        <ToggleButton color={'primary'} style={{ ...{ width: '50%' }, ...(theme === 'Dark' ? { backgroundColor: '#3f51b5', color: '#fff' } : { backgroundColor: '#fff', color: '#3f51b5' }) }} value="Dark" aria-label="DarkTheme">
+                            {'Dark'}
+                        </ToggleButton>
+                    </ToggleButtonGroup>
+                </ListItem>
+                <Divider />
+                <ListItem
+                    style={{ overflowX: 'hidden' }}
+                >
+                    <ListItemText
+                        style={{ color: '#aaa' }}
+                        primary={'Result Info'}
+                    />
+                </ListItem>
+                <Divider />
+                <ListItem
+                    style={{ overflowX: 'hidden' }}
+                >
+                    <ButtonGroup fullWidth={true} color="primary" aria-label="resultinfo">
+                        <Button>{'Preview'}</Button>
+                        <Button>{'Publish'}</Button>
+                    </ButtonGroup>
+                </ListItem>
+            </List >
         );
     }
 }

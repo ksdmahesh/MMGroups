@@ -81,7 +81,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
 
     }
 
-    getButtonHolder() {
+    getButtonHolder(isDarkTheme: boolean) {
         return (
             <div
                 style={{
@@ -89,6 +89,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                     alignItems: 'center',
                     padding: '0',
                     justifyContent: 'flex-end',
+                    ...BaseComponent.getTheme(isDarkTheme, 'header')
                 }}
                 id="leftbar-button-holder"
             >
@@ -96,11 +97,11 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                     !this.getState('showMenuIcon')
                         ?
                         <IconButton onClick={this.handleDrawerClose} >
-                            <ChevronLeftIcon />
+                            <ChevronLeftIcon style={BaseComponent.getTheme(isDarkTheme, 'header')} />
                         </IconButton>
                         :
                         <IconButton onClick={this.handleDrawerOpen} >
-                            <MenuIcon />
+                            <MenuIcon style={BaseComponent.getTheme(isDarkTheme, 'header')} />
                         </IconButton>
                 }
             </div>
@@ -393,6 +394,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     }
 
     render() {
+        var isDarkTheme = this.props.isDarkTheme;
         return (
             <DragDropContext
                 onDragEnd={this.onDragEnd}
@@ -402,17 +404,18 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                 <RightBar />
                 <Droppable droppableId={baseId} isDropDisabled={true} >
                     {(provided, snapshot) => (
-                        <div ref={provided.innerRef} >
+                        <div ref={provided.innerRef} style={BaseComponent.getTheme(isDarkTheme, 'drawer')}>
                             <CssBaseline />
                             <Drawer
+                                style={BaseComponent.getTheme(isDarkTheme, 'drawer')}
                                 ref={provided.innerRef}
                                 anchor="left"
                                 variant="persistent"
                                 open={true}
                             >
-                                {this.getButtonHolder()}
-                                <Divider />
-                                <RenderLeftBarItems isDragging={isDragging} isDraggable={this.props.isDraggable} id={listId} items={rawItems} />
+                                {this.getButtonHolder(isDarkTheme)}
+                                <Divider style={BaseComponent.getTheme(isDarkTheme, 'divider')} />
+                                <RenderLeftBarItems isDarkTheme={isDarkTheme} isDragging={isDragging} isDraggable={this.props.isDraggable} id={listId} items={rawItems} />
                             </Drawer>
                             {/* {this.props.content(contentId, provided)} */}
                         </div>

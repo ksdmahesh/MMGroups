@@ -9,20 +9,24 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItemsProps> {
 
-    getInnerHtml(item: AllControlProps) {
+    getInnerHtml(item: AllControlProps, isDarkTheme: boolean) {
         return (
             <ListItem
                 style={
                     {
-                        height: '56px'
+                        height: '56px',
+                        ...BaseComponent.getTheme(isDarkTheme, 'control')
                     }
                 }
                 title={item.label}
             >
-                <ListItemIcon>
+                <ListItemIcon
+                    style={BaseComponent.getTheme(isDarkTheme, 'control')}
+                >
                     {getIconByName(`${item.type}`)}
                 </ListItemIcon>
                 <ListItemText
+                    style={BaseComponent.getTheme(isDarkTheme, 'control')}
                     className={'leftbar-container-item-animate'}
                     primary={item.label}
                 />
@@ -30,12 +34,13 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
         );
     }
 
-    getItemProps(provided: DraggableProvided, snapshot: DraggableStateSnapshot) {
+    getItemProps(provided: DraggableProvided, snapshot: DraggableStateSnapshot, isDarkTheme: boolean) {
         return {
             ref: provided.innerRef,
             ...provided.draggableProps,
             ...provided.dragHandleProps,
             isDragging: snapshot.isDragging,
+            isDarkTheme: isDarkTheme,
             style: provided.draggableProps.style
         };
     }
@@ -49,11 +54,12 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
     };
 
     render() {
+        var isDarkTheme = this.props.isDarkTheme;
         return (
             <Kiosk
                 isDraggingOver={this.props.isDragging}
                 id={this.props.id}
-                style={{ padding: '0' }}
+                style={{ padding: '0', ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}
             >
                 {
                     Object.entries(this.props.items).map((dataItem: any, dataIndex: number) => {
@@ -65,8 +71,11 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                                 id={id}
                                 expanded={id === this.getState('leftExpander')}
                                 onChange={(e, y) => this.handleChange(id, e, y)}
+                                style={BaseComponent.getTheme(isDarkTheme, 'header')}
                             >
                                 <ExpansionPanelSummary
+                                    IconButtonProps={{ style: BaseComponent.getTheme(isDarkTheme, 'drawer') }}
+                                    style={BaseComponent.getTheme(isDarkTheme, 'drawer')}
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-label="Expand"
                                     aria-controls={id + '-content'}
@@ -75,9 +84,9 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                                     {dataItem[0]}
                                 </ExpansionPanelSummary>
                                 <ExpansionPanelDetails
-                                    style={{ width: '100%', userSelect: 'none' }}
+                                    style={{ width: '100%', userSelect: 'none', ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}
                                 >
-                                    <div>
+                                    <div style={BaseComponent.getTheme(isDarkTheme, 'drawer')}>
                                         {dataItem[1].map((item: any, index: number) => {
                                             return (
                                                 <Draggable
@@ -90,16 +99,15 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                                                         (provided, snapshot) => (
                                                             <React.Fragment>
                                                                 <Item
-                                                                    {...this.getItemProps(provided, snapshot)}
-                                                                
+                                                                    {...this.getItemProps(provided, snapshot, isDarkTheme)}
                                                                 >
                                                                     {
-                                                                        this.getInnerHtml(item)
+                                                                        this.getInnerHtml(item, isDarkTheme)
                                                                     }
                                                                 </Item>
                                                                 {snapshot.isDragging && (
                                                                     <Clone>
-                                                                        {this.getInnerHtml(item)}
+                                                                        {this.getInnerHtml(item, isDarkTheme)}
                                                                     </Clone>
                                                                 )}
                                                             </React.Fragment>

@@ -44,8 +44,8 @@ export default class Dropdown extends BaseComponent<SelectProps> {
         var options = this.props.options || names || [] as Array<{ [x: string]: string }>;
 
         return (
-            <div style={{ width: '100%' }}>
-                <FormControl variant="standard" style={{ width: '100%' }}>
+            <div style={{ width: '100%', ...BaseComponent.getTheme(this.props.isDarkTheme, 'control') }}>
+                <FormControl variant="standard" style={{ width: '100%', ...BaseComponent.getTheme(this.props.isDarkTheme, 'control') }}>
                     <InputLabel htmlFor={this.props.id} id={`${this.props.id}-label`}>{this.props.label}</InputLabel>
                     <Select
                         color={this.props.color}

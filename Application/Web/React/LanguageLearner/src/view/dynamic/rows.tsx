@@ -59,7 +59,7 @@ export default class Rows extends BaseComponent<RowsProps> {
         });
     }
 
-    getColumnButtons(props: { sectionIndex: number, cellIndex: number, rowIndex: number, length: number }) {
+    getColumnButtons(props: { sectionIndex: number, cellIndex: number, rowIndex: number, length: number, isDarkTheme: boolean }) {
         return (
             <>
                 <IconButton color={'primary'} onClick={(e) => this.addList(1, props.sectionIndex, props.cellIndex, props.rowIndex)}>
@@ -91,7 +91,7 @@ export default class Rows extends BaseComponent<RowsProps> {
         var currentStep = currentState.currentStep || 0;
         var sectionIndex = this.props.sectionIndex || 0;
         var cellIndex = this.props.cellIndex || 0;
-        const props = (index: number, row: RowProps[0], isDropDisabled: boolean = true, dragIndex: number = 0) => (
+        const props = (index: number, row: RowProps[0], isDropDisabled: boolean = true, dragIndex: number = 0, isDarkTheme: boolean = false) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
@@ -105,7 +105,8 @@ export default class Rows extends BaseComponent<RowsProps> {
                 length: row?.columns?.length || 0,
                 isVertical: false,
                 location: `${currentStep},${sectionIndex},${cellIndex},${index}`,
-                dragIndex: dragIndex
+                dragIndex: dragIndex,
+                isDarkTheme: isDarkTheme
             }
         )
 
@@ -126,12 +127,13 @@ export default class Rows extends BaseComponent<RowsProps> {
 
     render() {
         const { props, item } = this.onLoad();
+        var isDarkTheme = this.props.isDarkTheme;
         return (
             <>
                 <Grid container={true} >
                     {this.props.cell.rows.map((row, index) => {
                         dragIndex.index += 1;
-                        var itemProp = props(index, row, this.props.isDropDisabled, dragIndex.index);
+                        var itemProp = props(index, row, this.props.isDropDisabled, dragIndex.index, isDarkTheme);
                         return (
                             <this.GetDragDropItems
                                 {...itemProp}
@@ -146,13 +148,14 @@ export default class Rows extends BaseComponent<RowsProps> {
                                                 this.getPlaceholder(this.props.dropProvider, 'No Columns')
                                                 :
                                                 <Columns
+                                                    isDarkTheme={isDarkTheme}
                                                     dropProvider={this.props.dropProvider}
                                                     {...itemProp}
                                                     columns={row.columns}
                                                     isDropDisabled={this.props.isDropDisabled}
                                                 />
                                         }
-                                        {/* {this.props.dropProvider.placeholder} */}
+                                        {this.props.dropProvider.placeholder}
                                     </>
                                 )}
                             />);
