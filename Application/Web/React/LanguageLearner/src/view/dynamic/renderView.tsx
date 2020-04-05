@@ -10,10 +10,18 @@ import TopBar from '../shared/layout/topBar';
 import Footer from '../shared/layout/footer';
 import ScrollDialog from '../shared/materialUI/modal';
 import BottomBar from '../shared/layout/bottomBar';
-import AddingThings from '../shared/dnd/beautifulDnd';
+import { Content } from '../shared/dnd/dndConstants';
 
 var dialogId = '';
-
+var contentStyle: any = (isDrag: boolean) => ({
+    position: 'fixed',
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+    overflow: isDrag ? 'hidden' : 'auto',
+    zIndex: 500
+});
 export default class RenderView extends BaseComponent {
 
     constructor(props: {}) {
@@ -24,21 +32,28 @@ export default class RenderView extends BaseComponent {
     }
     render() {
         var state = this.getState() || {};
+        var isDrag = state.rightSideBar;
         return (
-            <div className="wrapper">
-                <AddingThings />
-                {/* <LeftBar isDraggable={true} id={state.baseId}>
-                    <Header id={state.baseId} />
-                    <div id="content">
-                        <Steps
-                            steps={state.formdata.steps}
-                            isDropDisabled={state.isDropDisabled}
-                        />
-                    </div>
-                    <RightBar />
-                    <BottomBar />
-                    <Footer />
-                </LeftBar>
+            <div>
+                <LeftBar isDraggable={true} id={state.baseId}
+                    content={(contentId, dropProvider) => (
+                        <div className="wrapper" style={contentStyle(isDrag)}>
+                            <Content id={contentId} >
+                                <Header id={state.baseId} />
+                                <div id="content" >
+                                    <Steps
+                                        steps={state.formdata.steps}
+                                        isDropDisabled={false}
+                                        dropProvider={dropProvider}
+                                    />
+                                </div>
+                                {/* <TopBar /> */}
+                                <BottomBar />
+                                <Footer />
+                            </Content>
+                        </div>
+                    )}
+                />
                 <ScrollDialog
                     title={state.modalTitle}
                     content={state.modalContent}
@@ -49,7 +64,7 @@ export default class RenderView extends BaseComponent {
                     okButtonText={state.okButtonText}
                     cancelButtonText={state.cancelButtonText}
                     modalCloseCallback={state.modalCloseCallback}
-                /> */}
+                />
             </div>
         );
     }

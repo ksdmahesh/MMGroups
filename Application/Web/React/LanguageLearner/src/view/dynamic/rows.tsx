@@ -5,6 +5,7 @@ import { RowsProps, DataProps, RowProps } from './renderViewConstants';
 import Columns from './columns';
 import uuid from 'uuid';
 import { IconButton, Badge } from '@material-ui/core';
+import { dragIndex } from '../shared/dnd/dndConstants';
 // import uuid from 'uuid';
 // import { Notice } from '../shared/dnd/dndConstants';
 
@@ -90,7 +91,7 @@ export default class Rows extends BaseComponent<RowsProps> {
         var currentStep = currentState.currentStep || 0;
         var sectionIndex = this.props.sectionIndex || 0;
         var cellIndex = this.props.cellIndex || 0;
-        const props = (index: number, row: RowProps[0]) => (
+        const props = (index: number, row: RowProps[0], isDropDisabled: boolean = true, dragIndex: number = 0) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
@@ -100,9 +101,11 @@ export default class Rows extends BaseComponent<RowsProps> {
                 controlIndex: -1,
                 index: index,
                 itemRaised: currentState.raised,
-                isDropDisabled: currentState.dropId !== 'rows',
+                isDropDisabled: isDropDisabled,
                 length: row?.columns?.length || 0,
-                isVertical: false
+                isVertical: false,
+                location: `${currentStep},${sectionIndex},${cellIndex},${index}`,
+                dragIndex: dragIndex
             }
         )
 
@@ -127,27 +130,29 @@ export default class Rows extends BaseComponent<RowsProps> {
             <>
                 <Grid container={true} >
                     {this.props.cell.rows.map((row, index) => {
-                        var itemProp = props(index, row);
+                        dragIndex.index += 1;
+                        var itemProp = props(index, row, this.props.isDropDisabled, dragIndex.index);
                         return (
                             <this.GetDragDropItems
                                 {...itemProp}
                                 {...item(row)}
                                 key={row.id + index}
-                                content={(dragProvider, dropProvider) => (
+                                content={(dragProvider, dropProvider, snapshot, dropSnapshot) => (
                                     <>
                                         {this.getColumnButtons(itemProp)}
                                         {
                                             itemProp.length === 0
                                                 ?
-                                                this.getPlaceholder(dropProvider, 'No Columns')
+                                                this.getPlaceholder(this.props.dropProvider, 'No Columns')
                                                 :
                                                 <Columns
+                                                    dropProvider={this.props.dropProvider}
                                                     {...itemProp}
                                                     columns={row.columns}
                                                     isDropDisabled={this.props.isDropDisabled}
                                                 />
                                         }
-                                        {dropProvider.placeholder}
+                                        {/* {this.props.dropProvider.placeholder} */}
                                     </>
                                 )}
                             />);

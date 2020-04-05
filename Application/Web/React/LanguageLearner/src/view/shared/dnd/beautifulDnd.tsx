@@ -1,7 +1,7 @@
 // @flow
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Draggable, Droppable, DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { Draggable, Droppable, DragDropContext, DropResult, BeforeCapture } from 'react-beautiful-dnd';
 
 export type Id = string;
 export var grid = 8;
@@ -116,7 +116,7 @@ export default function AddingThings() {
     const [tasks, setTasks] = useState(() => getTasks(10));
     const [trash, setTrash] = useState(() => getTasks(2));
 
-    function onBeforeCapture() {
+    function onBeforeCapture(result: BeforeCapture) {
         setIsShowingBin(true);
     }
 

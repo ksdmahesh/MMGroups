@@ -2,6 +2,7 @@ import * as React from 'react';
 import BaseComponent from '../shared/helper/baseComponent';
 import { Grid } from '@material-ui/core';
 import { ColumnsProps, ColumnProps } from './renderViewConstants';
+import { dragIndex } from '../shared/dnd/dndConstants';
 import Controls from './controls';
 
 export default class Columns extends BaseComponent<ColumnsProps> {
@@ -35,7 +36,7 @@ export default class Columns extends BaseComponent<ColumnsProps> {
         var cellIndex = this.props.cellIndex || 0;
         var rowIndex = this.props.rowIndex || 0;
 
-        const props = (index: number, column: ColumnProps[0]) => (
+        const props = (index: number, column: ColumnProps[0], isDropDisabled: boolean = true, dragIndex: number = 0) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
@@ -45,9 +46,11 @@ export default class Columns extends BaseComponent<ColumnsProps> {
                 controlIndex: -2,
                 index: index,
                 itemRaised: currentState.raised,
-                isDropDisabled: currentState.dropId !== 'columns',
+                isDropDisabled: isDropDisabled,
                 length: column?.controls?.length || 0,
-                isVertical: true
+                isVertical: true,
+                location: `${currentStep},${sectionIndex},${cellIndex},${rowIndex},${index}`,
+                dragIndex: dragIndex
             }
         )
 
@@ -76,7 +79,8 @@ export default class Columns extends BaseComponent<ColumnsProps> {
             <Grid container={true} >
                 {
                     this.props.columns.map((column, index) => {
-                        var itemProp = props(index, column);
+                        dragIndex.index += 1;
+                        var itemProp = props(index, column, this.props.isDropDisabled, dragIndex.index);
                         return (
                             <Grid
                                 item={true} xs={12} key={`${column.id}-${index}`} md={gridWidth} sm={gridWidth}
@@ -85,20 +89,21 @@ export default class Columns extends BaseComponent<ColumnsProps> {
                                     {...itemProp}
                                     {...item(column)}
                                     key={column.id + index}
-                                    content={(dragProvider, dropProvider) => (
+                                    content={(dragProvider, dropProvider, snapshot, dropSnapshot) => (
                                         <>
                                             {
                                                 itemProp.length === 0
                                                     ?
-                                                    this.getPlaceholder(dropProvider, 'No Controls')
+                                                    this.getPlaceholder(this.props.dropProvider, 'No Controls')
                                                     :
                                                     <Controls
+                                                        dropProvider={this.props.dropProvider}
                                                         {...itemProp}
                                                         controls={column.controls}
                                                         columnId={column.id}
                                                     />
                                             }
-                                            {dropProvider.placeholder}
+                                            {/* {this.props.dropProvider.placeholder} */}
                                         </>
                                     )}
                                 />

@@ -12,9 +12,16 @@ export const Item = styled.div`
   align-content: flex-start;
   line-height: 1.5;
   border-radius: 3px;
+  z-index: 7000 !important;
   background: #fff;
-  border: 1px ${
-  (props: { isDragging?: boolean }) => (props.isDragging ? 'dashed #000' : 'solid transparent')};
+  ${
+  (props: { isDragging?: boolean }) => (
+    props.isDragging
+      ?
+      'border: 1px dashed #000;'
+      :
+      'border: 1px solid transparent;'
+  )}
 
  `;
 
@@ -27,16 +34,44 @@ export const DroppedItem = styled.div`
   align-content: flex-start;
   line-height: 1.5;
   border-radius: 3px;
-  width: 100%;
   background: #fff;
-  border: 1px ${
-  (props: { isDragging?: boolean }) => (props.isDragging ? 'dashed #000' : 'solid #ddd')};
-
+  height: auto !important;
+  width: 100%;
+  border: 1px solid #ddd;
  `;
+
+export const CloneDroppedItem = styled(DroppedItem)`
+  + div {
+    display: ${
+  (props: { isDragging?: boolean }) => (props.isDragging ? 'none !important' : 'flex !important')};
+  }
+`;
+
+const ListBin = styled.div`
+  border: 1px solid ${'gray'};
+  text-align: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 6000;
+  background-color: white;
+`;
+
+export const ListTitle = styled.h3`
+  padding: ${8}px;
+  width: 250px;
+`;
+
+export const Bin = styled(ListBin)`
+  border-color: ${'red'};
+`;
 
 export const Clone = styled(Item)`
   + div {
-    display: none!important;
+    display: ${
+  (props: { isDragging?: boolean }) => (props.isDragging ? 'none !important' : 'flex !important')};
   }
 `;
 
@@ -72,6 +107,15 @@ export const Kiosk = styled(List)`
   width: 200px;
   border: 0;
   overflow-x: hidden;
+  ${
+  (props: { isDraggingOver?: boolean }) => (
+    props.isDraggingOver 
+    ? 
+    'overflow-y: hidden;' 
+    : 
+    'overflow-y: auto;'
+    )}
+
 `;
 
 export const Container = styled(List)`
@@ -126,3 +170,7 @@ export var controlItems: {
 };
 
 export var leftControlItems: LeftBarItems = {};
+
+export const dragIndex = {
+  index: 0
+};

@@ -3,6 +3,7 @@ import BaseComponent from '../shared/helper/baseComponent';
 import { Grid, Chip } from '@material-ui/core';
 import { CellsProps, CellProps } from './renderViewConstants';
 import Rows from './rows';
+import { dragIndex } from '../shared/dnd/dndConstants';
 // import { Notice } from '../shared/dnd/dndConstants';
 
 export default class Cells extends BaseComponent<CellsProps> {
@@ -11,7 +12,7 @@ export default class Cells extends BaseComponent<CellsProps> {
         var currentState = this.getState();
         var currentStep = currentState.currentStep || 0;
         var sectionIndex = this.props.sectionIndex || 0;
-        const props = (index: number, cell: CellProps[0]) => (
+        const props = (index: number, cell: CellProps[0], isDropDisabled: boolean = true, dragIndex: number = 0) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
@@ -21,9 +22,11 @@ export default class Cells extends BaseComponent<CellsProps> {
                 controlIndex: -1,
                 index: index,
                 itemRaised: currentState.raised,
-                isDropDisabled: currentState.dropId !== 'cells',
+                isDropDisabled: isDropDisabled,
                 length: cell?.rows?.length || 0,
-                isVertical: true
+                isVertical: true,
+                location: `${currentStep},${sectionIndex},${index}`,
+                dragIndex: dragIndex
             }
         )
 
@@ -47,19 +50,20 @@ export default class Cells extends BaseComponent<CellsProps> {
         return (
             <Grid container={true} style={{ width: '100%' }}>
                 {this.props.section.cells.map((cell, index) => {
-                    var itemProp = props(index, cell);
+                    dragIndex.index += 1;
+                    var itemProp = props(index, cell, this.props.isDropDisabled, dragIndex.index);
                     return (
                         <this.GetDragDropItems
                             {...itemProp}
                             {...item(cell)}
                             key={cell.id + index}
-                            content={(dragProvider, dropProvider) => (
+                            content={(dragProvider, dropProvider, snapshot, dropSnapshot) => (
                                 <>
                                     {
                                         itemProp.length === 0
                                             ?
                                             <>
-                                                {this.getPlaceholder(dropProvider, 'No Rows')}
+                                                {this.getPlaceholder(this.props.dropProvider, 'No Rows')}
                                                 <Grid container={true} direction="row">
                                                     <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
                                                         <Chip
@@ -77,13 +81,14 @@ export default class Cells extends BaseComponent<CellsProps> {
                                             </>
                                             :
                                             <Rows
+                                                dropProvider={this.props.dropProvider}
                                                 cell={cell}
                                                 sectionIndex={this.props.sectionIndex}
                                                 cellIndex={index}
                                                 isDropDisabled={this.props.isDropDisabled}
                                             />
                                     }
-                                    {dropProvider.placeholder}
+                                    {/* {this.props.dropProvider.placeholder} */}
                                 </>
                             )}
                         />);

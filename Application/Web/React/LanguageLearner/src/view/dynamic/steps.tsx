@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import { Droppable } from 'react-beautiful-dnd';
 import { Grid, Chip } from '@material-ui/core';
 import uuid from 'uuid';
+import { dragIndex } from '../shared/dnd/dndConstants';
 
 function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
@@ -52,60 +53,49 @@ export default class Steps extends BaseComponent<StepProps> {
 
     render() {
         var currentStep = this.getState('currentStep');
-
+        var steps = this.props.steps || [];
+        dragIndex.index = 0;
         return (
-            <TabDnd tabHeaders={this.props.steps || []} >
+            <TabDnd tabHeaders={steps} >
                 {
-                    this.props.steps.map((step, index) => {
+                    steps.map((step, index) => {
                         return (
                             <TabPanel
                                 key={`${step.id}-${index}`}
                                 value={currentStep}
                                 index={index}
                             >
-                                <Droppable
-                                    droppableId={`sections${step.id}`}
-                                    isDropDisabled={!this.props.isDropDisabled}
-                                >
-                                    {(provided, snapshot) => (
-                                        <div
-                                            ref={provided.innerRef}
-                                            {...provided.droppableProps}
-                                        >
-                                            {
-                                                currentStep === index
-                                                    ?
-                                                    <>
-                                                        {step.sections.length === 0
-                                                            ?
-                                                            <>
-                                                                {this.getPlaceholder(provided, 'No Sections')}
-                                                                <Grid container={true} direction="row">
-                                                                    <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
-                                                                        <Chip
-                                                                            label="Add Section"
-                                                                            style={{ width: '50%' }}
-                                                                            onClick={() => this.handleClick(currentStep)}
-                                                                        />
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </>
-                                                            :
-                                                            <Sections
-                                                                currentStep={currentStep}
-                                                                index={index}
-                                                                sections={step.sections}
-                                                                isDropDisabled={this.props.isDropDisabled || false}
+                                {
+                                    currentStep === index
+                                        ?
+                                        <>
+                                            {step.sections.length === 0
+                                                ?
+                                                <>
+                                                    {this.getPlaceholder(this.props.dropProvider, 'No Sections')}
+                                                    <Grid container={true} direction="row">
+                                                        <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
+                                                            <Chip
+                                                                label="Add Section"
+                                                                style={{ width: '50%' }}
+                                                                onClick={() => this.handleClick(currentStep)}
                                                             />
-                                                        }
-                                                    </>
-                                                    :
-                                                    ''
+                                                        </Grid>
+                                                    </Grid>
+                                                </>
+                                                :
+                                                <Sections
+                                                    dropProvider={this.props.dropProvider}
+                                                    currentStep={currentStep}
+                                                    index={index}
+                                                    sections={step.sections}
+                                                    isDropDisabled={this.props.isDropDisabled || false}
+                                                />
                                             }
-                                            {provided.placeholder}
-                                        </div>
-                                    )}
-                                </Droppable>
+                                        </>
+                                        :
+                                        ''
+                                }
                             </TabPanel>
                         );
                     })

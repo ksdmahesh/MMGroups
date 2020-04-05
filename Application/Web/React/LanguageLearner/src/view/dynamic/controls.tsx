@@ -3,6 +3,7 @@ import BaseComponent from '../shared/helper/baseComponent';
 import { ControlProps } from './renderViewConstants';
 import { controlItems } from '../shared/dnd/dndConstants';
 import { getControlByName } from '../../constants/constants';
+import { dragIndex } from '../shared/dnd/dndConstants';
 
 export default class Controls extends BaseComponent<ControlProps> {
 
@@ -13,7 +14,7 @@ export default class Controls extends BaseComponent<ControlProps> {
         var cellIndex = this.props.cellIndex || 0;
         var rowIndex = this.props.rowIndex || 0;
         var columnIndex = this.props.columnIndex || 0;
-        const props = (index: number) => (
+        const props = (index: number, isDropDisabled: boolean = true, dragIndex: number = 0) => (
             {
                 stepIndex: currentStep,
                 sectionIndex: sectionIndex,
@@ -23,8 +24,10 @@ export default class Controls extends BaseComponent<ControlProps> {
                 controlIndex: index,
                 index: index,
                 itemRaised: currentState.raised,
-                isDropDisabled: currentState.dropId !== 'controls',
-                isVertical: true
+                isDropDisabled: isDropDisabled,
+                isVertical: true,
+                location:`${currentStep},${sectionIndex},${cellIndex},${rowIndex},${columnIndex},${index}`,
+                dragIndex: dragIndex
             }
         )
 
@@ -59,16 +62,17 @@ export default class Controls extends BaseComponent<ControlProps> {
             <>
                 {
                     controls.map((control, index) => {
-                        var itemProp = props(index);
+                        dragIndex.index += 1;
+                        var itemProp = props(index, this.props.isDropDisabled, dragIndex.index);
                         return (
                             <this.GetDragDropItems
                                 {...itemProp}
                                 {...item(control)}
                                 key={control.id + index}
-                                content={(dragProvider, dropProvider) => (
+                                content={(dragProvider, dropProvider, snapshot, dropSnapshot) => (
                                     <>
                                         {getControlByName(control)}
-                                        {dropProvider.placeholder}
+                                        {/* {this.props.dropProvider.placeholder} */}
                                     </>
                                 )}
                             />

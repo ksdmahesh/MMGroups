@@ -13,7 +13,7 @@ import { Content, controlItems, leftControlItems } from '../dnd/dndConstants';
 import { ControlsProps, LeftBarProps, DataProps, SectionProps } from '../../dynamic/renderViewConstants';
 import $ from 'jquery';
 import { getLeftBarControlsJSON } from '../../../constants/constants';
-import TopBar from './topBar';
+import RightBar from './rightBar';
 
 var baseId = '';
 var dropId = '';
@@ -164,7 +164,12 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
 
     onDragEnd = (result: DropResult) => {
         const { source, destination } = result;
-
+        console.log(result)
+        isDragging = false;
+        this.dispatchStore({
+            isChildCalled: false,
+            rightSideBar: false
+        });
         // dropped outside the list
         if (!destination) {
             return;
@@ -177,7 +182,6 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                 break;
             }
         }
-
         // var formdata: DataProps;
         // var currentStep: number;
         // var sectionIndex: number;
@@ -363,7 +367,6 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     }
 
     onDragStart = (result: DropResult) => {
-        isDragging = true;
         // const { source } = result;
         // var currentSourceId = source.droppableId;
         // var currentActiveHeader = this.DataHeader.find(header => (
@@ -378,12 +381,15 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     }
 
     onBeforeCapture = (result: BeforeCapture) => {
-        console.log('ok')
+        if (!result.draggableId) {
+            return;
+        }
+        var activeId = result.draggableId;
+        isDragging = true;
         this.dispatchStore({
             isChildCalled: true,
-            topSideBar: true
+            rightSideBar: true
         });
-        isDragging = true;
     }
 
     render() {
@@ -393,9 +399,10 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                 onDragStart={this.onDragStart}
                 onBeforeCapture={this.onBeforeCapture}
             >
+                <RightBar />
                 <Droppable droppableId={baseId} isDropDisabled={true} >
                     {(provided, snapshot) => (
-                        <div id={dropId} ref={provided.innerRef} >
+                        <div ref={provided.innerRef} >
                             <CssBaseline />
                             <Drawer
                                 ref={provided.innerRef}
@@ -405,21 +412,22 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                             >
                                 {this.getButtonHolder()}
                                 <Divider />
-                                <RenderLeftBarItems isDraggable={this.props.isDraggable} id={listId} items={rawItems} />
+                                <RenderLeftBarItems isDragging={isDragging} isDraggable={this.props.isDraggable} id={listId} items={rawItems} />
                             </Drawer>
+                            {/* {this.props.content(contentId, provided)} */}
                         </div>
                     )}
                 </Droppable>
-                <Content id={contentId} >
-                    {this.props.children}
-                </Content>
-                {
-                    isDragging
-                        ?
-                        <TopBar />
-                        :
-                        ''
-                }
+                <Droppable
+                    droppableId={dropId}
+                    isDropDisabled={true}
+                >
+                    {(provided, snapshot) => (
+                        <div ref={provided.innerRef} >
+                            {this.props.content(contentId, provided)}
+                        </div>
+                    )}
+                </Droppable>
             </DragDropContext>
         );
     }

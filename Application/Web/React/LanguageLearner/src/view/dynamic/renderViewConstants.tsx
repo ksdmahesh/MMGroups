@@ -1,4 +1,4 @@
-import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
+import { DraggableProvidedDragHandleProps, DroppableProvided } from 'react-beautiful-dnd';
 
 export type HtmlProps = {
     name: string,
@@ -119,12 +119,14 @@ export interface RowsProps {
     cell: CellProps[0];
     sectionIndex: number;
     cellIndex: number;
+    dropProvider: DroppableProvided;
 }
 
 export interface CellsProps {
     isDropDisabled: boolean;
     section: SectionProps[0];
     sectionIndex: number;
+    dropProvider: DroppableProvided;
 }
 
 export interface ColumnsProps {
@@ -133,15 +135,18 @@ export interface ColumnsProps {
     cellIndex: number;
     rowIndex: number;
     columns: ColumnProps;
+    dropProvider: DroppableProvided;
 }
 
 export interface ControlProps {
+    dropProvider: DroppableProvided;
     columnId: string;
     controls: ControlsProps;
     sectionIndex: number;
     cellIndex: number;
     rowIndex: number;
     columnIndex: number;
+    isDropDisabled: boolean;
 }
 
 export interface DroppableContainerProps {
@@ -158,6 +163,7 @@ export interface SectionsProps {
     sections: SectionProps;
     currentStep: number;
     index: number;
+    dropProvider: DroppableProvided;
 }
 
 export interface TabPanelProps {
@@ -171,6 +177,7 @@ export interface TabPanelProps {
 export interface StepProps {
     steps: StepsProps;
     isDropDisabled: boolean;
+    dropProvider: DroppableProvided;
 }
 
 export interface PanelProps {
@@ -197,17 +204,22 @@ export type ExtendedAddressProps = {
 export interface LeftBarProps {
     isDraggable: boolean;
     id: string;
+    content: (dropId: string, provider: DroppableProvided) => JSX.Element | string;
 }
 
 export interface RenderLeftBarItemsProps {
     id: string;
     items: LeftBarData;
     isDraggable: boolean;
+    isDragging: boolean;
 }
 
 export interface ExpanderProps {
     panelHeader: string;
-    dragHandleProps: DraggableProvidedDragHandleProps | undefined;
+    location: string;
+    index: number;
+    // dragHandleProps?: DraggableProvidedDragHandleProps;
+    // isDragging: boolean;
 }
 
 export type ModalProps = {

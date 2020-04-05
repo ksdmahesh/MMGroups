@@ -27,7 +27,9 @@ export default class TopBar extends BaseComponent {
                     <Drawer
                         style={{ width: '100%' }}
                         anchor="top"
-                        open={true}
+                        variant={'persistent'}
+                        open={this.getState('topSideBar')}
+                        // PaperProps={{variant: 'outlined', style: {height: '100%', position: 'fixed'}}}
                     >
                         <div>
                             <Typography

@@ -3,7 +3,7 @@ import { Dispatch, store } from '../../../constants/defaultConstants';
 import { PropertyWindowProps, DataProps, AllControlProps } from '../../dynamic/renderViewConstants';
 import TypeCheck, { HelperClass } from './typeCheck';
 import uuid from 'uuid';
-import { DroppableProvided, Draggable, Droppable, DraggableProvided } from 'react-beautiful-dnd';
+import { DroppableProvided, Draggable, Droppable, DraggableProvided, DraggableStateSnapshot, DroppableStateSnapshot } from 'react-beautiful-dnd';
 import { Notice, DroppedItem } from '../dnd/dndConstants';
 import { Grid, Card, CardContent } from '@material-ui/core';
 import ExpansionPanels from '../materialUI/expansionPanel';
@@ -294,6 +294,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
                 aria: string
             },
             index: number,
+            dragIndex: number,
             itemRaised: string,
             stepIndex: number,
             sectionIndex: number,
@@ -303,91 +304,69 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             controlIndex: number,
             isDropDisabled: boolean,
             isVertical: boolean,
-            content: (dragProvider: DraggableProvided, dropProvider: DroppableProvided) => JSX.Element
+            location: string,
+            content: (
+                dragProvider?: DraggableProvided,
+                dropProvider?: DroppableProvided,
+                snapshot?: DraggableStateSnapshot,
+                dropSnapshot?: DroppableStateSnapshot
+            ) => JSX.Element | string
         }
     ) => {
         var item = props.item;
         var raised = props.itemRaised === `${item.aria + item.id + props.index}`;
         return (
-            <Draggable
-                disableInteractiveElementBlocking={true}
-                key={item.id}
-                draggableId={item.aria + item.id}
-                index={props.index}
-            >
-                {
-                    (provided, snapshot) => (
-                        <DroppedItem
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            style={provided.draggableProps.style}
+            <DroppedItem>
+                <Grid container={true} direction="row">
+                    <Grid item={true} xs={12} md={12}>
+                        <Card
+                            {...{ 'aria-label': item.aria }}
+                            onClick={(e) => this.cardRaised(
+                                e,
+                                item.aria + item.id + props.index,
+                                {
+                                    control: this.getPropertyWindowControl({
+                                        name: item.name,
+                                        type: item.type,
+                                        label: item.label,
+                                        id: item.id
+                                    }),
+                                    stepIndex: props.stepIndex,
+                                    sectionIndex: props.sectionIndex,
+                                    cellIndex: props.cellIndex,
+                                    rowIndex: props.rowIndex,
+                                    columnIndex: props.columnIndex,
+                                    controlIndex: props.controlIndex
+                                }
+                            )}
+                            raised={raised}
+                            color={'primary'}
+                            style={
+                                raised
+                                    ?
+                                    { width: '100%' }
+                                    :
+                                    {
+                                        backgroundColor: 'transparent',
+                                        width: '100%',
+                                        boxShadow: 'none'
+                                    }
+                            }
+                            key={item.id + props.index}
                         >
-                            <Grid container={true} direction="row">
-                                <Grid item={true} xs={12} md={12}>
-                                    <Card
-                                        {...{ 'aria-label': item.aria }}
-                                        onClick={(e) => this.cardRaised(
-                                            e,
-                                            item.aria + item.id + props.index,
-                                            {
-                                                control: this.getPropertyWindowControl({
-                                                    name: item.name,
-                                                    type: item.type,
-                                                    label: item.label,
-                                                    id: item.id
-                                                }),
-                                                stepIndex: props.stepIndex,
-                                                sectionIndex: props.sectionIndex,
-                                                cellIndex: props.cellIndex,
-                                                rowIndex: props.rowIndex,
-                                                columnIndex: props.columnIndex,
-                                                controlIndex: props.controlIndex
-                                            }
-                                        )}
-                                        raised={raised}
-                                        color={'primary'}
-                                        style={
-                                            raised
-                                                ?
-                                                { width: '100%' }
-                                                :
-                                                {
-                                                    backgroundColor: 'transparent',
-                                                    width: '100%',
-                                                    boxShadow: 'none'
-                                                }
-                                        }
-                                        key={item.id + props.index}
-                                    >
-                                        <CardContent style={{ padding: 0 }}>
-                                            <Droppable
-                                                droppableId={`${item.aria + item.id}`}
-                                                isDropDisabled={true} // props.isDropDisabled}
-                                                direction={props.isVertical ? 'vertical' : 'horizontal'}
-                                            >
-                                                {(dropProvided, snapshot) => (
-                                                    <div
-                                                        ref={dropProvided.innerRef}
-                                                        {...dropProvided.droppableProps}
-                                                    >
-                                                        <ExpansionPanels
-                                                            dragHandleProps={provided.dragHandleProps}
-                                                            panelHeader={item.label}
-                                                        >
-                                                            {props.content(provided, dropProvided)}
-                                                            {dropProvided.placeholder}
-                                                        </ExpansionPanels>
-                                                    </div>
-                                                )}
-                                            </Droppable>
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
-                            </Grid>
-                        </DroppedItem>
-                    )
-                }
-            </Draggable>
+                            <CardContent style={{ padding: 0 }}>
+                                <ExpansionPanels
+                                    location={props.location}
+                                    index={props.dragIndex}
+                                    panelHeader={item.label}
+                                >
+                                    {props.content(undefined, undefined, undefined, undefined)}
+                                </ExpansionPanels>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                </Grid>
+            </DroppedItem>
         );
     }
 

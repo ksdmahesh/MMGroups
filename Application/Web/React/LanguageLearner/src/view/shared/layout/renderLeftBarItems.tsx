@@ -51,6 +51,7 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
     render() {
         return (
             <Kiosk
+                isDraggingOver={this.props.isDragging}
                 id={this.props.id}
                 style={{ padding: '0' }}
             >
@@ -82,7 +83,7 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                                                 <Draggable
                                                     isDragDisabled={!this.props.isDraggable}
                                                     key={item.id}
-                                                    draggableId={item.id}
+                                                    draggableId={`-1,${dataIndex},${index}`}
                                                     index={index}
                                                 >
                                                     {
@@ -90,8 +91,11 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                                                             <React.Fragment>
                                                                 <Item
                                                                     {...this.getItemProps(provided, snapshot)}
+                                                                
                                                                 >
-                                                                    {this.getInnerHtml(item)}
+                                                                    {
+                                                                        this.getInnerHtml(item)
+                                                                    }
                                                                 </Item>
                                                                 {snapshot.isDragging && (
                                                                     <Clone>

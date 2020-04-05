@@ -36,12 +36,12 @@ export default class RenderTopBarItems extends BaseComponent<any> {
                         key={header + index}
                         style={{ overflowX: 'hidden' }}
                     >
-                        <Droppable droppableId="tabHeaders" direction="horizontal">
+                        <Droppable droppableId={header + index} >
                             {(provided, snapshot) => (
                                 <Tabs
                                     {...provided.droppableProps}
                                     ref={provided.innerRef}
-                                    value={1}
+                                    value={index}
                                     onChange={this.handleChange}
                                     indicatorColor="primary"
                                     textColor="primary"
@@ -53,7 +53,7 @@ export default class RenderTopBarItems extends BaseComponent<any> {
                                         <Draggable
                                             disableInteractiveElementBlocking={true}
                                             key={content + contentIndex}
-                                            draggableId={content + contentIndex}
+                                            draggableId={header + index + content + contentIndex}
                                             index={contentIndex}
                                         >
                                             {
@@ -63,7 +63,7 @@ export default class RenderTopBarItems extends BaseComponent<any> {
                                                         {...dragProvided.draggableProps}
                                                         {...dragProvided.dragHandleProps}
                                                         label={content}
-                                                        {...a11yProps(content + 0)}
+                                                        {...a11yProps(content + contentIndex)}
                                                     />
                                                 )}
                                         </Draggable>
