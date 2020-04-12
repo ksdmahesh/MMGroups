@@ -5,7 +5,7 @@ import TypeCheck, { HelperClass } from './typeCheck';
 import uuid from 'uuid';
 import { DroppableProvided, Draggable, Droppable, DraggableProvided, DraggableStateSnapshot, DroppableStateSnapshot } from 'react-beautiful-dnd';
 import { Notice, DroppedItem } from '../dnd/dndConstants';
-import { Grid, Card, CardContent } from '@material-ui/core';
+import { Grid, Card, CardContent, createMuiTheme, colors, ThemeProvider } from '@material-ui/core';
 import ExpansionPanels from '../materialUI/expansionPanel';
 
 var dispatch: Dispatch;
@@ -28,7 +28,122 @@ const AllDataIndex = [
     'controlIndex'
 ];
 
-type ThemeType = 'header' | 'control' | 'control2' | 'drawer' | 'divider' | 'card';
+const theme = () => createMuiTheme({
+    overrides: {
+        MuiInput: {
+            input: BaseComponent.getTheme(true, 'control'),
+            inputTypeSearch: { border: 'burlywood', color: 'white' },
+            underline: {
+                '&:before': {
+                    color: 'burlywood',
+                    borderBottomColor: 'burlywood',
+                },
+                '&:after': {
+                    color: 'burlywood',
+                    borderBottomColor: 'burlywood',
+                },
+                '&:hover:before': {
+                    color: 'burlywood',
+                    borderBottomColor: 'burlywood !important',
+                },
+            },
+            disabled: {
+                '&:before': {
+                    backgroundColor: 'grey',
+                    borderBottomColor: 'gray',
+                },
+                '&:after': {
+                    backgroundColor: 'grey',
+                    borderBottomColor: 'gray',
+                },
+                '&:hover:before': {
+                    backgroundColor: 'grey',
+                    borderBottomColor: 'gray !important',
+                },
+            },
+            focused: {
+                '&:before': {
+                    color: 'burlywood !important',
+                    borderBottomColor: 'burlywood !important',
+                },
+                '&:after': {
+                    color: 'burlywood !important',
+                    borderBottomColor: 'burlywood !important',
+                },
+                '&:hover:before': {
+                    color: 'burlywood !important',
+                    borderBottomColor: 'burlywood !important',
+                },
+            },
+            colorSecondary: {
+                '&:before': {
+                    color: 'burlywood !important',
+                    borderBottomColor: 'burlywood !important',
+                },
+                '&:after': {
+                    color: 'burlywood !important',
+                    borderBottomColor: 'burlywood !important',
+                },
+                '&:hover:before': {
+                    color: 'burlywood !important',
+                    borderBottomColor: 'burlywood !important',
+                },
+            },
+            root: BaseComponent.getTheme(true, 'control')
+        }, MuiInputLabel: {
+            focused: {
+                '&:before': {
+                    color: 'burlywood !important',
+                    borderBottomColor: 'burlywood !important',
+                },
+                '&:after': {
+                    color: 'burlywood !important',
+                    borderBottomColor: 'burlywood !important',
+                },
+                '&:hover:before': {
+                    color: 'burlywood !important',
+                    borderBottomColor: 'burlywood !important',
+                },
+            },
+            disabled: {
+                '&:before': {
+                    backgroundColor: 'grey',
+                    color: 'burlywood',
+                    borderBottomColor: 'gray',
+                },
+                '&:after': {
+                    backgroundColor: 'grey',
+                    color: 'burlywood',
+                    borderBottomColor: 'gray',
+                },
+                '&:hover:before': {
+                    backgroundColor: 'grey',
+                    borderBottomColor: 'gray !important',
+                },
+            },
+            root: BaseComponent.getTheme(true, 'control'),
+            outlined: {
+                backgroundColor: 'grey',
+                color: 'burlywood',
+                borderBottomColor: 'gray',
+            }, filled: {
+                backgroundColor: 'grey',
+                color: 'burlywood',
+                borderBottomColor: 'gray',
+            }
+        }, MuiBadge: {
+            root: BaseComponent.getTheme(true, 'control'),
+            colorPrimary: BaseComponent.getTheme(true, 'control'),
+            badge: BaseComponent.getTheme(true, 'control')
+        }, MuiCheckbox: {
+            input: BaseComponent.getTheme(true, 'control'),
+            checked: BaseComponent.getTheme(true, 'control'),
+            root: BaseComponent.getTheme(true, 'control'),
+        }
+    },
+});
+
+type ThemeType = 'header' | 'control' | 'control2' | 'control3' | 'drawer' | 'divider' | 'card';
 
 // tslint:disable-next-line: no-any
 export default class BaseComponent<T = any, U = any> extends React.Component<T, U> {
@@ -86,6 +201,13 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             border: '#121212'
         };
     }
+    static getControlTheme3() {
+        return {
+            backgroundColor: 'gray',
+            color: 'burlywood',
+            border: '#121212'
+        };
+    }
     static getTheme(isDarkTheme: boolean, type: ThemeType = 'control', isCss: boolean = false): any {
         if (isDarkTheme) {
             var switchThemes = BaseComponent.switchTheme(type);
@@ -111,6 +233,8 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
                 return BaseComponent.getControlTheme();
             case 'control2':
                 return BaseComponent.getControlTheme2();
+            case 'control3':
+                return BaseComponent.getControlTheme3();
             case 'divider':
                 return BaseComponent.getDividerTheme();
             case 'card':
@@ -136,6 +260,14 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             dispatch = store.dispatch;
         }
         this.GetDragDropItems = this.GetDragDropItems.bind(this);
+    }
+
+    GetThemeProvider(props: { children: JSX.Element | string }) {
+        return (
+            <ThemeProvider theme={theme()}>
+                {props.children}
+            </ThemeProvider>
+        );
     }
 
     dispatchStore(data: {}, location: string = '', type: string = 'dispatch') {

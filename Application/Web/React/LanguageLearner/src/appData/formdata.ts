@@ -33,7 +33,7 @@ export const formdata: DataProps = {
                                                 {
                                                     'name': '',
                                                     'id': 'PrincipalTitle1',
-                                                    'type': 'checkbox',
+                                                    'type': 'textbox',
                                                     'label': 'Test'
                                                 }
                                             ]

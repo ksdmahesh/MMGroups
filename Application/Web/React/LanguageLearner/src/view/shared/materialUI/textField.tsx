@@ -6,23 +6,25 @@ import { StandardVarient, FilledTextFieldProps, OutlinedTextFieldProps } from '.
 export default class InputText extends BaseComponent<StandardVarient | FilledTextFieldProps | OutlinedTextFieldProps> {
     render() {
         return (
-            <form noValidate={true} autoComplete="off" style={{ width: '100%', ...BaseComponent.getTheme(this.props.isDarkTheme, 'control') }}>
-                <TextField
-                    disabled={this.props.disabled}
-                    {...this.setAttributes(this.props)}
-                    type={this.props.type || 'text'}
-                    id={this.props.id}
-                    label={this.props.label}
-                    variant={this.props.variant}
-                    rowsMax={this.props.rowsMax}
-                    color={'secondary'}
-                    rows={this.props.rows}
-                    style={{ width: '100%', ...BaseComponent.getTheme(this.props.isDarkTheme, 'control') }}
-                    size={this.props.size}
-                    placeholder={this.props.placeholder}
-                    multiline={this.props.multiline}
-                />
-            </form>
+            <this.GetThemeProvider>
+                <form noValidate={true} autoComplete="off" style={{ width: '100%' }}>
+                    <TextField
+                        disabled={this.props.disabled}
+                        {...this.setAttributes(this.props)}
+                        type={this.props.type || 'text'}
+                        id={this.props.id}
+                        label={this.props.label}
+                        variant={this.props.variant}
+                        rowsMax={this.props.rowsMax}
+                        color={'secondary'}
+                        rows={this.props.rows}
+                        style={{ width: '100%' }}
+                        size={this.props.size}
+                        placeholder={this.props.placeholder}
+                        multiline={this.props.multiline}
+                    />
+                </form>
+            </this.GetThemeProvider>
         );
     }
 }
