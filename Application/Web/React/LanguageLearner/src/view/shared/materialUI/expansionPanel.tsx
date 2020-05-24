@@ -59,49 +59,14 @@ export default class ExpansionPanels extends React.Component<ExpanderProps> {
 
                         <Grid container={true} direction="row" >
                             <Grid item={true} xs={12} >
-                                <Draggable
-                                    disableInteractiveElementBlocking={true}
-                                    draggableId={this.props.location}
+                                <Item
+                                    id={this.props.location}
                                     index={this.props.index}
+                                    isDarkTheme={isDarkTheme}
+                                    isExpander={true}
                                 >
-                                    {
-                                        (provided, snapshot) => (
-                                            <div>
-                                                <Item
-                                                    id={this.props.location}
-                                                    index={this.props.index}
-                                                    onMouseDownCapture={(event: any) => {
-                                                        const current: any = {
-                                                            x: event.clientX,
-                                                            y: event.clientY,
-                                                        };
-                                                        clientSelectionRef.current = current;
-                                                    }}
-                                                    {...this.getItemProps(provided, snapshot, isDarkTheme, true)}
-                                                >
-                                                    {this.getInnerHtml(this.props.panelHeader)}
-                                                </Item>
-                                                <StyledItem
-                                                    onMouseDownCapture={(event) => {
-                                                        const current: any = {
-                                                            x: event.clientX,
-                                                            y: event.clientY,
-                                                        };
-                                                        clientSelectionRef.current = current;
-                                                    }}
-                                                    {...this.getItemProps(provided, snapshot, isDarkTheme, true)}
-                                                >
-                                                    {this.getInnerHtml(this.props.panelHeader)}
-                                                </StyledItem>
-                                                {snapshot.isDragging && (
-                                                    <Clone>
-                                                        {this.getInnerHtml(this.props.panelHeader)}
-                                                    </Clone>
-                                                )}
-                                            </div>
-                                        )
-                                    }
-                                </Draggable>
+                                    {this.getInnerHtml(this.props.panelHeader)}
+                                </Item>
                             </Grid>
                         </Grid>
                     </ExpansionPanelSummary>

@@ -384,7 +384,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     onBeforeCapture = (result: BeforeCapture) => {
         window.dispatchEvent(
             new CustomEvent('onBeforeCapture', {
-              detail: { result, clientSelection: clientSelectionRef.current },
+              detail: { before: result, clientSelection: clientSelectionRef.current },
             }),
           );
         if (!result.draggableId) {

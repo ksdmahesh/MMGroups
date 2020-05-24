@@ -1,9 +1,10 @@
+import React from 'react';
 import styled from 'styled-components';
 import { ControlsProps, LeftBarItems } from '../../dynamic/renderViewConstants';
 import BaseComponent from '../helper/baseComponent';
 import { getBox, Position, BoxModel } from 'css-box-model';
 import { useRef, useContext, useEffect } from 'react';
-import { BeforeCapture } from 'react-beautiful-dnd';
+import { BeforeCapture, Draggable } from 'react-beautiful-dnd';
 
 type UnbindFn = () => void;
 
@@ -58,82 +59,10 @@ export default function bindEvents(
 type ItemProps = {
   index: number,
   id: string,
-  // props: any,
-  children?: any
-};
-
-export const Item: any = (props: ItemProps) => {
-  const { id, index, children } = props;
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const unsubscribe = bindEvents(window, [
-      {
-        eventName: 'onBeforeCapture',
-        fn: (event: CustomEvent) => {
-
-          const before: BeforeCapture = event.detail.before;
-          const clientSelection: Position = event.detail.clientSelection;
-
-          if (before.mode !== 'FLUID') {
-            return;
-          }
-
-          if (before.draggableId !== id) {
-            return;
-          }
-
-          const el: HTMLElement | null = ref.current;
-
-          if (!el) {
-            return;
-          }
-
-          const box: BoxModel = getBox(el);
-
-          // want to shrink the item to 200px wide.
-          // want it to be centered as much as possible to the cursor
-          const targetWidth: number = 250;
-          const halfWidth: number = targetWidth / 2;
-          const distanceToLeft: number = Math.max(
-            clientSelection.x - box.borderBox.left,
-            0,
-          );
-
-          el.innerHTML = children;
-
-          el.style.width = `${targetWidth}px`;
-
-          // Nothing left to do
-          if (distanceToLeft < halfWidth) {
-            return;
-          }
-
-          // what the new left will be
-          const proposedLeftOffset: number = distanceToLeft - halfWidth;
-          // what the raw right value would be
-          const targetRight: number =
-            box.borderBox.left + proposedLeftOffset + targetWidth;
-
-          // how much we would be going past the right value
-          const rightOverlap: number = Math.max(
-            targetRight - box.borderBox.right,
-            0,
-          );
-
-          // need to ensure that we don't pull the element past
-          // it's resting right position
-          const leftOffset: number = proposedLeftOffset - rightOverlap;
-
-          el.style.position = 'relative';
-          el.style.left = `${leftOffset}px`;
-        },
-      },
-    ]);
-
-    // return unsubscribe;
-  }, [id])
-  return ref.current;
+  children?: JSX.Element | string,
+  isDarkTheme: boolean,
+  isExpander?: boolean,
+  isDragDisabled?: boolean
 };
 
 export const Content = styled.div`
@@ -291,6 +220,115 @@ export const Button = styled.button`
 export const ButtonText = styled.div`
   margin: 0 1rem;
 `;
+
+export const Item: any = (props: ItemProps) => {
+  const { id, index, children, isDarkTheme, isExpander, isDragDisabled } = props;
+  const ref: any = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const unsubscribe = bindEvents(window, [
+      {
+        eventName: 'onBeforeCapture',
+        fn: (event: CustomEvent) => {
+
+          const before: BeforeCapture = event.detail.before;
+          const clientSelection: Position = event.detail.clientSelection;
+
+          if (before.mode !== 'FLUID') {
+            return;
+          }
+
+          if (before.draggableId !== id) {
+            return;
+          }
+
+          const el: HTMLElement | null = ref.current;
+
+          if (!el) {
+            return;
+          }
+
+          const box: BoxModel = getBox(el);
+
+          // want to shrink the item to 200px wide.
+          // want it to be centered as much as possible to the cursor
+          const targetWidth: number = 250;
+          const halfWidth: number = targetWidth / 2;
+          const distanceToLeft: number = Math.max(
+            clientSelection.x - box.borderBox.left,
+            0,
+          );
+
+          el.style.width = `${targetWidth}px`;
+
+          // Nothing left to do
+          if (distanceToLeft < halfWidth) {
+            return;
+          }
+
+          // what the new left will be
+          const proposedLeftOffset: number = distanceToLeft - halfWidth;
+          // what the raw right value would be
+          const targetRight: number =
+            box.borderBox.left + proposedLeftOffset + targetWidth;
+
+          // how much we would be going past the right value
+          const rightOverlap: number = Math.max(
+            targetRight - box.borderBox.right,
+            0,
+          );
+
+          // need to ensure that we don't pull the element past
+          // it's resting right position
+          const leftOffset: number = proposedLeftOffset - rightOverlap;
+
+          el.style.position = 'relative';
+          el.style.left = `${leftOffset}px`;
+        },
+      },
+    ]);
+
+    // return unsubscribe;
+  }, [id])
+
+  return (
+    <Draggable
+      draggableId={id}
+      index={index}
+      disableInteractiveElementBlocking={true}
+      isDragDisabled={isDragDisabled}
+    >
+      {(provided, snapshot) => (
+        <>
+          <StyledItem
+            onMouseDownCapture={(event) => {
+              const current: any = {
+                x: event.clientX,
+                y: event.clientY,
+              };
+              clientSelectionRef.current = current;
+            }}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={(node: HTMLElement | null) => {
+              provided.innerRef(node);
+              ref.current = node;
+            }}
+            isDarkTheme={isDarkTheme}
+            isExpander={isExpander}
+          >
+            {children}
+          </StyledItem>
+          {snapshot.isDragging && (
+            <Clone>
+              {children}
+            </Clone>
+          )}
+        </>
+      )}
+    </Draggable>
+  );
+};
 
 export var controlItems: {
   controlItems: {

@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseComponent from '../helper/baseComponent';
-import { Kiosk, StyledItem, Clone, clientSelectionRef } from '../dnd/dndConstants';
+import { Kiosk, StyledItem, Clone, clientSelectionRef, Item } from '../dnd/dndConstants';
 import { Draggable, DraggableStateSnapshot, DraggableProvided } from 'react-beautiful-dnd';
 import { ListItem, ListItemIcon, ListItemText, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
 import getIconByName from '../../../constants/constants';
@@ -89,37 +89,14 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                                     <div style={BaseComponent.getTheme(isDarkTheme, 'drawer')}>
                                         {dataItem[1].map((item: any, index: number) => {
                                             return (
-                                                <Draggable
+                                                <Item
                                                     isDragDisabled={!this.props.isDraggable}
                                                     key={item.id}
-                                                    draggableId={`-1,${dataIndex},${index}`}
+                                                    id={`-1,${dataIndex},${index}`}
                                                     index={index}
                                                 >
-                                                    {
-                                                        (provided, snapshot) => (
-                                                            <React.Fragment>
-                                                                <StyledItem
-                                                                    onMouseDownCapture={(event) => {
-                                                                        const current: any = {
-                                                                            x: event.clientX,
-                                                                            y: event.clientY,
-                                                                        };
-                                                                        clientSelectionRef.current = current;
-                                                                    }}
-                                                                    {...this.getItemProps(provided, snapshot, isDarkTheme)}
-                                                                >
-                                                                    {
-                                                                        this.getInnerHtml(item, isDarkTheme)
-                                                                    }
-                                                                </StyledItem>
-                                                                {snapshot.isDragging && (
-                                                                    <Clone>
-                                                                        {this.getInnerHtml(item, isDarkTheme)}
-                                                                    </Clone>
-                                                                )}
-                                                            </React.Fragment>
-                                                        )}
-                                                </Draggable>
+                                                    {this.getInnerHtml(item, isDarkTheme)}
+                                                </Item>
                                             );
                                         })}
                                     </div>
