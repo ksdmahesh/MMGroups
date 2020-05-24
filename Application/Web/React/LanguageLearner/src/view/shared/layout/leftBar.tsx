@@ -169,7 +169,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
         isDragging = false;
         this.dispatchStore({
             isChildCalled: false,
-            rightSideBar: false
+            topSideBar: false
         });
         // dropped outside the list
         if (!destination) {
@@ -384,9 +384,9 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     onBeforeCapture = (result: BeforeCapture) => {
         window.dispatchEvent(
             new CustomEvent('onBeforeCapture', {
-              detail: { before: result, clientSelection: clientSelectionRef.current },
+                detail: { before: result, clientSelection: clientSelectionRef.current },
             }),
-          );
+        );
         if (!result.draggableId) {
             return;
         }
@@ -394,7 +394,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
         isDragging = true;
         this.dispatchStore({
             isChildCalled: true,
-            rightSideBar: true
+            topSideBar: true
         });
     }
 
@@ -406,33 +406,46 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                 onDragStart={this.onDragStart}
                 onBeforeCapture={this.onBeforeCapture}
             >
-                <RightBar />
                 <Droppable droppableId={baseId} isDropDisabled={true} >
                     {(provided, snapshot) => (
-                        <div ref={provided.innerRef} style={BaseComponent.getTheme(isDarkTheme, 'drawer')}>
+                        <div
+                            ref={provided.innerRef}
+                            style={{ ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}
+                        >
                             <CssBaseline />
-                            <Drawer
-                                style={BaseComponent.getTheme(isDarkTheme, 'drawer')}
-                                ref={provided.innerRef}
-                                anchor="left"
-                                variant="persistent"
-                                open={true}
-                            >
+                            {/* <div
+                                style={{ ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}
+                            // ref={provided.innerRef}
+                            // anchor="left"
+                            // variant="persistent"
+                            // open={true}
+                            > */}
                                 {this.getButtonHolder(isDarkTheme)}
                                 <Divider style={BaseComponent.getTheme(isDarkTheme, 'divider')} />
                                 <RenderLeftBarItems isDarkTheme={isDarkTheme} isDragging={isDragging} isDraggable={this.props.isDraggable} id={listId} items={rawItems} />
-                            </Drawer>
-                            {/* {this.props.content(contentId, provided)} */}
+                            {/* </div> */}
+                            {this.props.content(contentId, provided)}
+                            {this.props.children}
                         </div>
                     )}
                 </Droppable>
+                {/* <Droppable
+                    droppableId={dropId}
+                    isDropDisabled={true}
+                >
+                    {(provided, snapshot) => (
+                        <div ref={provided.innerRef} style={{ zIndex: 5000, position: 'relative' }}>
+                            {this.props.content(contentId, provided)}
+                        </div>
+                    )}
+                </Droppable> */}
                 <Droppable
                     droppableId={dropId}
                     isDropDisabled={true}
                 >
                     {(provided, snapshot) => (
-                        <div ref={provided.innerRef} >
-                            {this.props.content(contentId, provided)}
+                        <div ref={provided.innerRef} style={{ zIndex: 5000, position: 'relative' }}>
+                            {this.props.children}
                         </div>
                     )}
                 </Droppable>

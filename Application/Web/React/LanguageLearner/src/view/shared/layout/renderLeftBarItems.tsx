@@ -15,7 +15,9 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                 style={
                     {
                         height: '56px',
-                        ...BaseComponent.getTheme(isDarkTheme, 'control')
+                        ...BaseComponent.getTheme(isDarkTheme, 'control'),
+                        // zIndex: 7000,
+                        // position: 'relative' 
                     }
                 }
                 title={item.label}

@@ -76,7 +76,7 @@ export const StyledItem = styled.div`
   align-content: flex-start;
   line-height: 1.5;
   border-radius: 3px;
-  z-index: 7000 !important;
+  // z-index: 7000;
   background: #fff;
   ${
   (props: { isDragging?: boolean, isDarkTheme?: boolean, isExpander?: boolean }) => (
@@ -100,6 +100,7 @@ export const DroppedItem = styled.div`
   background: #fff;
   height: auto !important;
   width: 100%;
+  // z-index: 7000;
   border: 1px solid #ddd;
   ${
   (props: { isDarkTheme?: boolean }) => (
@@ -283,6 +284,7 @@ export const Item: any = (props: ItemProps) => {
           const leftOffset: number = proposedLeftOffset - rightOverlap;
 
           el.style.position = 'relative';
+          // el.style.zIndex = '5005';
           el.style.left = `${leftOffset}px`;
         },
       },
@@ -316,6 +318,7 @@ export const Item: any = (props: ItemProps) => {
             }}
             isDarkTheme={isDarkTheme}
             isExpander={isExpander}
+            style={{ ...provided.draggableProps.style, zIndex: 7001 }}
           >
             {children}
           </StyledItem>

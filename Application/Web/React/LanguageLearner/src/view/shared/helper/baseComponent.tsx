@@ -30,116 +30,116 @@ const AllDataIndex = [
 
 const theme = () => createMuiTheme({
     overrides: {
-        MuiInput: {
-            input: BaseComponent.getTheme(true, 'control'),
-            inputTypeSearch: { border: 'burlywood', color: 'white' },
-            underline: {
-                '&:before': {
-                    color: 'burlywood',
-                    borderBottomColor: 'burlywood',
-                },
-                '&:after': {
-                    color: 'burlywood',
-                    borderBottomColor: 'burlywood',
-                },
-                '&:hover:before': {
-                    color: 'burlywood',
-                    borderBottomColor: 'burlywood !important',
-                },
-            },
-            disabled: {
-                '&:before': {
-                    backgroundColor: 'grey',
-                    borderBottomColor: 'gray',
-                },
-                '&:after': {
-                    backgroundColor: 'grey',
-                    borderBottomColor: 'gray',
-                },
-                '&:hover:before': {
-                    backgroundColor: 'grey',
-                    borderBottomColor: 'gray !important',
-                },
-            },
-            focused: {
-                '&:before': {
-                    color: 'burlywood !important',
-                    borderBottomColor: 'burlywood !important',
-                },
-                '&:after': {
-                    color: 'burlywood !important',
-                    borderBottomColor: 'burlywood !important',
-                },
-                '&:hover:before': {
-                    color: 'burlywood !important',
-                    borderBottomColor: 'burlywood !important',
-                },
-            },
-            colorSecondary: {
-                '&:before': {
-                    color: 'burlywood !important',
-                    borderBottomColor: 'burlywood !important',
-                },
-                '&:after': {
-                    color: 'burlywood !important',
-                    borderBottomColor: 'burlywood !important',
-                },
-                '&:hover:before': {
-                    color: 'burlywood !important',
-                    borderBottomColor: 'burlywood !important',
-                },
-            },
-            root: BaseComponent.getTheme(true, 'control')
-        }, MuiInputLabel: {
-            focused: {
-                '&:before': {
-                    color: 'burlywood !important',
-                    borderBottomColor: 'burlywood !important',
-                },
-                '&:after': {
-                    color: 'burlywood !important',
-                    borderBottomColor: 'burlywood !important',
-                },
-                '&:hover:before': {
-                    color: 'burlywood !important',
-                    borderBottomColor: 'burlywood !important',
-                },
-            },
-            disabled: {
-                '&:before': {
-                    backgroundColor: 'grey',
-                    color: 'burlywood',
-                    borderBottomColor: 'gray',
-                },
-                '&:after': {
-                    backgroundColor: 'grey',
-                    color: 'burlywood',
-                    borderBottomColor: 'gray',
-                },
-                '&:hover:before': {
-                    backgroundColor: 'grey',
-                    borderBottomColor: 'gray !important',
-                },
-            },
-            root: BaseComponent.getTheme(true, 'control'),
-            outlined: {
-                backgroundColor: 'grey',
-                color: 'burlywood',
-                borderBottomColor: 'gray',
-            }, filled: {
-                backgroundColor: 'grey',
-                color: 'burlywood',
-                borderBottomColor: 'gray',
-            }
-        }, MuiBadge: {
-            root: BaseComponent.getTheme(true, 'control'),
-            colorPrimary: BaseComponent.getTheme(true, 'control'),
-            badge: BaseComponent.getTheme(true, 'control')
-        }, MuiCheckbox: {
-            input: BaseComponent.getTheme(true, 'control'),
-            checked: BaseComponent.getTheme(true, 'control'),
-            root: BaseComponent.getTheme(true, 'control'),
-        }
+        // MuiInput: {
+        //     input: BaseComponent.getTheme(true, 'control'),
+        //     inputTypeSearch: { border: 'burlywood', color: 'white' },
+        //     underline: {
+        //         '&:before': {
+        //             color: 'burlywood',
+        //             borderBottomColor: 'burlywood',
+        //         },
+        //         '&:after': {
+        //             color: 'burlywood',
+        //             borderBottomColor: 'burlywood',
+        //         },
+        //         '&:hover:before': {
+        //             color: 'burlywood',
+        //             borderBottomColor: 'burlywood !important',
+        //         },
+        //     },
+        //     disabled: {
+        //         '&:before': {
+        //             backgroundColor: 'grey',
+        //             borderBottomColor: 'gray',
+        //         },
+        //         '&:after': {
+        //             backgroundColor: 'grey',
+        //             borderBottomColor: 'gray',
+        //         },
+        //         '&:hover:before': {
+        //             backgroundColor: 'grey',
+        //             borderBottomColor: 'gray !important',
+        //         },
+        //     },
+        //     focused: {
+        //         '&:before': {
+        //             color: 'burlywood !important',
+        //             borderBottomColor: 'burlywood !important',
+        //         },
+        //         '&:after': {
+        //             color: 'burlywood !important',
+        //             borderBottomColor: 'burlywood !important',
+        //         },
+        //         '&:hover:before': {
+        //             color: 'burlywood !important',
+        //             borderBottomColor: 'burlywood !important',
+        //         },
+        //     },
+        //     colorSecondary: {
+        //         '&:before': {
+        //             color: 'burlywood !important',
+        //             borderBottomColor: 'burlywood !important',
+        //         },
+        //         '&:after': {
+        //             color: 'burlywood !important',
+        //             borderBottomColor: 'burlywood !important',
+        //         },
+        //         '&:hover:before': {
+        //             color: 'burlywood !important',
+        //             borderBottomColor: 'burlywood !important',
+        //         },
+        //     },
+        //     root: BaseComponent.getTheme(true, 'control')
+        // }, MuiInputLabel: {
+        //     focused: {
+        //         '&:before': {
+        //             color: 'burlywood !important',
+        //             borderBottomColor: 'burlywood !important',
+        //         },
+        //         '&:after': {
+        //             color: 'burlywood !important',
+        //             borderBottomColor: 'burlywood !important',
+        //         },
+        //         '&:hover:before': {
+        //             color: 'burlywood !important',
+        //             borderBottomColor: 'burlywood !important',
+        //         },
+        //     },
+        //     disabled: {
+        //         '&:before': {
+        //             backgroundColor: 'grey',
+        //             color: 'burlywood',
+        //             borderBottomColor: 'gray',
+        //         },
+        //         '&:after': {
+        //             backgroundColor: 'grey',
+        //             color: 'burlywood',
+        //             borderBottomColor: 'gray',
+        //         },
+        //         '&:hover:before': {
+        //             backgroundColor: 'grey',
+        //             borderBottomColor: 'gray !important',
+        //         },
+        //     },
+        //     root: BaseComponent.getTheme(true, 'control'),
+        //     outlined: {
+        //         backgroundColor: 'grey',
+        //         color: 'burlywood',
+        //         borderBottomColor: 'gray',
+        //     }, filled: {
+        //         backgroundColor: 'grey',
+        //         color: 'burlywood',
+        //         borderBottomColor: 'gray',
+        //     }
+        // }, MuiBadge: {
+        //     root: BaseComponent.getTheme(true, 'control'),
+        //     colorPrimary: BaseComponent.getTheme(true, 'control'),
+        //     badge: BaseComponent.getTheme(true, 'control')
+        // }, MuiCheckbox: {
+        //     input: BaseComponent.getTheme(true, 'control'),
+        //     checked: BaseComponent.getTheme(true, 'control'),
+        //     root: BaseComponent.getTheme(true, 'control'),
+        // }
     },
 });
 
@@ -212,9 +212,9 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
         if (isDarkTheme) {
             var switchThemes = BaseComponent.switchTheme(type);
             if (isCss) {
-                console.log(`background-color: ${switchThemes.backgroundColor};
-                color: ${switchThemes.color};
-                border: ${switchThemes.border};`)
+                // console.log(`background-color: ${switchThemes.backgroundColor};
+                // color: ${switchThemes.color};
+                // border: ${switchThemes.border};`)
                 return `background-color: ${switchThemes.backgroundColor};
                     color: ${switchThemes.color};
                     border: ${switchThemes.border};`;
@@ -527,7 +527,7 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
     ) => {
         var item = props.item;
         var raised = props.itemRaised === `${item.aria + item.id + props.index}`;
-        console.log(props.isDarkTheme)
+        // console.log(props.isDarkTheme)
         return (
             <DroppedItem isDarkTheme={props.isDarkTheme}>
                 <Grid container={true} direction="row">

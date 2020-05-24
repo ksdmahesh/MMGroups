@@ -19,8 +19,7 @@ var contentStyle: any = (isDrag: boolean) => ({
     top: 0,
     width: '100%',
     height: '100%',
-    overflow: isDrag ? 'hidden' : 'auto',
-    zIndex: 500
+    overflow: isDrag ? 'hidden' : 'auto'
 });
 export default class RenderView extends BaseComponent {
 
@@ -36,41 +35,51 @@ export default class RenderView extends BaseComponent {
         var isDrag = state.rightSideBar;
         return (
             <div style={BaseComponent.getTheme(isDarkTheme, 'drawer')}>
-                <LeftBar
-                    isDraggable={true}
-                    id={state.baseId}
-                    isDarkTheme={isDarkTheme}
-                    content={(contentId, dropProvider) => (
-                        <div className="wrapper" style={{...contentStyle(isDrag), ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}>
-                            <Content id={contentId} >
+                <div className="wrapper" style={{ ...contentStyle(isDrag), ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}>
+                    <LeftBar
+                        isDraggable={true}
+                        id={state.baseId}
+                        isDarkTheme={isDarkTheme}
+                        content={(contentId, dropProvider) => (
+                            <Content id={contentId} 
+                            // style={{ zIndex: 7000, position: 'relative' }}
+                            >
                                 <Header id={state.baseId} isDarkTheme={isDarkTheme} />
-                                <div id="content" style={BaseComponent.getTheme(isDarkTheme, 'drawer')}>
+                                <div id="content" style={{ ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}>
                                     <Steps
                                         isDarkTheme={isDarkTheme}
                                         steps={state.formdata.steps}
                                         isDropDisabled={false}
                                         dropProvider={dropProvider}
                                     />
+
                                 </div>
                                 {/* <TopBar /> */}
+
+                                <RightBar />
                                 <BottomBar isDarkTheme={isDarkTheme} />
                                 <Footer isDarkTheme={isDarkTheme} />
                             </Content>
+
+                        )}
+                    >
+                        <div style={{ zIndex: 700, position: 'relative' }}>
+                            <TopBar isDarkTheme={isDarkTheme} />
                         </div>
-                    )}
-                />
-                <ScrollDialog
-                    isDarkTheme={isDarkTheme}
-                    title={state.modalTitle}
-                    content={state.modalContent}
-                    id={dialogId}
-                    open={state.modalOpen}
-                    fullWidth={state.fullWidth}
-                    showCancelButton={state.showCancelButton}
-                    okButtonText={state.okButtonText}
-                    cancelButtonText={state.cancelButtonText}
-                    modalCloseCallback={state.modalCloseCallback}
-                />
+                    </LeftBar>
+                    <ScrollDialog
+                        isDarkTheme={isDarkTheme}
+                        title={state.modalTitle}
+                        content={state.modalContent}
+                        id={dialogId}
+                        open={state.modalOpen}
+                        fullWidth={state.fullWidth}
+                        showCancelButton={state.showCancelButton}
+                        okButtonText={state.okButtonText}
+                        cancelButtonText={state.cancelButtonText}
+                        modalCloseCallback={state.modalCloseCallback}
+                    />
+                </div>
             </div>
         );
     }

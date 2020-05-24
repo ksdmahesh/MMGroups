@@ -40,7 +40,7 @@ export default class Header extends BaseComponent<HeaderProps> {
         var exceptionalStepsId: Array<string> = state.exceptionalStepsId;
         formdata.steps = formdata.steps.filter(item => exceptionalStepsId.indexOf(item.id) === -1);
         // tslint:disable-next-line: no-console
-        console.log(formdata);
+        // console.log(formdata);
         return formdata;
     }
 
