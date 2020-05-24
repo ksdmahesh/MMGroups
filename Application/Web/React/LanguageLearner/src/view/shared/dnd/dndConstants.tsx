@@ -1,12 +1,146 @@
 import styled from 'styled-components';
 import { ControlsProps, LeftBarItems } from '../../dynamic/renderViewConstants';
 import BaseComponent from '../helper/baseComponent';
+import { getBox, Position, BoxModel } from 'css-box-model';
+import { useRef, useContext, useEffect } from 'react';
+import { BeforeCapture } from 'react-beautiful-dnd';
+
+type UnbindFn = () => void;
+
+export type EventOptions = {
+  passive?: boolean,
+  capture?: boolean,
+  // sometimes an event might only event want to be bound once
+  once?: boolean,
+};
+
+export type EventBinding = {
+  eventName: string,
+  fn: Function,
+  options?: EventOptions,
+};
+
+function getOptions(
+  shared?: EventOptions,
+  fromBinding?: EventOptions,
+): EventOptions {
+  return {
+    ...shared,
+    ...fromBinding,
+  };
+}
+
+export default function bindEvents(
+  el: HTMLElement | any,
+  bindings: EventBinding[],
+  sharedOptions?: EventOptions,
+): Function {
+  const unbindings: UnbindFn[] = bindings.map(
+    (binding: EventBinding): UnbindFn => {
+      const options: Object = getOptions(sharedOptions, binding.options);
+
+      el.addEventListener(binding.eventName, binding.fn, options);
+
+      return function unbind() {
+        el.removeEventListener(binding.eventName, binding.fn, options);
+      };
+    },
+  );
+
+  // Return a function to unbind events
+  return function unbindAll() {
+    unbindings.forEach((unbind: UnbindFn) => {
+      unbind();
+    });
+  };
+}
+
+type ItemProps = {
+  index: number,
+  id: string,
+  // props: any,
+  children?: any
+};
+
+export const Item: any = (props: ItemProps) => {
+  const { id, index, children } = props;
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const unsubscribe = bindEvents(window, [
+      {
+        eventName: 'onBeforeCapture',
+        fn: (event: CustomEvent) => {
+
+          const before: BeforeCapture = event.detail.before;
+          const clientSelection: Position = event.detail.clientSelection;
+
+          if (before.mode !== 'FLUID') {
+            return;
+          }
+
+          if (before.draggableId !== id) {
+            return;
+          }
+
+          const el: HTMLElement | null = ref.current;
+
+          if (!el) {
+            return;
+          }
+
+          const box: BoxModel = getBox(el);
+
+          // want to shrink the item to 200px wide.
+          // want it to be centered as much as possible to the cursor
+          const targetWidth: number = 250;
+          const halfWidth: number = targetWidth / 2;
+          const distanceToLeft: number = Math.max(
+            clientSelection.x - box.borderBox.left,
+            0,
+          );
+
+          el.innerHTML = children;
+
+          el.style.width = `${targetWidth}px`;
+
+          // Nothing left to do
+          if (distanceToLeft < halfWidth) {
+            return;
+          }
+
+          // what the new left will be
+          const proposedLeftOffset: number = distanceToLeft - halfWidth;
+          // what the raw right value would be
+          const targetRight: number =
+            box.borderBox.left + proposedLeftOffset + targetWidth;
+
+          // how much we would be going past the right value
+          const rightOverlap: number = Math.max(
+            targetRight - box.borderBox.right,
+            0,
+          );
+
+          // need to ensure that we don't pull the element past
+          // it's resting right position
+          const leftOffset: number = proposedLeftOffset - rightOverlap;
+
+          el.style.position = 'relative';
+          el.style.left = `${leftOffset}px`;
+        },
+      },
+    ]);
+
+    // return unsubscribe;
+  }, [id])
+  return ref.current;
+};
 
 export const Content = styled.div`
   margin-left: 200px;
 `;
 
-export const Item = styled.div`
+export const StyledItem = styled.div`
   display: flex;
   user-select: none;
   align-items: flex-start;
@@ -39,9 +173,9 @@ export const DroppedItem = styled.div`
   width: 100%;
   border: 1px solid #ddd;
   ${
-    (props: {isDarkTheme?: boolean})=>(
-      BaseComponent.getTheme(props.isDarkTheme || false, 'control2', true))
-    }
+  (props: { isDarkTheme?: boolean }) => (
+    BaseComponent.getTheme(props.isDarkTheme || false, 'control2', true))
+  }
   }
  `;
 
@@ -73,7 +207,7 @@ export const Bin = styled(ListBin)`
   border-color: ${'red'};
 `;
 
-export const Clone = styled(Item)`
+export const Clone = styled(StyledItem)`
   + div {
     display: ${
   (props: { isDragging?: boolean }) => (props.isDragging ? 'none !important' : 'flex !important')};
@@ -179,3 +313,12 @@ export var leftControlItems: LeftBarItems = {};
 export const dragIndex = {
   index: 0
 };
+
+export const clientSelectionRef: {
+  current: Position
+} = {
+  current: {
+    x: 0,
+    y: 0
+  }
+}

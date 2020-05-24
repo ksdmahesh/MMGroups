@@ -7,7 +7,7 @@ import { Typography, Grid, IconButton, Box, ListItem, ListItemText } from '@mate
 import { ExpanderProps } from '../../dynamic/renderViewConstants';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
-import { DroppedItem, Item, Clone } from '../dnd/dndConstants';
+import { DroppedItem, StyledItem, Item, Clone, clientSelectionRef } from '../dnd/dndConstants';
 
 export default class ExpansionPanels extends React.Component<ExpanderProps> {
 
@@ -66,18 +66,39 @@ export default class ExpansionPanels extends React.Component<ExpanderProps> {
                                 >
                                     {
                                         (provided, snapshot) => (
-                                            <>
+                                            <div>
                                                 <Item
+                                                    id={this.props.location}
+                                                    index={this.props.index}
+                                                    onMouseDownCapture={(event: any) => {
+                                                        const current: any = {
+                                                            x: event.clientX,
+                                                            y: event.clientY,
+                                                        };
+                                                        clientSelectionRef.current = current;
+                                                    }}
                                                     {...this.getItemProps(provided, snapshot, isDarkTheme, true)}
                                                 >
                                                     {this.getInnerHtml(this.props.panelHeader)}
                                                 </Item>
+                                                <StyledItem
+                                                    onMouseDownCapture={(event) => {
+                                                        const current: any = {
+                                                            x: event.clientX,
+                                                            y: event.clientY,
+                                                        };
+                                                        clientSelectionRef.current = current;
+                                                    }}
+                                                    {...this.getItemProps(provided, snapshot, isDarkTheme, true)}
+                                                >
+                                                    {this.getInnerHtml(this.props.panelHeader)}
+                                                </StyledItem>
                                                 {snapshot.isDragging && (
                                                     <Clone>
                                                         {this.getInnerHtml(this.props.panelHeader)}
                                                     </Clone>
                                                 )}
-                                            </>
+                                            </div>
                                         )
                                     }
                                 </Draggable>

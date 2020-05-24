@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Droppable, DragDropContext, DropResult, DraggableLocation, BeforeCapture } from 'react-beautiful-dnd';
 import RenderLeftBarItems from './renderLeftBarItems';
 import uuid from 'uuid';
-import { Content, controlItems, leftControlItems } from '../dnd/dndConstants';
+import { Content, controlItems, leftControlItems, clientSelectionRef } from '../dnd/dndConstants';
 import { ControlsProps, LeftBarProps, DataProps, SectionProps } from '../../dynamic/renderViewConstants';
 import $ from 'jquery';
 import { getLeftBarControlsJSON } from '../../../constants/constants';
@@ -382,6 +382,11 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     }
 
     onBeforeCapture = (result: BeforeCapture) => {
+        window.dispatchEvent(
+            new CustomEvent('onBeforeCapture', {
+              detail: { result, clientSelection: clientSelectionRef.current },
+            }),
+          );
         if (!result.draggableId) {
             return;
         }

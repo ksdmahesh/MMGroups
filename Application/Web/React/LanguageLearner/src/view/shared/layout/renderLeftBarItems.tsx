@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseComponent from '../helper/baseComponent';
-import { Kiosk, Item, Clone } from '../dnd/dndConstants';
+import { Kiosk, StyledItem, Clone, clientSelectionRef } from '../dnd/dndConstants';
 import { Draggable, DraggableStateSnapshot, DraggableProvided } from 'react-beautiful-dnd';
 import { ListItem, ListItemIcon, ListItemText, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
 import getIconByName from '../../../constants/constants';
@@ -98,13 +98,20 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                                                     {
                                                         (provided, snapshot) => (
                                                             <React.Fragment>
-                                                                <Item
+                                                                <StyledItem
+                                                                    onMouseDownCapture={(event) => {
+                                                                        const current: any = {
+                                                                            x: event.clientX,
+                                                                            y: event.clientY,
+                                                                        };
+                                                                        clientSelectionRef.current = current;
+                                                                    }}
                                                                     {...this.getItemProps(provided, snapshot, isDarkTheme)}
                                                                 >
                                                                     {
                                                                         this.getInnerHtml(item, isDarkTheme)
                                                                     }
-                                                                </Item>
+                                                                </StyledItem>
                                                                 {snapshot.isDragging && (
                                                                     <Clone>
                                                                         {this.getInnerHtml(item, isDarkTheme)}
