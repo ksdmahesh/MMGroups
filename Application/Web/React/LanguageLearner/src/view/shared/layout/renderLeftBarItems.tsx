@@ -63,6 +63,7 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                 id={this.props.id}
                 style={{ padding: '0', ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}
             >
+                {this.props.children}
                 {
                     Object.entries(this.props.items).map((dataItem: any, dataIndex: number) => {
                         var id = (dataItem[0]) + dataIndex;
@@ -73,7 +74,7 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                                 id={id}
                                 expanded={id === this.getState('leftExpander')}
                                 onChange={(e, y) => this.handleChange(id, e, y)}
-                                style={BaseComponent.getTheme(isDarkTheme, 'header')}
+                                style={{...BaseComponent.getTheme(isDarkTheme, 'header')}}
                             >
                                 <ExpansionPanelSummary
                                     IconButtonProps={{ style: BaseComponent.getTheme(isDarkTheme, 'drawer') }}
@@ -88,7 +89,7 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                                 <ExpansionPanelDetails
                                     style={{ width: '100%', userSelect: 'none', ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}
                                 >
-                                    <div style={BaseComponent.getTheme(isDarkTheme, 'drawer')}>
+                                    <div style={{...BaseComponent.getTheme(isDarkTheme, 'drawer')}}>
                                         {dataItem[1].map((item: any, index: number) => {
                                             return (
                                                 <Item

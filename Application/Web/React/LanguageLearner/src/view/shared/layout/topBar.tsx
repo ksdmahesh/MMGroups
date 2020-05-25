@@ -28,8 +28,8 @@ export default class TopBar extends BaseComponent {
                         style={{ width: '100%' }}
                         anchor="top"
                         variant={'persistent'}
-                        open={this.getState('topSideBar')}
-                        // PaperProps={{variant: 'outlined', style: {height: '100%', position: 'fixed'}}}
+                        // open={this.getState('topSideBar')}
+                        PaperProps={{ style: { height: '100%' } }}
                     >
                         <div>
                             <Typography

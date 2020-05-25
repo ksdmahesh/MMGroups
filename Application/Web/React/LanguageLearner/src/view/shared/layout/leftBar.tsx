@@ -413,32 +413,35 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                             style={{ ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}
                         >
                             <CssBaseline />
-                            {/* <div
-                                style={{ ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}
-                            // ref={provided.innerRef}
-                            // anchor="left"
-                            // variant="persistent"
-                            // open={true}
-                            > */}
+                            <div style={{ ...BaseComponent.getTheme(isDarkTheme, 'drawer'), float: 'left' }} >
+                                {/* <Drawer
+                                    style={{ ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}
+                                    ref={provided.innerRef}
+                                    anchor="left"
+                                    variant="permanent"
+                                    open={true}
+                                    PaperProps={{ style: { zIndex: 6000 } }}
+                                > */}
                                 {this.getButtonHolder(isDarkTheme)}
                                 <Divider style={BaseComponent.getTheme(isDarkTheme, 'divider')} />
                                 <RenderLeftBarItems isDarkTheme={isDarkTheme} isDragging={isDragging} isDraggable={this.props.isDraggable} id={listId} items={rawItems} />
-                            {/* </div> */}
-                            {this.props.content(contentId, provided)}
-                            {this.props.children}
+                                {/* </Drawer> */}
+                            </div>
+                            {/* {this.props.content(contentId, provided)} */}
+                            {/* {this.props.children} */}
                         </div>
                     )}
                 </Droppable>
-                {/* <Droppable
+                <Droppable
                     droppableId={dropId}
                     isDropDisabled={true}
                 >
                     {(provided, snapshot) => (
-                        <div ref={provided.innerRef} style={{ zIndex: 5000, position: 'relative' }}>
+                        <div ref={provided.innerRef} >
                             {this.props.content(contentId, provided)}
                         </div>
                     )}
-                </Droppable> */}
+                </Droppable>
                 <Droppable
                     droppableId={dropId}
                     isDropDisabled={true}

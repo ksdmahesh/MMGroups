@@ -67,6 +67,9 @@ type ItemProps = {
 
 export const Content = styled.div`
   margin-left: 200px;
+  position: relative;
+  // top: 0;
+  // border-left: 1px solid #deb887 !important;
 `;
 
 export const StyledItem = styled.div`
@@ -169,7 +172,7 @@ export const List = styled.div`
 `;
 
 export const Kiosk = styled(List)`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
