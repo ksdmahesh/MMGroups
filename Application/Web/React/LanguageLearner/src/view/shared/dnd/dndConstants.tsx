@@ -68,8 +68,6 @@ type ItemProps = {
 export const Content = styled.div`
   margin-left: 200px;
   position: relative;
-  // top: 0;
-  // border-left: 1px solid #deb887 !important;
 `;
 
 export const StyledItem = styled.div`
@@ -103,7 +101,6 @@ export const DroppedItem = styled.div`
   background: #fff;
   height: auto !important;
   width: 100%;
-  // z-index: 7000;
   border: 1px solid #ddd;
   ${
   (props: { isDarkTheme?: boolean }) => (
@@ -294,10 +291,11 @@ export const Item: any = (props: ItemProps) => {
     ]);
 
     // return unsubscribe;
-  }, [id])
+  }, [index, id, isDragDisabled, children, isDarkTheme, isExpander])
 
   return (
     <Draggable
+      key={id}
       draggableId={id}
       index={index}
       disableInteractiveElementBlocking={true}

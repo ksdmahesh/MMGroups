@@ -46,7 +46,7 @@ export default class RenderView extends BaseComponent {
                         content={(contentId, dropProvider) => (
                             <Content id={contentId} style={{
                                 borderLeft: '1px solid white'
-                            }}
+                            }} 
                             // style={{ zIndex: 7000, position: 'relative' }}
                             >
                                 <Header id={state.baseId} isDarkTheme={isDarkTheme} />

@@ -533,8 +533,8 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
         // console.log(props.isDarkTheme)
         return (
             <DroppedItem isDarkTheme={props.isDarkTheme}>
-                <Grid container={true} direction="row">
-                    <Grid item={true} xs={12} md={12}>
+                {/* <Grid container={true} direction="row">
+                    <Grid item={true} xs={12} md={12}> */}
                         <Card
                             {...{ 'aria-label': item.aria }}
                             onClick={(e) => this.cardRaised(
@@ -581,8 +581,8 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
                                 </ExpansionPanels>
                             </CardContent>
                         </Card>
-                    </Grid>
-                </Grid>
+                    {/* </Grid>
+                </Grid> */}
             </DroppedItem>
         );
     }

@@ -95,7 +95,7 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                                                 <Item
                                                     isDragDisabled={!this.props.isDraggable}
                                                     key={item.id}
-                                                    id={`-1,${dataIndex},${index}`}
+                                                    id={`${dataItem[0]},${index}`}
                                                     index={index}
                                                 >
                                                     {this.getInnerHtml(item, isDarkTheme)}

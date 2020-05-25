@@ -17,6 +17,7 @@ import RightBar from './rightBar';
 
 var baseId = '';
 var dropId = '';
+var rightId = '';
 var listId = '';
 var contentId = '';
 var rawItems = getLeftBarControlsJSON();
@@ -28,6 +29,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
         super(props);
         baseId = props.id;
         dropId = uuid();
+        rightId = uuid();
         listId = uuid();
         contentId = uuid();
 
@@ -178,11 +180,35 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
 
         var currentState = this.getState();
 
-        switch (currentState.dropId) {
-            case 'panelHeaders': {
-                break;
-            }
+        let idSplit = result.draggableId?.split(',');
+        if (!idSplit?.length) {
+            return;
         }
+
+        let topBarItems: any = {};
+
+        idSplit.map((iterator, index)=>{
+            if (this.DataHeader.indexOf(iterator) > -1) {
+
+            } else {
+                topBarItems[this.DataIndex[index]] = +iterator;
+            }
+            return '';
+        })
+        // for (const iterator of idSplit) {
+        //     if (this.DataHeader.indexOf(iterator) > -1) {
+
+        //     } else {
+
+        //     }
+        // }
+
+        // topBarItems
+        // switch (idSplit[0]) {
+        //     case 'steps': {
+        //         break;
+        //     }
+        // }
         // var formdata: DataProps;
         // var currentStep: number;
         // var sectionIndex: number;
@@ -393,6 +419,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
         var activeId = result.draggableId;
         isDragging = true;
         this.dispatchStore({
+            topBarItems: {steps: 0},
             isChildCalled: true,
             topSideBar: true
         });
@@ -432,8 +459,8 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                         </div>
                     )}
                 </Droppable>
-                <Droppable mode={'virtual'}
-                    droppableId={dropId}
+                <Droppable
+                    droppableId={rightId}
                     isDropDisabled={true}
                 >
                     {(provided, snapshot) => (
@@ -442,16 +469,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                         </div>
                     )}
                 </Droppable>
-                <Droppable
-                    droppableId={dropId}
-                    isDropDisabled={true}
-                >
-                    {(provided, snapshot) => (
-                        <div ref={provided.innerRef} style={{ zIndex: 5000, position: 'relative' }}>
-                            {this.props.children}
-                        </div>
-                    )}
-                </Droppable>
+                {this.props.children}
             </DragDropContext>
         );
     }
