@@ -91,7 +91,7 @@ export default class Cells extends BaseComponent<CellsProps> {
                                                 isDropDisabled={this.props.isDropDisabled}
                                             />
                                     }
-                                    {this.props.dropProvider.placeholder}
+                                    {/* {this.props.dropProvider.placeholder} */}
                                 </>
                             )}
                         />);

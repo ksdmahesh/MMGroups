@@ -432,7 +432,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                         </div>
                     )}
                 </Droppable>
-                <Droppable
+                <Droppable mode={'virtual'}
                     droppableId={dropId}
                     isDropDisabled={true}
                 >

@@ -148,13 +148,16 @@ type ThemeType = 'header' | 'control' | 'control2' | 'control3' | 'drawer' | 'di
 // tslint:disable-next-line: no-any
 export default class BaseComponent<T = any, U = any> extends React.Component<T, U> {
 
-    getPlaceholder(provided: DroppableProvided, value: string) {
+    getPlaceholder(provided: DroppableProvided, value: string = '') {
         return (
-            !provided.placeholder && (
-                <Notice style={{ userSelect: 'none' }} >
-                    {value}
-                </Notice>
-            )
+            value ?
+                !provided.placeholder && (
+                    <Notice style={{ userSelect: 'none' }} >
+                        {value}
+                    </Notice>
+                )
+                :
+                provided.placeholder
         );
     }
     static getDrawerTheme() {

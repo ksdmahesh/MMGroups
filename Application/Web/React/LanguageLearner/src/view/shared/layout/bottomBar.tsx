@@ -220,7 +220,7 @@ export default class BottomBar extends BaseComponent {
                     style={{
                         width: 'auto',
                         position: 'fixed',
-                        right: '10px',
+                        right: '2%',
                         bottom: '10px',
                         zIndex: 10
                     }}

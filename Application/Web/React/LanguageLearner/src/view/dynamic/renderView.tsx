@@ -32,17 +32,20 @@ export default class RenderView extends BaseComponent {
     render() {
         var isDarkTheme = true;// this.getState('themeInfo') === 'Dark';
         var state = this.getState() || {};
-        var isDrag = state.rightSideBar;
+        var isDrag = state.topSideBar;
         return (
             <div style={BaseComponent.getTheme(isDarkTheme, 'drawer')}>
-                <div className="wrapper" style={{ ...contentStyle(isDrag), ...BaseComponent.getTheme(isDarkTheme, 'drawer') }}>
+                <div className="wrapper" style={{
+                    ...contentStyle(isDrag),
+                    ...BaseComponent.getTheme(isDarkTheme, 'drawer')
+                }}>
                     <LeftBar
                         isDraggable={true}
                         id={state.baseId}
                         isDarkTheme={isDarkTheme}
                         content={(contentId, dropProvider) => (
                             <Content id={contentId} style={{
-                                border: '1px solid white'
+                                borderLeft: '1px solid white'
                             }}
                             // style={{ zIndex: 7000, position: 'relative' }}
                             >

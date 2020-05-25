@@ -26,6 +26,7 @@ export default class RightBar extends BaseComponent {
                     anchor="right"
                     variant="temporary"
                     open={this.getState('rightSideBar')}
+                    onClose={() => { this.dispatchStore({ rightSideBar: false }) }}
                 >
                     <RenderRightBarItems />
                 </Drawer>

@@ -106,7 +106,7 @@ export default class Columns extends BaseComponent<ColumnsProps> {
                                                         columnId={column.id}
                                                     />
                                             }
-                                            {this.props.dropProvider.placeholder}
+                                            {/* {this.props.dropProvider.placeholder} */}
                                         </>
                                     )}
                                 />

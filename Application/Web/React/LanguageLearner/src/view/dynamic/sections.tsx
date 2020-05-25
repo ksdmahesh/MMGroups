@@ -62,33 +62,38 @@ export default class Sections extends BaseComponent<SectionsProps> {
                                 {...item(section)}
                                 key={section.id + index}
                                 content={(dragProvider, dropProvider, snapshot, dropSnapshot) => (
-                                    itemProp.length === 0
-                                        ?
-                                        <>
-                                            {this.getPlaceholder(this.props.dropProvider, 'No Cells')}
-                                            <Grid container={true} direction="row">
-                                                <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
-                                                    <Chip
-                                                        label="Add Cell"
-                                                        style={{ width: '50%', ...BaseComponent.getTheme(isDarkTheme, 'control') }}
-                                                        onClick={() =>
-                                                            this.chipClick(
-                                                                'Cell',
-                                                                'section',
-                                                                { ...itemProp, ...{ cellIndex: -1 } }
-                                                            )}
-                                                    />
-                                                </Grid>
-                                            </Grid>
-                                        </>
-                                        :
-                                        <Cells
-                                            isDarkTheme={isDarkTheme}
-                                            sectionIndex={index}
-                                            section={section}
-                                            isDropDisabled={this.props.isDropDisabled}
-                                            dropProvider={this.props.dropProvider}
-                                        />
+                                    <>
+                                        {
+                                            itemProp.length === 0
+                                                ?
+                                                <>
+                                                    {this.getPlaceholder(this.props.dropProvider, 'No Cells')}
+                                                    <Grid container={true} direction="row">
+                                                        <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
+                                                            <Chip
+                                                                label="Add Cell"
+                                                                style={{ width: '50%', ...BaseComponent.getTheme(isDarkTheme, 'control') }}
+                                                                onClick={() =>
+                                                                    this.chipClick(
+                                                                        'Cell',
+                                                                        'section',
+                                                                        { ...itemProp, ...{ cellIndex: -1 } }
+                                                                    )}
+                                                            />
+                                                        </Grid>
+                                                    </Grid>
+                                                </>
+                                                :
+                                                <Cells
+                                                    isDarkTheme={isDarkTheme}
+                                                    sectionIndex={index}
+                                                    section={section}
+                                                    isDropDisabled={this.props.isDropDisabled}
+                                                    dropProvider={this.props.dropProvider}
+                                                />
+                                        }
+                                        {/* {this.props.dropProvider.placeholder} */}
+                                    </>
                                 )}
                             />
                         );

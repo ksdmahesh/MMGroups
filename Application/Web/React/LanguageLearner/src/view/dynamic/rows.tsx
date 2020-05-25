@@ -155,7 +155,7 @@ export default class Rows extends BaseComponent<RowsProps> {
                                                     isDropDisabled={this.props.isDropDisabled}
                                                 />
                                         }
-                                        {this.props.dropProvider.placeholder}
+                                        {/* {this.props.dropProvider.placeholder} */}
                                     </>
                                 )}
                             />);

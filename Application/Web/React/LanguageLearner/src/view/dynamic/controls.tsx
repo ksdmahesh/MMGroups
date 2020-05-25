@@ -73,7 +73,7 @@ export default class Controls extends BaseComponent<ControlProps> {
                                 content={(dragProvider, dropProvider, snapshot, dropSnapshot) => (
                                     <>
                                         {getControlByName(control, isDarkTheme)}
-                                        {this.props.dropProvider.placeholder}
+                                        {/* {this.props.dropProvider.placeholder} */}
                                     </>
                                 )}
                             />
