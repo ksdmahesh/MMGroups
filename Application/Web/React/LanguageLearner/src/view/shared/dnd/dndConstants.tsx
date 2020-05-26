@@ -335,18 +335,24 @@ export const Item: any = (props: ItemProps) => {
 };
 
 export var controlItems: {
-  controlItems: {
-    [x: string]: {
-      sectionIndex: number,
-      cellIndex: number,
-      rowIndex: number,
-      columnIndex: number,
-      controls: ControlsProps
-    }
+  drag: {
+    sectionIndex: number,
+    cellIndex: number,
+    rowIndex: number,
+    columnIndex: number,
+    controlIndex: number,
+    activeElement: string,
+    isLeft: boolean
   }
 } = {
-  controlItems: {
-
+  drag: {
+    sectionIndex: -1,
+    cellIndex: -1,
+    rowIndex: -1,
+    columnIndex: -1,
+    controlIndex: -1,
+    activeElement: '',
+    isLeft: false
   }
 };
 

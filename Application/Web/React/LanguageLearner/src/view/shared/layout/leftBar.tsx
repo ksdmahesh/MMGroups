@@ -178,23 +178,23 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
             return;
         }
 
-        var currentState = this.getState();
+        // var currentState = this.getState();
 
-        let idSplit = result.draggableId?.split(',');
-        if (!idSplit?.length) {
-            return;
-        }
+        // let idSplit = result.draggableId?.split(',');
+        // if (!idSplit?.length) {
+        //     return;
+        // }
 
-        let topBarItems: any = {};
+        // let topBarItems: any = {};
 
-        idSplit.map((iterator, index)=>{
-            if (this.DataHeader.indexOf(iterator) > -1) {
+        // idSplit.map((iterator, index)=>{
+        //     if (this.DataHeader.indexOf(iterator) > -1) {
 
-            } else {
-                topBarItems[this.DataIndex[index]] = +iterator;
-            }
-            return '';
-        })
+        //     } else {
+        //         topBarItems[this.DataIndex[index]] = +iterator;
+        //     }
+        //     return '';
+        // })
         // for (const iterator of idSplit) {
         //     if (this.DataHeader.indexOf(iterator) > -1) {
 
@@ -417,9 +417,32 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
             return;
         }
         var activeId = result.draggableId;
+
+        var currentState = this.getState();
+
+        let idSplit = result.draggableId?.split(',');
+        if (!idSplit?.length) {
+            return;
+        }
+
+        let topBarItems: any = {};
+
+        idSplit.map((iterator, index) => {
+            if (this.DataHeader.indexOf(iterator) > -1) {
+                topBarItems[this.DataIndex[index]] = +iterator;
+                topBarItems.isLeft = true;
+            } else {
+                topBarItems[this.DataIndex[index]] = +iterator;
+            }
+            return '';
+        })
+
+        topBarItems.activeElement = topBarItems.isLeft ? this.DataIndex[0] : this.DataHeader[idSplit.length - 1];
+        controlItems.drag = topBarItems;
+
         isDragging = true;
         this.dispatchStore({
-            topBarItems: {steps: 0},
+            topBarItems: { steps: 0 },
             isChildCalled: true,
             topSideBar: true
         });

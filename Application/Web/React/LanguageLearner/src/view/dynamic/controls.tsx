@@ -44,13 +44,13 @@ export default class Controls extends BaseComponent<ControlProps> {
             }
         )
 
-        controlItems.controlItems[this.props.columnId] = {
-            sectionIndex: this.props.sectionIndex,
-            cellIndex: this.props.cellIndex,
-            rowIndex: this.props.rowIndex,
-            columnIndex: this.props.columnIndex,
-            controls: this.props.controls
-        };
+        // controlItems.controlItems[this.props.columnId] = {
+        //     sectionIndex: this.props.sectionIndex,
+        //     cellIndex: this.props.cellIndex,
+        //     rowIndex: this.props.rowIndex,
+        //     columnIndex: this.props.columnIndex,
+        //     controls: this.props.controls
+        // };
 
         return { props, item };
     }

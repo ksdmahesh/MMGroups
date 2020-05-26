@@ -5,6 +5,7 @@ import { getPropertiesByControl } from '../../../constants/constants';
 import { RightBarItemsProps, DataProps } from '../../dynamic/renderViewConstants';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import uuid from 'uuid';
+import { controlItems } from '../dnd/dndConstants';
 
 function a11yProps(key: string, index: string) {
     return {
@@ -26,6 +27,11 @@ export default class RenderTopBarItems extends BaseComponent<any> {
         if (prevAria != aria) {
             prevAria = aria;
             let splitAria = aria.split('-');
+            if(controlItems.drag.isLeft){
+
+            } else{
+                
+            }
             topBarItems[splitAria[0]] = splitAria[1];
             this.dispatchStore({ topBarItems: topBarItems });
         }
@@ -36,7 +42,9 @@ export default class RenderTopBarItems extends BaseComponent<any> {
             <ListItem
                 style={{ overflowX: 'hidden' }}
             >
-                <Droppable droppableId={`top-${key}`} >
+                <Droppable
+                    droppableId={`top-${key}`}
+                >
                     {(provided, snapshot) => (
                         <Tabs
                             {...provided.droppableProps}
@@ -46,7 +54,7 @@ export default class RenderTopBarItems extends BaseComponent<any> {
                             indicatorColor="primary"
                             textColor="primary"
                             variant="scrollable"
-                            scrollButtons="on"
+                            scrollButtons={items.length ? 'on' : 'auto'}
                             aria-label={`top-${key}`}
                         >
                             {items.map((item: { id: string, label: string }, index: number) => (
@@ -98,11 +106,11 @@ export default class RenderTopBarItems extends BaseComponent<any> {
                     this.DataHeader.map((dataIndex: string, index: number) => {
                         let currentIndex = +topBarItems?.[dataIndex];
                         formData = formData?.[dataIndex];
-                        if (!formData) {
-                            return '';
-                        }
-                        console.log(currentIndex, formData, dataIndex, index, topBarItems)
-                        let dropItem = this.getDropItem(formData, dataIndex);
+                        // if (!formData) {
+                        //     return '';
+                        // }
+                        // console.log(currentIndex, formData, dataIndex, index, topBarItems)
+                        let dropItem = this.getDropItem(formData || [], dataIndex);
                         if (!isNaN(currentIndex) && currentIndex > -1) {
                             formData = formData?.[currentIndex];
                         }
