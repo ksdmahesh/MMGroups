@@ -356,6 +356,12 @@ export var controlItems: {
   }
 };
 
+export var topBarItems: {
+  drop: any
+} = {
+  drop: {}
+};
+
 export var leftControlItems: LeftBarItems = {};
 
 export const dragIndex = {

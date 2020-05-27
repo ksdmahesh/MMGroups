@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Droppable, DragDropContext, DropResult, DraggableLocation, BeforeCapture } from 'react-beautiful-dnd';
 import RenderLeftBarItems from './renderLeftBarItems';
 import uuid from 'uuid';
-import { Content, controlItems, leftControlItems, clientSelectionRef } from '../dnd/dndConstants';
+import { Content, controlItems, leftControlItems, clientSelectionRef, topBarItems } from '../dnd/dndConstants';
 import { ControlsProps, LeftBarProps, DataProps, SectionProps } from '../../dynamic/renderViewConstants';
 import $ from 'jquery';
 import { getLeftBarControlsJSON } from '../../../constants/constants';
@@ -425,24 +425,25 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
             return;
         }
 
-        let topBarItems: any = {};
+        topBarItems.drop = {};
+
+        let dragItem: any = {};
 
         idSplit.map((iterator, index) => {
             if (this.DataHeader.indexOf(iterator) > -1) {
-                topBarItems[this.DataIndex[index]] = +iterator;
-                topBarItems.isLeft = true;
+                dragItem[this.DataIndex[index]] = +iterator;
+                dragItem.isLeft = true;
             } else {
-                topBarItems[this.DataIndex[index]] = +iterator;
+                dragItem[this.DataIndex[index]] = +iterator;
             }
             return '';
         })
 
-        topBarItems.activeElement = topBarItems.isLeft ? this.DataIndex[0] : this.DataHeader[idSplit.length - 1];
-        controlItems.drag = topBarItems;
+        dragItem.activeElement = dragItem.isLeft ? this.DataIndex[0] : this.DataHeader[idSplit.length - 1];
+        controlItems.drag = dragItem;
 
         isDragging = true;
         this.dispatchStore({
-            topBarItems: { steps: 0 },
             isChildCalled: true,
             topSideBar: true
         });
