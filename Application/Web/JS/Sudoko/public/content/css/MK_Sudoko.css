@@ -1,0 +1,36 @@
+/* tr,
+td {
+    padding: 20px;
+    border: 2px solid gray;
+} */
+
+body, #divTable{
+    background-color: rgb(53, 54, 58);
+    color: burlywood;
+}
+
+#tblCells, #divTable {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table, td {
+    border: 1px solid burlywood;
+}
+
+.error{
+    color: red;
+}
+
+.error::-moz-selection { /* Code for Firefox */
+    color: red;
+    background: yellow;
+  }
+
+  .error::selection { /* Code for Firefox */
+    color: red;
+    background: yellow;
+  }
