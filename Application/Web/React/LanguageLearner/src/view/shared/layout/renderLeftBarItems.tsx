@@ -56,7 +56,7 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
     };
 
     render() {
-        var isDarkTheme = this.props.isDarkTheme;
+        let { isDarkTheme, dropProvider, dropSnapshot }= this.props;
         return (
             <Kiosk
                 isDraggingOver={this.props.isDragging}
@@ -97,6 +97,8 @@ export default class RenderLeftBarItems extends BaseComponent<RenderLeftBarItems
                                                     key={item.id}
                                                     id={`${dataItem[0]},${index}`}
                                                     index={index}
+                                                    dropProvider={dropProvider}
+                                                    dropSnapshot={dropSnapshot}
                                                 >
                                                     {this.getInnerHtml(item, isDarkTheme)}
                                                 </Item>

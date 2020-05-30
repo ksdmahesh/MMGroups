@@ -129,39 +129,48 @@ export default class Rows extends BaseComponent<RowsProps> {
         const { props, item } = this.onLoad();
         var isDarkTheme = this.props.isDarkTheme;
         return (
-            <>
-                <Grid container={true} >
-                    {this.props.cell.rows.map((row, index) => {
-                        dragIndex.index += 1;
-                        var itemProp = props(index, row, this.props.isDropDisabled, dragIndex.index, isDarkTheme);
-                        return (
-                            <this.GetDragDropItems
-                                {...itemProp}
-                                {...item(row)}
-                                key={row.id + index}
-                                content={(dragProvider, dropProvider, snapshot, dropSnapshot) => (
-                                    <>
-                                        {this.getColumnButtons(itemProp)}
-                                        {
-                                            itemProp.length === 0
-                                                ?
-                                                this.getPlaceholder(this.props.dropProvider, 'No Columns')
-                                                :
-                                                <Columns
-                                                    isDarkTheme={isDarkTheme}
-                                                    dropProvider={this.props.dropProvider}
-                                                    {...itemProp}
-                                                    columns={row.columns}
-                                                    isDropDisabled={this.props.isDropDisabled}
-                                                />
-                                        }
-                                        {/* {this.props.dropProvider.placeholder} */}
-                                    </>
-                                )}
-                            />);
-                    })}
-                </Grid>
-            </>
+            <this.GetDroppable
+                id={this.props.cell.id}
+                type={this.DataHeader[3]}
+                content={(getDropProvider, getSnapshot) => (
+                    <Grid container={true} >
+                        {this.props.cell.rows.map((row, index) => {
+                            dragIndex.index += 1;
+                            var itemProp = props(index, row, this.props.isDropDisabled, dragIndex.index, isDarkTheme);
+                            return (
+                                <this.GetDragDropItems
+                                    {...itemProp}
+                                    {...item(row)}
+                                    dropProvider={getDropProvider}
+                                    dropSnapshot={getSnapshot}
+                                    key={row.id + index}
+                                    content={(dragProvider, snapshot) => (
+                                        <>
+                                            {this.getColumnButtons(itemProp)}
+                                            {
+                                                itemProp.length === 0
+                                                    ?
+                                                    this.getPlaceholder(getDropProvider, 'No Columns')
+                                                    :
+                                                    <Columns
+                                                        id={row.id}
+                                                        isDarkTheme={isDarkTheme}
+                                                        dropProvider={this.props.dropProvider}
+                                                        {...itemProp}
+                                                        columns={row.columns}
+                                                        isDropDisabled={this.props.isDropDisabled}
+                                                    />
+                                            }
+                                            {/* {this.props.dropProvider.placeholder} */}
+                                        </>
+                                    )}
+                                />);
+                        })}
+                    </Grid>
+                )}
+            >
+
+            </this.GetDroppable>
         );
     }
 }

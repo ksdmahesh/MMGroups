@@ -169,6 +169,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
         const { source, destination } = result;
         console.log(result)
         isDragging = false;
+        controlItems.drag = {} as any;
         this.dispatchStore({
             isChildCalled: false,
             topSideBar: false
@@ -177,6 +178,7 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
         if (!destination) {
             return;
         }
+
 
         // var currentState = this.getState();
 
@@ -394,32 +396,12 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
     }
 
     onDragStart = (result: DropResult) => {
-        // const { source } = result;
-        // var currentSourceId = source.droppableId;
-        // var currentActiveHeader = this.DataHeader.find(header => (
-        //     currentSourceId.startsWith(header)
-        // ));
-        // console.log(currentActiveHeader)
-        // this.dispatchStore({
-        //     dropId: currentActiveHeader,
-        //     isChildCalled: true,
-        //     topSideBar: true
-        // });
-    }
+        // var activeId = result.draggableId;
 
-    onBeforeCapture = (result: BeforeCapture) => {
-        window.dispatchEvent(
-            new CustomEvent('onBeforeCapture', {
-                detail: { before: result, clientSelection: clientSelectionRef.current },
-            }),
-        );
-        if (!result.draggableId) {
+        // var currentState = this.getState();
+        if (!result) {
             return;
         }
-        var activeId = result.draggableId;
-
-        var currentState = this.getState();
-
         let idSplit = result.draggableId?.split(',');
         if (!idSplit?.length) {
             return;
@@ -442,11 +424,70 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
         dragItem.activeElement = dragItem.isLeft ? this.DataIndex[0] : this.DataHeader[idSplit.length - 1];
         controlItems.drag = dragItem;
 
-        isDragging = true;
         this.dispatchStore({
+            // dropId: currentActiveHeader,
             isChildCalled: true,
-            topSideBar: true
+            // topSideBar: true
         });
+
+        // isDragging = true;
+        // this.dispatchStore({
+        //     isChildCalled: true,
+        //     topSideBar: true
+        // });
+        // const { source } = result;
+        // var currentSourceId = source.droppableId;
+        // var currentActiveHeader = this.DataHeader.find(header => (
+        //     currentSourceId.startsWith(header)
+        // ));
+        // console.log(currentActiveHeader)
+        // this.dispatchStore({
+        //     dropId: currentActiveHeader,
+        //     isChildCalled: true,
+        //     topSideBar: true
+        // });
+    }
+
+    onBeforeCapture = (result: BeforeCapture) => {
+        window.dispatchEvent(
+            new CustomEvent('onBeforeCapture', {
+                detail: { before: result, clientSelection: clientSelectionRef.current },
+            }),
+        );
+        if (!result.draggableId) {
+            return;
+        }
+        // var activeId = result.draggableId;
+
+        // var currentState = this.getState();
+
+        // let idSplit = result.draggableId?.split(',');
+        // if (!idSplit?.length) {
+        //     return;
+        // }
+
+        // topBarItems.drop = {};
+
+        // let dragItem: any = {};
+
+        // idSplit.map((iterator, index) => {
+        //     if (this.DataHeader.indexOf(iterator) > -1) {
+        //         dragItem[this.DataIndex[index]] = +iterator;
+        //         dragItem.isLeft = true;
+        //     } else {
+        //         dragItem[this.DataIndex[index]] = +iterator;
+        //     }
+        //     return '';
+        // })
+
+        // dragItem.activeElement = dragItem.isLeft ? this.DataIndex[0] : this.DataHeader[idSplit.length - 1];
+        // controlItems.drag = dragItem;
+
+        // isDragging = true;
+        // this.dispatchStore({
+        //     isChildCalled: true,
+        //     topSideBar: true
+        // });
     }
 
     render() {
@@ -475,7 +516,15 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                                 > */}
                                 {this.getButtonHolder(isDarkTheme)}
                                 <Divider style={BaseComponent.getTheme(isDarkTheme, 'divider')} />
-                                <RenderLeftBarItems isDarkTheme={isDarkTheme} isDragging={isDragging} isDraggable={this.props.isDraggable} id={listId} items={rawItems} />
+                                <RenderLeftBarItems
+                                    isDarkTheme={isDarkTheme}
+                                    isDragging={isDragging}
+                                    isDraggable={this.props.isDraggable}
+                                    id={listId}
+                                    items={rawItems}
+                                    dropProvider={provided}
+                                    dropSnapshot={snapshot}
+                                />
                                 {/* </Drawer> */}
                             </div>
                             {/* {this.props.content(contentId, provided)} */}
@@ -483,16 +532,16 @@ export default class LeftBar extends BaseComponent<LeftBarProps> {
                         </div>
                     )}
                 </Droppable>
-                <Droppable
+                {/* <Droppable
                     droppableId={rightId}
                     isDropDisabled={true}
                 >
                     {(provided, snapshot) => (
-                        <div ref={provided.innerRef} >
-                            {this.props.content(contentId, provided)}
-                        </div>
+                        <div ref={provided.innerRef} > */}
+                {this.props.content(contentId, undefined)}
+                {/* </div>
                     )}
-                </Droppable>
+                </Droppable> */}
                 {this.props.children}
             </DragDropContext>
         );

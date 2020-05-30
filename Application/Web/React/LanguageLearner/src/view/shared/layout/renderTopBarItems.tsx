@@ -71,7 +71,7 @@ export default class RenderTopBarItems extends BaseComponent<any> {
                     direction={'horizontal'}
                     isDropDisabled={isDisabled}
                     key={`top-${key}-drop`}
-                    mode={'virtual'} 
+                    mode={'virtual'}
                     renderClone={(provided, snapshot, rubric) => (
                         this.getVirtualListItem(provided, snapshot, items?.[rubric.source.index]?.label, rubric.source.index, key)
                     )}
@@ -131,6 +131,20 @@ export default class RenderTopBarItems extends BaseComponent<any> {
 
             <Tab
                 onMouseOver={this.setTabDropItem}
+                onTouchMove={(e) => console.log('move')}
+                onTouchCancel={(e) => console.log('canc')}
+                onTouchCancelCapture={(e) => console.log('can cap')}
+                onTouchEnd={(e) => console.log('end')}
+                onTouchEndCapture={(e) => console.log('end cap')}
+                onTouchMoveCapture={(e) => console.log('move cap')}
+                onTouchStart={(e) => console.log('start')}
+                onTouchStartCapture={(e) => console.log('start cap')}
+                onPointerMove={(e) => console.log('point')}
+                onDragOver={(e) => console.log('point')}
+                onDrag={(e) => console.log('point')}
+                onDragEnter={(e) => console.log('point')}
+                onDragStart={(e) => console.log('point')}
+                onDrop={(e) => console.log('point')}
                 ref={dragProvided.innerRef}
                 {...dragProvided.draggableProps}
                 {...dragProvided.dragHandleProps}

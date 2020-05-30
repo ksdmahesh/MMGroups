@@ -4,7 +4,7 @@ import { PropertyWindowProps, DataProps, AllControlProps } from '../../dynamic/r
 import TypeCheck, { HelperClass } from './typeCheck';
 import uuid from 'uuid';
 import { DroppableProvided, Draggable, Droppable, DraggableProvided, DraggableStateSnapshot, DroppableStateSnapshot } from 'react-beautiful-dnd';
-import { Notice, DroppedItem } from '../dnd/dndConstants';
+import { Notice, DroppedItem, controlItems } from '../dnd/dndConstants';
 import { Grid, Card, CardContent, createMuiTheme, colors, ThemeProvider } from '@material-ui/core';
 import ExpansionPanels from '../materialUI/expansionPanel';
 
@@ -520,11 +520,13 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             isVertical: boolean,
             location: string,
             isDarkTheme: boolean,
+            dropProvider: DroppableProvided,
+            dropSnapshot: DroppableStateSnapshot,
             content: (
                 dragProvider?: DraggableProvided,
-                dropProvider?: DroppableProvided,
                 snapshot?: DraggableStateSnapshot,
-                dropSnapshot?: DroppableStateSnapshot
+                // dropProvider?: DroppableProvided,
+                // dropSnapshot?: DroppableStateSnapshot
             ) => JSX.Element | string
         }
     ) => {
@@ -535,55 +537,99 @@ export default class BaseComponent<T = any, U = any> extends React.Component<T, 
             <DroppedItem isDarkTheme={props.isDarkTheme}>
                 {/* <Grid container={true} direction="row">
                     <Grid item={true} xs={12} md={12}> */}
-                        <Card
-                            {...{ 'aria-label': item.aria }}
-                            onClick={(e) => this.cardRaised(
-                                e,
-                                item.aria + item.id + props.index,
-                                {
-                                    control: this.getPropertyWindowControl({
-                                        name: item.name,
-                                        type: item.type,
-                                        label: item.label,
-                                        id: item.id
-                                    }),
-                                    stepIndex: props.stepIndex,
-                                    sectionIndex: props.sectionIndex,
-                                    cellIndex: props.cellIndex,
-                                    rowIndex: props.rowIndex,
-                                    columnIndex: props.columnIndex,
-                                    controlIndex: props.controlIndex
-                                }
-                            )}
-                            raised={raised}
-                            color={'primary'}
-                            style={
-                                raised
-                                    ?
-                                    { width: '100%', ...BaseComponent.getTheme(props.isDarkTheme, 'card') }
-                                    :
-                                    {
-                                        backgroundColor: 'transparent',
-                                        width: '100%',
-                                        boxShadow: 'none'
-                                    }
+                <Card
+                    {...{ 'aria-label': item.aria }}
+                    onClick={(e) => this.cardRaised(
+                        e,
+                        item.aria + item.id + props.index,
+                        {
+                            control: this.getPropertyWindowControl({
+                                name: item.name,
+                                type: item.type,
+                                label: item.label,
+                                id: item.id
+                            }),
+                            stepIndex: props.stepIndex,
+                            sectionIndex: props.sectionIndex,
+                            cellIndex: props.cellIndex,
+                            rowIndex: props.rowIndex,
+                            columnIndex: props.columnIndex,
+                            controlIndex: props.controlIndex
+                        }
+                    )}
+                    raised={raised}
+                    color={'primary'}
+                    style={
+                        raised
+                            ?
+                            { width: '100%', ...BaseComponent.getTheme(props.isDarkTheme, 'card') }
+                            :
+                            {
+                                backgroundColor: 'transparent',
+                                width: '100%',
+                                boxShadow: 'none'
                             }
-                            key={item.id + props.index}
+                    }
+                    key={item.id + props.index}
+                >
+                    <CardContent style={{ padding: 0, ...BaseComponent.getTheme(props.isDarkTheme, 'header') }}>
+                        <ExpansionPanels
+                            location={props.location}
+                            index={props.index}
+                            panelHeader={`${item.aria.toUpperCase()}: ${item.label}`}
+                            isDarkTheme={props.isDarkTheme}
+                            dropProvider={props.dropProvider}
+                            dropSnapshot={props.dropSnapshot}
                         >
-                            <CardContent style={{ padding: 0, ...BaseComponent.getTheme(props.isDarkTheme, 'header') }}>
-                                <ExpansionPanels
-                                    location={props.location}
-                                    index={props.dragIndex}
-                                    panelHeader={item.label}
-                                    isDarkTheme={props.isDarkTheme}
-                                >
-                                    {props.content(undefined, undefined, undefined, undefined)}
-                                </ExpansionPanels>
-                            </CardContent>
-                        </Card>
-                    {/* </Grid>
+                            {props.content(undefined, undefined)}
+                        </ExpansionPanels>
+                    </CardContent>
+                </Card>
+                {/* </Grid>
                 </Grid> */}
             </DroppedItem>
+        );
+    }
+
+    GetDroppable = (props: {
+        id: string,
+        type: string,
+        children?: JSX.Element | JSX.Element[] | string | string[],
+        content: (provided: DroppableProvided, snapshot: DroppableStateSnapshot) => JSX.Element | JSX.Element[] | string | string[]
+    }
+    ) => {
+        return (
+            <Droppable
+                droppableId={props.id}
+                direction={props.type === 'columns'
+                    ?
+                    'horizontal'
+                    :
+                    'vertical'}
+                isDropDisabled={controlItems.drag.activeElement !== props.type}
+            >
+                {(provided, snapshot) => (
+                    <div
+                        style={{
+                            ...(
+                                controlItems.drag.activeElement === props.type
+                                    ?
+                                    {
+                                        border: '2px dashed blue'
+                                    }
+                                    :
+                                    {}
+                            )
+                        }}
+                        // ref={provided.innerRef}
+                        // {...provided.droppableProps}
+                    >
+                        {props.content(provided, snapshot)}
+                        {props.children}
+                        {/* {provided.placeholder} */}
+                    </div>
+                )}
+            </Droppable>
         );
     }
 

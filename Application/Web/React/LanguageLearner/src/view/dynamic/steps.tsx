@@ -73,7 +73,7 @@ export default class Steps extends BaseComponent<StepProps> {
                                             {step.sections.length === 0
                                                 ?
                                                 <>
-                                                    {this.getPlaceholder(this.props.dropProvider, 'No Sections')}
+                                                    {/* {this.getPlaceholder(this.props.dropProvider, 'No Sections')} */}
                                                     <Grid container={true} direction="row">
                                                         <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
                                                             <Chip
@@ -91,6 +91,7 @@ export default class Steps extends BaseComponent<StepProps> {
                                                     currentStep={currentStep}
                                                     index={index}
                                                     sections={step.sections}
+                                                    id={step.id}
                                                     isDropDisabled={this.props.isDropDisabled || false}
                                                 />
                                             }

@@ -4,7 +4,7 @@ import { ControlsProps, LeftBarItems } from '../../dynamic/renderViewConstants';
 import BaseComponent from '../helper/baseComponent';
 import { getBox, Position, BoxModel } from 'css-box-model';
 import { useRef, useContext, useEffect } from 'react';
-import { BeforeCapture, Draggable } from 'react-beautiful-dnd';
+import { BeforeCapture, Draggable, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
 
 type UnbindFn = () => void;
 
@@ -62,7 +62,9 @@ type ItemProps = {
   children?: JSX.Element | string,
   isDarkTheme: boolean,
   isExpander?: boolean,
-  isDragDisabled?: boolean
+  isDragDisabled?: boolean,
+  dropProvider: DroppableProvided,
+  dropSnapshot: DroppableStateSnapshot
 };
 
 export const Content = styled.div`
@@ -223,7 +225,7 @@ export const ButtonText = styled.div`
 `;
 
 export const Item: any = (props: ItemProps) => {
-  const { id, index, children, isDarkTheme, isExpander, isDragDisabled } = props;
+  const { id, index, children, isDarkTheme, isExpander, isDragDisabled, dropProvider, dropSnapshot } = props;
   const ref: any = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -291,8 +293,7 @@ export const Item: any = (props: ItemProps) => {
     ]);
 
     // return unsubscribe;
-  }, [index, id, isDragDisabled, children, isDarkTheme, isExpander])
-
+  }, [index, id, isDragDisabled, children, isDarkTheme, isExpander, dropProvider, dropSnapshot])
   return (
     <Draggable
       key={id}
@@ -311,6 +312,13 @@ export const Item: any = (props: ItemProps) => {
               };
               clientSelectionRef.current = current;
             }}
+            // onTouchStartCapture={(event) => {
+            //   const current: any = {
+            //     x: event.touches[0].clientX,
+            //     y: event.touches[0].clientY,
+            //   };
+            //   clientSelectionRef.current = current;
+            // }}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={(node: HTMLElement | null) => {
@@ -321,7 +329,12 @@ export const Item: any = (props: ItemProps) => {
             isExpander={isExpander}
             style={{ ...provided.draggableProps.style, zIndex: 7001 }}
           >
-            {children}
+            {
+              dropSnapshot.isDraggingOver
+                ?
+                'Drop Here'
+                :
+                children}
           </StyledItem>
           {snapshot.isDragging && (
             <Clone>

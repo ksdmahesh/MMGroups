@@ -60,27 +60,36 @@ export default class Controls extends BaseComponent<ControlProps> {
         const { props, item } = this.onLoad();
         var isDarkTheme = this.props.isDarkTheme;
         return (
-            <>
-                {
-                    controls.map((control, index) => {
-                        dragIndex.index += 1;
-                        var itemProp = props(index, this.props.isDropDisabled, dragIndex.index, isDarkTheme);
-                        return (
-                            <this.GetDragDropItems
-                                {...itemProp}
-                                {...item(control)}
-                                key={control.id + index}
-                                content={(dragProvider, dropProvider, snapshot, dropSnapshot) => (
-                                    <>
-                                        {getControlByName(control, isDarkTheme)}
-                                        {/* {this.props.dropProvider.placeholder} */}
-                                    </>
-                                )}
-                            />
-                        );
-                    })
-                }
-            </>
+            <this.GetDroppable
+                id={this.props.columnId}
+                type={this.DataHeader[5]}
+                content={(getDropProvider, getSnapshot) => (
+                    <>
+                        {
+                            controls.map((control, index) => {
+                                dragIndex.index += 1;
+                                var itemProp = props(index, this.props.isDropDisabled, dragIndex.index, isDarkTheme);
+                                return (
+                                    <this.GetDragDropItems
+                                        {...itemProp}
+                                        {...item(control)}
+                                        key={control.id + index}
+                                        dropProvider={getDropProvider}
+                                        dropSnapshot={getSnapshot}
+                                        content={(dragProvider, snapshot) => (
+                                            <>
+                                                {getControlByName(control, isDarkTheme)}
+                                                {/* {this.props.dropProvider.placeholder} */}
+                                            </>
+                                        )}
+                                    />
+                                );
+                            })
+                        }
+                    </>
+                )}
+            >
+            </this.GetDroppable>
         );
     }
 }

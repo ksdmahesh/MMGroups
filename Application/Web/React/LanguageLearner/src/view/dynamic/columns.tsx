@@ -78,42 +78,52 @@ export default class Columns extends BaseComponent<ColumnsProps> {
 
         var isDarkTheme = this.props.isDarkTheme;
         return (
-            <Grid container={true} >
-                {
-                    this.props.columns.map((column, index) => {
-                        dragIndex.index += 1;
-                        var itemProp = props(index, column, this.props.isDropDisabled, dragIndex.index, isDarkTheme);
-                        return (
-                            <Grid
-                                item={true} xs={12} key={`${column.id}-${index}`} md={gridWidth} sm={gridWidth}
-                            >
-                                <this.GetDragDropItems
-                                    {...itemProp}
-                                    {...item(column)}
-                                    key={column.id + index}
-                                    content={(dragProvider, dropProvider, snapshot, dropSnapshot) => (
-                                        <>
-                                            {
-                                                itemProp.length === 0
-                                                    ?
-                                                    this.getPlaceholder(this.props.dropProvider, 'No Controls')
-                                                    :
-                                                    <Controls
-                                                        isDarkTheme={isDarkTheme}
-                                                        dropProvider={this.props.dropProvider}
-                                                        {...itemProp}
-                                                        controls={column.controls}
-                                                        columnId={column.id}
-                                                    />
-                                            }
-                                            {/* {this.props.dropProvider.placeholder} */}
-                                        </>
-                                    )}
-                                />
-                            </Grid>
-                        );
-                    })}
-            </Grid>
+            <this.GetDroppable
+                id={this.props.id}
+                type={this.DataHeader[4]}
+                content={(getDropProvider, getSnapshot) => (
+                    <Grid container={true} >
+                        {
+                            this.props.columns.map((column, index) => {
+                                dragIndex.index += 1;
+                                var itemProp = props(index, column, this.props.isDropDisabled, dragIndex.index, isDarkTheme);
+                                return (
+                                    <Grid
+                                        item={true} xs={12} key={`${column.id}-${index}`} md={gridWidth} sm={gridWidth}
+                                    >
+                                        <this.GetDragDropItems
+                                            {...itemProp}
+                                            {...item(column)}
+                                            key={column.id + index}
+                                            dropProvider={getDropProvider}
+                                            dropSnapshot={getSnapshot}
+                                            content={(dragProvider, snapshot) => (
+                                                <>
+                                                    {
+                                                        itemProp.length === 0
+                                                            ?
+                                                            this.getPlaceholder(getDropProvider, 'No Controls')
+                                                            :
+                                                            <Controls
+                                                                isDarkTheme={isDarkTheme}
+                                                                dropProvider={this.props.dropProvider}
+                                                                {...itemProp}
+                                                                controls={column.controls}
+                                                                columnId={column.id}
+                                                            />
+                                                    }
+                                                    {/* {this.props.dropProvider.placeholder} */}
+                                                </>
+                                            )}
+                                        />
+                                    </Grid>
+                                );
+                            })}
+                    </Grid>
+                )}
+            >
+
+            </this.GetDroppable>
         );
     }
 }

@@ -41,7 +41,7 @@ export default class ExpansionPanels extends React.Component<ExpanderProps> {
     }
 
     render() {
-        var isDarkTheme = this.props.isDarkTheme;
+        let { isDarkTheme, dropProvider, dropSnapshot, index, location } = this.props;
         return (
             <div style={{ padding: '0' }}>
                 <ExpansionPanel
@@ -58,12 +58,17 @@ export default class ExpansionPanels extends React.Component<ExpanderProps> {
                     >
 
                         <Grid container={true} direction="row" >
-                            <Grid item={true} xs={12} >
+                            <Grid item={true} xs={12}
+                                ref={dropProvider.innerRef}
+                                {...dropProvider.droppableProps}
+                            >
                                 <Item
-                                    id={this.props.location}
-                                    index={this.props.index}
+                                    id={location}
+                                    index={index}
                                     isDarkTheme={isDarkTheme}
                                     isExpander={true}
+                                    dropProvider={dropProvider}
+                                    dropSnapshot={dropSnapshot}
                                 >
                                     {this.getInnerHtml(this.props.panelHeader)}
                                 </Item>

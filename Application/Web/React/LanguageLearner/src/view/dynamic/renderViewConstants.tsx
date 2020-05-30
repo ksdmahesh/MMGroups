@@ -1,4 +1,4 @@
-import { DraggableProvidedDragHandleProps, DroppableProvided } from 'react-beautiful-dnd';
+import { DraggableProvidedDragHandleProps, DroppableProvided, DroppableStateSnapshot } from 'react-beautiful-dnd';
 
 export type HtmlProps = {
     name: string,
@@ -120,7 +120,7 @@ export interface RowsProps {
     cell: CellProps[0];
     sectionIndex: number;
     cellIndex: number;
-    dropProvider: DroppableProvided;
+    dropProvider?: DroppableProvided;
     isDarkTheme: boolean;
 }
 
@@ -128,7 +128,7 @@ export interface CellsProps {
     isDropDisabled: boolean;
     section: SectionProps[0];
     sectionIndex: number;
-    dropProvider: DroppableProvided;
+    dropProvider?: DroppableProvided;
     isDarkTheme: boolean;
 }
 
@@ -138,12 +138,13 @@ export interface ColumnsProps {
     cellIndex: number;
     rowIndex: number;
     columns: ColumnProps;
-    dropProvider: DroppableProvided;
+    dropProvider?: DroppableProvided;
     isDarkTheme: boolean;
+    id: string;
 }
 
 export interface ControlProps {
-    dropProvider: DroppableProvided;
+    dropProvider?: DroppableProvided;
     columnId: string;
     controls: ControlsProps;
     sectionIndex: number;
@@ -168,8 +169,9 @@ export interface SectionsProps {
     sections: SectionProps;
     currentStep: number;
     index: number;
-    dropProvider: DroppableProvided;
+    dropProvider?: DroppableProvided;
     isDarkTheme: boolean;
+    id: string;
 }
 
 export interface TabPanelProps {
@@ -183,7 +185,7 @@ export interface TabPanelProps {
 export interface StepProps {
     steps: StepsProps;
     isDropDisabled: boolean;
-    dropProvider: DroppableProvided;
+    dropProvider?: DroppableProvided;
     isDarkTheme: boolean;
 }
 
@@ -212,7 +214,7 @@ export type ExtendedAddressProps = {
 export interface LeftBarProps {
     isDraggable: boolean;
     id: string;
-    content: (dropId: string, provider: DroppableProvided) => JSX.Element | string;
+    content: (dropId: string, provider?: DroppableProvided) => JSX.Element | string;
     isDarkTheme: boolean;
 }
 
@@ -222,6 +224,8 @@ export interface RenderLeftBarItemsProps {
     isDraggable: boolean;
     isDragging: boolean;
     isDarkTheme: boolean;
+    dropProvider: DroppableProvided;
+    dropSnapshot: DroppableStateSnapshot;
 }
 
 export interface ExpanderProps {
@@ -229,6 +233,8 @@ export interface ExpanderProps {
     location: string;
     index: number;
     isDarkTheme: boolean;
+    dropProvider: DroppableProvided;
+    dropSnapshot: DroppableStateSnapshot;
     // dragHandleProps?: DraggableProvidedDragHandleProps;
     // isDragging: boolean;
 }

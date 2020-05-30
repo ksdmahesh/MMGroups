@@ -51,55 +51,65 @@ export default class Sections extends BaseComponent<SectionsProps> {
         var sections = this.props.sections || [];
         var isDarkTheme = this.props.isDarkTheme;
         return (
-            <>
-                {
-                    sections.map((section, index) => {
-                        dragIndex.index += 1;
-                        var itemProp = props(index, section, this.props.isDropDisabled, dragIndex.index, isDarkTheme);
-                        return (
-                            <this.GetDragDropItems
-                                {...itemProp}
-                                {...item(section)}
-                                key={section.id + index}
-                                content={(dragProvider, dropProvider, snapshot, dropSnapshot) => (
-                                    <>
-                                        {
-                                            itemProp.length === 0
-                                                ?
-                                                <>
-                                                    {this.getPlaceholder(this.props.dropProvider, 'No Cells')}
-                                                    <Grid container={true} direction="row">
-                                                        <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
-                                                            <Chip
-                                                                label="Add Cell"
-                                                                style={{ width: '50%', ...BaseComponent.getTheme(isDarkTheme, 'control') }}
-                                                                onClick={() =>
-                                                                    this.chipClick(
-                                                                        'Cell',
-                                                                        'section',
-                                                                        { ...itemProp, ...{ cellIndex: -1 } }
-                                                                    )}
-                                                            />
-                                                        </Grid>
-                                                    </Grid>
-                                                </>
-                                                :
-                                                <Cells
-                                                    isDarkTheme={isDarkTheme}
-                                                    sectionIndex={index}
-                                                    section={section}
-                                                    isDropDisabled={this.props.isDropDisabled}
-                                                    dropProvider={this.props.dropProvider}
-                                                />
-                                        }
-                                        {/* {this.props.dropProvider.placeholder} */}
-                                    </>
-                                )}
-                            />
-                        );
-                    })
-                }
-            </>
+            <this.GetDroppable
+                id={this.props.id}
+                type={this.DataHeader[1]}
+                content={(getDropProvider, getSnapshot) => (
+                    <>
+                        {
+                            sections.map((section, index) => {
+                                dragIndex.index += 1;
+                                var itemProp = props(index, section, this.props.isDropDisabled, dragIndex.index, isDarkTheme);
+                                return (
+                                    <this.GetDragDropItems
+                                        {...itemProp}
+                                        {...item(section)}
+                                        dropProvider={getDropProvider}
+                                        dropSnapshot={getSnapshot}
+                                        key={section.id + index}
+                                        content={(dragProvider, snapshot) => (
+                                            <>
+                                                {
+                                                    itemProp.length === 0
+                                                        ?
+                                                        <>
+                                                            {this.getPlaceholder(getDropProvider, 'No Cells')}
+                                                            <Grid container={true} direction="row">
+                                                                <Grid item={true} xs={12} style={{ textAlign: 'center' }}>
+                                                                    <Chip
+                                                                        label="Add Cell"
+                                                                        style={{ width: '50%', ...BaseComponent.getTheme(isDarkTheme, 'control') }}
+                                                                        onClick={() =>
+                                                                            this.chipClick(
+                                                                                'Cell',
+                                                                                'section',
+                                                                                { ...itemProp, ...{ cellIndex: -1 } }
+                                                                            )}
+                                                                    />
+                                                                </Grid>
+                                                            </Grid>
+                                                        </>
+                                                        :
+                                                        <Cells
+                                                            isDarkTheme={isDarkTheme}
+                                                            sectionIndex={index}
+                                                            section={section}
+                                                            isDropDisabled={this.props.isDropDisabled}
+                                                            dropProvider={this.props.dropProvider}
+                                                        />
+                                                }
+                                                {/* {this.props.dropProvider.placeholder} */}
+                                            </>
+                                        )}
+                                    />
+                                );
+                            })
+                        }
+                    </>
+                )}
+            >
+
+            </this.GetDroppable>
         );
     }
 }

@@ -68,9 +68,9 @@ export default class RenderView extends BaseComponent {
 
                         )}
                     >
-                        <div style={{ zIndex: 700, position: 'relative' }}>
+                        {/* <div style={{ zIndex: 700, position: 'relative' }}>
                             <TopBar isDarkTheme={isDarkTheme} />
-                        </div>
+                        </div> */}
                     </LeftBar>
                     <ScrollDialog
                         isDarkTheme={isDarkTheme}
