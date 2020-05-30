@@ -116,7 +116,7 @@ const setNumberSequence = (trIndex, tdIndex, totalCount, sqrt, isFirst, isInvert
     let fromTd = ((tdIndex / sqrt) >> 0) * sqrt;
     let toTd = fromTd + sqrt;
     var filterData = [];
-    filterData = data[trIndex];
+    filterData =JSON.parse(JSON.stringify(data[trIndex]));
 
     for (let tr = 0; tr < totalCount; tr++) {
         if (filterData.indexOf(data[tr][tdIndex]) === -1) {
@@ -133,7 +133,7 @@ const setNumberSequence = (trIndex, tdIndex, totalCount, sqrt, isFirst, isInvert
     }
 
 
-    console.log(fromTr, toTr, fromTd, toTd)
+    console.log(fromTr, toTr, fromTd, toTd, trIndex, tdIndex, filterData)
 }
 
 const getRandomNumber = () => (
