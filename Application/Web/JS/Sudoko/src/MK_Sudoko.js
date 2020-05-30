@@ -6,17 +6,18 @@ $(() => {
 
 let isInvert = false;
 let isFirst = false;
-let data = [
-    ["[0, 0]", "[0, 1]", "[0, 2]", "[0, 3]", "[0, 4]", "[0, 5]", "[0, 6]", "[0, 7]", "[0, 8]"],
-    ["[1, 0]", "[1, 1]", "[1, 2]", "[1, 3]", "[1, 4]", "[1, 5]", "[1, 6]", "[1, 7]", "[1, 8]"],
-    ["[2, 0]", "[2, 1]", "[2, 2]", "[2, 3]", "[2, 4]", "[2, 5]", "[2, 6]", "[2, 7]", "[2, 8]"],
-    ["[3, 0]", "[3, 1]", "[3, 2]", "[3, 3]", "[3, 4]", "[3, 5]", "[3, 6]", "[3, 7]", "[3, 8]"],
-    ["[4, 0]", "[4, 1]", "[4, 2]", "[4, 3]", "[4, 4]", "[4, 5]", "[4, 6]", "[4, 7]", "[4, 8]"],
-    ["[5, 0]", "[5, 1]", "[5, 2]", "[5, 3]", "[5, 4]", "[5, 5]", "[5, 6]", "[5, 7]", "[5, 8]"],
-    ["[6, 0]", "[6, 1]", "[6, 2]", "[6, 3]", "[6, 4]", "[6, 5]", "[6, 6]", "[6, 7]", "[6, 8]"],
-    ["[7, 0]", "[7, 1]", "[7, 2]", "[7, 3]", "[7, 4]", "[7, 5]", "[7, 6]", "[7, 7]", "[7, 8]"],
-    ["[8, 0]", "[8, 1]", "[8, 2]", "[8, 3]", "[8, 4]", "[8, 5]", "[8, 6]", "[8, 7]", "[8, 8]"]
-];
+let data = [];
+// let data = [
+//     ["[0, 0]", "[0, 1]", "[0, 2]", "[0, 3]", "[0, 4]", "[0, 5]", "[0, 6]", "[0, 7]", "[0, 8]"],
+//     ["[1, 0]", "[1, 1]", "[1, 2]", "[1, 3]", "[1, 4]", "[1, 5]", "[1, 6]", "[1, 7]", "[1, 8]"],
+//     ["[2, 0]", "[2, 1]", "[2, 2]", "[2, 3]", "[2, 4]", "[2, 5]", "[2, 6]", "[2, 7]", "[2, 8]"],
+//     ["[3, 0]", "[3, 1]", "[3, 2]", "[3, 3]", "[3, 4]", "[3, 5]", "[3, 6]", "[3, 7]", "[3, 8]"],
+//     ["[4, 0]", "[4, 1]", "[4, 2]", "[4, 3]", "[4, 4]", "[4, 5]", "[4, 6]", "[4, 7]", "[4, 8]"],
+//     ["[5, 0]", "[5, 1]", "[5, 2]", "[5, 3]", "[5, 4]", "[5, 5]", "[5, 6]", "[5, 7]", "[5, 8]"],
+//     ["[6, 0]", "[6, 1]", "[6, 2]", "[6, 3]", "[6, 4]", "[6, 5]", "[6, 6]", "[6, 7]", "[6, 8]"],
+//     ["[7, 0]", "[7, 1]", "[7, 2]", "[7, 3]", "[7, 4]", "[7, 5]", "[7, 6]", "[7, 7]", "[7, 8]"],
+//     ["[8, 0]", "[8, 1]", "[8, 2]", "[8, 3]", "[8, 4]", "[8, 5]", "[8, 6]", "[8, 7]", "[8, 8]"]
+// ];
 
 const divider = (trIndex, tdIndex, totalCount) => {
     let sqrt = Math.sqrt(totalCount);
@@ -40,6 +41,7 @@ const divider = (trIndex, tdIndex, totalCount) => {
 };
 
 const CreateTable = (tableSize) => {
+    data = JSON.parse(JSON.stringify(new Array(tableSize).fill(JSON.parse(JSON.stringify(new Array(9))))));
     var tableHTML = "<table id='tblCells' cellpadding='10' cellspacing='0' >";
 
     for (let trIndex = 0; trIndex < tableSize; trIndex++) {
@@ -109,14 +111,14 @@ const increment_decrement = (event, trIndex, tdIndex, totalCount) => {
 }
 
 const setNumberSequence = (trIndex, tdIndex, totalCount, sqrt, isFirst, isInvert) => {
-    let randomNumber;
+    let randomNumber = 1;
 
     let fromTr = ((trIndex / sqrt) >> 0) * sqrt;
     let toTr = fromTr + sqrt;
     let fromTd = ((tdIndex / sqrt) >> 0) * sqrt;
     let toTd = fromTd + sqrt;
     var filterData = [];
-    filterData =JSON.parse(JSON.stringify(data[trIndex]));
+    filterData = JSON.parse(JSON.stringify(data[trIndex]));
 
     for (let tr = 0; tr < totalCount; tr++) {
         if (filterData.indexOf(data[tr][tdIndex]) === -1) {
@@ -131,9 +133,11 @@ const setNumberSequence = (trIndex, tdIndex, totalCount, sqrt, isFirst, isInvert
             }
         }
     }
-
-
-    console.log(fromTr, toTr, fromTd, toTd, trIndex, tdIndex, filterData)
+    
+    while (filterData.indexOf(randomNumber) !== -1) {
+        randomNumber = getRandomNumber();
+    }
+    data[trIndex][tdIndex] = randomNumber;
 }
 
 const getRandomNumber = () => (
