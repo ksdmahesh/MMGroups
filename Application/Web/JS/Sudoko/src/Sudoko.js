@@ -2,11 +2,19 @@
 
 $(() => {
     $('#divTable').html(CreateTable(9));
+
+    let tds = $('td:contains(0)');
+    tds.css({ color: 'red' });
+    $('body').append(`<h3 style="width: 100%; text-align: center">${tds.length}</h3>`)
 });
+
+//#region 
 
 let isInvert = false;
 let isFirst = false;
 let data = [];
+let sqrt;
+let count = 0;
 // let data = [
 //     ["[0, 0]", "[0, 1]", "[0, 2]", "[0, 3]", "[0, 4]", "[0, 5]", "[0, 6]", "[0, 7]", "[0, 8]"],
 //     ["[1, 0]", "[1, 1]", "[1, 2]", "[1, 3]", "[1, 4]", "[1, 5]", "[1, 6]", "[1, 7]", "[1, 8]"],
@@ -20,7 +28,7 @@ let data = [];
 // ];
 
 const divider = (trIndex, tdIndex, totalCount) => {
-    let sqrt = Math.sqrt(totalCount);
+
     if (tdIndex === 0 && `${(trIndex + totalCount) / sqrt}`.indexOf('.') === -1) {
         isFirst = !isInvert;
     }
@@ -31,18 +39,21 @@ const divider = (trIndex, tdIndex, totalCount) => {
         isInvert = isFirst;
     } else if (tdIndex + 1 == totalCount && `${totalCount / 2}`.indexOf('.') === -1) {
         isInvert = !isInvert;
-        setNumberSequence(trIndex, tdIndex, totalCount, sqrt, isFirst, !isInvert);
+        // setNumberSequence(trIndex, tdIndex, totalCount);
         return !isInvert;
     }
-    setNumberSequence(trIndex, tdIndex, totalCount, sqrt, isFirst, isInvert);
+    // setNumberSequence(trIndex, tdIndex, totalCount);
     return (
         isInvert
     );
 };
 
 const CreateTable = (tableSize) => {
-    data = JSON.parse(JSON.stringify(new Array(tableSize).fill(JSON.parse(JSON.stringify(new Array(9))))));
+    sqrt = Math.sqrt(tableSize);
+    data = JSON.parse(JSON.stringify(new Array(tableSize).fill(JSON.parse(JSON.stringify(new Array(tableSize))))));
     var tableHTML = "<table id='tblCells' cellpadding='10' cellspacing='0' >";
+   
+    initData(tableSize);
 
     for (let trIndex = 0; trIndex < tableSize; trIndex++) {
         tableHTML += '<tr>';
@@ -53,11 +64,13 @@ const CreateTable = (tableSize) => {
             onfocus="document.execCommand('selectAll',false,null)" 
             onclick="document.execCommand('selectAll',false,null)" 
             onkeydown="inputCell(event, ${trIndex}, ${tdIndex})"
-            >0</td>`;
+            >${data[trIndex][tdIndex] || 0}</td>`;
         }
         tableHTML += '</tr>';
     }
     tableHTML += '</table>'
+
+
 
     return tableHTML;
 }
@@ -110,15 +123,13 @@ const increment_decrement = (event, trIndex, tdIndex, totalCount) => {
     }
 }
 
-const setNumberSequence = (trIndex, tdIndex, totalCount, sqrt, isFirst, isInvert) => {
-    let randomNumber = 1;
+const setNumberSequence = (trIndex, tdIndex, totalCount, randomSet = false) => {
 
     let fromTr = ((trIndex / sqrt) >> 0) * sqrt;
     let toTr = fromTr + sqrt;
     let fromTd = ((tdIndex / sqrt) >> 0) * sqrt;
     let toTd = fromTd + sqrt;
-    var filterData = [];
-    filterData = JSON.parse(JSON.stringify(data[trIndex]));
+    var filterData = JSON.parse(JSON.stringify(data[trIndex]));
 
     for (let tr = 0; tr < totalCount; tr++) {
         if (filterData.indexOf(data[tr][tdIndex]) === -1) {
@@ -133,13 +144,60 @@ const setNumberSequence = (trIndex, tdIndex, totalCount, sqrt, isFirst, isInvert
             }
         }
     }
-    
-    while (filterData.indexOf(randomNumber) !== -1) {
-        randomNumber = getRandomNumber();
-    }
-    data[trIndex][tdIndex] = randomNumber;
+    data[trIndex][tdIndex] = getRandomNumber(filterData, totalCount, randomSet);
 }
 
-const getRandomNumber = () => (
-    Math.floor(Math.random() * 10) || 1
-)
+const generateRandomNumber = (size, randomSet) => {
+    if (randomSet) {
+        return (
+            Math.floor(Math.random() * (size + 1)) || 1
+        );
+    } else {
+        count = count + 1;
+        if (count >= data.length) {
+            count = 0;
+        }
+        return count;
+    }
+}
+
+const getRandomNumber = (filterData, totalCount, randomSet) => {
+    let loopCount = [];
+    let randomNumber = generateRandomNumber(totalCount, randomSet);
+
+    while (filterData.indexOf(randomNumber) !== -1) {
+        randomNumber = generateRandomNumber(totalCount, randomSet);
+        if (loopCount.indexOf(randomNumber) === -1) {
+            loopCount.push(randomNumber);
+        } else if (loopCount.length === totalCount) {
+            return 0;
+        }
+    }
+
+    return randomNumber;
+}
+
+//#endregion
+
+const initData = (tableSize) => {
+    let td = 0 - sqrt;
+    let tr = 0;
+    let randomSet = true;
+    // 0,1,2,3,4,5,6,7,8
+    // let arr = [3, 2, 1, 0];
+    let arr = [4, 0, 8, 5, 7, 2, 6, 1, 3];
+    // let arr = [14, 12, 10, 4, 3, 5, 1, 7, 0, 2, 6, 8, 9, 11, 13, 15];
+    for (let dataIndex = 0; dataIndex < tableSize; dataIndex++) {
+        let dI = arr[dataIndex];
+        tr = (dI / sqrt >> 0) * sqrt;
+        td = (dI - ((dI / sqrt >> 0) * sqrt)) * sqrt;
+        if (dI === 2) {
+            randomSet = false;
+        }
+        for (let trIndex = tr; trIndex < tr + sqrt; trIndex++) {
+            for (let tdIndex = td; tdIndex < td + sqrt; tdIndex++) {
+                setNumberSequence(trIndex, tdIndex, tableSize, randomSet);
+            }
+        }
+    }
+}
