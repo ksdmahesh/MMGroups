@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Dispatch } from '../../../constants/default';
 import TypeCheck, { HelperClass } from './typeCheck';
 
+type BoardGames = 'Dhayam' | 'Pachika' | 'Sarpa' | 'AstaChemma' | 'AstaPada' | 'Pallanguzhi' | 'AduPuli';
+
 export default class ComponentBase<T = any, U = any> extends React.Component<T, U> {
 
     dispatch!: Dispatch;
@@ -171,20 +173,53 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
         return `${[0, 1, 2, 3][this.generateRandomNumbers(4)]}, ${[0, 1, 2, 3][this.generateRandomNumbers(4)]}`;
     }
 
-    generateTable = (type: 'Aero' | 'Plus' | 'Serp') => {
+    generateTable = (type: BoardGames) => {
         switch (type) {
-            case 'Aero':
-
-                break;
-            case 'Plus':
-
-                break;
-            case 'Serp':
-
-                break;
+            case 'Dhayam':
+                return this.createBigGame();
+            case 'Pachika':
+                return this.createSmallGame();
+            case 'Sarpa':
+                return this.createSarpaGame();
+            case 'AstaChemma':
+                return this.createAstaChemmaGame();
+            case 'AstaPada':
+                return this.createAstaPadaGame();
+            case 'Pallanguzhi':
+                return this.createPallanguzhiGame();
+            case 'AduPuli':
+                return this.createAduPuliGame();
             default:
-                break;
+                return '';
         }
+    }
+
+    createBigGame = () => {
+
+    }
+
+    createSmallGame = () => {
+
+    }
+
+    createSarpaGame = () => {
+
+    }
+
+    createAstaChemmaGame = () => {
+
+    }
+
+    createAstaPadaGame = () => {
+
+    }
+
+    createPallanguzhiGame = () => {
+
+    }
+
+    createAduPuliGame = () => {
+
     }
 
 }
