@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Dispatch } from '../../../constants/default';
 import TypeCheck, { HelperClass } from './typeCheck';
+import vimana from '../../../content/images/vimanam.jpg';
 
 type BoardGames = 'Dhayam' | 'Pachika' | 'Sarpa' | 'AstaChemmaSmall' | 'AstaChemmaBig' | 'AstaPada' | 'Pallanguzhi' | 'AduPuli';
 
@@ -258,46 +259,167 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
         ));
     }
 
-    createBigGame = () => {
+    innerTable = (position: 'left' | 'right') => {
+        let top = position === 'left'
+            ?
+            ((-17 * 6) + 17)
+            :
+            17;
         return (
-            <table style={{ marginLeft: 'auto', marginRight: 'auto', height: '100%', width: '100%', position: 'fixed', top: 0, left: 0 }}>
-                <tbody>
-                    {
-                        [1, 0, 0, 0, 0, 0, 1, 2, 3, 3, 3, 3, 4, 5, 5, 6, 7, 8, 1].map((tr, trIndex) => (
-                            <tr
-                                key={`${tr}-${trIndex}`}
-                            >
-                                {
-                                    [1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1].map((td, tdIndex) => (
-                                        <td
-                                            key={`${tr}-${trIndex}-${td}-${tdIndex}`}
-                                            style={{
-                                                ...(this.visibleBig(tr, td)
+            <td colSpan={4} rowSpan={5}>
+                <table
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'relative',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                        top: 0,
+                        left: 0
+                    }}
+                >
+                    <tbody>
+                        <tr>
+                            {new Array(6).fill('').map((a, b) => (
+                                position === 'left'
+                                    ?
+                                    <td
+                                        style={{
+                                            border: '1px solid black',
+                                            position: 'relative',
+                                            ...(
+                                                b === 0
                                                     ?
                                                     {
-                                                        border: '1px solid black'
+                                                        top: top + 9
                                                     }
                                                     :
                                                     {
-
+                                                        transform: 'skewY(10deg)',
+                                                        top: top += 17
                                                     }
-                                                ),
-                                                ...(
-                                                    this.setStarBig(trIndex, td)
-                                                        ?
-                                                        {
-                                                            backgroundColor: 'red'
-                                                        }
-                                                        :
-                                                        {}
-                                                )
-                                            }}
-                                        >{this.visibleBig(tr, td) ? td : ''}</td>
-                                    ))
+                                            )
+                                        }}></td>
+                                    :
+                                    <td
+                                        style={{
+                                            border: '1px solid black',
+                                            position: 'relative',
+                                            ...(
+                                                b === 5
+                                                    ?
+                                                    {
+                                                        top: top - 9
+                                                    }
+                                                    :
+                                                    {
+                                                        transform: 'skewY(-10deg)',
+                                                        top: top -= 17
+                                                    }
+                                            )
+                                        }}
+                                    ></td>
+                            ))}
+                        </tr>
+                        {new Array(6).fill('').map((a, b) => (
+                            <tr>
+                                {
+                                    position === 'left'
+                                        ?
+                                        <>
+                                            <td style={{ border: '1px solid black', position: 'relative', top: -76 }} ></td>
+                                            <td colSpan={5} ></td>
+                                        </>
+                                        :
+                                        <>
+                                            <td colSpan={5} ></td>
+                                            <td style={{ border: '1px solid black', position: 'relative', top: -76 }}></td>
+                                        </>
                                 }
                             </tr>
-                        ))
-                    }
+                        ))}
+                    </tbody>
+                </table>
+            </td>
+        );
+    }
+
+    createBigGame = () => {
+        return (
+            <table
+                style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    height: '100%',
+                    width: '100%',
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    // backgroundImage: 'url(/static/media/vimanam.b60e787f.jpg)',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    backgroundSize: '1400px 660px'
+                }}
+            >
+                <tbody>
+                    <tr>
+                        {new Array(13).fill('').map(a => (
+                            <td style={{ border: '1px solid black' }}></td>
+                        ))}
+                    </tr>
+                    {new Array(5).fill('').map(a => (
+                        <tr>
+                            <td colSpan={6}></td>
+                            <td style={{ border: '1px solid black' }}></td>
+                            <td colSpan={6}></td>
+                        </tr>
+                    ))}
+                    <tr>
+                        {new Array(13).fill('').map(a => (
+                            <td style={{ border: '1px solid black' }}></td>
+                        ))}
+                    </tr>
+                    <tr>
+                        <td style={{ border: '1px solid black' }}></td>
+                        <td colSpan={4}></td>
+                        <td style={{ border: '1px solid black' }}></td>
+                        <td style={{ border: '1px solid black' }}></td>
+                        <td style={{ border: '1px solid black' }}></td>
+                        <td colSpan={4}></td>
+                        <td style={{ border: '1px solid black' }}></td>
+                    </tr>
+                    {new Array(4).fill('').map((a, b) => (
+                        <tr>
+                            <td style={{ border: '1px solid black' }}></td>
+                            <td colSpan={5}></td>
+                            <td style={{ border: '1px solid black' }}></td>
+                            <td colSpan={5}></td>
+                            <td style={{ border: '1px solid black' }}></td>
+                        </tr>
+                    ))}
+                    <tr>
+                        <td style={{ border: '1px solid black' }}></td>
+                        <td></td>
+                        {this.innerTable('left')}
+                        <td style={{ border: '1px solid black' }}></td>
+                        {this.innerTable('right')}
+                        <td></td>
+                        <td style={{ border: '1px solid black' }}></td>
+                    </tr>
+                    {new Array(4).fill('').map((a, b) => (
+                        <tr>
+                            <td style={{ border: '1px solid black' }}></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style={{ border: '1px solid black' }}></td>
+                        </tr>
+                    ))}
+                    <tr>
+                        {new Array(13).fill('').map(a => (
+                            <td style={{ border: '1px solid black' }}></td>
+                        ))}
+                    </tr>
                 </tbody>
             </table>
         );

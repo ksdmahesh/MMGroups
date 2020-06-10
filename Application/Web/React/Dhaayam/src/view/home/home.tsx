@@ -10,7 +10,7 @@ export default class RenderView extends ComponentBase {
                     onClick={() => this.dispatchStore({ test: this.getNumbers() })}
                     value={this.getState('test') || 'click'}
                 />
-                {this.generateTable('AstaChemmaSmall')}
+                {this.generateTable('Dhayam')}
             </div>
         );
     }
