@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Dispatch } from '../../../constants/default';
 import TypeCheck, { HelperClass } from './typeCheck';
-import vimana from '../../../content/images/vimanam.jpg';
+import bg from '../../../content/images/Chess_l45.svg';
+import cbg from '../../../content/images/Chess_xxl45.svg';
 
 type BoardGames = 'Dhayam' | 'Pachika' | 'Sarpa' | 'AstaChemmaSmall' | 'AstaChemmaBig' | 'AstaPada' | 'Pallanguzhi' | 'AduPuli';
 
@@ -171,7 +172,7 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
     }
 
     getNumbers = () => {
-        return `${[0, 1, 2, 3][this.generateRandomNumbers(4)]}, ${[0, 1, 2, 3][this.generateRandomNumbers(4)]}`;
+        return [[0, 1, 2, 3][this.generateRandomNumbers(4)], [0, 1, 2, 3][this.generateRandomNumbers(4)]];
     }
 
     generateTable = (type: BoardGames) => {
@@ -284,6 +285,7 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
                                 position === 'left'
                                     ?
                                     <td
+                                        className={(b === 0) ? 'malai' : 'block'}
                                         style={{
                                             border: '1px solid black',
                                             position: 'relative',
@@ -291,7 +293,8 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
                                                 b === 0
                                                     ?
                                                     {
-                                                        top: top + 9
+                                                        top: top + 9,
+                                                        // backgroundColor: 'red'
                                                     }
                                                     :
                                                     {
@@ -302,6 +305,7 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
                                         }}></td>
                                     :
                                     <td
+                                        className={(b === 5) ? 'malai' : 'block'}
                                         style={{
                                             border: '1px solid black',
                                             position: 'relative',
@@ -309,7 +313,8 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
                                                 b === 5
                                                     ?
                                                     {
-                                                        top: top - 9
+                                                        top: top - 9,
+                                                        // backgroundColor: 'red'
                                                     }
                                                     :
                                                     {
@@ -327,13 +332,43 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
                                     position === 'left'
                                         ?
                                         <>
-                                            <td style={{ border: '1px solid black', position: 'relative', top: -76 }} ></td>
+                                            <td
+                                                className={(b === 5) ? 'malai' : 'block'}
+                                                style={{
+                                                    border: '1px solid black',
+                                                    position: 'relative',
+                                                    top: -76,
+                                                    ...(
+                                                        b === 5
+                                                            ?
+                                                            {
+                                                                // backgroundColor: 'red'
+                                                            }
+                                                            :
+                                                            {}
+                                                    )
+                                                }} ></td>
                                             <td colSpan={5} ></td>
                                         </>
                                         :
                                         <>
                                             <td colSpan={5} ></td>
-                                            <td style={{ border: '1px solid black', position: 'relative', top: -76 }}></td>
+                                            <td
+                                                className={b === 5 ? 'malai' : 'block'}
+                                                style={{
+                                                    border: '1px solid black',
+                                                    position: 'relative',
+                                                    top: -76,
+                                                    ...(
+                                                        b === 5
+                                                            ?
+                                                            {
+                                                                // backgroundColor: 'red'
+                                                            }
+                                                            :
+                                                            {}
+                                                    )
+                                                }}></td>
                                         </>
                                 }
                             </tr>
@@ -363,61 +398,191 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
             >
                 <tbody>
                     <tr>
-                        {new Array(13).fill('').map(a => (
-                            <td style={{ border: '1px solid black' }}></td>
+                        {new Array(13).fill('').map((a, b) => (
+                            <td
+                                className={(b === 0 || b === 6 || b === 12) ? 'malai' : 'block'}
+                                style={{
+                                    border: '1px solid black',
+                                    ...(
+                                        b === 0 || b === 6 || b === 12
+                                            ?
+                                            {
+                                                // backgroundColor: 'red'
+                                            }
+                                            :
+                                            {}
+                                    )
+                                }}
+                            ></td>
                         ))}
                     </tr>
-                    {new Array(5).fill('').map(a => (
+                    {new Array(5).fill('').map((a, b) => (
                         <tr>
-                            <td colSpan={6}></td>
-                            <td style={{ border: '1px solid black' }}></td>
-                            <td colSpan={6}></td>
+                            {
+                                b === 0
+                                    ?
+                                    <>
+                                        <td colSpan={6} rowSpan={5}>
+                                            <div
+                                                className={'player1Circle'}
+                                                style={{
+                                                    borderRadius: '50%',
+                                                    border: '1px solid black',
+                                                    width: '40%',
+                                                    height: '80%',
+                                                    left: '30%',
+                                                    position: 'relative'
+                                                }}
+                                            >
+                                                {''}
+                                            </div>
+                                        </td>
+                                        <td className={'block'} style={{ border: '1px solid black' }}></td>
+                                        <td colSpan={6} rowSpan={5}>
+                                            <div
+                                                className={'player2Circle'}
+                                                style={{
+                                                    borderRadius: '50%',
+                                                    border: '1px solid black',
+                                                    width: '40%',
+                                                    height: '80%',
+                                                    left: '30%',
+                                                    position: 'relative'
+                                                }}
+                                            >
+                                                {''}
+                                            </div>
+                                        </td>
+                                    </>
+                                    :
+                                    <td className={'block'} style={{ border: '1px solid black' }}></td>
+                            }
                         </tr>
                     ))}
                     <tr>
-                        {new Array(13).fill('').map(a => (
-                            <td style={{ border: '1px solid black' }}></td>
+                        {new Array(13).fill('').map((a, b) => (
+                            <td
+                                className={(b === 0 || b === 6 || b === 12) ? 'malai' : 'block'}
+                                style={{
+                                    border: '1px solid black',
+                                    ...(
+                                        b === 0 || b === 6 || b === 12
+                                            ?
+                                            {
+                                                // backgroundColor: 'red'
+                                            }
+                                            :
+                                            {}
+                                    )
+                                }}
+                            ></td>
                         ))}
                     </tr>
                     <tr>
-                        <td style={{ border: '1px solid black' }}></td>
+                        <td className={'block'} style={{ border: '1px solid black' }}></td>
                         <td colSpan={4}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
-                        <td style={{ border: '1px solid black' }}></td>
+                        <td
+                            className={'malai'}
+                            style={{
+                                border: '1px solid black',
+                                // backgroundColor: 'red'
+                            }}
+                        ></td>
+                        <td className={'block'} style={{ border: '1px solid black' }}></td>
+                        <td
+                            className={'malai'}
+                            style={{
+                                border: '1px solid black',
+                                // backgroundColor: 'red'
+                            }}
+                        ></td>
                         <td colSpan={4}></td>
-                        <td style={{ border: '1px solid black' }}></td>
+                        <td className={'block'} style={{ border: '1px solid black' }}></td>
                     </tr>
                     {new Array(4).fill('').map((a, b) => (
                         <tr>
-                            <td style={{ border: '1px solid black' }}></td>
-                            <td colSpan={5}></td>
-                            <td style={{ border: '1px solid black' }}></td>
-                            <td colSpan={5}></td>
-                            <td style={{ border: '1px solid black' }}></td>
+                            <td className={'block'} style={{ border: '1px solid black' }}></td>
+                            <td colSpan={4}></td>
+                            <td></td>
+                            <td className={'block'} style={{ border: '1px solid black' }}></td>
+                            <td></td>
+                            <td colSpan={4}></td>
+                            <td className={'block'} style={{ border: '1px solid black' }}></td>
                         </tr>
                     ))}
                     <tr>
-                        <td style={{ border: '1px solid black' }}></td>
+                        <td
+                            className={'malai'}
+                            style={{
+                                border: '1px solid black',
+                                // backgroundColor: 'red'
+                            }}
+                        ></td>
                         <td></td>
                         {this.innerTable('left')}
-                        <td style={{ border: '1px solid black' }}></td>
+                        <td
+                            className={'malai'}
+                            style={{
+                                border: '1px solid black',
+                                // backgroundColor: 'red'
+                            }}
+                        ></td>
                         {this.innerTable('right')}
                         <td></td>
-                        <td style={{ border: '1px solid black' }}></td>
+                        <td
+                            className={'malai'}
+                            style={{
+                                border: '1px solid black',
+                                // backgroundColor: 'red'
+                            }}
+                        ></td>
                     </tr>
-                    {new Array(4).fill('').map((a, b) => (
+                    {new Array(5).fill('').map((a, b) => (
                         <tr>
-                            <td style={{ border: '1px solid black' }}></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td style={{ border: '1px solid black' }}></td>
+                            <td className={'block'} style={{ border: '1px solid black' }}></td>
+                            {
+                                b === 0
+                                    ?
+                                    <>
+                                        <td rowSpan={5} colSpan={11}>
+                                            <div
+                                                className={'winnerCircle'}
+                                                style={{
+                                                    borderRadius: '50%',
+                                                    border: '1px solid black',
+                                                    width: '20%',
+                                                    height: '80%',
+                                                    left: '40%',
+                                                    position: 'relative'
+                                                }}
+                                            >
+                                                {''}
+                                            </div>
+                                        </td>
+                                    </>
+                                    :
+                                    <></>
+                            }
+                            <td className={'block'} style={{ border: '1px solid black' }}></td>
                         </tr>
                     ))}
                     <tr>
-                        {new Array(13).fill('').map(a => (
-                            <td style={{ border: '1px solid black' }}></td>
+                        {new Array(13).fill('').map((a, b) => (
+                            <td
+                                className={(b === 0 || b === 6 || b === 12) ? 'malai' : 'block'}
+                                style={{
+                                    border: '1px solid black',
+                                    ...(
+                                        b === 0 || b === 6 || b === 12
+                                            ?
+                                            {
+                                                // backgroundColor: 'red'
+                                            }
+                                            :
+                                            {}
+                                    )
+                                }}
+                            ></td>
                         ))}
                     </tr>
                 </tbody>
@@ -537,7 +702,12 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
     }
 
     createAstaChemmaBigGame = () => {
-
+        return (
+            <>
+                <img src={bg} />
+                <img src={cbg} />
+            </>
+        );
     }
 
     createAstaPadaGame = () => {

@@ -5,9 +5,40 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(90deg, sandybrown, burlywood, sandybrown);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.block {
+  width: 85px;
+  background-image: url(content/images/Chess_l45.svg);
+  /* height: 20px; */
+}
+
+.malai {
+  background-image: url(content/images/Chess_xxl45.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+.player1Circle {
+background: rgb(230,218,57,0.3);
+}
+
+.player2Circle {
+  background: rgb(10,140,125,0.3);
+}
+
+.winnerCircle{
+  background: rgb(100,210,40,0.3);
+}
+
+@keyframes backgroundScroll {
+  from {top: -320px;}
+  to {top: 0px;}
 }
