@@ -12,6 +12,8 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
 
     store: any;
 
+    history: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
     constructor(props: any) {
         super(props);
         if (!this.dispatch) {
@@ -260,6 +262,28 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
         ));
     }
 
+    countHistory = () => {
+        return (
+            <span style={{
+                // justifyContent: 'space-between',
+                // display: 'flex',
+                // alignItems: 'stretch',
+                // position: 'absolute',
+                width: 87
+            }}>
+                {this.history.map(item => (
+                    <b
+                        style={{
+                            backgroundColor: 'red',
+                            padding: 5,
+                            margin: 5
+                        }}
+                    >{item}</b>
+                ))}
+            </span>
+        );
+    }
+
     innerTable = (position: 'left' | 'right') => {
         let top = position === 'left'
             ?
@@ -380,8 +404,10 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
     }
 
     createBigGame = () => {
+        let isPlayer1 = this.getState('isPlayer1');
         return (
             <table
+                className={'board'}
                 style={{
                     marginLeft: 'auto',
                     marginRight: 'auto',
@@ -431,10 +457,11 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
                                                     width: '40%',
                                                     height: '80%',
                                                     left: '30%',
-                                                    position: 'relative'
+                                                    position: 'relative',
+                                                    display: 'flex',
+                                                    alignItems: 'center'
                                                 }}
-                                            >
-                                                {''}
+                                            >{''}
                                             </div>
                                         </td>
                                         <td className={'block'} style={{ border: '1px solid black' }}></td>
@@ -480,7 +507,8 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
                     </tr>
                     <tr>
                         <td className={'block'} style={{ border: '1px solid black' }}></td>
-                        <td colSpan={4}></td>
+                        <td rowSpan={6}>{isPlayer1 ? this.countHistory() : ''}</td>
+                        <td colSpan={3}></td>
                         <td
                             className={'malai'}
                             style={{
@@ -496,17 +524,20 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
                                 // backgroundColor: 'red'
                             }}
                         ></td>
-                        <td colSpan={4}></td>
+                        <td colSpan={3}></td>
+                        <td rowSpan={6}>{isPlayer1 ? '' : this.countHistory()}</td>
                         <td className={'block'} style={{ border: '1px solid black' }}></td>
                     </tr>
                     {new Array(4).fill('').map((a, b) => (
                         <tr>
                             <td className={'block'} style={{ border: '1px solid black' }}></td>
-                            <td colSpan={4}></td>
+                            {/* <td></td> */}
+                            <td colSpan={3}></td>
                             <td></td>
                             <td className={'block'} style={{ border: '1px solid black' }}></td>
                             <td></td>
-                            <td colSpan={4}></td>
+                            <td colSpan={3}></td>
+                            {/* <td></td> */}
                             <td className={'block'} style={{ border: '1px solid black' }}></td>
                         </tr>
                     ))}
@@ -518,7 +549,7 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
                                 // backgroundColor: 'red'
                             }}
                         ></td>
-                        <td></td>
+                        {/* <td></td> */}
                         {this.innerTable('left')}
                         <td
                             className={'malai'}
@@ -528,7 +559,7 @@ export default class ComponentBase<T = any, U = any> extends React.Component<T, 
                             }}
                         ></td>
                         {this.innerTable('right')}
-                        <td></td>
+                        {/* <td></td> */}
                         <td
                             className={'malai'}
                             style={{

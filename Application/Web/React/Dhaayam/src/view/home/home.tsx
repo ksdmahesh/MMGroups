@@ -27,16 +27,37 @@ export default class RenderView extends ComponentBase {
         let numbers = this.getState('numbers') || [];
         let isPlayer1 = this.getState('isPlayer1');
         return (
-            <div>
+            <div
+                style={{ zIndex: 500 }}
+            >
                 <input
                     type='button'
-                    onClick={() => this.dispatchStore({
-                        rolling: true,
-                        numbers: this.getNumbers(),
-                        isPlayer1: !this.getState('isPlayer1')
-                    })}
+                    onClick={() => {
+                        let currentValues = this.getNumbers();
+                        this.history.push(currentValues[0] + currentValues[1])
+                        this.dispatchStore({
+                            rolling: true,
+                            numbers: currentValues,
+                            isPlayer1: !this.getState('isPlayer1')
+                        })
+                    }}
                     value={'roll'}
-                    // style={{zIndex: 1000, position: 'fixed'}}
+                    style={{
+                        zIndex: 1500,
+                        position: 'fixed',
+                        top: '17%',
+                        ...(
+                            isPlayer1 !== undefined && isPlayer1 !== false
+                                ?
+                                {
+                                    right: '35%'
+                                }
+                                :
+                                {
+                                    left: '35%'
+                                }
+                        )
+                    }}
                 />
                 {
                     this.getState('rolling')
@@ -47,6 +68,7 @@ export default class RenderView extends ComponentBase {
                             }}
                             style={{
                                 animation: 'backgroundScroll 1s linear 1',
+                                zIndex: 1000, position: 'relative'
                             }}
                         >
                             <table
@@ -75,35 +97,43 @@ export default class RenderView extends ComponentBase {
                         </div>
                         :
                         (
-                            numbers.length === 2
-                                ?
-                                <table
-                                    onAnimationEndCapture={(e) => {
-                                        this.dispatchStore({ rolling: false })
-                                    }}
-                                    style={{
-                                        animation: 'backgroundScroll 1s linear 1',
-                                        transform: `skew(${isPlayer1 ? '-' : ''}10deg, ${isPlayer1 ? '-' : ''}10deg) rotate(-90deg)`,
-                                        margin: 'auto'
-                                    }}
-                                >
-                                    <tbody>
-                                        <tr>
-                                            <td style={{ width: 'auto', position: 'relative' }}>
-                                                <img src={this.getImage(numbers[0])} />
-                                            </td>
-                                            <td style={{
-                                                width: 'auto',
-                                                position: 'relative',
-                                                left: -55
-                                            }}>
-                                                <img src={this.getImage(numbers[1])} />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                :
-                                ''
+                            <div
+                                style={{
+                                    // animation: 'backgroundScroll 1s linear 1',
+                                    zIndex: 1000, position: 'relative'
+                                }}
+                            >{
+                                    numbers.length === 2
+                                        ?
+                                        <table
+                                            onAnimationEndCapture={(e) => {
+                                                this.dispatchStore({ rolling: false })
+                                            }}
+                                            style={{
+                                                animation: 'backgroundScroll 1s linear 1',
+                                                transform: `skew(${isPlayer1 ? '-' : ''}10deg, ${isPlayer1 ? '-' : ''}10deg) rotate(-90deg)`,
+                                                margin: 'auto'
+                                            }}
+                                        >
+                                            <tbody>
+                                                <tr>
+                                                    <td style={{ width: 'auto', position: 'relative' }}>
+                                                        <img src={this.getImage(numbers[0])} />
+                                                    </td>
+                                                    <td style={{
+                                                        width: 'auto',
+                                                        position: 'relative',
+                                                        left: -55
+                                                    }}>
+                                                        <img src={this.getImage(numbers[1])} />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        :
+                                        ''
+                                }
+                            </div>
                         )
                 }
                 {this.generateTable('Dhayam')}
