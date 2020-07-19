@@ -13,6 +13,23 @@ $(document).ready(function () {
 		previousChar: ''
 	};
 
+	const setTr = (key, value) => {
+		return (
+			`
+				<tr style="display: flex;flex-direction: row;border-top: 1px solid;" >
+					<td style='width: 50%;display: flex;flex-direction: column;justify-content: center;align-items: flex-end;' >
+						<input type='text' value='${key}' style="width: 100%;text-align: right;padding: 10px;margin: 10px;" />
+					</td>
+					<td style='width: 50%;display: flex;flex-direction: column;justify-content: center;align-items: flex-start;'>
+						${value.value.map(val => (
+				"<input type='text' value='" + val + "' style='width: 100%;text-align: right;padding: 10px;margin: 10px;' />"
+			)).join('')}
+					</td>
+				</tr>
+			`
+		);
+	}
+
 	const regex = /^[\W|\w|\d|\D]{1}$/igm;
 
 	const transliteration = {
@@ -341,6 +358,24 @@ $(document).ready(function () {
 		result.end = e.target.selectionEnd;
 
 		result.oldValue = e.target.value;
+	});
+
+	$('#showKeyMap').on('click', function (e) {
+		let tr = '';
+		for (const key in transliteration.keyMapping) {
+			if (transliteration.keyMapping.hasOwnProperty(key)) {
+				const element = transliteration.keyMapping[key];
+				tr += setTr(key, element);
+			}
+		}
+		tr += `<tr style="display: flex;flex-direction: row;border-top: 1px solid;"><td colspan="2"> </td></tr>`;
+		$('#trans').hide();
+		$('#keyMap').html(tr).show();
+	});
+
+	$('#keyMapOk, keyMapClose').on('click', function (e) {
+		$('#trans').show();
+		$('#keyMap').hide();
 	});
 
 });
