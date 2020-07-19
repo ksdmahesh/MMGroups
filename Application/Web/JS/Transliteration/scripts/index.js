@@ -19,7 +19,7 @@ $(document).ready(function () {
 		keyMapping: {
 			'~a': { type: 'vowel', value: ['ऄ', ''] },
 			'`a': { type: 'vowel', value: ['ॲ', ''] },
-			'a': { type: 'vowel', value: ['अ', 'ऽ'] },
+			'a': { type: 'vowel', value: ['अ', ''] },
 			'A': { type: 'vowel', value: ['आ', 'ा'] },
 			'i': { type: 'vowel', value: ['इ', 'ि'] },
 			'I': { type: 'vowel', value: ['ई', 'ी'] },
@@ -45,7 +45,7 @@ $(document).ready(function () {
 			'ue': { type: 'vowel', value: ['ॶ', 'ॖ'] },
 			'Ue': { type: 'vowel', value: ['ॷ', 'ॗ'] },
 
-			'': { type: 'appender', value: ['्'] },
+			'\\': { type: 'appender', value: ['्'] },
 			'.m': { type: 'appender', value: ['ं'] },
 			'.h': { type: 'appender', value: ['ः'] },
 			'.n': { type: 'appender', value: ['ँ'] },
@@ -60,6 +60,7 @@ $(document).ready(function () {
 			']': { type: 'appender', value: ['𑆳'] },
 
 			'?': { type: 'breaker', value: ['ॽ'] },
+			'~A': { type: 'breaker', value: ['ऽ'] },
 			'"': { type: 'breaker', value: ['॰'] },
 			'*': { type: 'breaker', value: ['ॱ'] },
 			'|': { type: 'breaker', value: ['।'] },
@@ -158,7 +159,7 @@ $(document).ready(function () {
 			',kh': { type: 'consonant', value: ['ख़'] },
 			'g': { type: 'consonant', value: ['ग'] },
 			',g': { type: 'consonant', value: ['ग़'] },
-			'_G': { type: 'consonant', value: ['ॻ'] },
+			'_g': { type: 'consonant', value: ['ॻ'] },
 			'gh': { type: 'consonant', value: ['घ'] },
 			'~n': { type: 'consonant', value: ['ङ'] },
 			'c': { type: 'consonant', value: ['च'] },
@@ -214,7 +215,9 @@ $(document).ready(function () {
 
 	const setToValue = () => {
 		let previousChars = [].reverse();
-		let from = [...result.from];
+		let prevChar = '';
+		let prevType = '';
+		let from = [...result.from, ' '];
 
 		result.to = '';
 
@@ -224,6 +227,26 @@ $(document).ready(function () {
 			let rhs = char;
 			let type = '';
 
+			if (Object.keys(transliteration.keyMapping).find(a => a.startsWith(prevChar + char))) {
+				prevChar += char;
+			} else {
+				debugger
+				const curentObject = transliteration.keyMapping[prevChar];
+				if (curentObject) {
+					if (prevType === 'consonant' && curentObject.type === 'vowel') {
+						result.to += curentObject.value[1];
+					} else {
+						result.to += curentObject.value[0];
+					}
+					prevType = curentObject.type;
+					prevChar = char;
+				} else {
+					result.to += prevChar;
+					prevType = '';
+					prevChar = char;
+				}
+			}
+			continue;
 			for (let previousChar of previousChars) {
 				if (!lhs && transliteration.all.find(a => a.startsWith(previousChar + rhs))) {
 					rhs = previousChar + rhs;
