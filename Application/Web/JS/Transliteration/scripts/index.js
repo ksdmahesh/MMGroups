@@ -28,7 +28,7 @@ $(document).ready(function () {
 				</tr>
 			`
 		);
-	}
+	};
 
 	const regex = /^[\W|\w|\d|\D]{1}$/igm;
 
@@ -228,10 +228,9 @@ $(document).ready(function () {
 	const setValue = (lhsValue, rhsValue) => {
 		let count = (result.to.length) - (lhsValue.length);
 		result.to = result.to.substr(0, count) + lhsValue + rhsValue + result.to.substr(count + 1, result.to.length - 1);
-	}
+	};
 
 	const setToValue = () => {
-		let previousChars = [].reverse();
 		let prevChar = '';
 		let prevType = '';
 		let from = [...result.from, ' '];
@@ -240,9 +239,6 @@ $(document).ready(function () {
 
 		for (let index = 0; index < from.length; index++) {
 			const char = from[index];
-			let lhs = '';
-			let rhs = char;
-			let type = '';
 
 			if (Object.keys(transliteration.keyMapping).find(a => a.startsWith(prevChar + char))) {
 				prevChar += char;
@@ -263,47 +259,6 @@ $(document).ready(function () {
 					prevChar = char;
 				}
 			}
-			continue;
-			for (let previousChar of previousChars) {
-				if (!lhs && transliteration.all.find(a => a.startsWith(previousChar + rhs))) {
-					rhs = previousChar + rhs;
-					continue;
-				}
-				if (rhs) {
-					type = transliteration.keyMapping[rhs]?.type;
-					if (!type) {
-						if (transliteration.all.find(a => a.startsWith(rhs))) {
-							rhs += from[index + 1] || '';
-							continue;
-						} else {
-							rhs = rhs.substr(0, rhs.length - 2);
-							break;
-						}
-					}
-					if (type === 'vowel') {
-						lhs = previousChar + lhs;
-						if (!transliteration.all.find(a => a.startsWith(lhs + char))) {
-							break;
-						}
-						continue;
-					}
-					break;
-				}
-				break;
-			}
-
-			let lhsValue = '';
-			let rhsValue = '';
-			if (lhs) {
-				lhsValue = (transliteration.keyMapping[lhs]?.value?.[0] || char);
-				rhsValue = (transliteration.keyMapping[rhs]?.value?.[1] || '');
-				setValue(lhsValue, rhsValue);
-			} else if (rhs) {
-				rhsValue = (transliteration.keyMapping[rhs]?.value?.[0] || char);
-				setValue(lhsValue, rhsValue);
-			}
-
-			previousChars.splice(0, 0, char);
 		}
 
 		$('textarea:eq(1)').val(result.to);
