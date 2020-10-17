@@ -23,121 +23,153 @@ export default class RenderView extends ComponentBase {
         }
     }
 
+    data = ["\n","!","\"","#","#AgeofEmpires","#AscentofEgypt","#Campaign","#ClassicalGameStudio","#GloryofGreece","#Hunting","#LordoftheEuphrates","#Lost","#VoicesofBabylon","#Wonder","#aec","#aoe","%","\u0026","'","(",")","*","+",",","-",".","/","0","0,0,0,0,360,0,360,610,980,1661\u0026prev_fmts","01","01-11-19","01RembrHa_0","02","05","06059","08467009280","08467009280SINCE","09440274502","0MnkOC135OU","1","1-89","1-98","1.75#","10","10.0.0.47","100","1000","100464195563","10Arun","11","11065","111.93.18.226","12","12.31514581013471","1200","12007","12770","129.54kB","138","14","14.2631536","140","15","15-06-1993","152","1577857308548\u0026q","1595182692942\u0026q","15Balaji","160","17","17.7","1762","177","18004251333","1909","192.168.1.5","192.168.29.53","192.168.40.76","19Dilip","1karena","1min","1st","2","2.2.0.0.2.2.0.0\u0026eid","20","20\u0026guci","2016","2018","2019","20BackgroundWorker","20code","20component","20executes","20interface","20the","20to","20user","21","21065125,229739146,229739148\u0026u_his","22","23","235","24-Oct-2019","250","26","27 202","27-12-19","271219","2D","3","3\u0026brdim","3,250","3-7","3.8.4.1","30","30 84 10 36","3000","301","32","34","350","37","3A","3A1595929435376\u0026ei","3A1596818751171\u0026ei","4","4 30","4,350","40","412\u0026bih","42","4511617860","4k","4qp6vjp319","4qp6vjp319.csb.app","4th","5","5,000","5,400","500033","500045","500081","53","532738499998","55","56Narayana","5L","6","6 35","60","60.0","650","69i57j0l3.11278j0j9\u0026client","69i57j33.20694j0j9\u0026client","6th","7","7.1.2","76.6450840048492","775","782","79.899154","7th","8","8-3-217","8-3-231","8-3-976","814\u0026dpr","814464","8144851800","8443","8637654326","88","8gb","9","9,624","91","918144851800","941x90_0ads_al\u0026format","9730","99130566","99998","9ppGf7oJots","9th",":",";","\u003c","=","=P4UtX5KCCozt9QPRrpaADQ\u0026q","=prm@","\u003e","?","A","A-5","A-54","AADHAAR","ACCOUNT","ACE","ACYBGNSUqseKgImt4WkR4ZEeDeQnLaIRuw","AGAINST","ALeKk00W3IreNDOFybj1QO0EvIDvUMG3nQ","ALeKk01Nge3ZmDqtjD_uq80I_ov_pdMrZA","ALeKk0354Gd12NpFZ4UqtoOUXhatz7F8ZQ","AND","ANOTHER","APSRTC","According","Account","After","Age","All","Aloo","Amarakosha","Ameerpet","Andhra","Andra","Android","Apartment","App","Ascent","Aug","August","Available","BAIBERANG","BALANCE","BEEN","Babylon","Balaji","Balijagadda","Bangalore","Banjara","Bank","Barred","Basti","Behind","Best","Bhanu","Brussels","Bus","Business","Butterfly","C","CC","CHENNAI","CHITTOOR","CONTRIBUTION","CORPORATION","CR","CRCPP8575L","CTL","CTO","CZB8TX4gFbs","Campaign","Care","Celine","Central","Chanda","Chant","Chart","ChartPrepared","Chennai","Cheruvu","China","Chittoor","City","Classical","Clause","Cls","Code","CodeMirror","CodeMirror.fromTextArea","Coffee","Coimbatore","Colony","Complex","Conan","Copy","Create","Customer","CustomerCare138","D","D24b1IX_30M","DEACTIVATE","DEACTIVATED","DECAN","DID","DISTRIBUTION","DOB","DOJ","DP","Damodaram","Damodaran","Dear","Deena","Delicious","Details","Device","Door","Drag\u0026Drop","Dt","EARLIER","EGMORE","Egypt","Elavarasan","Email","Empires","Enclave","English","Eswaran","Euphrates","Expenses","FOR","Fare","Fee","Flash","Floor","Friends","Frm","FrmKCGtoTPTY","Function","Functions","GENERATION","GPL","Gafoor","Game","Get","Glory","Gollapalle","Google","Greece","Grub","Guruji","HAS","HS2","HYB)","HYDERABAD","Hanumamtha","Happy","HelpDesk","Helpline","HelplineNo","Hills","Hitech","Hotmail","Hyderabad","I","INDIVIDUAL","INR","ISJSON","India","Indian","Information","Internet","JN","JNET","JSON","JSON_MODIFY","JSON_QUERY","JSON_VALUE","Jackson","Jaihind","Jakku","Jayanthi","Jeeva","Jnet","Join","Jul","KACHEGUDA","KATPADI","KCG","KPD","KUq","Kachiguda","Kamalapuri","Kavitha","Kavuri","King","Kiran","Koil","Krishna","Ksdmahesh@gmail.com","Kumari","Kuruk�etra","LAST","LTD","LWEkBzHHmEo","Lat","Learning","Lightweight","Linux","Long","Lord","Ltd","M","MADHUNASHINI","MAS","MGR","MS","MYS","MYS-KPD","MYSORE","MYSURU","Madhapur","Madipakkam","Mahesh","Main","May","Member","Micromax","Microsoft","Middle","Mobile","Mom","Mythrivanam","N","NAME","NOT","NUMBER","Nadu","Nagar","Naik","Name","New","No","NtRhqbXFD7A","Number","Nuvvu","OMG","OPENJSON","OR","October","Office","Once","Open","Opposite","Oriental","Outlook","P1-B4,63","P1-C3,15","P1-C3,69","P1-S8,40","P1-S8,6","P1B4,63","P2-C3,16","P2-S8,8","PAN","PG","PNR","PNR-4465488159","PNR-4511609137","PNR-4511617860","PNR-4513605709","PNR-4612152443","PNR4513605709","Pakoda","Par.uJu","Paradarami","Parcel","Parota","Paste","Pay","Phase","Phone","Pillai","Play","Please","Police","Pradesh","Prakash","Prasanth","Prepared","Pulao","Pure","Pvt","Quarters","R","REGISTER","REQUEST","REQUESTED","REV-114-வாரிசு","Raghuma","RailYatri","Railway","Rajesh","Ram","Rama","Rao","Rayala","Rd","Reddypalli","Residency","Revolt-Motors","Road","Room","Ruthra","S","S8 40","SC","SECUNDERABAD","SERVICE","SL","SRGMPDNṠ","SUBBARAO","Sagar","Sanatana","Sankar","Sanskrit","Santhosh","Saraswathi","Sarijaya","Satish","Schema","Security","September","Services","Shri","Society","Sony@","South","Southern","Sri","Srinivasa","St","Star","StarMaker","Station","Stone","Stop","Street","Studio","Subramaniam","Swarna","TAMILNADU","TANGEDCO","THE","TIRUPATI","TN-7201910241654","TO","TOTAL","TPTY","TRN","Tamil","Tata","Taylor","Technologies","Telangana","Telephone","Test","Tester","Testing","Thank","Thanks","This","Thursday","Tirupati","Towers","Transact-SQL","Travels","Trn","Tuesday","TypeScript","UAN","Unadi-sutras","UploadFile","VIP","Valley","Vellore","Version","Vignesh","Vijaya","Vinoth","Vittal","Voices","W_MfX8-7FpXHrQHu94lQ\u0026q","Water","West","WhatsApp","Windows","With","Wood","Worm","X\u0026ved","YOU","YOUR","YouTube","Your","Yousufguda","[","]","^","^email","^name","^short_message","^uri","_","a","a-161","aadiyur","aaha","aame","aavin","aaviri","able","about","abstraction","accept","access","account","acer","achieve","act","action","activate","active","active\u0026client","activity","add","added","address","ade","adhar","adi","adiganu","adivo","admin","administration","admitted","ado","adugutha","advaita","after","afternoon","afterwards","aftet","again","age","agora","ah","ajax","akada","akade","akadika","akarmaka","akka","akshara","alankrita","all","alladivo","almost","aloo","already","also","always","am","ama","amadi","amaodi","amar","amazing","amazon","amma","amma's","ammu","an","anaconda","anal","anchor","ancient","and","andariki","android","anga","angel","angry","ani","animal-names-tamil-english","animals","anit","anitha","anji","anjita","anjitha","anjtha","anna","annamayya","another","ant","anta","ante","antena","antha","anti","antioxidants","antlion","any","anybody","anysudokusolver.com","anything","aoe","api","app","applied","apply","appointment","approve","approved","apps","aqs","aqua","architecture","are","array","arriving","art","articles","as","asdgjjj","ashtadhyayi","ashtadhyayi.com","ask","asked","asking","asp","asp.net","assembling","assembly","assumed","asthi","async","asynchronous","at","attendance","attribute","audio","auditions","auspicious","autarchoglossa","authentication","authorization","auto","autogenerated","available","avalavu","avatar","avuna","await","ayurvedic","ayyapa","b","back","background","backgroundworker-in-C-Sharp","backstreet","backup","bad","badra","bag","bagavathgeeta","bagunaru","balaji","balance","bambaro","bamboo","banana","baned","banjara","bank","barbarian","bashma","battery","bayata","bb","be","bear","beard","beautiful","because","become","bed","bee","been","beetle","before","begin","being","bendu","benefits","best","bgm","bhagavad","bhairavi","bhakti","bhanu","bhavana","bhayam","big","bike","bills","birds","birth","bit.ly","black","blazor","block","blocks","blood","bloodsucker","blue","body","bommalu","book","books","boot","bore","boring","bos","box","boy","boy's","boys","bp","brahma","brain","break","breathing","brinjal","britannia","brown","browser","bsd","bsnl","budget","buffet","bug","bugs","build","built","bulk","bull","bulls","business","but","butt","butterfly","button","buy","buzz","by","bye","c","c-sharpcorner.com","cake","calcium","calendar","call","called","came","can","cancel","cannot","cap","captain","capture","carbonate","card","care","carnatic","carona","carousel","cas\u0026aqs","cash","caste","castle","castor","casurina","caterpillar","caused","cauvery","cbos","cdn","cell","cells","cent","center","centers","centipede","certificate","chanda","chandassu","chang","change","changed","changes","changing","channel","char","character","charlie","cheat","check","chek","chepaledu","chepav","cheppi","chestava","chestivi","chetan","chetilo","cheyamaneda","cheyi","chick","chicken","childish","chinese","chinnabba","chitragupta","chitti","chittoor","chocolate","cholesterol","chrome","chrome-mobile\u0026ie","chrome.1.69i57j0.19707j0j7\u0026client","chrome.1.69i57j33.8733j0j9\u0026client","chrome.3.69i57j0j46j0.2753j1j9\u0026client","cisco","city","civil","civilizations","claim","class","classic","cleaners","cleaning","clg","client","clipboard","clock","close","closed","cls","clustered","cmc","cmd","cmos","cockroach","coconut","code","codemirror","codemirror.css","codemirror.js","codemirror.net","codesandbox.io","coffee","cold","collection","college","colony","color","colour","come","comedy","coming","commentary","committed","common","communicate","company","compiler","complaint","complete","completed","components","conference","configuration","confirm","connect","connected","connecticut","connecting","connection","consecutive","console","constants","constrain","constructor","contact","contains","content","context","continue","control","convert","core","coronavirus","correct","cosmos","cough","could","covariance","covida","cowdung","cpntrol","create","created","creation","credentials","cremation","crush","css","curd","curly","current","curry","custom","custom.d.ts","cut","cute","cutlet","cycle\u0026sa","d.midhunkumar@gmail.com","da","daddy","daily","daksina","dal","dalgona","damage","dan","dangerous","dark","dass","data","dataadapter","dataset","datatable","date","day","days","dbcontext","dcb","dcl","ddl","ddr","deactivate","dear","death","deaths","debugging","decimal","decrease","deepika","deeptimai","deeptimayee","defeat","deferred","definition","dehead","delete","deleted","delivered","delivery","dell","denise","depavali","deptimai","description.php","desert","desirous","desk","desktop","desktops","destination","details","detol","devadar","developer","devnagri","dhamma","dhana","dhayakattai","dhayalu","dhayam","dhilluku","dhokla","dhrtar�tra","diabetes","diagnostics","diarrhea","dice","did","digestion","digger","disable","disadvantages","discomfort","discuss","discussed","disk","display","divide","divya","dizziness","dl","dml","do","docs.microsoft.com","doctor","does","doesn't","dog","doing","domain","don't","done","doong","dosa","dotnet","double","doubt","down","download","dql","dr","drag","dragganle","dragon","dravid","drawback","dream","dreams","dress","drink","drive","drmathew","drop","dropdown","drugs","drugstore","dry","due","dump","dung","duplicate","duration","dustbin","duty","dvi","dvikarmak","dynamic","e","ea","each","early","earn","earth","easter","eastern","easy","eater","eating","eb","ed","editing","edition","editor","edo","education","egg","ekada","ela","elachi","elbow","ele","electric","elements","ella","ellorum","email","emaina","embed","emi","emira","emo","emotional","emotions","empires","employee","emra","en\u0026rt","en-us","ena","enable","endi","energetic","engal","engineering","english","enjoy","enna","enni","enta","enter","entity","environmental","environments","epadi","epf","epfo","epidi","epudu","error","errors","esc","estates","etla","evar","evari","evarito","evaro","evaru","evening","evenings","every","everyone","everything","exam","examples","exceed","excel","exchange","execute","execution","existing","expand","expecting","experience","expired","explain","explicitly","exports","expose","express","extension","eye","f1","f2","face","fail","failing","failure","fallen","family","farm","fast","fat","father","feature","features","feces","feeling","fell","fence","fertiliser","few","fiber","fibre","fig","fight","file","files","filtarable","filter","filtering","filters","find","finding","fine","finger","first","five","fix","flat","flax","flights","float","floor","flower","flying","fn","folder","follow","follows","food","for","force","forest","forget","forgot","form","format","format\u0026oq","fortune","forward","found","foundations","fpkc_al_lp\u0026kw_type","fr\u0026gs_lcp","framework","free","from","fruit","fruit\u0026oq","fruits","full","function","functions","fungal","g","g.co","ga","gac","gafoor","game","game's","games","gana","garden","garetretretreret","garudagamana","gate","gave","gazelled","gc","gcr1","generics","get","getting","gfs","giant","girls","git","gita","github.com","give","glass","glk","gmail","go","god","going","goings","gold","gongura","good","google","google.com","gopal","got","gotit","government","governs","grain","grammar","grammatical","grand","graphic","graphics","gray","green","grew","grid","group","groups","grow","grub","gruesome","gta","gudi","gudiyattam","guess","guides","guitar","gulgulu","gurtundo","guru","guruji","gurvinder","gzipped","hair","half","hand","handle","hang","happens","hard","hardest","harry","hary","has","hatha","have","hawkingthe","he","header","heal","health","heir","hello","help","helper","hen","her","hero","hi","high","hik","him","hindu","his","historical","history","hobbies","holi","holidays","home","horo","horror","hot","house","houses","how","hr","href","html","http","http://","https","https://","human","hustle","hustle-castle-fantasy-kingdom-mod-apk-v.html\u0026frm","hyderabad","hypertension","i","iCak9MhR-lA","ice","icecream","id","idhi","if","iframe","iis","ilayaraja","ilearntamil.com","image","imagery","imap.jnettechnologies.com","imgrc","immediate","immunity","important","improves","in","inconvenience","incorporating","increase","index","india","indian","indru","induction","infection","inflection","ingredients","inhalation","init","inizia","inject","inka","inkada","inkem","inkepudu","insects","insert","inspirational","install","installation","installed","installing","instance","int","int\u0026aqs","inta","integration","intelligent","interest","interface","interior","inti","intiki","intlo","introduction","ip","ipudu","iqO6UGzQOSM","iron","iruju","is","iskcon","isn't","isnt","iso","issue","issues","it","item","its","jack","jackfruit","jackson","jagan","jaganmohan","jagged","jaguar","jalebi","jamuna","janardhanam","japanese","jatakam","jaya","jest","jewel","jio","jit","jnet","job","jodichinthala","join","joined","joining","jquery","js","json","json.stringify","juice","jujube","june","junior","just","k","k260","kaadhal","kaaram","kachiguda","kadan","kadha","kadu","kala","kalahasti","kalaimane","kaleda","kanatha","kani","kanimozhi","kanji","kanne","karam","karma","karnam","karthigai","kasta","katha","kaumudi","kavali","kavitha","kendo","key","keyboard","keypress","ki","kid","kill","kinda","kindly","kindness","king","know","knowledge","ko","koncham","koora","korean","kotha","koti","kovai","koyambedu","kr","kridanta","krishna","krishnamoorthy","krishnamurti","kriya","krudanta","ksdamodarampillai@gmail.com","ksdamodaranpillai@gmail.com","ksdamodaranpillai@hotmail.com","ksdmahesh","ksdmahesh@gmail.com","ksdmahesh@hotmail.com","ksdmahesh@yahoo.in","ksdpmahesh@hotmail.com","kumar","kumari","kutti","l\u0026gs_lcp","laavu","lack","laddu","lady","lakara","lakshmi","lakshmimaduri","lalita","lan","landline","language","laptop","large","larvae\u0026gs_ssp","last","late","later","lavanya","ldap","le","learn","learning_tools","learnsangamtamil.com","leave","leaves","led","leda","ledha","ledhu","ledu","leg","legacy","legal","lenovo","less","lesson","let","level","lg","lib","libraries","life","lifecycle","lightweight","liju","like","limbo","limited","lineNumbers","link","link.git","links","linq","lion","list","little","lizard","lo","loading","local","locate","location","lock","locked","log","login","logitech","logo","lonely","look","looking","lost","lotus","low","ltd","lucas","ludo","lungtemperature","m","m.thepiratebay.org","m10","m20","ma","maa","maaku","maari","machine","mad","made","madhuri","madras","maduri","magnesium","mahabharatham","mahalaya","mahesh","mahesh.pillai@jnettechnologies.com","maheshdamodarampillai@gmail.com","mail","mail.jnettechnologies.com","maitrivanam","make","maker","makes","malaya","malli","mana","managed","management","mandi","mandukya","mango","mani","many","map","mapping","maravu","mari","mask","master","material","matrices","matriculation","may","mayakkam","me","me\u0026aqs","mea","mean","meaning","meaning\u0026oq","means","medicinal","meditation","medition","mee","meet","meeting","members","men","message","messages","messaging","metadata","metric","metro","mgmnt","mi","micromax","microsoft","mid","middle","midhun","midi","mild","milk","millipede","min","mind","minions","minor","mins","mint","mirror","mk4","mobile","mobile-gws-wiz-serp","mode","model","module","mohan","moi","moksha","mom","momo","momos","money","mong","months","moong","more","morning","most","mother","mouna","mousemove","mouseover","mouth","move","moved","movie","movies","mp3","mpillai@gcrinc.com","mpillai@gocivix.com","ms-android-samsung-gj-rev1\u0026sourceid","ms-android-samsung-gj-rev1\u0026sxsrf","much","multi","multiple","multiprocessing","murkani","murugan","muruku","muscle","musical","must","mustard","muthyala","mvc","my","myTextarea","myaccount","myself","mythology","n","n95","n99","na","naaku","naalum","nadhi","nadhiya","nadiya","nadu","nagar","nagaram","nagari","nagarjun","nagarjuna","naku","namala","namaste","name","namgi","nangi","nannu","narada","narayana","native","nbsp","ne","near","nearby","nee","need","needed","neeku","neem","neeyaga","nenju","nenu","nes","net","network","new","newbikes","news","newspaper","newyork","next","nfs2se","ni","nice","night","nile","ninja","nirosha","nithyananda","no","nohara","non","normal","nose","nose\u0026aqs","nose\u0026oq","not","nothing","notracking","now","number","numbers","nutrition","nuvu","nuvve","nuvvu","nyaya","ob","object","objects","of","off","offic","office","officer","oh","oi","oil","ok","oka","okokati","olive","om","on","once","one","online","only","ontouchstart","ooru","open","opera","opposite","option","optional","or","orange","order","ordered","orders","origin","originalos","origins","other","other's","others","otp","out","outlook.office.com","over","override","oxidant","oxidative","oxygen","p","paavam","pack","package","packages","packet","padikkadavan","page","pain","palamaner","palli","pallipat","palm","pamba","pampa","panchabuta","paneer","panel","pani","panipuri","panringala","papara","paper","paradarami","paradarami@hotmail.com","parallel","parcel","parthiban","participants","pasanga","pass","passion","password","passwords","paste","patanjali","pathshala","pavam","pavan","pay","payinvite","payment","pc","pcctg.webex.com","pe","peanut","pedal","pension","people","per","periods","periyavar","permissions","pet","pf","pg","phenolphthalein","philosophy","phone","phones","photo","physics","pi","piggies","pilgrimage","pillai@jnettechnologies.com","pimple","pin","ping","place","plan","plant","plantation","plants","play","play.google.com","playdead","player","playlists","please","plug@","po","poS0KajfBR8","podcast","point","poleda","police","policy","pollution","polybase","pomegranate","poper","popera","popular","popup","pora","possible","post","potassium","powder","power","prakaranam","prakriya","prakriya\u0026sa","pramana","pramanas","prapti","prathmika","pratyaksha","pratyaya","prawns","preparation","prepare","preparing","press","preview","previous","principles","private","priya","prm","problem","procedure","proficiency","proforma","project","projectmadurai.org","projects","promotion","prop","property","proposal","props","protect","protected","protection","protocol","provide","providing","puPQXeTqlg","public","publishing","pulikesi","pull","pumba","punya","puri","put","puzzles","pvt","q","qbBfuvJRCLs","qr","quarantine","quarter","queries","query","quotes","r","ra","raa","raaga","raayini","radiocity","radlink\u0026hl","railway","rain","raj.amar06@gmail.com","raja","rajesh","rajini","rajinikanth","raleda","ram","ramji","ramya","rasathi","rasi","rava","rayagada","razor","rd","reach","reached","react","react-dnd","react-dnd.github.io","react-rte.org","reader","ready","reason","rebellious","rebuild","receipt","received","rechal","recharges","recipe","recipes","recorder","red","reddy","redirect","reference","refresh","regards","register","reinstall","rel","related","relational-databases","relatives","relief","remainder","remaining","remember","remind","remote","remove","removed","rendering","rendu","repay","replaced","reply","repo_address","repository","repu","request","requesting","required","residency","respond","response","restart","restarted","retire","return","reusable","review","reviews","revolt","richtextbox","right","rise","river","roha","roja","role","roll","room","routing","rrb","rrbchennai","run","s","sa","saan","saaram","safe","sahasranamam","sai","said","saipriya","sakarmaka","sakshi","samasa","same","samosa","sample","samsara","samskrtam","samsung","sandeep","sangam","sangraha","sanitizers","sanskrit","sanskritdocuments.org","sapota","sara","sarala","sarcophaga","sare","sariga","sarita","saritha","sarva","sastrigal","sat","sathunavu","sathyaraj","satish","satyaraj","savanta","save","saved","saw","say","says","scan","scenarios","schema","school","scorpio","screen","script","search","searched","searches","searching","seat","secunderabad","secure","securingsincity.github.io","see","seeds","seems","select","self","sen","send","sending","sens","sense","sent","separate","sepy","server","service","set","sethupathi","settings","settle","shambu","shared","shattered","she","sherpherds","shift","shika","shikha","shinchan","shivaprasad","shortcut","should","show","showed","showing","shutdowns","siddhanta","siddhantha","siddhar","side","side-scroller","sign","simple","singapore","singer","single","sister","siva","skeo6PQ2uGc","slack","slaves","sleep","sleeping","slogan","slug","small","smart","sms","snacks","snake","so","sobha","soft","software","solid","solution","solutions","somajiguda","some","someone","something","somewhat","sonar","sondha","songs","sons","soo","sophos","sorry","sorting","sound","sounds","source","southern","sowmya","sp","space","spark","speaking","special","species","specified","speed","spiked","spl","split","spokensanskrit","spread","sql","sr","sr.drishya@gmail.com","src","sri","srinivasa","srirangapatna","stack","stand","standard","star","start","started","starting","starts","states","static","station","status","steam","steer","stephen","steps","stick","still","stop","store","stored","stores","story","strain","strange","strengths","stress","stretch","string","structure","studio","style","stylesheet","sub","subbarao","submit","submitting","subscribe","subtitle","subtract","successfully","sudharma","sudheer","sudigali","sudoku","suguna","sukthulu","suluku","suma","suman","sun","suneditor.com","sunitha","sunnam","support","surgeon","surgery","surgical","survey","suspension","sutra","sutras","suvantha","swagger","switch","system","ta.wikibooks.org","ta.wikisource.org","ta.wikiversity.org","table","tabs","taddhita","taddita","taittiriya","take","takes","taking","talk","talking","tamil","tamil\u0026oq","tamili","tamilnadu","tamilzi","tanjore","tap","tartar","task","tasks","tata","tcl","td","tdas","teach","teacher","team","teams","technologies","technology","teeth","tekken","telephone","tell","telugu","telugu.boldsky.com","tempdata","temperature","template","temporary","tension","terminal","test","text","textarea","textbox","tfs","than","thank","thanks","that","that's","thay","the","their","them","theme","then","theni-mvkm-trust","thenmadurai","there","there's","they","things","think","this","this.props.history.push","tho","thought","threading","through","throwing","tickets","tickles","tie","tik","time","timon","tin","tinali","tinanta","tinava","tiny","tired","tirkum","tirumala","tirupati","tissue","tjink","tm","tmr","tmx28.app.goo.gl","tneda","tnedistrict.tn.gov.in","to","today","today's","token","told","tomorrow","tongue","top","total","totally","touch","town","toy","tpt","tracking","traditional","train","transaction","transfers","transitive","translation","traps","travelling","treat","treated","treatment","tree","trees","trial","trigger","trilobite","tripathi","tripod","true","try","tsc","tsunami","tt","tt@3Z","tube","tucan","turanta","two","type","types","typescript\u0026oq","typing","u","uddi","uhnqhsHTiaQ","ui","um","una","unable","unadikosha","unana","unara","unaru","unava","uncle","unda","undara","under","understand","undi","unique","universe","unna","unnamed","unobtrusive","untada","untavu","unte","untitled","unworkable","up","upanishad","update","updatereferences","upload","ups","ur","urad","urke","url","usage","usb","use","used","user","username","userportal","users","using","ux","v","v.2","va","vaachi","vaaci","vaadi","vaalga","vadivelu","vaigai","vaishnavi","valiant","validation","validator","valley","vallu","valu","value","vamadeva","var","vara","varaku","vastav","vastava","vbj656@gmail.co","vbj656@gmail.com","vechadu","veda","vedanta","veetil","veg","vellore","venkates","venkateswara","venkateswarulu","vera","verb","vertical","very","vethathiri.edu.in","video","videos","vidya","view","vijay","vijaya","vijayakumarimangapuram@gmail.com","vikram","villagers","vinaledha","vintundha","violent","vip","vipassana","virtual","virupaksha","virus","visarjan","visarjana","vishayalu","visit","visited","visual","vitamin","vitamins","vivekachudamani","vivekananda","vivo","voice","volume","vpn","vs","vs2019","vsc","vunnai","vyakarnam","vyoma","walk","wallpaper","wallpapers","wanna","want","wanted","warning","was","washroom","wasp","waste","watch","water","way","we","web","webm","webpages","website","week","weeks","weight","well","wellness","were","what","what's","whatsapp.com","wheat","when","where","which","while","who","why","wife","wifi","wild","will","window","windows","wingless","wire","wireless","with","withdraw","withdrawn","within","women","wood","woolen","words","work","worked","working","workout","works","workstation","world","worm","worms","wound","wow","wrok","wrong","wrote","www.everplans.com","www.healthline.com","www.nestaway.com","www.news18.com","www.onlinejyotish.com","www.shrivedabharathi.in","www.youtube.com","www.zigwheels.com","x35nP","xml","xmlschemavalidator-push-based-validation","xpath","xss","y","yaamini","yadamari","yama","yamagandam","yamini","yes","yesterday","yoga","yogi","yogis","yoi","you","your","yourself","yousufguda","youtu.be","youtube","zen","zenoamaro.github.io","zone","zoom","{","|","}","~","×","÷","पाठः","सष्ठम","அகஸ்தியர்","அன்புடையீர்","ஆளுமை","இச்சேவை","இதற்கென","இந்த்த","இருப்பின்","எண்","எண்ணைத்","என்ற","ஏதும்","ஓநாய்","கட்டணமாக","கட்டணமில்லா","சங்கத்தின்","சான்றிதழ்","சென்னை","சேவைக்","தங்களது","தந்தை","தமிழ்","தமிழ்நாடு","தேதியிட்ட","தொடர்பாக","தொடர்பான","தொடர்புகொள்ளலாம்","தொலைபேசி","நம்பர்","புகார்","பெங்களூர்","பெறப்பட்டது","மட்டும்","மின்","முகமை","யூஸ்","ரூ","வணக்கம்","விண்ணப்ப","అగస్త్య","అడుగుట","అని","అనుకూల","అనుకోలేదు","అబద్ధ","అవసరం","ఆశ","ఉంటే","ఉంది","ఎందుకు","ఎదురు","ఎవరూ","ఓపిక","కదా","కూడా","కొంచెం","కోసం","క్రోధ","గుర్తు","చిత్తూరు","చూడలేదు","చూపు","చెప్పు","చేస్తున్నారు","చేస్తే","జనవరి","జయ","తండ్రి","తమిళ్","తిరుపతి","తెలిసింది","తొండ","నంగి","నిద్ర","నీళ్లకు","నేర","నేర్చుకున్న","పాప","పోతే","పోయింది","ప్రాప్తి","బాగుంది","భావి","భుక్తి","మరి","మర్యాద","మాట్లాడినది","మాత్సర్య","మేస్త్రి","మోహ","రాలేదు","లాట","లేదా","లేదు","లేదే","లేదో","లో","లోతుకు","లోభ","వంగలు","వచ్చిన","వశం","వా","వాసన","విశ్వ","వ్యతిరేకంగా","శత్రు","శోక","సంగానికి","సంతోష","సంస్కృతి","సామెత","సిగ్గు","స్వార్థ","స్వార్ధం","హత్య","హింస","హైదరాబాద్","‎","–","₹","▾","￼","🐒","🐵","👉🏻","👍","👍🏻","😀","😁","😂","😃","😊","😋","😍","😝","😬","😳","🙄","🥶"];
+
+    setClipboard = async () => {
+        try {
+            for (const iterator of this.data) {
+                if (window.isSecureContext && navigator.clipboard) {
+                    await navigator.clipboard.writeText(iterator);
+                    alert(await navigator.clipboard.readText());
+                } else {
+                    const textarea = document.getElementById('clipboard') as HTMLTextAreaElement;
+                    if (textarea) {
+                        textarea.value = iterator;
+                        textarea.focus();
+                        textarea.select();
+                        const result = document.execCommand('copy');
+                        if (!result) {
+                            throw new Error('failed');
+                        }
+                    }
+                }
+            }
+        } catch (error) {
+            alert(`fail${error}`)
+        }
+    }
+
     render() {
         let numbers = this.getState('numbers') || [];
         let isPlayer1 = this.getState('isPlayer1');
         return (
-            <div
-                style={{ zIndex: 500 }}
-            >
-                <input
-                    type='button'
-                    onClick={() => {
-                        let currentValues = this.getNumbers();
-                        this.history.push(currentValues[0] + currentValues[1])
-                        this.dispatchStore({
-                            rolling: true,
-                            numbers: currentValues,
-                            isPlayer1: !this.getState('isPlayer1')
-                        })
-                    }}
-                    value={'roll'}
-                    style={{
-                        zIndex: 1500,
-                        position: 'fixed',
-                        top: '17%',
-                        ...(
-                            isPlayer1 !== undefined && isPlayer1 !== false
-                                ?
-                                {
-                                    right: '35%'
-                                }
-                                :
-                                {
-                                    left: '35%'
-                                }
-                        )
-                    }}
-                />
-                {
-                    this.getState('rolling')
-                        ?
-                        <div
-                            onAnimationEndCapture={(e) => {
-                                this.dispatchStore({ rolling: false })
-                            }}
-                            style={{
-                                animation: 'backgroundScroll 1s linear 1',
-                                zIndex: 1000, position: 'relative'
-                            }}
-                        >
-                            <table
+            true
+                ?
+                <div>
+                    <textarea id="clipboard" onClick={this.setClipboard}></textarea>
+                </div>
+                :
+                <div
+                    style={{ zIndex: 500 }}
+                >
+                    <input
+                        type='button'
+                        onClick={() => {
+                            let currentValues = this.getNumbers();
+                            this.history.push(currentValues[0] + currentValues[1])
+                            this.dispatchStore({
+                                rolling: true,
+                                numbers: currentValues,
+                                isPlayer1: !this.getState('isPlayer1')
+                            })
+                        }}
+                        value={'roll'}
+                        style={{
+                            zIndex: 1500,
+                            position: 'fixed',
+                            top: '17%',
+                            ...(
+                                isPlayer1 !== undefined && isPlayer1 !== false
+                                    ?
+                                    {
+                                        right: '35%'
+                                    }
+                                    :
+                                    {
+                                        left: '35%'
+                                    }
+                            )
+                        }}
+                    />
+                    {
+                        this.getState('rolling')
+                            ?
+                            <div
+                                onAnimationEndCapture={(e) => {
+                                    this.dispatchStore({ rolling: false })
+                                }}
                                 style={{
                                     animation: 'backgroundScroll 1s linear 1',
-                                    transform: `skew(${isPlayer1 ? '-' : ''}10deg, ${isPlayer1 ? '-' : ''}10deg) rotate(-90deg)`,
-                                    margin: 'auto',
-                                    position: 'relative'
-                                }}
-                            >
-                                <tbody>
-                                    <tr>
-                                        <td style={{ width: 'auto', position: 'relative' }}>
-                                            <img src={dice} />
-                                        </td>
-                                        <td style={{
-                                            width: 'auto',
-                                            position: 'relative',
-                                            left: -55
-                                        }}>
-                                            <img src={dice} />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        :
-                        (
-                            <div
-                                style={{
-                                    // animation: 'backgroundScroll 1s linear 1',
                                     zIndex: 1000, position: 'relative'
                                 }}
-                            >{
-                                    numbers.length === 2
-                                        ?
-                                        <table
-                                            onAnimationEndCapture={(e) => {
-                                                this.dispatchStore({ rolling: false })
-                                            }}
-                                            style={{
-                                                animation: 'backgroundScroll 1s linear 1',
-                                                transform: `skew(${isPlayer1 ? '-' : ''}10deg, ${isPlayer1 ? '-' : ''}10deg) rotate(-90deg)`,
-                                                margin: 'auto'
-                                            }}
-                                        >
-                                            <tbody>
-                                                <tr>
-                                                    <td style={{ width: 'auto', position: 'relative' }}>
-                                                        <img src={this.getImage(numbers[0])} />
-                                                    </td>
-                                                    <td style={{
-                                                        width: 'auto',
-                                                        position: 'relative',
-                                                        left: -55
-                                                    }}>
-                                                        <img src={this.getImage(numbers[1])} />
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        :
-                                        ''
-                                }
+                            >
+                                <table
+                                    style={{
+                                        animation: 'backgroundScroll 1s linear 1',
+                                        transform: `skew(${isPlayer1 ? '-' : ''}10deg, ${isPlayer1 ? '-' : ''}10deg) rotate(-90deg)`,
+                                        margin: 'auto',
+                                        position: 'relative'
+                                    }}
+                                >
+                                    <tbody>
+                                        <tr>
+                                            <td style={{ width: 'auto', position: 'relative' }}>
+                                                <img src={dice} />
+                                            </td>
+                                            <td style={{
+                                                width: 'auto',
+                                                position: 'relative',
+                                                left: -55
+                                            }}>
+                                                <img src={dice} />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        )
-                }
-                {this.generateTable('Dhayam')}
-            </div>
+                            :
+                            (
+                                <div
+                                    style={{
+                                        // animation: 'backgroundScroll 1s linear 1',
+                                        zIndex: 1000, position: 'relative'
+                                    }}
+                                >{
+                                        numbers.length === 2
+                                            ?
+                                            <table
+                                                onAnimationEndCapture={(e) => {
+                                                    this.dispatchStore({ rolling: false })
+                                                }}
+                                                style={{
+                                                    animation: 'backgroundScroll 1s linear 1',
+                                                    transform: `skew(${isPlayer1 ? '-' : ''}10deg, ${isPlayer1 ? '-' : ''}10deg) rotate(-90deg)`,
+                                                    margin: 'auto'
+                                                }}
+                                            >
+                                                <tbody>
+                                                    <tr>
+                                                        <td style={{ width: 'auto', position: 'relative' }}>
+                                                            <img src={this.getImage(numbers[0])} />
+                                                        </td>
+                                                        <td style={{
+                                                            width: 'auto',
+                                                            position: 'relative',
+                                                            left: -55
+                                                        }}>
+                                                            <img src={this.getImage(numbers[1])} />
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            :
+                                            ''
+                                    }
+                                </div>
+                            )
+                    }
+                    {this.generateTable('Dhayam')}
+                </div>
         );
     }
 }
