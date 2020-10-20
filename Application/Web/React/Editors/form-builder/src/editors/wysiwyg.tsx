@@ -12,7 +12,7 @@ export default class Wysiwyg extends React.Component<{ html: string, dispatch: (
     }
 
     loadContent = (html: string) => {
-        const contentBlock = htmlToDraft(html);
+        const contentBlock = htmlToDraft(html || '');
         if (contentBlock) {
             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
             return EditorState.createWithContent(contentState);
@@ -21,19 +21,26 @@ export default class Wysiwyg extends React.Component<{ html: string, dispatch: (
         }
     }
 
-    onEditorStateChange = (editorState: EditorState) => {
-        this.props.dispatch(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+    state = {
+        editorState: this.loadContent(this.props.html)
     }
 
+    onEditorStateChange = (editorState: EditorState) => {
+        this.setState({ editorState });
+    }
+
+    componentWillUnmount(){
+        const html = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
+        this.props.dispatch(html);
+    }
     render() {
-        const { html } = this.props;
         return (
             <Editor
-                editorState={this.loadContent(html)}
+                editorState={this.state.editorState}
                 toolbarClassName="toolbarClassName"
                 wrapperClassName="wrapperClassName"
                 editorClassName="editorClassName"
-                onEditorStateChange={(ev) => this.onEditorStateChange(ev)}
+                onEditorStateChange={this.onEditorStateChange}
             />
         )
     }

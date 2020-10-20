@@ -6,9 +6,9 @@ import TinyMce from './editors/tinymce';
 import Wysiwyg from './editors/wysiwyg';
 
 enum Editors {
-  CkEditor = '1',
-  Jodit = '2',
-  TimyMce = '3',
+  Jodit = '1',
+  TimyMce = '2',
+  CkEditor = '3',
   Wysiwyg = '4'
 }
 
@@ -34,7 +34,7 @@ export default class App extends React.Component<any, any> {
       case Editors.Wysiwyg:
         return <Wysiwyg html={this.state.html} dispatch={this.dispatch} />
       default:
-        return 'ok';
+        return '';
     }
   }
 
@@ -42,10 +42,10 @@ export default class App extends React.Component<any, any> {
     return (
       <div className="App">
         <select value={this.state.editorType} onChange={(ev) => this.setState({ editorType: ev.target.value })}>
-          <option value={'1'}>{'CkEditor'}</option>
-          <option value={'2'}>{'Jodit'}</option>
-          <option value={'3'}>{'TinyMce'}</option>
-          <option value={'4'}>{'Wysiwyg'}</option>
+          <option value={Editors.Jodit}>{'Jodit'}</option>
+          <option value={Editors.TimyMce}>{'TinyMce'}</option>
+          <option value={Editors.CkEditor}>{'CkEditor'}</option>
+          <option value={Editors.Wysiwyg}>{'Wysiwyg'}</option>
         </select>
         {this.switchEditors((this.state.editorType || '1') as Editors)}
       </div>
