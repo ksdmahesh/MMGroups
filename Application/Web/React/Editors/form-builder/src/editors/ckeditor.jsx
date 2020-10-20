@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { CKEditor as Editor } from '@ckeditor/ckeditor5-react';
+import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-export default class CKEditor extends Component {
+export default class Editor extends Component {
     render() {
+        console.log(this.props.html, this.props.dispatch)
         return (
             <div className="App">
-                <h2>Using CKEditor 5 build in React</h2>
-                <Editor
+                <CKEditor
                     editor={ClassicEditor}
                     data="<p>Hello from CKEditor 5!</p>"
                     onInit={editor => {

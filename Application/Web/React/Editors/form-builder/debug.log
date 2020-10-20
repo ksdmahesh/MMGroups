@@ -1,0 +1,4 @@
+[1020/102458.306:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\ksdma\AppData\Local\Microsoft\Edge\User Data\Crashpad\attachments\2971eb4b-c85c-42bd-8fad-8f8cb3f74458: The system cannot find the path specified. (0x3)
+[1020/102952.886:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1020/111705.842:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1020/131726.879:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
