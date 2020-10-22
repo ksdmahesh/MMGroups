@@ -1,0 +1,19 @@
+import { httpServices } from "./services";
+const baseURL = 'http://localhost:3005';
+
+export const readStream = (payload: { path: string }) => httpServices<any>
+    (
+        {
+            url: `${baseURL}/read`,
+        },
+        payload
+    );
+
+export const writeStream = (payload: { path: string, data: string | ArrayBuffer | null }) => httpServices<any>
+    (
+        {
+            url: `${baseURL}/write`,
+            method: 'post'
+        },
+        payload
+    );
