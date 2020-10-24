@@ -3,11 +3,16 @@ import express from 'express';
 import { debug } from 'console';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import { path } from './constants';
 
 const app = express();
 const port = 3005;
 app.use(bodyParser.json());
 app.use(cors());
+
+app.get('/getDefaultPath', (req, res) => {
+    res.send(path);
+})
 
 app.post('/write', (req, res) => {
     const path = req.body?.['path'];

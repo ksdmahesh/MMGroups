@@ -9,11 +9,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { Grid, TextField, Button, IconButton } from '@material-ui/core';
-import { writeStream, readStream } from './server/service-call';
+import { writeStream, readStream, getDefaultPath } from './server/service-call';
 import RedoIcon from '@material-ui/icons/Redo';
 import UndoIcon from '@material-ui/icons/Undo';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps, Color } from '@material-ui/lab/Alert';
+
+//#region 
 
 function Alert(props: AlertProps) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -66,11 +68,13 @@ const customStyle: {
   }
 };
 
-const defaultPath = 'C:\\Users\\ksdma\\Desktop\\';
+let defaultPath = '';
 
 export const activeData = {
   html: ''
 }
+
+//#endregion
 
 export default class App extends React.Component<any, AppState> {
 
@@ -88,6 +92,17 @@ export default class App extends React.Component<any, AppState> {
   }
 
   componentDidMount() {
+    getDefaultPath().then(resp => {
+      if (resp.error || resp.data?.error) {
+        this.setState({
+          severity: 'error',
+          message: resp.data?.error || JSON.stringify(resp.error || '{}'),
+          open: true
+        });
+      } else if (resp.data) {
+        defaultPath = resp.data;
+      }
+    });
     window.addEventListener("beforeunload", this.afterSetState);
   }
 
@@ -129,10 +144,10 @@ export default class App extends React.Component<any, AppState> {
     headers?: object | undefined;
     msg: string;
   }) => {
-    if (resp.error || resp.data.error) {
+    if (resp.error || resp.data?.error) {
       this.setState({
         severity: 'error',
-        message: resp.data.error || JSON.stringify(resp.error || '{}'),
+        message: resp.data?.error || JSON.stringify(resp.error || '{}'),
         open: true
       }, this.afterSetState);
     } else if (resp.data) {

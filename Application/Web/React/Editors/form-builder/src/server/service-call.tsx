@@ -9,6 +9,14 @@ export const readStream = (payload: { path: string }) => httpServices<any>
         payload
     );
 
+export const getDefaultPath = () => httpServices<any>
+    (
+        {
+            url: `${baseURL}/getDefaultPath`,
+        },
+        {}
+    );
+
 export const writeStream = (payload: { path: string, data: string | ArrayBuffer | null }) => httpServices<any>
     (
         {
