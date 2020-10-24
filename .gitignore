@@ -6,3 +6,4 @@ Application/Web/React/Editors/form-builder/lib
 Application/Web/React/Editors/form-builder-server/node_modules
 Application/Web/React/Editors/form-builder-server/lib
 Application/Web/React/Editors/form-builder-server/build
+Application/Web/React/Editors/form-builder-server/constants.ts
