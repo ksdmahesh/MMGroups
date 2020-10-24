@@ -1,6 +1,5 @@
 import React from 'react';
 import './assets/css/App.css';
-import Editor from './editors/ckeditor';
 import Jodit from './editors/jodit';
 import TinyMce from './editors/tinymce';
 import Wysiwyg from './editors/wysiwyg';
@@ -14,6 +13,7 @@ import RedoIcon from '@material-ui/icons/Redo';
 import UndoIcon from '@material-ui/icons/Undo';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps, Color } from '@material-ui/lab/Alert';
+const Editor = require('./editors/ckeditor');
 
 //#region 
 
