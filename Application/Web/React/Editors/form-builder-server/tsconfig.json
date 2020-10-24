@@ -3,9 +3,8 @@
     "target": "ES6",
     "module": "CommonJS",
     "sourceMap": true,
-    "experimentalDecorators": true,
-    "isolatedModules": true,
     "noEmit": false,
+    "outDir": "build",
     "lib": [
       "dom",
       "dom.iterable",
@@ -20,8 +19,11 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "jsx": "react"
+    "jsx": "preserve"
   },
+  "include": [
+    "main.ts"
+  ],
   "exclude": [
     "node_modules"
   ]
