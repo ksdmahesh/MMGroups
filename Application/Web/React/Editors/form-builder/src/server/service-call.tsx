@@ -13,7 +13,13 @@ export const writeStream = (payload: { path: string, data: string | ArrayBuffer 
     (
         {
             url: `${baseURL}/write`,
-            method: 'post'
+            method: 'post',
+            config: {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }
         },
         payload
     );

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinyMCEEditor } from 'tinymce';
+import { activeData } from '../App';
 
 export default class TinyMce extends React.Component<{ html: string, dispatch: (data: string) => void; }> {
-  
-  handleEditorChange = (a: string, editor: TinyMCEEditor) => {
-    this.props.dispatch(a);
+
+  handleEditorChange = (html: string, editor: TinyMCEEditor) => {
+    activeData.html = html;
+    this.props.dispatch(html);
   };
 
   render() {

@@ -5,15 +5,12 @@ export const httpServices = <TModel>(
     },
     payload: object):
     Promise<{ data?: TModel, error?: object | string, headers?: object }> => {
-    if (!request.method) {
-        request.method = 'get';
-    }
     return new Promise(resolve => {
         axios(request.url, {
-            method: request.method,
+            method: request.method || 'get',
             data: request.method === 'post' ? payload : null,
             params: request.method !== 'post' ? payload : null,
-            ...request.config
+            ...request.config   
         })
             .then(response => {
                 resolve({ data: response.data, headers: response.headers });

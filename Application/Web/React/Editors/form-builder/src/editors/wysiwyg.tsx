@@ -4,6 +4,7 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import htmlToDraft from 'html-to-draftjs';
 import draftToHtml from 'draftjs-to-html';
+import { activeData } from '../App';
 
 export default class Wysiwyg extends React.Component<{ html: string, dispatch: (data: string) => void; }> {
 
@@ -29,13 +30,15 @@ export default class Wysiwyg extends React.Component<{ html: string, dispatch: (
         this.setState({ editorState });
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         const html = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
         this.props.dispatch(html);
     }
+
     render() {
         return (
             <Editor
+                onChange={(ev) => { activeData.html = draftToHtml(ev); }}
                 editorState={this.state.editorState}
                 toolbarClassName="toolbarClassName"
                 wrapperClassName="wrapperClassName"

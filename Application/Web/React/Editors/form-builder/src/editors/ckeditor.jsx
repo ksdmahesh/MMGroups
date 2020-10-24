@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { activeData } from '../App';
 
 export default class Editor extends Component {
     render() {
@@ -14,6 +15,7 @@ export default class Editor extends Component {
                         // console.log('Editor is ready to use!', editor);
                     }}
                     onChange={(event, editor) => {
+                        activeData.html = editor.getData();
                         // const data = editor.getData();
                         // console.log({ event, editor, data });
                     }}
