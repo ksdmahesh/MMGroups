@@ -12,7 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "target": "ES6",
-    "module": "CommonJs",
+    "module": "esnext",
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
