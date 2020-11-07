@@ -1,0 +1,24 @@
+{
+  "name": "csstojs",
+  "version": "1.0.0",
+  "description": "to convert css to js object",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "pack": "tsc && npm pack",
+    "publish": "npm publish"
+  },
+  "keywords": [
+    "Cascading Style Sheet",
+    "Style Sheet",
+    "Style",
+    "Js",
+    "Javascript"
+  ],
+  "author": "MM",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.0.5"
+  }
+}

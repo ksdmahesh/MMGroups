@@ -7,3 +7,6 @@ Application/Web/React/Editors/form-builder-server/node_modules
 Application/Web/React/Editors/form-builder-server/lib
 Application/Web/React/Editors/form-builder-server/build
 Application/Web/React/Editors/form-builder-server/constants.ts
+Application/Web/npm/CsstoJs/lib
+Application/Web/npm/CsstoJs/node_modules
+Application/Web/npm/CsstoJs/*.tgz
