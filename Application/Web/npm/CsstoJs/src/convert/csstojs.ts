@@ -226,7 +226,7 @@ const renderItem = (item: Item) => {
 
 //#region Public Functions
 
-export const csstojs = (css: string) => {
+export const CsstoJs = (css: string) => {
 	return convertoToJS(tokenizer(css));
 }
 

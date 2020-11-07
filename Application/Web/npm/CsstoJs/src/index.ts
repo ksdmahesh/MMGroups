@@ -1,3 +1,3 @@
-import { csstojs } from './convert/csstojs';
+import { CsstoJs } from './convert/CsstoJs';
 
-export default csstojs;
+export default CsstoJs;
