@@ -1,16 +1,268 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      <style>
-        button {
-          height: 30px;
-          width: 30px;
-          outline: none;
-        }
-      </style>
-    </head>
-    <body>
-        <button id="changeColor"></button>
-        <script src="popup.js"></script>
-    </body>
-  </html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/site.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <script src="assets/scripts/jquery-3.5.1.slim.min.js"></script>
+    <script src="assets/scripts/bootstrap.bundle.min.js"></script>
+</head>
+
+<body style="width:600px">
+    <div class="row">
+        <div class="col-12">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="tts-tab" data-toggle="tab" href="#tts" role="tab" aria-controls="tts"
+                        aria-selected="false">Read aloud</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="text-tab" data-toggle="tab" href="#text" role="tab" aria-controls="text"
+                        aria-selected="true">Text preferences</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="grammar-tab" data-toggle="tab" href="#grammar" role="tab"
+                        aria-controls="grammar" aria-selected="false">Grammar Tools</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="read-tab" data-toggle="tab" href="#read" role="tab" aria-controls="read"
+                        aria-selected="false">Reading preferences</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="tts" role="tabpanel" aria-labelledby="tts-tab">
+                    <div class="p-3">
+                        <table class="table table-borderless" style="text-align: center; background-color: beige;">
+                            <tr>
+                                <td><span class="material-icons span">keyboard_arrow_left</span></td>
+                                <td><span class="material-icons span">play_arrow</span></td>
+                                <td><span class="material-icons span">keyboard_arrow_right</span></td>
+                            </tr>
+                        </table>
+                        <div class="form-group">
+                            <label for="Speed" style="font-weight: 500;">Speed</label>
+                            <input type="range" list="tickmarks" class="form-control" id="Speed">
+
+                            <datalist id="tickmarks">
+                                <option value="0"></option>
+                                <option value="10"></option>
+                                <option value="20"></option>
+                                <option value="30"></option>
+                                <option value="40"></option>
+                                <option value="50"></option>
+                                <option value="60"></option>
+                                <option value="70"></option>
+                                <option value="80"></option>
+                                <option value="90"></option>
+                                <option value="100"></option>
+                            </datalist>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td>0%</td>
+                                    <td style="text-align:center">50%</td>
+                                    <td style="text-align: right;">100%</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <label for="Voice" style="font-weight: 500;">Choose a Voice</label>
+                            <select class="form-control" id="Voice">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="text" role="tabpanel" aria-labelledby="text-tab">
+                    <div class="p-3">
+                        <div class="form-group">
+                            <label for="textSize" style="font-weight: 500;">Text Size</label>
+                            <input type="range" list="tickSizes" class="form-control" id="textSize">
+
+                            <datalist id="tickSizes">
+                                <option value="20">x-small</option>
+                                <option value="40">small</option>
+                                <option value="60">medium</option>
+                                <option value="80">large</option>
+                                <option value="100">x-large</option>
+                            </datalist>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td>x-small</td>
+                                    <td style="text-align:center">medium</td>
+                                    <td style="text-align: right;">x-large</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <label for="textSpacing" style="margin: 0;font-weight: 500;">Text Spacing</label>
+                                </td>
+                                <td style="text-align: right;">
+                                    <label class="switch">
+                                        <input type="checkbox" id="textSpacing">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="form-group">
+                            <label for="textSize" style="font-weight: 500;">Page Theme</label>
+                            <div class="d-flex justify-content-start align-items-center flex-wrap bd-highlight">
+                                <div class="p-2 bd-highlight custom-card">Flex item</div>
+                                <div class="p-2 bd-highlight custom-card">Flex item</div>
+                                <div class="p-2 bd-highlight custom-card">Flex item</div>
+                                <div class="p-2 bd-highlight custom-card">Flex item</div>
+                                <div class="p-2 bd-highlight custom-card">Flex item</div>
+                                <div class="p-2 bd-highlight custom-card">Flex item</div>
+                                <div class="p-2 bd-highlight custom-card">Flex item</div>
+                                <div class="p-2 bd-highlight custom-card">Flex item</div>
+                                <div class="p-2 bd-highlight custom-card">Flex item</div>
+                                <div class="p-2 bd-highlight custom-card">Flex item</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="grammar" role="tabpanel" aria-labelledby="grammar-tab">
+                    <div class="p-3">
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <label for="chkSyllables" style="margin: 0;font-weight: 500;">Syl-la-bles</label>
+                                </td>
+                                <td style="text-align: right;">
+                                    <label class="switch">
+                                        <input type="checkbox" id="chkSyllables">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="form-group">
+                            <label style="font-weight: 500;">Parts of speech</label>
+
+                        </div>
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <input type="color" value="#9332a1">
+
+                                    <label for="chkGrammarNouns" style="margin: 0;font-weight: 500;">Nouns</label>
+                                </td>
+                                <td style="text-align: right;width: 50%;">
+                                    <label class="switch">
+                                        <input type="checkbox" id="chkGrammarNouns">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="color" value="#a80005">
+
+                                    <label for="chkGrammarVerbs" style="margin: 0;font-weight: 500;">Verbs</label>
+                                </td>
+                                <td style="text-align: right;width: 50%;">
+                                    <label class="switch">
+                                        <input type="checkbox" id="chkGrammarVerbs">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                        <input type="color" value="#00661d">
+    
+                                        <label for="chkGrammarAdjectives" style="margin: 0;font-weight: 500;">Adjectives</label>
+                                </td>
+                                <td style="text-align: right;width: 50%;">
+                                    <label class="switch">
+                                        <input type="checkbox" id="chkGrammarAdjectives">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="color" value="#e06a00">
+                                    <label for="chkGrammarAdverbs" style="margin: 0;font-weight: 500;">Adverbs</label>
+                                </td>
+                                <td style="text-align: right;width: 50%;">
+                                    <label class="switch">
+                                        <input type="checkbox" id="chkGrammarAdverbs">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="read" role="tabpanel" aria-labelledby="read-tab">
+                    <div class="p-3">
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <label for="lineFocus" style="margin: 0;font-weight: 500;">Line Focus</label>
+                                </td>
+                                <td style="text-align: right;">
+                                    <label class="switch">
+                                        <input type="checkbox" id="lineFocus">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons" id='divLineFocusButtons'>
+                            <label class="btn btn-secondary active">
+                                <input type="radio" name="options" id="option1" autocomplete="off" checked> <label
+                                    for='option1' class="material-icons span">horizontal_rule </label>
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="option2" autocomplete="off"> <label
+                                    class="material-icons span" for='option2'>drag_handle</label>
+                            </label>
+                            <label class="btn btn-secondary">
+                                <input type="radio" name="options" id="option3" autocomplete="off"> <label
+                                    class="material-icons span" for='option3'>reorder</label>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ddlLanguages" style="font-weight: 500;">Translate</label>
+                            <select class="form-control" id="ddlLanguages">
+                                <option>Eng</option>
+                                <option>Tel</option>
+                                <option>Tam</option>
+                                <option>Eng</option>
+                                <option>Eng</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="changeColor"></button>
+    </div>
+
+    <script src="popup.js"></script>
+
+</body>
+
+</html>
