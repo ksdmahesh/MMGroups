@@ -79,10 +79,10 @@ button {
   .custom-card{
     background-color: #fff;
     background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 2px solid rgba(0,0,0,.125);
     border-radius: .25rem;
     margin: 7px;
-    box-shadow: 1px 3px 7px 0px darkslateblue;
+    box-shadow: 1px 3px 7px 0px darkslateblue;    
   }
 
   #divLineFocusButtons label{
@@ -100,3 +100,8 @@ button {
   .clsSquare::after{
     content: '';
   }
+
+  .custom-card:hover{
+    border:2px solid black;
+    cursor: pointer;
+  } 

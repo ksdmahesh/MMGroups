@@ -13,3 +13,12 @@ changeColor.onclick = function (element) {
             { code: 'document.body.style.backgroundColor = "' + color + '";' });
     });
 };
+let lineFocus = document.getElementById('lineFocus');
+lineFocus.onclick = function (element) {
+    if (element.target.checked) {
+        $("[name=options]").parents(".btn").removeClass('disabled');
+    }
+    else {
+        $("[name=options]").parents(".btn").addClass('disabled');
+    }
+}

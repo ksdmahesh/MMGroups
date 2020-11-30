@@ -1,7 +1,7 @@
 {
-    "name": "Getting Started Example",
+    "name": "Read Mode",
     "version": "1.0",
-    "description": "Build an Extension!",
+    "description": "Easily Reading pages as focus with read mode, includes dark mode for pages, read aloud, translations and grammar tools.",
     "permissions": [
         "tts",
         "ttsEngine",
