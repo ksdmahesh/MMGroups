@@ -37,6 +37,11 @@ type IteratorProps = {
 	currentPath: Array<string>
 };
 
+type ConvertionProps = {
+	caseType?: 'camel' | 'pascal',
+	keepComments?: boolean
+};
+
 //#endregion
 
 //#region Private Functions
@@ -250,7 +255,7 @@ const renderItem = (item: Item) => {
 
 //#region Public Functions
 
-export const CsstoJs = (css: string) => {
+export const CsstoJs = (css: string, convertionProps: ConvertionProps) => {
 	return convertoToJS(tokenizer(css));
 }
 
