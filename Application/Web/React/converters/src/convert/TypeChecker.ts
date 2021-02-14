@@ -1,22 +1,26 @@
+type DefaultType = 'bigint' | 'boolean' | 'function' | 'null' | 'number' | 'object' | 'string' | 'array' | 'symbol' | 'undefined' | 'date' | 'error' | 'regExp';
+
+type ConversionType = bigint | boolean | Function | null | number | object | string | any[] | undefined | Date | never | Error;
+
 export default class TypeCheck {
-    
-    static isBoolean(value: any) {
+
+    static isBoolean(value: ConversionType) {
         return typeof value === 'boolean';
     }
 
-    static isString(value: any) {
+    static isString(value: ConversionType) {
         return typeof value === 'string' || value instanceof String;
     }
 
-    static isNumber(value: any) {
+    static isNumber(value: ConversionType) {
         return typeof value === 'number' && isFinite(value);
     }
 
-    static isBigInt(value: any) {
+    static isBigInt(value: ConversionType) {
         return typeof value === 'bigint';
     }
 
-    static isArray(value: any) {
+    static isArray(value: ConversionType) {
         if (!Array.isArray) {
             return (
                 Object.prototype.toString.call(value) === '[object Array]'
@@ -28,35 +32,31 @@ export default class TypeCheck {
         }
     }
 
-    static isFunction(value: any) {
+    static isFunction(value: ConversionType) {
         return typeof value === 'function';
     }
 
-    static isObject(value: any) {
+    static isObject(value: ConversionType) {
         return (value && typeof value === 'object' && value.constructor === Object);
     }
 
-    static containsKey(object: Object, key: string) {
-        return object.hasOwnProperty(key);
-    }
-
-    static isNull(value: any) {
+    static isNull(value: ConversionType) {
         return value === null;
     }
 
-    static isUndefined(value: any) {
+    static isUndefined(value: ConversionType) {
         return typeof value === 'undefined' && value === undefined;
     }
 
-    static isEmpty(value: any) {
+    static isEmpty(value: ConversionType) {
         return !value;
     }
 
-    static isEmptyObject(value: any) {
+    static isEmptyObject(value: ConversionType) {
         return !Object.entries(value || {}).length;
     }
 
-    static isRegExp(value: any) {
+    static isRegExp(value: ConversionType) {
         return (value && typeof value === 'object' && value.constructor === RegExp);
     }
 
@@ -64,15 +64,15 @@ export default class TypeCheck {
         return (value && typeof value.message !== 'undefined' && value.constructor === Error && value instanceof Error);
     }
 
-    static isDate(value: any) {
+    static isDate(value: ConversionType) {
         return (value && value.constructor === Date && value instanceof Date);
     }
 
-    static isSymbol(value: any) {
+    static isSymbol(value: ConversionType) {
         return (value && typeof value === 'symbol');
     }
 
-    static defaultValue(value: any) {
+    static defaultValue(value: ConversionType) {
         switch (typeof (value)) {
             case 'bigint': return BigInt(0);
             case 'boolean': return false;
@@ -99,7 +99,26 @@ export default class TypeCheck {
         }
     }
 
-    static toBoolean(value: any) {
+    static defaultValueByType(type: DefaultType) {
+        switch (type) {
+            case 'bigint': return BigInt(0);
+            case 'boolean': return false;
+            case 'function': return function () { };
+            case 'number': return 0;
+            case 'object': return {};
+            case 'array': return [];
+            case 'null': return null;
+            case 'regExp': return /(?:)/;
+            case 'date': return new Date();
+            case 'error': return new Error();
+            case 'string': return '';
+            case 'symbol': return Symbol();
+            case 'undefined': return undefined;
+            default: return type;
+        }
+    }
+
+    static toBoolean(value: ConversionType) {
         return !!value;
     }
 
@@ -107,16 +126,44 @@ export default class TypeCheck {
         return +value;
     }
 
-    static toString(value: bigint | boolean | Function | null | number | object | string | any[] | symbol | undefined | Date) {
-        if (typeof value === 'object') {
+    static toString(value: ConversionType) {
+        if (TypeCheck.isObject(value) || TypeCheck.isArray(value)) {
             return JSON.stringify(value);
+        } else if (TypeCheck.isNull(value) || TypeCheck.isUndefined(value)) {
+            return '';
         }
 
-        return `${value || TypeCheck.defaultValue(value)}`;
+        return `${value}`;
     }
 
-    static clone(value: object | any[]) {
+    static containsKey(object: Object, key: string) {
+        return object.hasOwnProperty(key);
+    }
+
+    static clone<T = ConversionType>(value: object | Array<T>) {
         JSON.parse(JSON.stringify(value || {}));
+    }
+
+    static removeItemByKey(object: any, key: string | number, withClone: boolean = false) {
+        const currentObject: any = {};
+
+        for (const currentItem in object) {
+            if (`${key}` !== `${currentItem}`) {
+                if (Object.prototype.hasOwnProperty.call(object, currentItem)) {
+                    currentObject[currentItem] = object[currentItem];
+                }
+            }
+        }
+
+        return withClone ? TypeCheck.clone(currentObject) : currentObject;
+    }
+
+    static removeItemByIndex(array: any[], index: number, insertItem?: ConversionType) {
+        return array.splice(index, 1, insertItem);
+    }
+
+    static insertItemAtIndex(array: any[], index: number, insertItem?: ConversionType) {
+        return array.splice(index, 0, insertItem);
     }
 
 }

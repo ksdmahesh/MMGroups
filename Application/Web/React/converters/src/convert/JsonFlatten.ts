@@ -1,6 +1,17 @@
-const flatten = (data: object) => {
+import TypeCheck from "./TypeChecker";
 
-// data
+const flatten = (data: any) => {
+    if (TypeCheck.isObject(data)) {
+        return Object.entries(data).forEach(x => {
+            flatten(data[x[0]]);
+        });
+    } else if (TypeCheck.isArray(data)) {
+        return data.forEach((x: any) => {
+            flatten(x);
+        });
+    } else {
+        return data;
+    }
 }
 
 export const JsonFlatten = (data: object) => {
