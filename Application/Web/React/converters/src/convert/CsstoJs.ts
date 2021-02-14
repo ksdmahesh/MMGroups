@@ -255,7 +255,7 @@ const renderItem = (item: Item) => {
 
 //#region Public Functions
 
-export const CsstoJs = (css: string, convertionProps: ConvertionProps) => {
+export const CsstoJs = (css: string, convertionProps?: ConvertionProps) => {
 	return convertoToJS(tokenizer(css));
 }
 
