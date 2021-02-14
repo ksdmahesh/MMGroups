@@ -1,3 +1,1 @@
-export const resultJson = {
-
-}
+export const resultJson = {}
