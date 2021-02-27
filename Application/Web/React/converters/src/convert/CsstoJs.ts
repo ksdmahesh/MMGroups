@@ -1,13 +1,44 @@
 //#region Properties
 
 const SPACE = '    ';
-const whitespc = ['\r\n', '\n\r', '\n', '\r'];
-const specialChars = ["{", "}", ":", ";", ","];
+// const whitespc = ['\r\n', '\n\r', '\n', '\r'];
+// const specialChars = ["{", "}", ":", ";", ","];
 // const specialCharsPB = ["{", "}", ";"];
 
 //#endregion
 
 //#region Types
+
+enum Chars {
+	Comment = '/',
+	Class = '.',
+	Id = '#',
+	Media = '@',
+	Name = ''
+}
+
+enum CssTypes {
+	comment = 'comment', // /** */, //
+	media = 'media-query', // @media
+	selector = 'selector', // .css, #css, css, css[type=""]
+	property = 'property', // margin, padding
+	value = 'value' // 0, 0px 0px
+}
+
+enum CssSubTypes {
+	class = 'class', // .css
+	id = 'id', // #css
+	name = 'name', // css
+	nested = 'nested', // css[type=""]
+	singleLineComment = 'singleLineComment', // //
+	multiLineComment = 'multiLineComment' // /** */
+}
+
+type CssRule = {
+	type?: CssTypes,
+	subType?: CssSubTypes,
+	value?: string
+}
 
 type Item = {
 	originalValue: string,
@@ -21,25 +52,53 @@ type ActionProps = {
 	items: Array<Item>
 };
 
-type TokenType = {
-	path: Array<string>,
-	value: string
-};
+// type TokenType = {
+// 	path: Array<string>,
+// 	value: string
+// };
 
-type IteratorProps = {
-	tokens: Array<TokenType>,
-	token: TokenType,
-	lastChar: string,
-	nextChar: string,
-	char: string,
-	sc?: Array<string>,
-	inBrackets: boolean,
-	currentPath: Array<string>
-};
+// type IteratorProps = {
+// 	tokens: Array<TokenType>,
+// 	token: TokenType,
+// 	lastChar: string,
+// 	nextChar: string,
+// 	char: string,
+// 	sc?: Array<string>,
+// 	inBrackets: boolean,
+// 	currentPath: Array<string>
+// };
 
 type ConvertionProps = {
+	/**
+	 * @type default: as defined in css
+	 * @type camel: property names as camel case
+	 * @type pascal: property names as pascal case
+	 */
 	caseType?: 'camel' | 'pascal',
-	keepComments?: boolean
+	/**
+	 * @type default: true
+	 * @type true: includes css property names as on top of object
+	 * @type false: not includes css property names as on top of object
+	 */
+	includeCssKeys?: boolean,
+	/**
+	 * @type default: true
+	 * @type true: includes css comments
+	 * @type false: excludes css comments
+	 */
+	keepComments?: boolean,
+	/**
+	 * @type default: true
+	 * @type true: includes css commented lines as object
+	 * @type false: leave as it is css commented lines
+	 */
+	includeComments?: boolean,
+	/**
+	 * @type default: true
+	 * @type true: convert as material theme object
+	 * @type false: convert as plain object
+	 */
+	useMaterialThemeStructure?: boolean
 };
 
 //#endregion
@@ -75,60 +134,62 @@ const nameMap = (currentName: string) => {
 	return `${currentName.replace(/([^a-z0-9])([a-z0-9])?/gi, (_, c, l) => (l ? ((c === "," || c === " ") ? l.toLowerCase() : l.toUpperCase()) : ''))}${newName}`;
 }
 
-const tokenizer = (code: string) => {
-	debugger;
-	let iteratorProps: IteratorProps = {
-		tokens: [],
-		token: { path: [], value: '' },
-		lastChar: '\0',
-		nextChar: '\0',
-		char: '\0',
-		sc: undefined,
-		inBrackets: false,
-		currentPath: []
-	};
+const tokenizer = (code: string[]) => {
+	const rules: CssRule[] = [];
+	let rule: CssRule = clone(rules[0] || {});
 
-	for (let i = 0; i < code.length; i++) {
-		if (i) {
-			iteratorProps.lastChar = code.charAt(i - 1);
+	for (const char of code) {
+		switch (rule.type) {
+			case "comment":
+
+				break;
+			case "media-query":
+
+				break;
+			case "selector":
+
+				break;
+			default:
+				switch (char) {
+					case Chars.Class:
+						rule = {
+							type: CssTypes.selector,
+							subType: CssSubTypes.class,
+							value: undefined
+						}
+						break;
+					case Chars.Id:
+						rule = {
+							type: CssTypes.selector,
+							subType: CssSubTypes.id,
+							value: undefined
+						}
+						break;
+					case Chars.Comment:
+						rule = {
+							type: CssTypes.comment,
+							subType: undefined,
+							value: undefined
+						}
+						break;
+					case Chars.Media:
+						rule = {
+							type: CssTypes.media,
+							subType: undefined,
+							value: undefined
+						}
+						break;
+					default:
+						if (char === ' ') {
+
+						}
+						break;
+				}
+				break;
 		}
-
-		iteratorProps.char = code.charAt(i);
-
-		if (i + 1 < code.length) {
-			iteratorProps.nextChar = code.charAt(i + 1);
-		}
-
-		if (~whitespc.indexOf(iteratorProps.char) && ~whitespc.indexOf(iteratorProps.lastChar)) {
-			continue;
-		}
-
-		iteratorProps.sc = specialChars;// iteratorProps.inBrackets ? specialChars : specialCharsPB;
-		if (~iteratorProps.sc.indexOf(iteratorProps.char)) {
-			iteratorProps.tokens.push(clone(iteratorProps.token));
-			if (iteratorProps.char === "{") {
-				iteratorProps.tokens.push({ value: iteratorProps.char, path: clone(iteratorProps.currentPath) });
-				iteratorProps.currentPath.push(iteratorProps.token.value);
-				iteratorProps.inBrackets = true;
-			} else if (iteratorProps.char === "}") {
-				iteratorProps.currentPath.pop();
-				iteratorProps.tokens.push({ value: iteratorProps.char, path: clone(iteratorProps.currentPath) });
-				iteratorProps.inBrackets = false;
-			} else {
-				iteratorProps.tokens.push({ value: iteratorProps.char, path: clone(iteratorProps.currentPath) });
-			}
-			iteratorProps.token = { value: '', path: clone(iteratorProps.currentPath) };
-			continue;
-		}
-
-		iteratorProps.token.value += iteratorProps.char;
 	}
 
-	if (iteratorProps.token.value) {
-		iteratorProps.tokens.push(clone(iteratorProps.token));
-	}
-
-	return iteratorProps.tokens.map(token => token.value.trim()).filter(token => token);
+	return [''];// iteratorProps.tokens.map(token => token.value.trim()).filter(token => token);
 }
 
 // const repeat = (char: string, times: number): string => times ? `${repeat(char, times - 1)}${char}` : ''
@@ -256,7 +317,7 @@ const renderItem = (item: Item) => {
 //#region Public Functions
 
 export const CsstoJs = (css: string, convertionProps?: ConvertionProps) => {
-	return convertoToJS(tokenizer(css));
+	return `export const resultJson: { [x: string]: { [x: string]: React.CSSProperties } } = ${convertoToJS(tokenizer(css.split('')))}`;
 }
 
 //#endregion

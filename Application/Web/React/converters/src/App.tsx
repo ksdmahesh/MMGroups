@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-// import { CsstoJs } from './convert/CsstoJs';
-import { JsonFlatten } from './convert/JsonFlatten';
+import { CsstoJs } from './convert/CsstoJs';
+// import { JsonFlatten } from './convert/JsonFlatten';
 import { getDefaultPath, readStream, writeStream } from './server/service-call';
 
 class App extends React.Component {
@@ -24,9 +24,9 @@ class App extends React.Component {
       this.setState({
         path: getPath.data
       }, async () => {
-        const readJson = await readStream({ path: `${this.state.path}read\\sampleJson.json` });
+        const readJson = await readStream({ path: `${this.state.path}read\\sampleCss.css` });
         if (readJson.data) {
-          const writeJson = await writeStream({ path: `${this.state.path}write\\outJson.ts`, data: JsonFlatten(readJson.data) });
+          const writeJson = await writeStream({ path: `${this.state.path}write\\outCss.js`, data: CsstoJs(readJson.data) });
           if (writeJson.data?.error) {
             this.setState({ error: writeJson.data?.error });
           } else if (writeJson.data) {
