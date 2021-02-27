@@ -18,6 +18,5 @@ const flatten = (data: any, path: string[], flat: any) => {
 export const JsonFlatten = (data: object) => {
     const flat = {};
     flatten(data, ['$'], flat);
-    console.log(flat);
     return `export const resultJson: { [x: string]: string | number | bigint | boolean | null | undefined | symbol } = ${JSON.stringify(flat)}`;
 }
