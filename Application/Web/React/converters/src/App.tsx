@@ -26,7 +26,7 @@ class App extends React.Component {
       }, async () => {
         const readJson = await readStream({ path: `${this.state.path}read\\sampleJson.json` });
         if (readJson.data) {
-          const writeJson = await writeStream({ path: `${this.state.path}write\\outJson.js`, data: JsonFlatten(readJson.data) });
+          const writeJson = await writeStream({ path: `${this.state.path}write\\outJson.ts`, data: JsonFlatten(readJson.data) });
           if (writeJson.data?.error) {
             this.setState({ error: writeJson.data?.error });
           } else if (writeJson.data) {
