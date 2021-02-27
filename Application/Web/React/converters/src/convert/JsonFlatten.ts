@@ -1,13 +1,13 @@
 import TypeCheck from "./TypeChecker";
 
-const flatten = (data: any) => {
+const flatten = (data: any, path: string) => {
     if (TypeCheck.isObject(data)) {
-        return Object.entries(data).forEach(x => {
-            flatten(data[x[0]]);
+        Object.entries(data).forEach(x => {
+            flatten(data[x[0]], `${path}.${x[0]}`);
         });
     } else if (TypeCheck.isArray(data)) {
-        return data.forEach((x: any) => {
-            flatten(x);
+        data.forEach((x: any, index: number) => {
+            flatten(x, `${path}.${index}`);
         });
     } else {
         return data;
@@ -15,5 +15,7 @@ const flatten = (data: any) => {
 }
 
 export const JsonFlatten = (data: object) => {
-    return `export const resultJson = ${JSON.stringify(flatten(data))}`;
+    const result = flatten(data, '$');
+    console.log(result);
+    return `export const resultJson = ${JSON.stringify(result)}`;
 }
