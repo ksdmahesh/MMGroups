@@ -14,7 +14,18 @@ enum Chars {
 	Class = '.',
 	Id = '#',
 	Media = '@',
-	Name = ''
+	Name = '',
+	Value = ':'
+}
+
+enum SpecialChars {
+	Value = ';',
+	Property = ':',
+	SingleComment1 = '\r',
+	SingleComment2 = '\n',
+	MultiComment = '/',
+	SelectorOrMediaOpen = '{',
+	SelectorOrMediaClose = '}'
 }
 
 enum CssTypes {
@@ -26,9 +37,10 @@ enum CssTypes {
 }
 
 enum CssSubTypes {
+	keyFrames = 'KeyFrames',
 	class = 'class', // .css
 	id = 'id', // #css
-	name = 'name', // css
+	element = 'element', // css
 	nested = 'nested', // css[type=""]
 	singleLineComment = 'singleLineComment', // //
 	multiLineComment = 'multiLineComment' // /** */
@@ -37,6 +49,7 @@ enum CssSubTypes {
 type CssRule = {
 	type?: CssTypes,
 	subType?: CssSubTypes,
+	actualValue?: string,
 	value?: string
 }
 
@@ -137,57 +150,210 @@ const nameMap = (currentName: string) => {
 const tokenizer = (code: string[]) => {
 	const rules: CssRule[] = [];
 	let rule: CssRule = clone(rules[0] || {});
+	let prevRule: CssRule = {};
+	let isSelectorOpened = false;
+	let isSelectorClosed = false;
+	let isPropertyClosed = false;
 
 	for (const char of code) {
+		if (rule.type) {
+			switch (char) {
+				case SpecialChars.Value:
+					if (rule.type !== CssTypes.value) {
+						rule.actualValue += char;
+						rule.value += char;
+					} else {
+						rules.push(rule);
+						prevRule = clone(rule);
+						rule = {};
+					}
+					continue;
+				case SpecialChars.Property:
+					if (rule.type !== CssTypes.property) {
+						rule.actualValue += char;
+						rule.value += char;
+					} else {
+						rules.push(rule);
+						prevRule = clone(rule);
+						rule = {};
+						isPropertyClosed = true;
+					}
+					continue;
+				case SpecialChars.SelectorOrMediaClose:
+					if (rule.subType === CssSubTypes.keyFrames) {
+						rule.actualValue += char;
+						rule.value += char;
+						const startLength = rule.actualValue?.split('{').length;
+						const endLength = rule.actualValue?.split('}').length;
+						if (startLength === endLength) {
+							rules.push(rule);
+							prevRule = clone(rule);
+							rule = {};
+						}
+					} else {
+						rules.push(rule);
+						prevRule = clone(rule);
+						rule = {};
+						isSelectorClosed = true;
+					}
+					continue;
+				case SpecialChars.SelectorOrMediaOpen:
+					if (rule.type !== CssTypes.media && rule.type !== CssTypes.selector) {
+						rule.actualValue += char;
+						rule.value += char;
+					} else {
+						if (rule.subType === CssSubTypes.keyFrames) {
+							rule.actualValue += char;
+							rule.value += char;
+						} else {
+							rules.push(rule);
+							prevRule = clone(rule);
+							rule = {};
+							isSelectorOpened = rule.type === CssTypes.selector;
+						}
+					}
+					continue;
+				case SpecialChars.SingleComment1:
+				case SpecialChars.SingleComment1:
+					rule.actualValue += char;
+					rule.value += char;
+					if (rule.type === CssTypes.comment && rule.subType === CssSubTypes.singleLineComment) {
+						rules.push(rule);
+						prevRule = clone(rule);
+						rule = {};
+					}
+					continue;
+				case SpecialChars.MultiComment:
+					rule.actualValue += char;
+					rule.value += char;
+					if (rule.type === CssTypes.comment && rule.subType === CssSubTypes.multiLineComment) {
+						const startLength = rule.actualValue?.split('/*').length;
+						const endLength = rule.actualValue?.split('*/').length;
+						if (startLength === endLength) {
+							rules.push(rule);
+							prevRule = clone(rule);
+							rule = {};
+						}
+					}
+					continue;
+				default:
+					break;
+			}
+		} else {
+			if (char === SpecialChars.SelectorOrMediaClose) {
+				isSelectorClosed = true;
+				continue;
+			}
+		}
+
 		switch (rule.type) {
-			case "comment":
-
+			case CssTypes.comment:
+				if (!rule.value) {
+					if (char === '/') {
+						rule.subType = CssSubTypes.singleLineComment;
+					} else {
+						rule.subType = CssSubTypes.multiLineComment;
+					}
+					rule.value = rule.actualValue;
+				}
+				rule.value += char;
+				rule.actualValue += char;
 				break;
-			case "media-query":
-
+			case CssTypes.media:
+				if (!rule.value) {
+					if (char === '-' || char === 'k') {
+						rule.value = rule.actualValue;
+						rule.subType = CssSubTypes.keyFrames;
+					}
+				}
+				rule.value += char;
+				rule.actualValue += char;
 				break;
-			case "selector":
-
+			case CssTypes.selector:
+				rule.value += char;
+				rule.actualValue += char;
+				break;
+			case CssTypes.property:
+				rule.value += char;
+				rule.actualValue += char;
+				break;
+			case CssTypes.value:
+				rule.value += char;
+				rule.actualValue += char;
 				break;
 			default:
-				switch (char) {
-					case Chars.Class:
+				if (prevRule.type !== CssTypes.property) {
+					switch (char) {
+						case Chars.Class:
+							rule = {
+								type: CssTypes.selector,
+								subType: CssSubTypes.class,
+								value: '',
+								actualValue: `${char}`
+							}
+							break;
+						case Chars.Id:
+							rule = {
+								type: CssTypes.selector,
+								subType: CssSubTypes.id,
+								value: '',
+								actualValue: `${char}`
+							}
+							break;
+						case Chars.Comment:
+							rule = {
+								type: CssTypes.comment,
+								subType: undefined,
+								value: ``,
+								actualValue: `${char}`
+							}
+							break;
+						case Chars.Media:
+							rule = {
+								type: CssTypes.media,
+								subType: undefined,
+								value: '',
+								actualValue: `${char}`
+							}
+							break;
+						default:
+							// '\s,-,[,\\,|,*,:'
+							if (char !== ' ' && char != SpecialChars.SingleComment1 && char != SpecialChars.SingleComment2) {
+								if (prevRule.type === CssTypes.selector || isSelectorOpened) {
+									isSelectorOpened = false;
+									rule = {
+										type: CssTypes.property,
+										subType: undefined,
+										value: `${char}`,
+										actualValue: `${char}`
+									}
+								} else {
+									rule = {
+										type: CssTypes.selector,
+										subType: CssSubTypes.element,
+										value: `${char}`,
+										actualValue: `${char}`
+									}
+								}
+							}
+							break;
+					}
+				} else {
+					if (prevRule.type === CssTypes.property && isPropertyClosed) {
+						isPropertyClosed = false;
 						rule = {
-							type: CssTypes.selector,
-							subType: CssSubTypes.class,
-							value: undefined
-						}
-						break;
-					case Chars.Id:
-						rule = {
-							type: CssTypes.selector,
-							subType: CssSubTypes.id,
-							value: undefined
-						}
-						break;
-					case Chars.Comment:
-						rule = {
-							type: CssTypes.comment,
+							type: CssTypes.value,
 							subType: undefined,
-							value: undefined
+							value: `${char}`,
+							actualValue: `${char}`
 						}
-						break;
-					case Chars.Media:
-						rule = {
-							type: CssTypes.media,
-							subType: undefined,
-							value: undefined
-						}
-						break;
-					default:
-						if (char === ' ') {
-
-						}
-						break;
+					}
 				}
 				break;
 		}
 	}
+
+	console.log(rules);
 
 	return [''];// iteratorProps.tokens.map(token => token.value.trim()).filter(token => token);
 }
