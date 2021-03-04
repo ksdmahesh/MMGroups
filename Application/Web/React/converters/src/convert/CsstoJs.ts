@@ -1,4 +1,4 @@
-//#region Types
+//#region Enums
 
 enum Chars {
 	Comment = '/',
@@ -36,6 +36,435 @@ enum CssSubTypes {
 	singleLineComment = 'singleLineComment', // //
 	multiLineComment = 'multiLineComment' // /** */
 }
+
+export enum MediaForcedSystemColors {
+	ActiveText = 'ActiveText',
+	ButtonFace = 'ButtonFace',
+	ButtonText = 'ButtonText',
+	Canvas = 'Canvas',
+	CanvasText = 'CanvasText',
+	Field = 'Field',
+	FieldText = 'FieldText',
+	GrayText = 'GrayText',
+	Highlight = 'Highlight',
+	HighlightText = 'HighlightText',
+	LinkText = 'LinkText',
+	Mark = 'Mark',
+	MarkText = 'MarkText',
+	VisitedText = 'VisitedText'
+}
+
+export enum MediaOperators {
+	not = 'not',
+	and = 'and',
+	only = 'only'
+}
+
+export enum CssUnits {
+	cap = 'cap',
+	ch = 'ch',
+	em = 'em',
+	ex = 'ex',
+	ic = 'ic',
+	lh = 'lh',
+	rem = 'rem',
+	rlh = 'rlh',
+	vh = 'vh',
+	vw = 'vw',
+	vi = 'vi',
+	vb = 'vb',
+	vmin = 'vmin',
+	vmax = 'vmax',
+	px = 'px',
+	cm = 'cm',
+	mm = 'mm',
+	Q = 'Q',
+	in = 'in',
+	pc = 'pc',
+	pt = 'pt',
+	mozmm = 'mozmm',
+	percent = '%'
+}
+
+export enum CssResolutions {
+	dpi = 'dpi',
+	dpcm = 'dpcm',
+	dppx = 'dppx',
+	x = 'x'
+}
+
+export enum MediaTypes {
+	all = 'all',
+	print = 'print',
+	screen = 'screen',
+	speech = 'speech',
+	tty = 'tty',
+	tv = 'tv',
+	projection = 'projection',
+	handheld = 'handheld',
+	braille = 'braille',
+	embossed = 'embossed',
+	aural = 'aural'
+}
+
+export enum MediaFeatures {
+	/**
+	 * @typedef MediaAnyHover
+	 * @example (any-hover: hover)
+	 */
+	anyHover = 'any-hover',
+	/**
+	 * @typedef MediaAnyPointer
+	 * @example (any-pointer: none)
+	 */
+	anyPointer = 'any-pointer',
+	/**
+	 * @type Ratio
+	 * @example (aspect-ratio: 1/1)
+	 */
+	aspectRatio = 'aspect-ratio',
+	/**
+	 * @type Ratio
+	 * @example (min-aspect-ratio: 1/1)
+	 */
+	minAspectRatio = 'min-aspect-ratio',
+	/**
+	 * @type Ratio
+	 * @example (max-aspect-ratio: 1/1)
+	 */
+	maxAspectRatio = 'max-aspect-ratio',
+	/**
+	 * @type None
+	 * @example (color)
+	 */
+	color = 'color',
+	/**
+	 * @type Integer
+	 * @example (min-color: 8)
+	 */
+	minColor = 'min-color',
+	/**
+	 * @type Integer
+	 * @example (max-color: 8)
+	 */
+	maxColor = 'max-color',
+	/**
+	 * @typedef MediaColorGamut
+	 * @example (color-gamut: srgb)
+	 */
+	colorGamut = 'color-gamut',
+	/**
+	 * @type None
+	 * @example (color-index)
+	 */
+	colorIndex = 'color-index',
+	/**
+	 * @type Integer
+	 * @example (min-color-index: 8)
+	 */
+	minColorIndex = 'min-color-index',
+	/**
+	 * @type Integer
+	 * @example (max-color-index: 8)
+	 */
+	maxColorIndex = 'max-color-index',
+	/**
+	 * @type Ratio
+	 * @example (device-aspect-ratio: 1/1)
+	 */
+	deviceAspectRatio = 'device-aspect-ratio',
+	/**
+	 * @type Ratio
+	 * @example (min-device-aspect-ratio: 1/1)
+	 */
+	minDeviceAspectRatio = 'min-device-aspect-ratio',
+	/**
+	 * @type Ratio
+	 * @example (max-device-aspect-ratio: 1/1)
+	 */
+	maxDeviceAspectRatio = 'max-device-aspect-ratio',
+	/**
+	 * @typedef CssUnits
+	 * @example (device-height: 1px)
+	 * @example (device-height <= 1px)
+	 */
+	deviceHeight = 'device-height',
+	/**
+	 * @typedef CssUnits
+	 * @example (min-device-height: 1px)
+	 * @example (min-device-height <= 1px)
+	 */
+	minDeviceHeight = 'min-device-height',
+	/**
+	 * @typedef CssUnits
+	 * @example (max-device-height: 1px)
+	 * @example (max-device-height <= 1px)
+	 */
+	maxDeviceHeight = 'max-device-height',
+	/**
+	 * @typedef CssUnits
+	 * @example (device-width: 1px)
+	 * @example (device-width <= 1px)
+	 */
+	deviceWidth = 'device-width',
+	/**
+	 * @typedef CssUnits
+	 * @example (min-device-width: 1px)
+	 * @example (min-device-width <= 1px)
+	 */
+	minDeviceWidth = 'min-device-width',
+	/**
+	 * @typedef CssUnits
+	 * @example (max-device-width: 1px)
+	 * @example (max-device-width <= 1px)
+	 */
+	maxDeviceWidth = 'max-device-width',
+	/**
+	 * @typedef MediaDisplayMode
+	 * @example (display-mode: fullscreen)
+	 */
+	displayMode = 'display-mode',
+	/**
+	 * @typedef MediaForcedColors
+	 * @typedef MediaForcedSystemColors
+	 * @example (forced-colors: active)
+	 */
+	forcedColors = 'forced-colors',
+	/**
+	 * @type Boolean
+	 * @example (grid: 0)
+	 * @example (grid: 1)
+	 */
+	grid = 'grid',
+	/**
+	 * @typedef CssUnits
+	 * @example (height: 1px)
+	 * @example (height <= 1px)
+	 */
+	height = 'height',
+	/**
+	 * @typedef CssUnits
+	 * @example (min-height: 1px)
+	 * @example (min-height <= 1px)
+	 */
+	minHeight = 'min-height',
+	/**
+	 * @typedef CssUnits
+	 * @example (max-height: 1px)
+	 * @example (max-height <= 1px)
+	 */
+	maxHeight = 'max-height',
+	/**
+	 * @typedef MediaAnyHover
+	 * @example (hover: hover)
+	 */
+	hover = 'hover',
+	/**
+	 * @typedef MediaInvertedColors
+	 * @example (inverted-colors: none)
+	 */
+	invertedColors = 'inverted-colors',
+	/**
+	 * @type Integer
+	 * @example (monochrome: 1)
+	 */
+	monochrome = 'monochrome',
+	/**
+	 * @type Integer
+	 * @example (min-monochrome: 1)
+	 */
+	minMonochrome = 'min-monochrome',
+	/**
+	 * @type Integer
+	 * @example (max-monochrome: 1)
+	 */
+	maxMonochrome = 'max-monochrome',
+	/**
+	 * @typedef MediaOrientation
+	 * @example (orientation: portrait)
+	 */
+	orientation = 'orientation',
+	/**
+	 * @typedef MediaOverflowBlock
+	 * @example (overflow-block: none)
+	 */
+	overflowBlock = 'overflow-block',
+	/**
+	 * @typedef MediaOverflowInline
+	 * @example (overflow-inline: none)
+	 */
+	overflowInline = 'overflow-inline',
+	/**
+	 * @typedef MediaAnyPointer
+	 * @example (pointer: none)
+	 */
+	pointer = 'pointer',
+	/**
+	 * @typedef MediaPrefersColorScheme
+	 * @example (prefers-color-scheme: light)
+	 */
+	prefersColorScheme = 'prefers-color-scheme',
+	/**
+	 * @typedef MediaPrefersContrast
+	 * @example no-preference => (prefers-contrast)
+	 * @example (prefers-contrast: high)
+	 */
+	prefersContrast = 'prefers-contrast',
+	/**
+	 * @typedef MediaPrefersReducedMotion
+	 * @example no-preference => (prefers-reduced-motion)
+	 * @example (prefers-reduced-motion: reduce)
+	 */
+	prefersReducedMotion = 'prefers-reduced-motion',
+	/**
+	 * @typedef MediaPrefersReducedMotion
+	 * @example no-preference => (prefers-reduced-transparency)
+	 * @example (prefers-reduced-transparency: reduce)
+	 */
+	prefersReducedTransparency = 'prefers-reduced-transparency',
+	/**
+	 * @typedef CssResolutions
+	 * @example (resolution: 1dpi)
+	 * @example (resolution <= 1dpi)
+	 */
+	resolution = 'resolution',
+	/**
+	 * @typedef CssResolutions
+	 * @example (min-resolution: 1dpi)
+	 * @example (min-resolution <= 1dpi)
+	 */
+	minResolution = 'min-resolution',
+	/**
+	 * @typedef CssResolutions
+	 * @example (max-resolution: 1dpi)
+	 * @example (max-resolution <= 1dpi)
+	 */
+	maxResolution = 'max-resolution',
+	/**
+	 * @typedef MediaScan
+	 * @example (scan: progressive)
+	 */
+	scan = 'scan',
+	/**
+	 * @typedef MediaScripting
+	 * @example (scripting: enabled)
+	 */
+	scripting = 'scripting',
+	/**
+	 * @typedef MediaUpdate
+	 * @example (scripting: none)
+	 */
+	update = 'update',
+	/**
+	 * @typedef CssUnits
+	 * @example (width: 1px)
+	 * @example (width <= 1px)
+	 */
+	width = 'width',
+	/**
+	 * @typedef CssUnits
+	 * @example (min-width: 1px)
+	 * @example (min-width <= 1px)
+	 */
+	minWidth = 'min-width',
+	/**
+	 * @typedef CssUnits
+	 * @example (max-width: 1px)
+	 * @example (max-width <= 1px)
+	 */
+	maxWidth = 'max-width'
+}
+
+export enum MediaAnyHover {
+	none = 'none',
+	hover = 'hover'
+}
+
+export enum MediaAnyPointer {
+	none = 'none',
+	coarse = 'coarse',
+	fine = 'fine'
+}
+
+export enum MediaColorGamut {
+	srgb = 'srgb',
+	p3 = 'p3',
+	rec2020 = 'rec2020'
+}
+
+export enum MediaDisplayMode {
+	fullscreen = 'fullscreen',
+	standalone = 'standalone',
+	minimalUi = 'minimal-ui',
+	browser = 'browser',
+	none = 'none'
+}
+
+export enum MediaForcedColors {
+	none = 'none',
+	active = 'active'
+}
+
+export enum MediaInvertedColors {
+	none = 'none',
+	inverted = 'inverted'
+}
+
+export enum MediaOrientation {
+	portrait = 'portrait',
+	landscape = 'landscape'
+}
+
+export enum MediaOverflowBlock {
+	none = 'none',
+	scroll = 'scroll',
+	optionalPaged = 'optional-paged',
+	paged = 'paged'
+}
+
+export enum MediaOverflowInline {
+	none = 'none',
+	scroll = 'scroll'
+}
+
+export enum MediaPrefersColorScheme {
+	light = 'light',
+	dark = 'dark'
+}
+
+export enum MediaPrefersContrast {
+	noPreference = 'no-preference',
+	more = 'more',
+	high = 'high',
+	less = 'less',
+	low = 'low'
+}
+
+export enum MediaPrefersReducedMotion {
+	noPreference = 'no-preference',
+	reduce = 'reduce'
+}
+
+export enum MediaScan {
+	interlace = 'interlace',
+	progressive = 'progressive'
+}
+
+export enum MediaScripting {
+	none = 'none',
+	initialOnly = 'initial-only',
+	enabled = 'enabled'
+}
+
+export enum MediaUpdate {
+	none = 'none',
+	slow = 'slow',
+	fast = 'fast'
+}
+
+//#endregion
+
+//#region Types
 
 type CssRule = {
 	type?: CssTypes,
@@ -88,139 +517,20 @@ type ConvertionProps = {
 	useMaterialThemeStructure?: boolean
 };
 
-enum MediaTypes {
-	all = 'all',
-	print = 'print',
-	screen = 'screen',
-	speech = 'speech',
-	tty = 'tty',
-	tv = 'tv',
-	projection = 'projection',
-	handheld = 'handheld',
-	braille = 'braille',
-	embossed = 'embossed',
-	aural = 'aural'
-}
-
-enum MediaFeatures {
-	/**
-	 * @typedef MediaAnyHover
-	 */
-	anyHover = 'any-hover',
-	/**
-	 * @typedef MediaAnyPointer
-	 */
-	anyPointer = 'any-pointer',
-	/**
-	 * @type Ratio
-	 * @example (aspect-ratio: 1/1)
-	 */
-	aspectRatio = 'aspect-ratio',
-	/**
-	 * @type Ratio
-	 * @example (min-aspect-ratio: 1/1)
-	 */
-	minAspectRatio = 'min-aspect-ratio',
-	/**
-	 * @type Ratio
-	 * @example (max-aspect-ratio: 1/1)
-	 */
-	maxAspectRatio = 'max-aspect-ratio',
-	/**
-	 * @type None
-	 * @example (color)
-	 */
-	color = 'color',
-	/**
-	 * @type Integer
-	 * @example (min-color: 8)
-	 */
-	minColor = 'min-color',
-	/**
-	 * @type Integer
-	 * @example (max-color: 8)
-	 */
-	maxColor = 'max-color',
-	/**
-	 *@typedef MediaColorGamut
-	 */
-	colorGamut = 'color-gamut',
-	/**
-	 * @type None
-	 * @example (color-index)
-	 */
-	colorIndex = 'color-index',
-	/**
-	 * @type Integer
-	 * @example (min-color-index: 8)
-	 */
-	minColorIndex = 'min-color-index',
-	/**
-	 * @type Integer
-	 * @example (max-color-index: 8)
-	 */
-	maxColorIndex = 'max-color-index',
-	deviceAspectRatio = 'device-aspect-ratio',
-	deviceHeight = 'device-height',
-	deviceWidth = 'device-width',
-	displayMode = 'display-mode',
-	forcedColors = 'forced-colors',
-	grid = 'grid',
-	height = 'height',
-	hover = 'hover',
-	invertedColors = 'inverted-colors',
-	monochrome = 'monochrome',
-	orientation = 'orientation',
-	overflowBlock = 'overflow-block',
-	overflowInline = 'overflow-inline',
-	pointer = 'pointer',
-	prefersColorScheme = 'prefers-color-scheme',
-	prefersContrast = 'prefers-contrast',
-	prefersReducedMotion = 'prefers-reduced-motion',
-	prefersReducedTransparency = 'prefers-reduced-transparency',
-	resolution = 'resolution',
-	scan = 'scan',
-	scripting = 'scripting',
-	update = 'update',
-	width = 'width'
-}
-
-enum MediaAnyHover {
-	none,
-	hover
-}
-
-enum MediaAnyPointer {
-	none,
-	coarse,
-	fine
-}
-
-enum MediaColorGamut {
-	srgb,
-	p3,
-	rec2020
-}
-
-enum MediaOperators {
-	not = 'not',
-	and = 'and',
-	only = 'only'
-}
-
 //#endregion
 
-//#region 
+//#region Functions
 
 const testRule: CssRule[] = [];
+const path: { type: CssTypes, value: string, actualValue: string }[] = [];
+const pattern = /-|\.|#|=|\]|\[|\)|\(|:/igm;
+
 let isSelector = false;
 let isMedia = false;
 let isProperty = false;
 let rule: CssRule = {};
-const path: { type: CssTypes, value: string, actualValue: string }[] = [];
 let jsRule: JsRule = {};
 let convertionAttributes: ConvertionProps | undefined;
-const pattern = /-|\.|#|=|\]|\[|\)|\(|:/igm;
 
 const getPath = (value: string) => {
 	switch (rule.type) {
