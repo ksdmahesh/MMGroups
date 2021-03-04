@@ -26,7 +26,9 @@ class App extends React.Component {
       }, async () => {
         const readJson = await readStream({ path: `${this.state.path}read\\sampleCss.css` });
         if (readJson.data) {
-          const writeJson = await writeStream({ path: `${this.state.path}write\\outCss.js`, data: CsstoJs(readJson.data) });
+          const writeJson = await writeStream({ path: `${this.state.path}write\\outCss.ts`, data: CsstoJs(readJson.data, {
+            caseType: 'camel'
+          }) });
           if (writeJson.data?.error) {
             this.setState({ error: writeJson.data?.error });
           } else if (writeJson.data) {

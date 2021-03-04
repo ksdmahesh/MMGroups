@@ -54,12 +54,6 @@ export enum MediaForcedSystemColors {
 	VisitedText = 'VisitedText'
 }
 
-export enum MediaOperators {
-	not = 'not',
-	and = 'and',
-	only = 'only'
-}
-
 export enum CssUnits {
 	cap = 'cap',
 	ch = 'ch',
@@ -105,6 +99,12 @@ export enum MediaTypes {
 	braille = 'braille',
 	embossed = 'embossed',
 	aural = 'aural'
+}
+
+export enum MediaOperators {
+	not = 'not',
+	and = 'and',
+	only = 'only'
 }
 
 export enum MediaFeatures {
@@ -523,7 +523,7 @@ type ConvertionProps = {
 
 const testRule: CssRule[] = [];
 const path: { type: CssTypes, value: string, actualValue: string }[] = [];
-const pattern = /-|\.|#|=|\]|\[|\)|\(|:/igm;
+const pattern = /-|\.|#|=|\]|\[|\)|\(|:|>|<|\s/igm;
 
 let isSelector = false;
 let isMedia = false;
@@ -558,39 +558,34 @@ const getPath = (value: string) => {
 const assignRule = () => {
 	let currentRule: any = jsRule;
 	let prevPath: { type: CssTypes, value: string } | undefined = undefined;
-	if ((path?.[0]?.type === CssTypes.comment && (convertionAttributes?.keepComments || convertionAttributes?.keepComments === undefined)) || path?.[0]?.type !== CssTypes.comment) {
-		path?.forEach((activePath, index) => {
-			try {
-				if (!index) {
-					if (activePath.type === CssTypes.media) {
-
-					} else {
-						if (!currentRule.default) {
-							currentRule.default = {};
-						}
-
-						prevPath = activePath;
-						currentRule = currentRule.default;
-					}
-				} else {
-					if (activePath.type === CssTypes.value) {
-						if (prevPath) {
-							currentRule[prevPath.value] = `${(convertionAttributes?.includeCssKeys || convertionAttributes?.includeCssKeys === undefined) ? `${activePath.actualValue || ''}\r\n` : ''}${activePath.value || ''}`;
-						}
-					} else {
-						if (!currentRule[activePath.value]) {
-							currentRule[activePath.value] = {};
-						}
-
-						prevPath = activePath;
-						currentRule = currentRule[activePath.value];
-					}
+	path?.forEach((activePath, index) => {
+		try {
+			if (!index && activePath.type !== CssTypes.media) {
+				if (!currentRule.default) {
+					currentRule.default = {};
 				}
-			} catch (er) {
 
+				currentRule = currentRule.default;
 			}
-		});
-	}
+
+			if (activePath.type === CssTypes.value) {
+				if (prevPath) {
+					currentRule[prevPath.value] = !isNaN(+activePath.value) ? +activePath.value : `${activePath.value || ''}`;
+				}
+			} else {
+				if (!currentRule[activePath.value]) {
+					currentRule[activePath.value] = {};
+				}
+
+				prevPath = activePath;
+				if (activePath.type !== CssTypes.property) {
+					currentRule = currentRule[activePath.value];
+				}
+			}
+		} catch (er) {
+
+		}
+	});
 
 	testRule.push(rule);
 }
@@ -646,7 +641,9 @@ const convertToJS = (code: string[]) => {
 							rule = {};
 						}
 					} else {
+						path.push({ type: rule.type, value: `${rule.actualValue}`, actualValue: `${rule.actualValue}` });
 						assignRule();
+						path.pop();
 						if (isSelector) {
 							isSelector = false;
 							path.pop();
@@ -704,9 +701,11 @@ const convertToJS = (code: string[]) => {
 			}
 		} else if (char === SpecialChars.SelectorOrMediaClose) {
 			if (isMedia) {
+				assignRule();
 				path.pop();
 				isMedia = false;
 			} else {
+				assignRule();
 				path.pop();
 				isSelector = false;
 				isProperty = false;
