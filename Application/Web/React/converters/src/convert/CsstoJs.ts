@@ -514,16 +514,29 @@ type ConvertionProps = {
 	 * @type true: convert as material theme object
 	 * @type false: convert as plain object
 	 */
-	useMaterialThemeStructure?: boolean
+	useMaterialThemeStructure?: boolean,
+	/**
+	 * @type default: true
+	 * @type true: convert media name without special characters like -, :, (, )
+	 * @type false: leave as it is name in css
+	 */
+	mediaName?: boolean,
+	/**
+	 * @type default: true
+	 * @type true: removes @ symbol in media query and mediaName should not be false
+	 * @type false: leave as it is name in css
+	 */
+	removeMediaChar?: boolean
 };
 
 //#endregion
 
 //#region Functions
 
-const testRule: CssRule[] = [];
+const allRules: CssRule[] = [];
 const path: { type: CssTypes, value: string, actualValue: string }[] = [];
 const pattern = /-|\.|#|=|\]|\[|\)|\(|:|>|<|\s/igm;
+const mediaPattern = /-|\.|#|=|\]|\[|\)|\(|:|>|<|\s|@/igm;
 
 let isSelector = false;
 let isMedia = false;
@@ -545,9 +558,17 @@ const getPath = (value: string) => {
 			}
 			return value.split(',')[0].split(pattern).join('');
 		case CssTypes.media:
-			return value;
+			if (convertionAttributes?.mediaName === undefined || convertionAttributes?.mediaName === true) {
+				return value.split(',')[0].split(((convertionAttributes?.removeMediaChar === undefined || convertionAttributes?.removeMediaChar === true) ? mediaPattern : pattern)).filter(a => a).map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('');
+			} else {
+				return value;
+			}
 		case CssTypes.property:
-			return value.split(',')[0].split(pattern).filter(a => a).map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('');
+			const currentProperty = value.split(',')[0].split(pattern);
+			if (currentProperty[1] === 'webkit' || currentProperty[1] === 'moz') {
+				return currentProperty.map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('');
+			}
+			return currentProperty.filter(a => a).map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('');
 		default:
 			break;
 	}
@@ -587,7 +608,7 @@ const assignRule = () => {
 		}
 	});
 
-	testRule.push(rule);
+	allRules.push(rule);
 }
 
 const convertToJS = (code: string[]) => {
@@ -682,6 +703,9 @@ const convertToJS = (code: string[]) => {
 					rule.actualValue += char;
 					rule.value += char;
 					if (rule.type === CssTypes.comment && rule.subType === CssSubTypes.singleLineComment) {
+						// path.push({ type: rule.type, value: `${rule.actualValue}`, actualValue: `${rule.actualValue}` });
+						// assignRule();
+						// path.pop();
 						rule = {};
 					}
 					continue;
@@ -692,6 +716,9 @@ const convertToJS = (code: string[]) => {
 						const startLength = rule.actualValue?.split('/*').length;
 						const endLength = rule.actualValue?.split('*/').length;
 						if (startLength === endLength) {
+							// path.push({ type: rule.type, value: `${rule.actualValue}`, actualValue: `${rule.actualValue}` });
+							// assignRule();
+							// path.pop();
 							rule = {};
 						}
 					}

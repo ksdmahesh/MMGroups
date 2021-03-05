@@ -41,9 +41,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <>
+      <div>
         {this.state.done ? 'Done' : this.state.error}
-      </>
+      </div>
       // <table>
       //   <tbody>
       //     <tr>
