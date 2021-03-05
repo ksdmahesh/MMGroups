@@ -854,6 +854,9 @@ export const CsstoJs = (css: string, convertionProps?: ConvertionProps) => {
 	convertionAttributes = convertionProps;
 	jsRule = {};
 	convertToJS(css.split(''));
+	if (convertionAttributes?.useMaterialThemeStructure === undefined || convertionAttributes?.useMaterialThemeStructure === true) {
+		return `export const useStyles = (theme: Theme) => (${JSON.stringify(jsRule)})`;
+	}
 	return `export const resultJson: { [x: string]: { [x: string]: React.CSSProperties } } = ${JSON.stringify(jsRule)}`;
 }
 

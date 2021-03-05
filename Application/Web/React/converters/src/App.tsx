@@ -26,9 +26,12 @@ class App extends React.Component {
       }, async () => {
         const readJson = await readStream({ path: `${this.state.path}read\\sampleCss.css` });
         if (readJson.data) {
-          const writeJson = await writeStream({ path: `${this.state.path}write\\outCss.ts`, data: CsstoJs(readJson.data, {
-            caseType: 'camel'
-          }) });
+          const writeJson = await writeStream({
+            path: `${this.state.path}write\\outCss.ts`, data: CsstoJs(readJson.data, {
+              caseType: 'camel',
+              useMaterialThemeStructure: false
+            })
+          });
           if (writeJson.data?.error) {
             this.setState({ error: writeJson.data?.error });
           } else if (writeJson.data) {
@@ -41,9 +44,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         {this.state.done ? 'Done' : this.state.error}
-      </div>
+      </>
       // <table>
       //   <tbody>
       //     <tr>
