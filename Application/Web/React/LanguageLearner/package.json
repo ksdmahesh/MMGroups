@@ -29,7 +29,7 @@
     "@types/styled-components": "^4.4.2",
     "@types/uuid": "^3.4.6",
     "ace-builds": "^1.4.7",
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "clsx": "^1.0.4",
     "codemirror": "^5.50.2",
     "date-fns": "^2.9.0",
