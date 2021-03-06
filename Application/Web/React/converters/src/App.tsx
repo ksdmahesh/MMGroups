@@ -29,7 +29,7 @@ class App extends React.Component {
           const writeJson = await writeStream({
             path: `${this.state.path}write\\outCss.ts`, data: CsstoJs(readJson.data, {
               caseType: 'camel',
-              useMaterialThemeStructure: false
+              // useMaterialThemeStructure: false
             })
           });
           if (writeJson.data?.error) {

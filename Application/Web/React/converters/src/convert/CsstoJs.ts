@@ -493,24 +493,6 @@ type ConvertionProps = {
 	caseType?: 'camel' | 'pascal',
 	/**
 	 * @type default: true
-	 * @type true: includes css property names as on top of object
-	 * @type false: not includes css property names as on top of object
-	 */
-	includeCssKeys?: boolean,
-	/**
-	 * @type default: true
-	 * @type true: includes css comments
-	 * @type false: excludes css comments
-	 */
-	keepComments?: boolean,
-	/**
-	 * @type default: true
-	 * @type true: includes css commented lines as object
-	 * @type false: leave as it is css commented lines
-	 */
-	includeComments?: boolean,
-	/**
-	 * @type default: true
 	 * @type true: convert as material theme object
 	 * @type false: convert as plain object
 	 */
@@ -535,14 +517,15 @@ type ConvertionProps = {
 
 const allRules: CssRule[] = [];
 const path: { type: CssTypes, value: string, actualValue: string }[] = [];
-const pattern = /-|\.|#|=|\]|\[|\)|\(|:|>|<|\s/igm;
-const mediaPattern = /-|\.|#|=|\]|\[|\)|\(|:|>|<|\s|@/igm;
+const pattern = /-|\.|#|=|\]|\[|\)|\(|:|>|<|\s|"|'|\+|~/igm;
+const mediaPattern = /-|\.|#|=|\]|\[|\)|\(|:|>|<|\s|"|'|\+|~|@/igm;
 
 let isSelector = false;
 let isMedia = false;
 let isProperty = false;
 let rule: CssRule = {};
 let jsRule: JsRule = {};
+const mediaQueries: { [x: string]: string } = {};
 let convertionAttributes: ConvertionProps | undefined;
 
 const getPath = (value: string) => {
@@ -565,7 +548,7 @@ const getPath = (value: string) => {
 			}
 		case CssTypes.property:
 			const currentProperty = value.split(',')[0].split(pattern);
-			if (currentProperty[1] === 'webkit' || currentProperty[1] === 'moz') {
+			if (currentProperty[1] === 'webkit' || currentProperty[1] === 'moz' || currentProperty[1] === 'o') {
 				return currentProperty.map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('');
 			}
 			return currentProperty.filter(a => a).map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('');
@@ -581,6 +564,9 @@ const assignRule = () => {
 	let prevPath: { type: CssTypes, value: string } | undefined = undefined;
 	path?.forEach((activePath, index) => {
 		try {
+			if (activePath.type === CssTypes.media) {
+				mediaQueries[activePath.value] = activePath.actualValue;
+			}
 			if (!index && activePath.type !== CssTypes.media) {
 				if (!currentRule.default) {
 					currentRule.default = {};
@@ -703,9 +689,6 @@ const convertToJS = (code: string[]) => {
 					rule.actualValue += char;
 					rule.value += char;
 					if (rule.type === CssTypes.comment && rule.subType === CssSubTypes.singleLineComment) {
-						// path.push({ type: rule.type, value: `${rule.actualValue}`, actualValue: `${rule.actualValue}` });
-						// assignRule();
-						// path.pop();
 						rule = {};
 					}
 					continue;
@@ -716,9 +699,6 @@ const convertToJS = (code: string[]) => {
 						const startLength = rule.actualValue?.split('/*').length;
 						const endLength = rule.actualValue?.split('*/').length;
 						if (startLength === endLength) {
-							// path.push({ type: rule.type, value: `${rule.actualValue}`, actualValue: `${rule.actualValue}` });
-							// assignRule();
-							// path.pop();
 							rule = {};
 						}
 					}
@@ -843,6 +823,28 @@ const convertToJS = (code: string[]) => {
 		}
 	}
 
+	if (convertionAttributes?.useMaterialThemeStructure === undefined || convertionAttributes?.useMaterialThemeStructure === true) {
+		if (!jsRule.default) {
+			jsRule.default = {};
+		}
+		const ruleDefault: any = jsRule.default;
+		for (const mediaKey in jsRule) {
+			if (mediaKey !== 'default' && Object.prototype.hasOwnProperty.call(jsRule, mediaKey)) {
+				const mediaQuery = jsRule[mediaKey];
+				for (const selectorKey in mediaQuery) {
+					if (Object.prototype.hasOwnProperty.call(mediaQuery, selectorKey)) {
+						const selector = mediaQuery[selectorKey];
+						if (!ruleDefault[selectorKey]) {
+							ruleDefault[selectorKey] = {};
+						}
+
+						ruleDefault[selectorKey][mediaQueries[mediaKey]] = selector;
+					}
+				}
+			}
+		}
+	}
+
 	console.log(jsRule)
 }
 
@@ -855,9 +857,11 @@ export const CsstoJs = (css: string, convertionProps?: ConvertionProps) => {
 	jsRule = {};
 	convertToJS(css.split(''));
 	if (convertionAttributes?.useMaterialThemeStructure === undefined || convertionAttributes?.useMaterialThemeStructure === true) {
-		return `export const useStyles = (theme: Theme) => (${JSON.stringify(jsRule)})`;
+		return (
+			`import { Theme } from "@material-ui/core";\r\nimport { Styles } from "@material-ui/styles";\r\n\r\nexport const useStyles: Styles<Theme, {}, string> = (theme: Theme) => (${JSON.stringify(jsRule?.default || {})});\r\n`
+		);
 	}
-	return `export const resultJson: { [x: string]: { [x: string]: React.CSSProperties } } = ${JSON.stringify(jsRule)}`;
+	return `export const resultJson: { [x: string]: { [x: string]: React.CSSProperties } } = ${JSON.stringify(jsRule)};\r\n`;
 }
 
 //#endregion
