@@ -37,6 +37,70 @@ enum CssSubTypes {
 	multiLineComment = 'multiLineComment' // /** */
 }
 
+export enum UniversalSelector {
+	all = '*',
+	/**
+	 * matches all elements in namespace ns
+	 */
+	allWithNamespace = 'ns|*',
+	/**
+	 * matches all elements
+	 */
+	allMatches = '*|*',
+	/**
+	 * matches all elements without any declared namespace
+	 */
+	allWithoutNamespace = '|*'
+}
+
+export enum AttributeSelector {
+	/**
+	 * Represents elements with an attribute name of attr.
+	 * @example [attr]
+	 */
+	hasAttribute = '',
+	/**
+	 * Represents elements with an attribute name of attr whose value is exactly value.
+	 * @example [attr=value]
+	 */
+	isEquals = '=',
+	/**
+	 * Represents elements with an attribute name of attr whose value is a whitespace-separated list of words, one of which is exactly value.
+	 * @example [attr~=value]
+	 */
+	containsWithInWhiteSpaceSeparatedList = '~',
+	/**
+	 * Represents elements with an attribute name of attr whose value is prefixed (preceded) by value.
+	 * @example [attr^=value]
+	 */
+	startsWith = '^',
+	/**
+	 * Represents elements with an attribute name of attr whose value is suffixed (followed) by value.
+	 * @example [attr$=value]
+	 */
+	endsWith = '$',
+	/**
+	 * Represents elements with an attribute name of attr whose value can be exactly value or can begin with value immediately followed by a hyphen, - (U+002D). It is often used for language subcode matches.
+	 * @example [attr|=value]
+	 */
+	StartsWithOrContainsWithHyphen = '|',
+	/**
+	 * Represents elements with an attribute name of attr whose value contains at least one occurrence of value within the string.
+	 * @example [attr*=value]
+	 */
+	contains = '*',
+	/**
+	 * Adding an s (or S) before the closing bracket causes the value to be compared case-sensitively (for characters within the ASCII range).
+	 * @example [attr=value s]
+	 */
+	caseSensitive = 's',
+	/**
+	 * Adding an i (or I) before the closing bracket causes the value to be compared case-insensitively (for characters within the ASCII range).
+	 * @example [attr=value i]
+	 */
+	caseInsensitive = 'i',
+}
+
 export enum MediaForcedSystemColors {
 	ActiveText = 'ActiveText',
 	ButtonFace = 'ButtonFace',
@@ -516,7 +580,7 @@ type ConvertionProps = {
 //#region Functions
 
 const allRules: CssRule[] = [];
-const path: { type: CssTypes, value: string, actualValue: string }[] = [];
+const path: { type: CssTypes, value: string[], actualValue: string[] }[] = [];
 const pattern = /-|\.|#|=|\]|\[|\)|\(|:|>|<|\s|"|'|\+|~/igm;
 const mediaPattern = /-|\.|#|=|\]|\[|\)|\(|:|>|<|\s|"|'|\+|~|@/igm;
 
@@ -524,75 +588,104 @@ let isSelector = false;
 let isMedia = false;
 let isProperty = false;
 let rule: CssRule = {};
-let jsRule: JsRule = {};
+let jsRule: { rule: JsRule, raw: { [x: string]: string } } = {
+	rule: {},
+	raw: {}
+};
+let materialRule: any = {};
 const mediaQueries: { [x: string]: string } = {};
 let convertionAttributes: ConvertionProps | undefined;
+
+const getMaterialSelector = (value: string) => {
+	return value;
+}
 
 const getPath = (value: string) => {
 	switch (rule.type) {
 		case CssTypes.selector:
 			switch (convertionAttributes?.caseType) {
 				case 'pascal':
-					return value.split(',')[0].split(pattern).map(result => result.replace(/^\w/, c => c.toUpperCase())).join('');
+					return value.split(',').map(currentValue => currentValue.split(pattern).map(result => result.replace(/^\w/, c => c.toUpperCase())).join(''));
 				case 'camel':
-					return value.split(',')[0].split(pattern).filter(a => a).map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('');
+					return value.split(',').map(currentValue => currentValue.split(pattern).filter(a => a).map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join(''));
 				default:
 					break;
 			}
-			return value.split(',')[0].split(pattern).join('');
+			return value.split(',').map(currentValue => currentValue.split(pattern).join(''));
 		case CssTypes.media:
+			const currentPattern = ((convertionAttributes?.removeMediaChar === undefined || convertionAttributes?.removeMediaChar === true) ? mediaPattern : pattern);
 			if (convertionAttributes?.mediaName === undefined || convertionAttributes?.mediaName === true) {
-				return value.split(',')[0].split(((convertionAttributes?.removeMediaChar === undefined || convertionAttributes?.removeMediaChar === true) ? mediaPattern : pattern)).filter(a => a).map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('');
+				return [value.split(currentPattern).filter(a => a).map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('')];
 			} else {
-				return value;
+				return [value];
 			}
 		case CssTypes.property:
-			const currentProperty = value.split(',')[0].split(pattern);
-			if (currentProperty[1] === 'webkit' || currentProperty[1] === 'moz' || currentProperty[1] === 'o') {
-				return currentProperty.map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('');
-			}
-			return currentProperty.filter(a => a).map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('');
+			return value.split(',').map(currentValue => {
+				const currentProperty = currentValue.split(pattern);
+				if (currentProperty[1] === 'webkit' || currentProperty[1] === 'moz' || currentProperty[1] === 'o') {
+					return currentProperty.map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('');
+				}
+				return currentProperty.filter(a => a).map((result, index) => result.replace(/^\w/, c => index ? c.toUpperCase() : c)).join('');
+			});
 		default:
 			break;
 	}
 
-	return value;
+	return [value];
 }
 
 const assignRule = () => {
-	let currentRule: any = jsRule;
 	let prevPath: { type: CssTypes, value: string } | undefined = undefined;
-	path?.forEach((activePath, index) => {
-		try {
-			if (activePath.type === CssTypes.media) {
-				mediaQueries[activePath.value] = activePath.actualValue;
-			}
-			if (!index && activePath.type !== CssTypes.media) {
-				if (!currentRule.default) {
-					currentRule.default = {};
-				}
-
-				currentRule = currentRule.default;
-			}
-
-			if (activePath.type === CssTypes.value) {
-				if (prevPath) {
-					currentRule[prevPath.value] = !isNaN(+activePath.value) ? +activePath.value : `${activePath.value || ''}`;
-				}
-			} else {
-				if (!currentRule[activePath.value]) {
-					currentRule[activePath.value] = {};
-				}
-
-				prevPath = activePath;
-				if (activePath.type !== CssTypes.property) {
-					currentRule = currentRule[activePath.value];
-				}
-			}
-		} catch (er) {
-
+	path?.[0]?.value?.forEach((values, valueIndex) => {
+		let currentJsRule: any = jsRule.rule;
+		const selectorType = path?.[0]?.type;
+		const selectorValue = values;
+		const selectorActualValue = path?.[0]?.actualValue;
+		if (selectorType === CssTypes.media) {
+			mediaQueries[selectorValue] = selectorActualValue[0];
 		}
-	});
+
+		if (selectorType !== CssTypes.media) {
+			if (!currentJsRule.default) {
+				currentJsRule.default = {};
+			}
+
+			currentJsRule = currentJsRule.default;
+		}
+
+		if (!currentJsRule[selectorValue]) {
+			currentJsRule[selectorValue] = {};
+		}
+
+		jsRule.raw[selectorValue] = selectorActualValue[valueIndex];
+		prevPath = { type: selectorType, value: selectorValue };
+		if (selectorType !== CssTypes.property) {
+			currentJsRule = currentJsRule[selectorValue];
+		}
+		path?.slice(1)?.forEach((activePath, index) => {
+			try {
+				const value = activePath.value.join(',');
+				const type = activePath.type;
+
+				if (type === CssTypes.value) {
+					if (prevPath) {
+						currentJsRule[prevPath.value] = !isNaN(+value) ? +value : `${value || ''}`;
+					}
+				} else {
+					if (!currentJsRule[value]) {
+						currentJsRule[value] = {};
+					}
+
+					prevPath = { type, value };
+					if (activePath.type !== CssTypes.property) {
+						currentJsRule = currentJsRule[value];
+					}
+				}
+			} catch (er) {
+
+			}
+		});
+	})
 
 	allRules.push(rule);
 }
@@ -606,7 +699,7 @@ const convertToJS = (code: string[]) => {
 						rule.actualValue += char;
 						rule.value += char;
 					} else {
-						path.push({ type: rule.type, value: `${rule.actualValue}`, actualValue: `${rule.actualValue}` });
+						path.push({ type: rule.type, value: [`${rule.actualValue}`], actualValue: [`${rule.actualValue}`] });
 						assignRule();
 						path.pop();
 						path.pop();
@@ -619,7 +712,7 @@ const convertToJS = (code: string[]) => {
 						rule.actualValue += char;
 						rule.value += char;
 					} else {
-						path.push({ type: rule.type, value: getPath(`${rule.actualValue}`), actualValue: `${rule.actualValue}` });
+						path.push({ type: rule.type, value: getPath(`${rule.actualValue}`), actualValue: rule.actualValue?.split(',') || [] });
 						assignRule();
 						isProperty = rule.type === CssTypes.property;
 						rule = {};
@@ -648,7 +741,7 @@ const convertToJS = (code: string[]) => {
 							rule = {};
 						}
 					} else {
-						path.push({ type: rule.type, value: `${rule.actualValue}`, actualValue: `${rule.actualValue}` });
+						path.push({ type: rule.type, value: [`${rule.actualValue}`], actualValue: rule.actualValue?.split(',') || [] });
 						assignRule();
 						path.pop();
 						if (isSelector) {
@@ -675,7 +768,7 @@ const convertToJS = (code: string[]) => {
 							rule.actualValue += char;
 							rule.value += char;
 						} else {
-							path.push({ type: rule.type, value: getPath(`${rule.actualValue}`), actualValue: `${rule.actualValue}` });
+							path.push({ type: rule.type, value: getPath(`${rule.actualValue}`), actualValue: rule.actualValue?.split(',') || [] });
 							assignRule();
 							isSelector = rule.type === CssTypes.selector;
 							isMedia = rule.type === CssTypes.media;
@@ -824,28 +917,41 @@ const convertToJS = (code: string[]) => {
 	}
 
 	if (convertionAttributes?.useMaterialThemeStructure === undefined || convertionAttributes?.useMaterialThemeStructure === true) {
-		if (!jsRule.default) {
-			jsRule.default = {};
-		}
-		const ruleDefault: any = jsRule.default;
-		for (const mediaKey in jsRule) {
-			if (mediaKey !== 'default' && Object.prototype.hasOwnProperty.call(jsRule, mediaKey)) {
-				const mediaQuery = jsRule[mediaKey];
+		materialRule = {};
+		for (const mediaKey in jsRule.rule) {
+			if (Object.prototype.hasOwnProperty.call(jsRule.rule, mediaKey)) {
+				const mediaQuery = jsRule.rule[mediaKey];
 				for (const selectorKey in mediaQuery) {
 					if (Object.prototype.hasOwnProperty.call(mediaQuery, selectorKey)) {
 						const selector = mediaQuery[selectorKey];
-						if (!ruleDefault[selectorKey]) {
-							ruleDefault[selectorKey] = {};
+						const actualSelectorKey = jsRule.raw?.[selectorKey];
+						if (!materialRule[selectorKey]) {
+							materialRule[selectorKey] = {};
 						}
+						if (actualSelectorKey && actualSelectorKey.search(/=|\]|\[|\)|\(|:|>|<|\s|"|'|\+|~|\|/igm) > -1) {
+							if (!materialRule[selectorKey][actualSelectorKey]) {
+								materialRule[selectorKey][actualSelectorKey] = {};
+							}
 
-						ruleDefault[selectorKey][mediaQueries[mediaKey]] = selector;
+							if (mediaKey !== 'default') {
+								materialRule[selectorKey][getMaterialSelector(actualSelectorKey)][mediaQueries[mediaKey]] = selector;
+							} else {
+								materialRule[selectorKey][getMaterialSelector(actualSelectorKey)] = selector;
+							}
+						} else {
+							if (mediaKey !== 'default') {
+								materialRule[selectorKey][mediaQueries[mediaKey]] = selector;
+							} else {
+								materialRule[selectorKey] = selector;
+							}
+						}
 					}
 				}
 			}
 		}
 	}
 
-	console.log(jsRule)
+	console.log(jsRule.raw)
 }
 
 //#endregion
@@ -854,14 +960,15 @@ const convertToJS = (code: string[]) => {
 
 export const CsstoJs = (css: string, convertionProps?: ConvertionProps) => {
 	convertionAttributes = convertionProps;
-	jsRule = {};
+	jsRule.rule = {};
+	jsRule.raw = {};
 	convertToJS(css.split(''));
 	if (convertionAttributes?.useMaterialThemeStructure === undefined || convertionAttributes?.useMaterialThemeStructure === true) {
 		return (
-			`import { Theme } from "@material-ui/core";\r\nimport { Styles } from "@material-ui/styles";\r\n\r\nexport const useStyles: Styles<Theme, {}, string> = (theme: Theme) => (${JSON.stringify(jsRule?.default || {})});\r\n`
+			`import { Theme } from "@material-ui/core";\r\nimport { Styles } from "@material-ui/styles";\r\n\r\nexport const useStyles: Styles<Theme, {}, string> = (theme: Theme) => (${JSON.stringify(materialRule)});\r\n`
 		);
 	}
-	return `export const resultJson: { [x: string]: { [x: string]: React.CSSProperties } } = ${JSON.stringify(jsRule)};\r\n`;
+	return `export const resultJson: { [x: string]: { [x: string]: React.CSSProperties } } = ${JSON.stringify(jsRule.rule)};\r\n`;
 }
 
 //#endregion
