@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { CsstoJs } from './convert/CsstoJs';
-import { Complex, TwoEquation } from './convert/Math';
+import Maths, { Complex } from './convert/Math';
 // import { JsonFlatten, JsonDeflatten } from './convert/JsonFlatten';
 import { getDefaultPath, readStream, writeStream } from './server/service-call';
 
@@ -16,7 +16,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log(TwoEquation(new Complex(1, 2), new Complex(3, 4), new Complex(5, 6), new Complex(7, 8), new Complex(9, 10), new Complex(11, 12)))
+    // 4, 1
+    console.log(Maths.TwoEquation(new Complex(1, 0), new Complex(1, 0), new Complex(5, 0), new Complex(1, 0), new Complex(-1, 0), new Complex(3, 0)));
+    // 2, -1, 1
+    console.log(Maths.Threeequation([new Complex(1, 0), new Complex(-2, 0), new Complex(3, 0), new Complex(7, 0)], [new Complex(2, 0), new Complex(1, 0), new Complex(1, 0), new Complex(4, 0)], [new Complex(-3, 0), new Complex(2, 0), new Complex(-2, 0), new Complex(-10, 0)]));
+    // 0.0393715559769615-i0.0448190190487528
+    console.log(Maths.Power(new Complex(1, 2), new Complex(2, 4)))
     // this.init();
   }
 
