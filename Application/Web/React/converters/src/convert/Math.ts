@@ -10,15 +10,27 @@ export class Complex {
         this.imaginaryNumber = imaginary;
     }
 
-    subtract = (value: Complex) => new Complex(value.realNumber - this.realNumber, value.imaginaryNumber - this.imaginaryNumber);
+    subtract = (value: Complex) => new Complex(this.realNumber - value.realNumber, this.imaginaryNumber - value.imaginaryNumber);
 
-    add = (value: Complex) => new Complex(value.realNumber + this.realNumber, value.imaginaryNumber + this.imaginaryNumber);
+    add = (value: Complex) => new Complex(this.realNumber + value.realNumber, this.imaginaryNumber + value.imaginaryNumber);
 
-    multiply = (value: Complex) => new Complex(value.realNumber * this.realNumber, value.imaginaryNumber * this.imaginaryNumber);
+    multiply = (value: Complex) => new Complex(this.realNumber * value.realNumber, this.imaginaryNumber * value.imaginaryNumber);
 
-    divide = (value: Complex) => new Complex(value.realNumber / this.realNumber, value.imaginaryNumber / this.imaginaryNumber);
+    divide = (value: Complex) => new Complex(this.realNumber / value.realNumber, this.imaginaryNumber / value.imaginaryNumber);
 
-    static pow = (value: Complex, power: Complex) => new Complex(Math.exp(power.realNumber * Math.log(Math.sqrt(value.realNumber ^ 2 + value.imaginaryNumber ^ 2)) - power.imaginaryNumber * Math.atan2(value.imaginaryNumber, value.realNumber)) * Math.cos(power.imaginaryNumber * Math.log(Math.sqrt(value.realNumber ^ 2 + value.imaginaryNumber ^ 2)) + power.realNumber * Math.atan2(value.imaginaryNumber, value.realNumber)), Math.exp(power.realNumber * Math.log(Math.sqrt(value.realNumber ^ 2 + value.imaginaryNumber ^ 2)) - power.imaginaryNumber * Math.atan2(value.imaginaryNumber, value.realNumber)) * Math.sin(power.imaginaryNumber * Math.log(Math.sqrt(value.realNumber ^ 2 + value.imaginaryNumber ^ 2)) + power.realNumber * Math.atan2(value.imaginaryNumber, value.realNumber)));
+    static pow = (value: Complex, power: Complex) => {
+        const log = Math.log(Math.sqrt(Math.pow(value.realNumber, 2) + Math.pow(value.imaginaryNumber, 2)));
+        const atan2 = Math.atan2(value.imaginaryNumber, value.realNumber);
+
+        const exp = Math.exp((power.realNumber * log) - (power.imaginaryNumber * atan2));
+        const angle = (power.imaginaryNumber * log) + (power.realNumber * atan2);
+
+        return new Complex(exp * Math.cos(angle), exp * Math.sin(angle));
+    }
+
+    private static logWithBase = (value: number, base: number) => (Math.log(value) / Math.log(base));
+
+    static log = (value: Complex, base: number) => new Complex(Complex.logWithBase(Math.sqrt(Math.pow(value.realNumber, 2) + Math.pow(value.imaginaryNumber, 2)), base), Complex.logWithBase(Math.E, base) * Math.atan2(value.imaginaryNumber, value.realNumber));
 }
 
 export default class Maths {
@@ -44,9 +56,9 @@ export default class Maths {
         return [x, y, z];
     }
 
-    static Power(a: Complex, b: Complex) {
-        return Complex.pow(a, b);
-    }
+    static Power = (a: Complex, b: Complex) => Complex.pow(a, b);
+
+    static Log = (a: Complex, b: number) => Complex.log(a, b);
 
 }
 

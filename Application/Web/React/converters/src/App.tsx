@@ -22,6 +22,8 @@ class App extends React.Component {
     console.log(Maths.Threeequation([new Complex(1, 0), new Complex(-2, 0), new Complex(3, 0), new Complex(7, 0)], [new Complex(2, 0), new Complex(1, 0), new Complex(1, 0), new Complex(4, 0)], [new Complex(-3, 0), new Complex(2, 0), new Complex(-2, 0), new Complex(-10, 0)]));
     // 0.0393715559769615-i0.0448190190487528
     console.log(Maths.Power(new Complex(1, 2), new Complex(2, 4)))
+    // 0.650514997831991+i0.480828578784234
+    console.log(Maths.Log(new Complex(2, 4), 10))
     // this.init();
   }
 
