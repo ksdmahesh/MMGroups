@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { CsstoJs } from './convert/CsstoJs';
-import Maths, { Complex } from './convert/Math';
+import Maths, { Complex, Mode } from './convert/Math';
 // import { JsonFlatten, JsonDeflatten } from './convert/JsonFlatten';
 import { getDefaultPath, readStream, writeStream } from './server/service-call';
 
@@ -21,9 +21,15 @@ class App extends React.Component {
     // 2, -1, 1
     console.log(Maths.Threeequation([new Complex(1, 0), new Complex(-2, 0), new Complex(3, 0), new Complex(7, 0)], [new Complex(2, 0), new Complex(1, 0), new Complex(1, 0), new Complex(4, 0)], [new Complex(-3, 0), new Complex(2, 0), new Complex(-2, 0), new Complex(-10, 0)]));
     // 0.0393715559769615-i0.0448190190487528
-    console.log(Maths.Power(new Complex(1, 2), new Complex(2, 4)))
+    console.log(Maths.Power(new Complex(1, 2), new Complex(2, 4)));
     // 0.650514997831991+i0.480828578784234
-    console.log(Maths.Log(new Complex(2, 4), 10))
+    console.log(Maths.Log(new Complex(2, 4), Math.E));
+    // -4.82980938326939i-5.59205609364098
+    console.log(Maths.Exp(new Complex(2, 4)));
+    // -97.7096228673234+i21.279793211529
+    console.log(Maths.InverseLog(new Complex(2, 4)));
+    // 0.034984579207998+i0.0698273312036254
+    console.log(Maths.Sin(new Complex(2, 4), Mode.Degree));
     // this.init();
   }
 
