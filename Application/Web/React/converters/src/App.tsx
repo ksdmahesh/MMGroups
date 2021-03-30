@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { CsstoJs } from './convert/CsstoJs';
-import Maths, { Complex, Mode } from './convert/Math';
+import Maths, { Angle, Area, Base, Complex, Energy, Length, Mode, Powers, Pressure, Temperature, Time, Velocity, Volume, Weight } from './convert/Math';
 // import { JsonFlatten, JsonDeflatten } from './convert/JsonFlatten';
 import { getDefaultPath, readStream, writeStream } from './server/service-call';
 
@@ -30,6 +30,8 @@ class App extends React.Component {
     console.log(new Complex(1, 2).multiply(new Complex(2, 4)));
     // 0.8-i0.2
     console.log(new Complex(1, 4).divide(new Complex(0, 5)));
+    // 0.8-i0.2
+    console.log(Maths.getConstantValue('Speed of light c'));
 
     //#endregion
 
@@ -162,6 +164,8 @@ class App extends React.Component {
     console.log(Maths.MixVsFraction(3, 2));
     // true
     console.log(Maths.Prime(3));
+    // 60
+    console.log(Maths.Angle(3));
     // [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
     console.log(Maths.ListOfPrime(100));
     // 3.605551275463989
@@ -174,6 +178,19 @@ class App extends React.Component {
     console.log(Maths.Lcm([1, 2, 3, 4, 5]));
     // 5
     console.log(Maths.Hcf([125, 25, 5]));
+
+    // 25
+    console.log(Maths.APSum(1, 2, 10));
+    // 5
+    console.log(Maths.APDiff(1, 2, 10));
+    // 15
+    console.log(Maths.GPSum(1, 2, 10));
+    // -5
+    console.log(Maths.GPDiff(1, 2, 10));
+    // 1.7873015873015872
+    console.log(Maths.HPSum(1, 2, 10));
+    // 0.8349206349206351
+    console.log(Maths.HPDiff(1, 2, 10));
 
     //#endregion
 
@@ -221,6 +238,31 @@ class App extends React.Component {
     // 4.47213595499958∠1.10714871779409
     console.log(Maths.RectangularToPolar(2, 4, Mode.Radians));
 
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.AngleToAngle(Angle.Degree, Angle.Radian, 45));
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.AreaToArea(Area.Acres, Area.Hectares, 45));
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.BaseToBase(Base.Decimal, Base.Binary, '45'));
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.EnergyToEnergy(Energy.Calorie, Energy.Joule, 45));
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.LengthToLength(Length.Angstorm, Length.Meter, 45));
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.PowerToPower(Powers.Horsepower, Powers.Kilowatt, 45));
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.PressureToPressure(Pressure.Atmosphere, Pressure.Pascal, 45));
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.TemperatureToTemperature(Temperature.DegreeCelsius, Temperature.DegreeFahrenheit, 45));
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.TimeToTime(Time.Day, Time.Minute, 45));
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.VelocityToVelocity(Velocity.FeetPerSecond, Velocity.Knots, 45));
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.VolumeToVolume(Volume.CubicCentimeter, Volume.CubicMeter, 45));
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.WeightToWeight(Weight.Carat, Weight.Gram, 45));
+
     //#endregion
 
     //#region Matrix
@@ -235,6 +277,19 @@ class App extends React.Component {
     //#endregion
 
     //#region Statistics
+
+    // 4.667
+    console.log(Maths.Mean([1, 2, 3, 3, 9, 10]));
+    // 12.222
+    console.log(Maths.Variance([1, 2, 3, 3, 9, 10]));
+    // 3.496
+    console.log(Maths.StandardDeviation(Maths.Variance([1, 2, 3, 3, 9, 10])));
+    // 34
+    console.log(Maths.MeanSquare([1, 2, 3, 3, 9, 10]));
+    // 204
+    console.log(Maths.SquareSum([1, 2, 3, 3, 9, 10]));
+    // 28
+    console.log(Maths.Sum([1, 2, 3, 3, 9, 10]));
 
     //#endregion
 

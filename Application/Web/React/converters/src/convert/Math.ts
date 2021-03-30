@@ -62,6 +62,65 @@ export enum Weight {
 
 //#endregion
 
+//#region constants
+
+const _constants = {
+    'Speed of light c': `${2.997924580 * Math.pow(10, +8)} m.s-1 or m/s`,
+    'Permeability of vacuum μ0': `${12.566370614 * Math.pow(10, -7)} kg.m.s-2.A-2 or H/m or N/A2`,
+    'Permittivity of vacuum ε0': `${8.854187817 * Math.pow(10, -12)} kg-1.m-3.s4.A2 or F/m`,
+    'Gravitation constant G': `${6.6738480 * Math.pow(10, -11)} kg-1.m3.s-2`,
+    'Planck constant h': `${6.6260695729 * Math.pow(10, -34)} kg.m2.s-1 or J.s`,
+    'Angular Planck constant': `${1.05457172647 * Math.pow(10, -34)} kg.m2.s-1 or J.s`,
+    'Charge/Quantum ratio': `${2.41798934853 * Math.pow(10, +14)} kg-1.m-2.s2.A or A/J`,
+    'Elementary charge e': `${1.60217656535 * Math.pow(10, -19)} s.A or C`,
+    'Quantum/Charge ratio': `${4.1356675210 * Math.pow(10, -15)} kg.m2.s-2.A-1 or J/A`,
+    'Fine structure constant α': `${7.297352569824 * Math.pow(10, -3)} Dimensionless`,
+    'Inverse of fine structure constant': `${137.03599907445} Dimensionless`,
+    'Boltzmann constant k': `${1.380648813 * Math.pow(10, -23)} kg.m2.s-2.K-1 or J/K`,
+    'Planck mass mp': `${2.1765113 * Math.pow(10, -8)} kg`,
+    'Planck time tp': `${5.3910632 * Math.pow(10, -44)} s`,
+    'Planck length lp': `${1.61619997 * Math.pow(10, -35)} m`,
+    'Planck temperature': `${1.41683385 * Math.pow(10, +32)} K`,
+    'Impedance of vacuum Z0': `${376.730313461} kg.m2.s-3.A-2 or Ω`,
+    'Magnetic flux quantum Φ0': `${2.06783375846 * Math.pow(10, -15)} kg.m2.s-2.A-1 or Wb`,
+    'Josephson constant KJ': `${4.8359787011 * Math.pow(10, 14)} kg-1.m-2.s2.A or Hz/V`,
+    'von Klitzing constant RK': `${2.5812807443484 * Math.pow(10, +4)} kg.m2.s-3.A-2 or Ω`,
+    'Conductance quantum G0': `${7.748091734625 * Math.pow(10, -5)} kg-1.m-2.s3.A2 or S`,
+    'Inverse of conductance quantum': `${1.2906403721742 * Math.pow(10, +4)} kg.m2.s-3.A-2 or Ω`,
+    'Stefan-Boltzmann const. σ': `${5.67037321 * Math.pow(10, -8)} kg.s-3.K-4 or W/m2.K4`,
+    'Rydberg constant R∞': `${1.097373156853955 * Math.pow(10, +7)} m-1 or m-1 `,
+    'Hartree energy EH': `${4.3597443419 * Math.pow(10, -18)} kg.m2.s-2 or J`,
+    'Bohr radius': `${5.291772109217 * Math.pow(10, -11)} m or m`,
+    'Bohr magneton μB': `${9.2740096820 * Math.pow(10, -24)} m2.A or J/T`,
+    'Bohr magneton in Hz/T': `${1.39962455531 * Math.pow(10, +10)} kg-1.s.A or Hz/T`,
+    'Quantum of circulation': `${3.636947552024 * Math.pow(10, -4)} m2.s-1 or m2/s`,
+    'Richardson constant': `${1.20173 * Math.pow(10, +6)} A.m-2.K-2 `,
+    'Classical electron radius re': `${2.817940326727 * Math.pow(10, -15)} m`,
+    'Thomson cross section σe': `${0.665245873413 * Math.pow(10, -28)} m2`,
+    'Boltzmann constant in eV/K': `${8.617332478 * Math.pow(10, -5)} kg.m2.s-3.A-1.K-1 or V/K`,
+    'Avogadro\'s number NA': `${6.0221412927 * Math.pow(10, +23)} mol-1 or count/mol`,
+    'Molar Planck constant': `${3.990312717628 * Math.pow(10, -10)} kg.m2.s-1.mol-1 or J.s/mol`,
+    'Molar Planck constant by c': `${0.11962656577984} kg.m3.s-2.mol-1 or J.m/mol`,
+    'Electron molar mass': `${5.485799094622 * Math.pow(10, -7)} kg.mol-1 or kg/mol`,
+    'Electron molar charge': `${-9.6485336521 * Math.pow(10, +4)} s.A.mol-1 or C/mol`,
+    'Faraday constant F': `${+9.6485336521 * Math.pow(10, +4)} s.A.mol-1 or C/mol`,
+    'Molar gas constant R': `${8.314462175} kg.m2.s-2.K-1.mol-1 or J/K.mol`,
+    'Molar volume of ideal gas Vm': `${22.41396820 * Math.pow(10, -3)} m3.mol-1 or m3/mol`,
+    'Electron volt': `${1.60217656535 * Math.pow(10, -19)} kg.m2.s-2 or J`,
+    'Electron volt to mass': `${1.78266184539 * Math.pow(10, -36)} kg`,
+    'Electron volt to atomic units u': `${1.07354415024 * Math.pow(10, -9)} u`,
+    'Electron volt to frequency': `${2.41798934853 * Math.pow(10, +14)} s-1 or Hz`,
+    'Joul to eV': `${6.2415093414 * Math.pow(10, +18)} eV`,
+    'Mass to eV': `${5.6095888512 * Math.pow(10, +35)} eV`,
+    'Atomic unit u to eV': `${931.49406121 * Math.pow(10, +6)} eV`,
+    'Frequency (1 Hz) to eV': `${4.13566751691 * Math.pow(10, -15)} eV`,
+    'Light-year ly': `${9.4607304725808 * Math.pow(10, +15)} m or ~9.5 Pm`
+};
+
+type _constType = keyof (typeof _constants);
+
+//#endregion
+
 //#region classes
 
 export class Complex {
@@ -220,16 +279,16 @@ export default class Maths {
         switch (b) {
             case Base.Binary:
                 {
-                    const reg = new RegExp("[0-9]", 'i');
+                    const reg = new RegExp("[0-9]", 'ig');
                     const count = Array.from(input.matchAll(reg));
                     if (count.length !== input.length) {
                         throw new Error("please input integer");
                     }
-                    return Maths.BinaryToDecimal(+(input));
+                    return Maths.BinaryToDecimal(parseInt(input));
                 }
             case Base.Decimal:
                 {
-                    const reg = new RegExp("[0-9]", 'i');
+                    const reg = new RegExp("[0-9]", 'ig');
                     const count = Array.from(input.matchAll(reg));
                     if (count.length !== input.length) {
                         throw new Error("please input integer");
@@ -238,21 +297,21 @@ export default class Maths {
                 }
             case Base.HexaDecimal:
                 {
-                    const reg = new RegExp("[A-F0-9]", 'i');
+                    const reg = new RegExp("[A-F0-9]", 'ig');
                     const count = Array.from(input.matchAll(reg));
                     if (count.length !== input.length) {
                         throw new Error("please input integer");
                     }
-                    return Maths.HexaToDecimal((input));
+                    return Maths.HexaToDecimal(`${input}`);
                 }
             case Base.Octal:
                 {
-                    const reg = new RegExp("[0-9]", 'i');
+                    const reg = new RegExp("[0-9]", 'ig');
                     const count = Array.from(input.matchAll(reg));
                     if (count.length !== input.length) {
                         throw new Error("please input integer");
                     }
-                    return Maths.OctalToDecimal(+(input));
+                    return Maths.OctalToDecimal(parseInt(input));
                 }
         }
         return "0";
@@ -947,9 +1006,9 @@ export default class Maths {
             a = a / 10;
             b = b / 10;
             try {
-                for (let i = Math.min(a, b); i > 0; i--) {
-                    if (Math.min(a, b) % i === 0) {
-                        if (Math.max(a, b) % i === 0) {
+                for (let i = parseInt(`${Math.min(a, b)}`); i > 0; i--) {
+                    if (parseInt(`${Math.min(a, b)}`) % i === 0) {
+                        if (parseInt(`${Math.max(a, b)}`) % i === 0) {
                             //mixed
                             if ((a / i) > (b / i)) {
                                 return (Math.floor((a / i) / (b / i))).toString() + "(" + ((a / i) % (b / i)).toString() + "/" + (b / i).toString() + ")";
@@ -1570,6 +1629,8 @@ export default class Maths {
 
     static Sum = (list: number[]) => [...list].reduce((a, b) => a + b).toString();
 
+    static Angle = (a: number) => ((a - 2) * 180 / a).toString();
+
     static AngleToAngle = (a: Angle, b: Angle, input: number) => {
         Maths.validate(input);
         switch (a) {
@@ -2186,6 +2247,8 @@ export default class Maths {
         }
         return result;
     }
+
+    static getConstantValue = (key: _constType) => `${Object.keys(_constants).includes(key) ? _constants[key] : ''}`
 
     //#endregion
 
