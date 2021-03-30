@@ -20,6 +20,7 @@ class App extends React.Component {
   }
 
   checkMath = () => {
+    
     //#region normal
 
     // 3+i6
