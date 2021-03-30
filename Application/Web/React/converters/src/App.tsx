@@ -137,6 +137,105 @@ class App extends React.Component {
 
     //#region Degree
 
+    // 114.59155902616465+i229.183118052329
+    console.log(Maths.DegToRad(new Complex(2, 4)));
+    // 0.03490658503988659+i0.06981317007977
+    console.log(Maths.RadToDeg(new Complex(2, 4)));
+    // 1.800000000000002+i3.600000000000004
+    console.log(Maths.DegToGrad(new Complex(2, 4)));
+    // 2.2222222222222197+i4.44444444444443
+    console.log(Maths.GradToDeg(new Complex(2, 4)));
+    // 0.03333333333333333
+    console.log(Maths.MinuteToDeg(2));
+    // 120
+    console.log(Maths.DegToMinute(2));
+    // 0.0005555555555555556
+    console.log(Maths.SecondsToDeg(2));
+    // 7200
+    console.log(Maths.DegToSeconds(2));
+
+    //#endregion
+
+    //#region Algebra
+
+    // 1(1/2)
+    console.log(Maths.MixVsFraction(3, 2));
+    // true
+    console.log(Maths.Prime(3));
+    // [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+    console.log(Maths.ListOfPrime(100));
+    // 3.605551275463989
+    console.log(Maths.Abs(new Complex(3, 2)));
+    // 1
+    console.log(Maths.Modulus(3, 2));
+    // [1, 2, 6, 12, 60, 60, 420, 840, 2520, 2520, 27720, 27720, 360360, 360360, 360360, 720720, 12252240, 12252240, 232792560, 232792560, 232792560, 232792560, 5354228880, 5354228880, 26771144400]
+    console.log(Maths.LCM(25));
+    // 60
+    console.log(Maths.Lcm([1, 2, 3, 4, 5]));
+    // 5
+    console.log(Maths.Hcf([125, 25, 5]));
+
+    //#endregion
+
+    //#region Logical
+
+    // 1
+    console.log(Maths.And(1, 1));
+    // 0
+    console.log(Maths.Or(0, 0));
+    // 1
+    console.log(Maths.Xor(1, 0));
+    // 0
+    console.log(Maths.Not(1));
+
+    //#endregion
+
+    //#region Permutations and Combinations
+
+    // 6
+    console.log(Maths.Permutation(3, 2));
+    // 3
+    console.log(Maths.Combination(3, 2));
+    // 120
+    console.log(Maths.Factorial(5));
+
+    //#endregion
+
+    //#region Convertions
+
+    // 01010
+    console.log(Maths.DecimalToBinary(10));
+    // 12
+    console.log(Maths.DecimalToOctal(10));
+    // A
+    console.log(Maths.DecimalToHexa(10));
+    // 10
+    console.log(Maths.BinaryToDecimal(1010));
+    // 8
+    console.log(Maths.OctalToDecimal(12));
+    // 10
+    console.log(Maths.HexaToDecimal('A'));
+
+    // 8.48528137423857+i8.48528137423857
+    console.log(Maths.PolarToRectangular(12, 45, Mode.Degree));
+    // 4.47213595499958∠1.10714871779409
+    console.log(Maths.RectangularToPolar(2, 4, Mode.Radians));
+
+    //#endregion
+
+    //#region Matrix
+
+    // [[3, 5], [7, 9]]
+    console.log(Maths.MatrixAdd([[1, 2], [3, 4]], [[2, 3], [4, 5]]));
+    // [[-1, -1], [-1, -1]]
+    console.log(Maths.MatrixSubtract([[1, 2], [3, 4]], [[2, 3], [4, 5]]));
+    // [[-1, -1], [-1, -1]]
+    console.log(Maths.MatrixMultiply([[1, 2], [3, 4]], [[2, 3], [4, 5]]));
+
+    //#endregion
+
+    //#region Statistics
+
     //#endregion
 
   }

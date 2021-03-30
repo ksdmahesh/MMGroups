@@ -157,6 +157,8 @@ export default class Maths {
 
     //#region private functions
 
+    private static clone = (data: any) => JSON.parse(JSON.stringify(data));
+
     private static validate = (input: number) => {
         if (input.toString().includes('.')) {
             if (input.toString().split('.').length > 2) {
@@ -1028,7 +1030,7 @@ export default class Maths {
         return (c / d);
     }
 
-    static Fact = (a: number) => {
+    static Factorial = (a: number) => {
         let b = 1;
         for (let i = 1; i <= a; i++) {
             b = b * i;
@@ -1052,18 +1054,12 @@ export default class Maths {
     static LCM = (a: number) => {
         try {
             if (a === 0) { return null; }
-            let b = a;
-            const temp = new Array<number>();
-            const result = new Array<number>();
-            let retry1 = true;
+            let b = a, retry1 = true;;
+            const temp = new Array<number>(), result = new Array<number>();
             while (retry1) {
                 retry1 = false;
-                let q;
-                let j;
-                let k = 1;
-                let l = 1;
+                let q, j, k = 1, l = 1, retry = true;
                 a = 1;
-                let retry = true;
                 while (retry) {
                     retry = false;
                     for (let i = 1; i <= b; i++) {
@@ -1081,8 +1077,8 @@ export default class Maths {
                                     let z = Math.pow(a, y);
                                     if (z % 1 === 0) {
                                         for (q = 0; q < temp.length; q++) {
-                                            if (a % temp[q] === 0) {
-                                                k = k * (a / temp[q]);
+                                            if (a % parseInt(`${temp[q]}`) === 0) {
+                                                k = k * (a / parseInt(`${temp[q]}`));
                                                 temp.splice(q, 1, a);
                                             }
                                         }
@@ -1115,44 +1111,45 @@ export default class Maths {
 
     static DecimalToBinary = (a: number) => {
         const list = new Array<number>();
-        let c = null;
+        let c = '';
         let retry = true;
         while (retry) {
             retry = false;
             if (a > 2) {
-                list.push(a % 2);
+                list.push(parseInt(`${a % 2}`));
                 a = a / 2;
                 retry = true;
+                continue;
             }
-            list.push(a % 2);
-            list.push(a / 2);
+            list.push(parseInt(`${a % 2}`));
+            list.push(parseInt(`${a / 2}`));
             list.reverse();
-            for (let item of list) { c = `${c + item.toString()}`; }
+            for (let item of list) { c += `${item.toString()}`; }
             return c;
         }
     }
 
     static DecimalToOctal = (a: number) => {
         const list = new Array<number>();
-        let c = null;
+        let c = '';
         let retry = true;
         while (retry) {
             retry = false;
             if (a >= 8) {
-                list.push(a % 8);
+                list.push(parseInt(`${a % 8}`));
                 a = a / 8;
                 retry = true;
             }
-            list.push(a);
+            list.push(parseInt(`${a}`));
             list.reverse();
-            for (let item of list) { c = c + item.toString(); }
+            for (let item of list) { c += item.toString(); }
             return c;
         }
     }
 
     static DecimalToHexa = (a: number) => {
         const list = new Array<string | number>();
-        let c = null;
+        let c = '';
         let retry = true;
         while (retry) {
             retry = false;
@@ -1166,7 +1163,7 @@ export default class Maths {
                     if (a % 16 === 15) { list.push('F'); }
                 }
                 else {
-                    list.push(a % 16);
+                    list.push(parseInt(`${a % 16}`));
                 }
                 a = a / 16;
                 retry = true;
@@ -1180,10 +1177,10 @@ export default class Maths {
                 if (a === 15) { list.push('F'); a = 0; }
             }
             if (a !== 0) {
-                list.push(a);
+                list.push(parseInt(`${a}`));
             }
             list.reverse();
-            for (let item of list) { c = c + item.toString(); }
+            for (let item of list) { c += item.toString(); }
             return c;
         }
     }
@@ -1192,18 +1189,19 @@ export default class Maths {
         const list = new Array<number>();
         let pow = 0;
         let count = a.toString().length - 1;
-        const d = a.toString().split('');
+        const d = a.toString();
         let retry = true;
         while (retry) {
             retry = false;
             if (pow <= a.toString().length - 1) {
-                list.push((+(d[pow]) - 48) * Math.pow(2, count));
+                list.push(Math.abs(parseInt(`${d.charCodeAt(pow) - 48}`) * Math.pow(2, count)));
                 pow++;
                 count--;
                 retry = true;
+                continue;
             }
             a = 0;
-            for (let item of list) { a = a + item; }
+            for (let item of list) { a += item; }
             return a.toString();
         }
     }
@@ -1212,18 +1210,18 @@ export default class Maths {
         const list = new Array<number>();
         let pow = 0;
         let count = a.toString().length - 1;
-        const d = a.toString().split('');
+        const d = a.toString();
         let retry = true;
         while (retry) {
             retry = false;
             if (pow <= a.toString().length - 1) {
-                list.push((+(d[pow]) - 48) * Math.pow(8, count));
+                list.push(Math.abs(parseInt(`${d.charCodeAt(pow) - 48}`) * Math.pow(8, count)));
                 pow++;
                 count--;
                 retry = true;
             }
             a = 0;
-            for (let item of list) { a = a + item; }
+            for (let item of list) { a += item; }
             return a.toString();
         }
     }
@@ -1232,7 +1230,7 @@ export default class Maths {
         const list = new Array<number>();
         let pow = 0;
         let e = a.toString().length - 1;
-        const itemList = a.split('');
+        const itemList = a;
         let retry = true;
         while (retry) {
             retry = false;
@@ -1246,7 +1244,7 @@ export default class Maths {
                     if (itemList[pow] === 'F' || itemList[pow] === 'f') { list.push(15 * Math.pow(16, e)); }
                 }
                 if (!isNaN(+itemList[pow])) {
-                    list.push((+(itemList[pow]) - 48) * Math.pow(16, e));
+                    list.push(Math.abs(parseInt(`${+itemList.charCodeAt(pow) - 48}`) * Math.pow(16, e)));
                 }
                 pow++;
                 e--;
@@ -1274,6 +1272,9 @@ export default class Maths {
 
         if (row === row1 && col === col1) {
             while (rw1 < row) {
+                if (!c[rw1]) {
+                    c[rw1] = [];
+                }
                 c[rw1][cl1] = a[rw1][cl1] + b[rw1][cl1];
                 cl1++;
                 if (cl1 === col) {
@@ -1300,6 +1301,9 @@ export default class Maths {
         }
         if (row === row1 && col === col1) {
             while (rw1 < row) {
+                if (!c[rw1]) {
+                    c[rw1] = [];
+                }
                 c[rw1][cl1] = a[rw1][cl1] - b[rw1][cl1];
                 cl1++;
                 if (cl1 === col) {
@@ -1344,6 +1348,9 @@ export default class Maths {
             rw11 = 0;
             cl11 = 0;
             while (rw11 < row && cl11 < col1) {
+                if (!c[rw11]) {
+                    c[rw11] = [];
+                }
                 if (rw11 < row1 && cl11 < col1) {
                     c[rw11][cl11] = b[rw11][cl11];
                 }
@@ -1359,6 +1366,9 @@ export default class Maths {
             rw11 = 0;
             cl11 = 0;
             while (rw11 < row && cl11 < col1) {
+                if (!e[rw11]) {
+                    e[rw11] = [];
+                }
                 if (rw11 < row && cl11 < col) {
                     e[rw11][cl11] = a[rw11][cl11];
                 }
@@ -1379,6 +1389,9 @@ export default class Maths {
             rw11 = 0;
             cl11 = 0;
             while (rw11 < row1 && cl11 < col) {
+                if (!c[rw11]) {
+                    c[rw11] = [];
+                }
                 if (rw11 < row1 && cl11 < col1) {
                     c[rw11][cl11] = b[rw11][cl11];
                 }
@@ -1394,6 +1407,9 @@ export default class Maths {
             rw11 = 0;
             cl11 = 0;
             while (rw11 < row1 && cl11 < col) {
+                if (!e[rw11]) {
+                    e[rw11] = [];
+                }
                 if (rw11 < row && cl11 < col) {
                     e[rw11][cl11] = a[rw11][cl11];
                 }
@@ -1458,6 +1474,9 @@ export default class Maths {
         hmm = 0;
         if (ANS) {
             while (rw1 < row && cl1 < col1) {
+                if (!ANS[rw1]) {
+                    ANS[rw1] = [];
+                }
                 ANS[rw1][cl1] = (z[hmm]);
                 cl1++;
                 hmm++;
@@ -1475,11 +1494,12 @@ export default class Maths {
     static RectangularToPolar = (a: number, b: number, mode: Mode) => ({ r: Math.sqrt((a * a) + (b * b)), theta: Maths.ATan(new Complex(b, 0).divide(new Complex(a, 0)), mode).realNumber });
 
     static Lcm = (a: number[]) => {
-        a.sort();
+        a.sort((a, b) => a - b);
         a.reverse();
         let temp = 1;
-        const list = Maths.ListOfPrime(a[0]);
-        for (const iterator of list) {
+        const list = Maths.ListOfPrime(parseInt(`${a[0]}`));
+        for (let count = 0; count < list.length;) {
+            const iterator = list[count];
             if (!a.some(content => content !== 1)) {
                 break;
             }
@@ -1489,18 +1509,21 @@ export default class Maths {
                         a[i] = a[i] / iterator;
                     }
                 }
-                temp *= iterator;
+                temp *= parseInt(`${iterator}`);
+            } else {
+                count++;
             }
         }
         return temp;
     }
 
     static Hcf = (a: number[]) => {
-        a.sort();
+        a.sort((a, b) => a - b);
         a.reverse();
-        const list = Maths.ListOfPrime(a[0] / 2);
+        const list = Maths.ListOfPrime(parseInt(`${a[0] / 2}`));
         let temp = 1;
-        for (const iterator of list) {
+        for (let count = 0; count < list.length;) {
+            const iterator = list[count];
             if (a.some(content => content === 1)) {
                 break;
             }
@@ -1509,6 +1532,8 @@ export default class Maths {
                     a[i] = a[i] / iterator;
                 }
                 temp *= iterator;
+            } else {
+                count++;
             }
         }
         return temp;
