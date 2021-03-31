@@ -20,7 +20,7 @@ class App extends React.Component {
   }
 
   checkMath = () => {
-    
+
     //#region normal
 
     // 3+i6
@@ -31,6 +31,8 @@ class App extends React.Component {
     console.log(new Complex(1, 2).multiply(new Complex(2, 4)));
     // 0.8-i0.2
     console.log(new Complex(1, 4).divide(new Complex(0, 5)));
+    // 0.1-i0.2
+    console.log(Maths.Inverse(new Complex(1, 4)));
     // 0.8-i0.2
     console.log(Maths.getConstantValue('Speed of light c'));
 
@@ -171,6 +173,12 @@ class App extends React.Component {
     console.log(Maths.ListOfPrime(100));
     // 3.605551275463989
     console.log(Maths.Abs(new Complex(3, 2)));
+    // 4+i3
+    console.log(Maths.Ceil(new Complex(3.4, 2.3)));
+    // 3+i2
+    console.log(Maths.Floor(new Complex(3.3, 2.5)));
+    // 4+i2
+    console.log(Maths.Round(new Complex(3.6, 2.4)));
     // 1
     console.log(Maths.Modulus(3, 2));
     // [1, 2, 6, 12, 60, 60, 420, 840, 2520, 2520, 27720, 27720, 360360, 360360, 360360, 720720, 12252240, 12252240, 232792560, 232792560, 232792560, 232792560, 5354228880, 5354228880, 26771144400]

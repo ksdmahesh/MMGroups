@@ -152,6 +152,12 @@ export class Complex {
 
     private static logWithBase = (value: number, base: number) => (Math.log(value) / Math.log(base));
 
+    private static getRootAngle = (value: Complex) => new Complex(value.realNumber >= 0 ? (0.5 * Math.sqrt(2 * (Complex.abs(value) + value.realNumber))) : (Math.abs(value.imaginaryNumber) / Math.sqrt(2 * (Complex.abs(value) - value.realNumber))), (value.imaginaryNumber < 0 ? -1 : 1) * (value.imaginaryNumber <= 0 ? (0.5 * Math.sqrt(2 * (Complex.abs(value) - value.realNumber))) : (Math.abs(value.imaginaryNumber) / Math.sqrt(2 * (Complex.abs(value) + value.realNumber)))));
+
+    private static getRootAngleLog = (value: Complex, sqrt: Complex) => new Complex(sqrt.realNumber - value.imaginaryNumber, sqrt.imaginaryNumber + value.realNumber);
+
+    private static sumOfSquares = (value: Complex) => ((value.realNumber * value.realNumber) + (value.imaginaryNumber * value.imaginaryNumber));
+
     //#endregion
 
     //#region public functions
@@ -168,7 +174,19 @@ export class Complex {
 
     //#region static functions
 
-    static abs = (value: Complex) => Math.sqrt(Math.pow(value.realNumber, 2) + Math.pow(value.imaginaryNumber, 2));
+    static inverse = (value: Complex) => new Complex(1, 0).divide(value);
+
+    static abs = (value: Complex) => Math.sqrt(Complex.sumOfSquares(value));
+
+    static ceil = (value: Complex) => new Complex(Math.ceil(value.realNumber), Math.ceil(value.imaginaryNumber));
+
+    static floor = (value: Complex) => new Complex(Math.floor(value.realNumber), Math.floor(value.imaginaryNumber));
+
+    static round = (value: Complex) => new Complex(Math.round(value.realNumber), Math.round(value.imaginaryNumber));
+
+    static arg = (value: Complex) => Math.atan2(value.imaginaryNumber, value.realNumber);
+
+    static conjugate = (value: Complex) => new Complex(value.realNumber, -value.imaginaryNumber);
 
     static pow = (value: Complex, power: Complex) => {
         const log = Math.log(Math.sqrt(Math.pow(value.realNumber, 2) + Math.pow(value.imaginaryNumber, 2)));
@@ -190,23 +208,47 @@ export class Complex {
 
     static tan = (value: Complex) => Complex.sin(value).divide(Complex.cos(value));
 
-    static asin = (value: Complex) => new Complex(1, 0).divide(Complex.sin(value));
-
-    static acos = (value: Complex) => new Complex(1, 0).divide(Complex.cos(value));
-
-    static atan = (value: Complex) => new Complex(1, 0).divide(Complex.tan(value));
-
     static sinh = (value: Complex) => new Complex(0, -1).multiply(Complex.sin(new Complex(0, 1).multiply(value)));
 
     static cosh = (value: Complex) => new Complex(1, 0).multiply(Complex.cos(new Complex(0, 1).multiply(value)));
 
     static tanh = (value: Complex) => new Complex(0, -1).multiply(Complex.tan(new Complex(0, 1).multiply(value)));
 
-    static asinh = (value: Complex) => new Complex(1, 0).divide(Complex.sinh(value));
+    static asin = (value: Complex) => {
+        const { realNumber, imaginaryNumber } = Complex.log(Complex.getRootAngleLog(value, Complex.getRootAngle(new Complex(1, 0).subtract(value.multiply(value)))), Math.E);
+        return new Complex(imaginaryNumber, -realNumber);
+    };
 
-    static acosh = (value: Complex) => new Complex(1, 0).divide(Complex.cosh(value));
+    static acos = (value: Complex) => {
+        const { realNumber, imaginaryNumber } = Complex.asin(value);
+        return new Complex((Math.PI / 2) - realNumber, -imaginaryNumber);
+    };
 
-    static atanh = (value: Complex) => new Complex(1, 0).divide(Complex.tanh(value));
+    static atan = (value: Complex) => new Complex(0, 1).divide(new Complex(2, 0)).multiply(Complex.log(new Complex(0, 1).add(value).divide(new Complex(0, 1).subtract(value)), Math.E));
+
+    static asinh = (value: Complex) => {
+        const { realNumber, imaginaryNumber } = Complex.asin(new Complex(value.imaginaryNumber, -value.realNumber));
+        return new Complex(-imaginaryNumber, realNumber);
+    };
+
+    static acosh = (value: Complex) => {
+        const { realNumber, imaginaryNumber } = Complex.acos(value);
+        return (imaginaryNumber <= 0 ? new Complex(-imaginaryNumber, realNumber) : new Complex(imaginaryNumber, -realNumber));
+    };
+
+    static atanh = (value: Complex) => {
+        const sumOfSquares = Complex.sumOfSquares(value);
+        const base = (1 + sumOfSquares) - (2 * value.realNumber);
+        const angleValue = base
+            ?
+            new Complex((1 - sumOfSquares) / base, (2 * value.imaginaryNumber) / base)
+            :
+            new Complex((value.realNumber !== -1) ? (value.realNumber / base) : 0, (value.imaginaryNumber !== 0) ? (value.imaginaryNumber / base) : 0);
+
+        const { realNumber } = Complex.log(angleValue, Math.E);
+
+        return new Complex(realNumber / 2, ((value.realNumber > 1 && 0 === value.imaginaryNumber) ? -1 : 1) * Math.atan2(angleValue.imaginaryNumber, angleValue.realNumber) / 2);
+    };
 
     //#endregion
 
@@ -916,7 +958,7 @@ export default class Maths {
     }
 
     static ASinh = (a: Complex, mode: Mode) => {
-        a = Complex.log(a.add(Complex.sqrt(a.multiply(a).add(new Complex(1, 0)))), Math.E);
+        a = Complex.asinh(a);
         switch (mode) {
             case Mode.Degree:
                 {
@@ -937,7 +979,7 @@ export default class Maths {
     }
 
     static ACosh = (a: Complex, mode: Mode) => {
-        a = Complex.log(a.add(Complex.sqrt(a.multiply(a).subtract(new Complex(1, 0)))), Math.E);
+        a = Complex.acosh(a);
         switch (mode) {
             case Mode.Degree:
                 {
@@ -958,7 +1000,7 @@ export default class Maths {
     }
 
     static ATanh = (a: Complex, mode: Mode) => {
-        a = Complex.log(Complex.sqrt(a.add(new Complex(1, 0))), Math.E).subtract(Complex.log(Complex.sqrt(new Complex(1, 0).subtract(a)), Math.E));
+        a = Complex.atanh(a);
         switch (mode) {
             case Mode.Degree:
                 {
@@ -1106,9 +1148,21 @@ export default class Maths {
 
     static Divide = (a: Complex, b: Complex) => a.divide(b);
 
+    static Inverse = (a: Complex) => Complex.inverse(a);
+
     static Abs = (a: Complex) => Complex.abs(a);
 
-    static Modulus = (a: number, b: number) => a % b;
+    static Ceil = (a: Complex) => Complex.ceil(a);
+
+    static Floor = (a: Complex) => Complex.floor(a);
+
+    static Round = (a: Complex) => Complex.round(a);
+
+    static ComplexArgument = (a: Complex) => Complex.arg(a);
+
+    static ComplexConjugate = (a: Complex) => Complex.conjugate(a);
+
+    static Modulus = (a: number, b: number) => (a % b);
 
     static LCM = (a: number) => {
         try {
