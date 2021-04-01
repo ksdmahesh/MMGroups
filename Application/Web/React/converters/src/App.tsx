@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { CsstoJs } from './convert/CsstoJs';
-import Maths, { Angle, Area, Base, Complex, Energy, Length, Mode, Powers, Pressure, Temperature, Time, Velocity, Volume, Weight } from './convert/Math';
+import Maths, { Angle, Area, Base, Complex, Energy, Length, Matrix, Mode, Powers, Pressure, Temperature, Time, Velocity, Volume, Weight } from './convert/Math';
 // import { JsonFlatten, JsonDeflatten } from './convert/JsonFlatten';
 import { getDefaultPath, readStream, writeStream } from './server/service-call';
 
@@ -52,9 +52,9 @@ class App extends React.Component {
     // 0.0393715559769615-i0.0448190190487528
     console.log(Maths.Power(new Complex(1, 2), new Complex(2, 4)));
     // 1.497866136777+i1.10714871779409
-    console.log(Maths.Log(new Complex(2, 4), Math.E));
+    console.log(Maths.Log(new Complex(2, 4), new Complex(Math.E, 0)));
     // -4.82980938326939-i5.59205609364098
-    console.log(Maths.Exp(new Complex(2, 4)));
+    console.log(Maths.Exponential(new Complex(2, 4)));
     // -97.7096228673234+i21.279793211529
     console.log(Maths.InverseLog(new Complex(2, 4)));
 
@@ -182,7 +182,7 @@ class App extends React.Component {
     // 1
     console.log(Maths.Modulus(3, 2));
     // [1, 2, 6, 12, 60, 60, 420, 840, 2520, 2520, 27720, 27720, 360360, 360360, 360360, 720720, 12252240, 12252240, 232792560, 232792560, 232792560, 232792560, 5354228880, 5354228880, 26771144400]
-    console.log(Maths.LCM(25));
+    console.log(Maths.ListOfLcm(25));
     // 60
     console.log(Maths.Lcm([1, 2, 3, 4, 5]));
     // 5
@@ -277,11 +277,21 @@ class App extends React.Component {
     //#region Matrix
 
     // [[3, 5], [7, 9]]
-    console.log(Maths.MatrixAdd([[1, 2], [3, 4]], [[2, 3], [4, 5]]));
+    console.log(Maths.Add(new Matrix([[1, 2], [3, 4]]), new Matrix([[2, 3], [4, 5]])));
     // [[-1, -1], [-1, -1]]
-    console.log(Maths.MatrixSubtract([[1, 2], [3, 4]], [[2, 3], [4, 5]]));
+    console.log(Maths.Subtract(new Matrix([[1, 2], [3, 4]]), new Matrix([[2, 3], [4, 5]])));
+    // [[10, 13], [22, 29]]
+    console.log(Maths.Multiply(new Matrix([[1, 2], [3, 4]]), new Matrix([[2, 3], [4, 5]])));
+    // [[3, 5], [7, 9]]
+    console.log(Maths.MatrixMultiplyWithNumber(new Matrix([[1, 2], [3, 4]]), 2));
     // [[-1, -1], [-1, -1]]
-    console.log(Maths.MatrixMultiply([[1, 2], [3, 4]], [[2, 3], [4, 5]]));
+    console.log(Maths.Determinent(new Matrix([[1, 2], [3, 4]])));
+    // [[10, 13], [22, 29]]
+    console.log(Maths.Adjugate(new Matrix([[1, 2], [3, 4]])));
+    // [[-1, -1], [-1, -1]]
+    console.log(Maths.Transpose(new Matrix([[1, 2], [3, 4]])));
+    // [[10, 13], [22, 29]]
+    console.log(Maths.Cofactor(new Matrix([[1, 2], [3, 4]]), 0));
 
     //#endregion
 
