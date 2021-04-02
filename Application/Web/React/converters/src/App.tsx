@@ -21,7 +21,7 @@ class App extends React.Component {
 
   checkMath = () => {
 
-    //#region normal
+    //#region Common
 
     // 3+i6
     console.log(new Complex(1, 2).add(new Complex(2, 4)));
@@ -216,7 +216,7 @@ class App extends React.Component {
 
     //#endregion
 
-    //#region Permutations and Combinations
+    //#region Calculas
 
     // 6
     console.log(Maths.Permutation(3, 2));
@@ -298,6 +298,8 @@ class App extends React.Component {
     console.log(Maths.Cofactor(new Matrix([[1, 2], [3, 4]]), 0));
     // [[1, 2], [3, 4]]
     console.log(Maths.Conjugate(new Matrix([[1, 2], [3, 4]])));
+    // [[1-i2, 3-i4], [1, -i4]]
+    console.log(Maths.Conjugate(new Matrix([[new Complex(1, 2), new Complex(3, 4)], [new Complex(1, 0), new Complex(0, 4)]])));
 
     //#endregion
 

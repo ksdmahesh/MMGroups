@@ -1414,7 +1414,6 @@ export class Trigonometry {
 
 }
 
-// complex
 export class Convert {
 
     //#region private static functions
