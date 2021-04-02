@@ -958,17 +958,35 @@ const convertToJS = (code: string[]) => {
 
 //#region Public Functions
 
-export const CsstoJs = (css: string, convertionProps?: ConvertionProps) => {
+/**
+ * To Convert Css to JS Object
+ * @param css Css String
+ * @param convertionProps Converting Props to Apply
+ * @param includeDefault If true return string with import/export, if false returns plain object
+ * @returns string or object
+ */
+export const CsstoJs = (css: string, convertionProps?: ConvertionProps, includeDefault: boolean = true) => {
 	convertionAttributes = convertionProps;
 	jsRule.rule = {};
 	jsRule.raw = {};
 	convertToJS(css.split(''));
-	if (convertionAttributes?.useMaterialThemeStructure === undefined || convertionAttributes?.useMaterialThemeStructure === true) {
-		return (
-			`import { Theme } from "@material-ui/core";\r\nimport { Styles } from "@material-ui/styles";\r\n\r\nexport const useStyles: Styles<Theme, {}, string> = (theme: Theme) => (${JSON.stringify(materialRule)});\r\n`
-		);
+
+	if (includeDefault) {
+		if (convertionAttributes?.useMaterialThemeStructure === undefined || convertionAttributes?.useMaterialThemeStructure === true) {
+			return (
+				`import { Theme } from "@material-ui/core";\r\nimport { Styles } from "@material-ui/styles";\r\n\r\nexport const useStyles: Styles<Theme, {}, string> = (theme: Theme) => (${JSON.stringify(materialRule)});\r\n`
+			);
+		}
+		return `export const resultJson: { [x: string]: { [x: string]: React.CSSProperties } } = ${JSON.stringify(jsRule.rule)};\r\n`;
 	}
-	return `export const resultJson: { [x: string]: { [x: string]: React.CSSProperties } } = ${JSON.stringify(jsRule.rule)};\r\n`;
+
+	return (
+		convertionAttributes?.useMaterialThemeStructure === undefined || convertionAttributes?.useMaterialThemeStructure === true
+			?
+			materialRule
+			:
+			jsRule.rule
+	);
 }
 
 //#endregion

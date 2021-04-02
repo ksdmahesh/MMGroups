@@ -42,7 +42,7 @@ const deFlatten = (data: any, deflat: any) => {
                     }
                     prevChar = char;
                 });
-               
+
                 const lastIndex = path.length - 1;
                 let lastKey = path[lastIndex];
                 if (lastKey.startsWith('[') && lastKey.endsWith(']')) {
@@ -76,18 +76,40 @@ const deFlatten = (data: any, deflat: any) => {
             }
         }
     } catch (er) {
-        
+
     }
 }
 
-export const JsonFlatten = (data: object) => {
+/**
+ * For Flattening JSON
+ * @param data JSON Object to Flatten
+ * @param includeDefault If true return string with import/export, if false returns plain object
+ * @returns string or object
+ */
+export const JsonFlatten = (data: object, includeDefault: boolean = true) => {
     const flat = {};
     flatten(data, ['$'], flat);
-    return `export const resultJson: { [x: string]: string | number | bigint | boolean | null | undefined | symbol } = ${JSON.stringify(flat)}`;
+
+    if (includeDefault) {
+        return `export const resultJson: { [x: string]: string | number | bigint | boolean | null | undefined | symbol } = ${JSON.stringify(flat)}`;
+    }
+
+    return flat;
 }
 
-export const JsonDeflatten = (data: object) => {
+/**
+ * For Deflattening JSON
+ * @param data JSON Object to Deflatten
+ * @param includeDefault If true return string with import/export, if false returns plain object
+ * @returns string or object
+ */
+export const JsonDeflatten = (data: object, includeDefault: boolean = true) => {
     const deFlat = {};
     deFlatten(data, deFlat);
-    return `export const resultJson: any = ${JSON.stringify(deFlat)}`;
+
+    if (includeDefault) {
+        return `export const resultJson: any = ${JSON.stringify(deFlat)}`;
+    }
+
+    return deFlat;
 }
