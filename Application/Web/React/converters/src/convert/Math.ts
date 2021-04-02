@@ -290,17 +290,18 @@ export class Complex {
 
 }
 
-export class Matrix {
+// complex
+export class Matrix<T extends number | Complex> {
 
     //#region members
 
-    a: number[][];
+    a: Array<Array<T>>;
 
     //#endregion
 
     //#region constructor
 
-    constructor(a: number[][]) {
+    constructor(a: Array<Array<T>>) {
         this.a = a;
     }
 
@@ -308,72 +309,76 @@ export class Matrix {
 
     //#region private functions
 
-    private static getDeterminentAndAdjugate = (item: number[][]) => {
+    private static getDeterminentAndAdjugate = (item: Complex[][]) => {
         let result: {
-            determinent: number,
-            adjugate: Matrix
+            determinent: Complex,
+            adjugate: Complex[][]
         } = {
-            determinent: 0,
-            adjugate: new Matrix([])
+            determinent: new Complex(0, 0),
+            adjugate: []
         };
 
         item.forEach((row, rowIndex) => {
             const returnValue = Matrix.getDeterminentAndAdjugateByIndex(item, rowIndex, rowIndex, row, item.length);
-            result.adjugate.a[rowIndex] = returnValue.adjugate.a[rowIndex];
-            result.determinent += returnValue.determinent;
+            result.adjugate[rowIndex] = returnValue.adjugate[rowIndex];
+            result.determinent = result.determinent.add(returnValue.determinent);
         });
 
         return result;
     };
 
-    private static getDeterminentAndAdjugateByIndex = (item: number[][], index: number, rI: number, row: number[], length: number) => {
-        let result = {
-            determinent: 0,
-            adjugate: new Matrix([])
+    private static getDeterminentAndAdjugateByIndex = (item: Complex[][], index: number, rI: number, row: Complex[], length: number) => {
+        let result: {
+            determinent: Complex,
+            adjugate: Complex[][]
+        } = {
+            determinent: new Complex(0, 0),
+            adjugate: []
         };
 
-        let ad = Matrix.getCofactor(item, index);
+        let ad = Matrix.getCofactor<Complex>(item, index) as Complex[][];
         if (ad.length > 2) {
             ad.forEach((column, columnIndex) => {
                 const returnValue = Matrix.getDeterminentAndAdjugateByIndex(ad, columnIndex, rI, row, length);
-                result.determinent += returnValue.determinent;
-                if (!result.adjugate.a[rI]) {
-                    result.adjugate.a[rI] = [];
+                result.determinent = result.determinent.add(returnValue.determinent);
+                if (!result.adjugate[rI]) {
+                    result.adjugate[rI] = [];
                 }
 
-                if (returnValue.adjugate.a[rI]) {
-                    result.adjugate.a[rI][columnIndex] = returnValue.adjugate.a[rI][columnIndex] * column[columnIndex];
+                if (returnValue.adjugate[rI]) {
+                    result.adjugate[rI][columnIndex] = returnValue.adjugate[rI][columnIndex].multiply(column[columnIndex]);
                 }
-                result.adjugate.a[rI].push(result.determinent);
+                result.adjugate[rI].push(result.determinent);
             });
         } else {
-            result.determinent += ((index % 2 === 0 ? 1 : -1) * (item[0][index]) * ((ad.length === 2) ? ((ad[0][0] * ad[1][1]) - (ad[0][1] * ad[1][0])) : ad[0][0]));
-            if (!result.adjugate.a[rI]) {
-                result.adjugate.a[rI] = new Array<number>(length).fill(0);
+            result.determinent = result.determinent.add(((index % 2 === 0 ? new Complex(1, 0) : new Complex(-1, 0)).multiply(item[0][index]).multiply((ad.length === 2) ? ad[0][0].multiply(ad[1][1]).subtract(ad[0][1].multiply(ad[1][0])) : ad[0][0])));
+            if (!result.adjugate[rI]) {
+                result.adjugate[rI] = new Array<Complex>(length).fill(new Complex(0, 0));
             }
             if (length === 3) {
-                result.adjugate.a[rI][0] += (index % 2 === 0 ? 1 : -1) * ((item[1][index ? 0 : 1] * item[2][index === 2 ? 1 : 2]) - (item[1][index === 2 ? 1 : 2] * item[2][index === 0 ? 1 : 0]));
-                result.adjugate.a[rI][1] += (index % 2 === 0 ? -1 : 1) * ((item[0][index ? 0 : 1] * item[2][index === 2 ? 1 : 2]) - (item[0][index === 2 ? 1 : 2] * item[2][index === 0 ? 1 : 0]));
-                result.adjugate.a[rI][2] += (index % 2 === 0 ? 1 : -1) * ((item[0][index ? 0 : 1] * item[1][index === 2 ? 1 : 2]) - (item[1][index === 0 ? 1 : 0] * item[0][index === 2 ? 1 : 2]));
+                result.adjugate[rI][0] = result.adjugate[rI][0].add((index % 2 === 0 ? new Complex(1, 0) : new Complex(-1, 0)).multiply((item[1][index ? 0 : 1].multiply(item[2][index === 2 ? 1 : 2])).subtract(item[1][index === 2 ? 1 : 2].multiply(item[2][index === 0 ? 1 : 0]))));
+                result.adjugate[rI][1] = result.adjugate[rI][1].add((index % 2 === 0 ? new Complex(-1, 0) : new Complex(1, 0)).multiply((item[0][index ? 0 : 1].multiply(item[2][index === 2 ? 1 : 2])).subtract(item[0][index === 2 ? 1 : 2].multiply(item[2][index === 0 ? 1 : 0]))));
+                result.adjugate[rI][2] = result.adjugate[rI][2].add((index % 2 === 0 ? new Complex(1, 0) : new Complex(-1, 0)).multiply((item[0][index ? 0 : 1].multiply(item[1][index === 2 ? 1 : 2])).subtract(item[1][index === 0 ? 1 : 0].multiply(item[0][index === 2 ? 1 : 2]))));
             } else if (length === 2) {
-                result.adjugate.a[rI][0] += (index % 2 === 0 ? 1 : -1) * item[index === 0 ? 1 : 0][1];
-                result.adjugate.a[rI][1] += (index % 2 === 0 ? -1 : 1) * item[index === 0 ? 1 : 0][0];
+                result.adjugate[rI][0] = result.adjugate[rI][0].add((index % 2 === 0 ? new Complex(1, 0) : new Complex(-1, 0)).multiply(item[index === 0 ? 1 : 0][1]));
+                result.adjugate[rI][1] = result.adjugate[rI][1].add((index % 2 === 0 ? new Complex(-1, 0) : new Complex(1, 0)).multiply(item[index === 0 ? 1 : 0][0]));
             }
 
             return result;
         }
 
-        result.determinent = ((index % 2 === 0 ? 1 : -1) * item[0][index] * result.determinent);
+        result.determinent = ((index % 2 === 0 ? new Complex(1, 0) : new Complex(-1, 0)).multiply(item[0][index].multiply(result.determinent)));
 
         return result;
     };
 
-    private static getCofactor = (item: number[][], index: number) => {
-        const returnValue = [];
-        for (let rowIndex = 0; rowIndex < item.length; rowIndex++) {
+    private static getCofactor = <T extends number | Complex>(item: T[][], index: number) => {
+        const b = Matrix.convertToComplex(item);
+        const returnValue: Complex[][] = [];
+        for (let rowIndex = 0; rowIndex < b.length; rowIndex++) {
             if (0 !== rowIndex) {
-                const row = item[rowIndex];
-                const col: number[] = [];
+                const row = b[rowIndex];
+                const col: Complex[] = [];
                 row.forEach((column, columnIndex) => {
                     if (index !== columnIndex) {
                         col.push(column);
@@ -383,18 +388,117 @@ export class Matrix {
             }
         }
 
-        return returnValue;
+        switch (item?.[0]?.[0]?.constructor?.name) {
+            case ConstructorTypes.Number:
+                return returnValue.map(a => a.map(b => b.realNumber));
+            case ConstructorTypes.Complex:
+                return returnValue;
+            default:
+                throw new Error('Invalid Type Passed');
+        }
     };
 
-    //#endregion
+    private static convertToComplex = <T extends number | Complex>(item: T[][]) => {
+        switch (item?.[0]?.[0]?.constructor?.name) {
+            case ConstructorTypes.Number:
+                return item.map(a => a.map(b => new Complex(b as number, 0)));
+            case ConstructorTypes.Complex:
+                return item as Complex[][];
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
 
-    //#region public functions
+    private static getInverse = <T extends number | Complex>(item: T[][]) => {
+        const b = Matrix.convertToComplex(item);
+        const { adjugate, determinent } = Matrix.getDeterminentAndAdjugate(b);
 
-    add = (matrix: Matrix) => {
-        const b = matrix.a;
-        let row = this.a.length;
-        let col = this.a.every(item => item.length === this.a[0].length) ? this.a[0].length : (row - 1);
-        const c = new Array<number[]>();
+        let result: Array<Array<number | Complex>> = item;
+        if (determinent.realNumber || determinent.imaginaryNumber) {
+            switch (item?.[0]?.[0]?.constructor?.name) {
+                case ConstructorTypes.Number:
+                    result = (Matrix.getMultiplyWithNumber(Matrix.getTranspose(adjugate.map(a => a.map(b => b.realNumber))), 1 / determinent.realNumber));
+                    break;
+                case ConstructorTypes.Complex:
+                    result = (Matrix.getMultiplyWithNumber(Matrix.getTranspose(adjugate), (new Complex(1, 0).divide(determinent))));
+                    break;
+                default:
+                    throw new Error('Invalid Type Passed');
+            }
+        }
+
+        return result;
+    }
+
+    private static getDeterminent = <T extends number | Complex>(item: T[][]) => {
+        const b = Matrix.convertToComplex(item);
+        let determinent: Complex = new Complex(0, 0);
+
+        b.forEach((row, rowIndex) => {
+            const returnValue = Matrix.getDeterminentAndAdjugateByIndex(b, rowIndex, rowIndex, row, b.length);
+            determinent = determinent.add(returnValue.determinent);
+        });
+
+        switch (item?.[0]?.[0]?.constructor?.name) {
+            case ConstructorTypes.Number:
+                return determinent.realNumber;
+            case ConstructorTypes.Complex:
+                return determinent;
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
+
+    private static getAdjugate = <T extends number | Complex>(item: T[][]) => {
+        const b = Matrix.convertToComplex(item);
+        let adjugate: Complex[][] = [];
+
+        b.forEach((row, rowIndex) => {
+            const returnValue = Matrix.getDeterminentAndAdjugateByIndex(b, rowIndex, rowIndex, row, b.length);
+            adjugate[rowIndex] = returnValue.adjugate[rowIndex];
+        });
+
+        switch (item?.[0]?.[0]?.constructor?.name) {
+            case ConstructorTypes.Number:
+                return adjugate.map(a => a.map(b => b.realNumber));
+            case ConstructorTypes.Complex:
+                return adjugate;
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    };
+
+    private static getTranspose = <T extends number | Complex>(item: T[][]) => {
+        let mat: T[][] = [];
+        for (var i = 0; i < item.length; i++) {
+            for (var j = 0; j < item[i]?.length; j++) {
+                if (!mat[j]) {
+                    mat[j] = [];
+                }
+                if (!mat[i]) {
+                    mat[i] = [];
+                }
+                mat[j][i] = item[i][j];
+            }
+        }
+        return mat;
+    }
+
+    private static getMultiplyWithNumber = <T extends number | Complex>(item: T[][], value: T) => {
+        switch (value.constructor?.name) {
+            case ConstructorTypes.Number:
+                return item.map(row => row.map(column => Algebra.multiply(column as number, value as number)));
+            case ConstructorTypes.Complex:
+                return item.map(row => row.map(column => Complex.multiply(column as Complex, value as Complex)));
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
+
+    private static getAdd = (a: Complex[][], b: Complex[][]) => {
+        let row = a.length;
+        let col = a.every(item => item.length === a[0].length) ? a[0].length : (row - 1);
+        const c = new Array<Complex[]>();
 
         let rw1 = 0;
         let cl1 = 0;
@@ -410,7 +514,7 @@ export class Matrix {
                 if (!c[rw1]) {
                     c[rw1] = [];
                 }
-                c[rw1][cl1] = this.a[rw1][cl1] + b[rw1][cl1];
+                c[rw1][cl1] = a[rw1][cl1].add(b[rw1][cl1]);
                 cl1++;
                 if (cl1 === col) {
                     cl1 = 0;
@@ -418,14 +522,21 @@ export class Matrix {
                 }
             }
         }
-        return c;
+
+        switch (a?.[0]?.[0]?.constructor?.name) {
+            case ConstructorTypes.Number:
+                return c?.map(a => a.map(b => b.realNumber));
+            case ConstructorTypes.Complex:
+                return c;
+            default:
+                throw new Error('Invalid Type Passed');
+        }
     }
 
-    subtract = (matrix: Matrix) => {
-        const b = matrix.a;
-        let row = this.a.length;
-        let col = this.a.every(item => item.length === this.a[0].length) ? this.a[0].length : (row - 1);
-        const c = new Array<number[]>();
+    private static getSubtract = (a: Complex[][], b: Complex[][]) => {
+        let row = a.length;
+        let col = a.every(item => item.length === a[0].length) ? a[0].length : (row - 1);
+        const c = new Array<Complex[]>();
 
         let rw1 = 0;
         let cl1 = 0;
@@ -440,7 +551,7 @@ export class Matrix {
                 if (!c[rw1]) {
                     c[rw1] = [];
                 }
-                c[rw1][cl1] = this.a[rw1][cl1] - b[rw1][cl1];
+                c[rw1][cl1] = a[rw1][cl1].subtract(b[rw1][cl1]);
                 cl1++;
                 if (cl1 === col) {
                     cl1 = 0;
@@ -448,21 +559,28 @@ export class Matrix {
                 }
             }
         }
-        return c;
+
+        switch (a?.[0]?.[0]?.constructor?.name) {
+            case ConstructorTypes.Number:
+                return c?.map(a => a.map(b => b.realNumber));
+            case ConstructorTypes.Complex:
+                return c;
+            default:
+                throw new Error('Invalid Type Passed');
+        }
     }
 
-    multiply = (matrix: Matrix) => {
-        const b = matrix.a;
-        let row = this.a.length;
-        let col = this.a.every(item => item.length === this.a[0].length) ? this.a[0].length : (row - 1);
+    private static getMultiply = (a: Complex[][], b: Complex[][]) => {
+        let row = a.length;
+        let col = a.every(item => item.length === a[0].length) ? a[0].length : (row - 1);
         let ANS = null;
-        const d = new Array<number>();
+        const d = new Array<Complex>();
 
         let rw1 = 0;
         let cl1 = 0;
         let row1 = b.length;
         let col1 = b.every(item => item.length === b[0].length) ? b[0].length : (row1 - 1);
-        let ans = 0;
+        let ans = new Complex(0, 0);
 
         if ((row === 0 && col === 0) || (row1 === 0 && col1 === 0)) {
             throw new Error("null values in list of matrix");
@@ -479,9 +597,9 @@ export class Matrix {
         let e = null;
         let c = null;
         if (row > col && row1 < col1) {
-            e = new Array<number[]>();
-            c = new Array<number[]>();
-            ANS = new Array<number[]>();
+            e = new Array<Complex[]>();
+            c = new Array<Complex[]>();
+            ANS = new Array<Complex[]>();
             rw11 = 0;
             cl11 = 0;
             while (rw11 < row && cl11 < col1) {
@@ -492,7 +610,7 @@ export class Matrix {
                     c[rw11][cl11] = b[rw11][cl11];
                 }
                 else {
-                    c[rw11][cl11] = 0;
+                    c[rw11][cl11] = new Complex(0, 0);
                 }
                 cl11++;
                 if (cl11 === col1) {
@@ -507,10 +625,10 @@ export class Matrix {
                     e[rw11] = [];
                 }
                 if (rw11 < row && cl11 < col) {
-                    e[rw11][cl11] = this.a[rw11][cl11];
+                    e[rw11][cl11] = a[rw11][cl11];
                 }
                 else {
-                    e[rw11][cl11] = 0;
+                    e[rw11][cl11] = new Complex(0, 0);
                 }
                 cl11++;
                 if (cl11 === col1) {
@@ -520,9 +638,9 @@ export class Matrix {
             }
         }
         if (row <= col && row1 >= col1) {
-            e = new Array<number[]>();
-            c = new Array<number[]>();
-            ANS = new Array<number[]>();
+            e = new Array<Complex[]>();
+            c = new Array<Complex[]>();
+            ANS = new Array<Complex[]>();
             rw11 = 0;
             cl11 = 0;
             while (rw11 < row1 && cl11 < col) {
@@ -533,7 +651,7 @@ export class Matrix {
                     c[rw11][cl11] = b[rw11][cl11];
                 }
                 else {
-                    c[rw11][cl11] = 0;
+                    c[rw11][cl11] = new Complex(0, 0);
                 }
                 cl11++;
                 if (cl11 === col) {
@@ -548,10 +666,10 @@ export class Matrix {
                     e[rw11] = [];
                 }
                 if (rw11 < row && cl11 < col) {
-                    e[rw11][cl11] = this.a[rw11][cl11];
+                    e[rw11][cl11] = a[rw11][cl11];
                 }
                 else {
-                    e[rw11][cl11] = 0;
+                    e[rw11][cl11] = new Complex(0, 0);
                 }
                 cl11++;
                 if (cl11 === col) {
@@ -565,7 +683,7 @@ export class Matrix {
         rw11 = 0;
         if (row === col1 && e && c) {
             while (rw11 < row) {
-                d.push(e[rw11][cl1] * c[cl1][rw1]);
+                d.push(e[rw11][cl1].multiply(c[cl1][rw1]));
                 rw1++;
                 if (rw1 === row) {
                     rw1 = 0;
@@ -584,14 +702,14 @@ export class Matrix {
         let hmm = 0;
         let qu = 0;
         let qu1 = 0;
-        const z = new Array<number>();
+        const z = new Array<Complex>();
         while (true) {
             if (hmm === d.length - 1) { break; }
             hmm = qu1 - main;
             let ing = 0;
             while (ing < main) {
                 hmm = hmm + main;
-                ans = ans + (d[hmm]);
+                ans = ans.add(d[hmm]);
                 ing++;
             }
             if (qu === main - 1) {
@@ -601,7 +719,7 @@ export class Matrix {
             qu++;
             qu1++;
             z.push(ans);
-            ans = 0;
+            ans = new Complex(0, 0);
         }
         for (let i = 0; i < main; i++) {
             if (i === row && i === col1) {
@@ -623,81 +741,65 @@ export class Matrix {
                 }
             }
         }
-        return ANS;
+
+        switch (a?.[0]?.[0]?.constructor?.name) {
+            case ConstructorTypes.Number:
+                return ANS?.map(a => a.map(b => b.realNumber)) || [];
+            case ConstructorTypes.Complex:
+                return ANS || [];
+            default:
+                throw new Error('Invalid Type Passed');
+        }
     }
 
-    divide = (matrix: Matrix) => {
-        const dt = Matrix.getDeterminentAndAdjugate(matrix.a);
-        return this.multiply((dt.determinent ? Matrix.multiplyWithNumber(Matrix.transpose(dt.adjugate), (1 / dt.determinent)) : matrix));
+    private static getConjugate = <T extends number | Complex>(item: T[][]) => {
+        switch (item?.[0]?.[0].constructor?.name) {
+            case ConstructorTypes.Number:
+                return item;
+            case ConstructorTypes.Complex:
+                return item.map(row => row.map(column => Complex.conjugate(column as Complex)));
+            default:
+                throw new Error('Invalid Type Passed');
+        }
     }
+
+    //#endregion
+
+    //#region public functions
+
+    add = <T extends number | Complex>(matrix: Matrix<T>) => Matrix.getAdd(Matrix.convertToComplex(this.a), Matrix.convertToComplex(matrix.a));
+
+    subtract = <T extends number | Complex>(matrix: Matrix<T>) => Matrix.getSubtract(Matrix.convertToComplex(this.a), Matrix.convertToComplex(matrix.a));
+
+    multiply = <T extends number | Complex>(matrix: Matrix<T>) => Matrix.getMultiply(Matrix.convertToComplex(this.a), Matrix.convertToComplex(matrix.a));
+
+    divide = <T extends number | Complex>(matrix: Matrix<T>) => Matrix.getMultiply(Matrix.convertToComplex(this.a), Matrix.convertToComplex(Matrix.getInverse(matrix.a)));
 
     //#endregion
 
     //#region static functions
 
-    static add = (a: Matrix, b: Matrix) => a.add(b);
+    static add = <T extends number | Complex>(a: Matrix<T>, b: Matrix<T>) => a.add(b);
 
-    static subtract = (a: Matrix, b: Matrix) => a.subtract(b);
+    static subtract = <T extends number | Complex>(a: Matrix<T>, b: Matrix<T>) => a.subtract(b);
 
-    static multiply = (a: Matrix, b: Matrix) => a.multiply(b);
+    static multiply = <T extends number | Complex>(a: Matrix<T>, b: Matrix<T>) => a.multiply(b);
 
-    static divide = (a: Matrix, b: Matrix) => a.divide(b);
+    static divide = <T extends number | Complex>(a: Matrix<T>, b: Matrix<T>) => a.divide(b);
 
-    static inverse = (a: Matrix) => {
-        const dt = Matrix.getDeterminentAndAdjugate(a.a);
-        return (dt.determinent ? Matrix.multiplyWithNumber(Matrix.transpose(dt.adjugate), (1 / dt.determinent)) : a);
-    }
+    static inverse = <T extends number | Complex>(matrix: Matrix<T>) => Matrix.getInverse(matrix.a);
 
-    static determinent = (a: Matrix) => {
-        const item = a.a;
-        let determinent: number = 0;
+    static determinent = <T extends number | Complex>(matrix: Matrix<T>) => Matrix.getDeterminent(matrix.a);
 
-        a.a.forEach((row, rowIndex) => {
-            const returnValue = Matrix.getDeterminentAndAdjugateByIndex(item, rowIndex, rowIndex, row, item.length);
-            determinent += returnValue.determinent;
-        });
+    static adjugate = <T extends number | Complex>(matrix: Matrix<T>) => Matrix.getAdjugate(matrix.a);
 
-        return determinent;
-    };
+    static transpose = <T extends number | Complex>(matrix: Matrix<T>) => Matrix.getTranspose(matrix.a);
 
-    static adjugate = (a: Matrix) => {
-        const item = a.a;
-        let adjugate: number[][] = [];
+    static multiplyWithNumber = <T extends number | Complex>(matrix: Matrix<T>, value: T) => Matrix.getMultiplyWithNumber(matrix.a, value);
 
-        a.a.forEach((row, rowIndex) => {
-            const returnValue = Matrix.getDeterminentAndAdjugateByIndex(item, rowIndex, rowIndex, row, item.length);
-            adjugate[rowIndex] = returnValue.adjugate.a[rowIndex];
-        });
+    static cofactor = <T extends number | Complex>(matrix: Matrix<T>, index: number) => Matrix.getCofactor(matrix.a, index);
 
-        return new Matrix(adjugate);
-    };
-
-    static transpose = (a: Matrix) => {
-        let mat: number[][] = [];
-        const item = a.a;
-        for (var i = 0; i < item.length; i++) {
-            for (var j = 0; j < item[i]?.length; j++) {
-                if (!mat[j]) {
-                    mat[j] = [];
-                }
-                if (!mat[i]) {
-                    mat[i] = [];
-                }
-                mat[j][i] = item[i][j];
-            }
-        }
-        return new Matrix(mat);
-    }
-
-    static multiplyWithNumber = (a: Matrix, value: number) => {
-        return new Matrix(a.a.map(row => row.map(column => column * value)));
-    }
-
-    static cofactor = (a: Matrix, index: number) => new Matrix(Matrix.getCofactor(a.a, index));
-
-    static conjugate = (a: Matrix) => {
-
-    }
+    static conjugate = <T extends number | Complex>(matrix: Matrix<T>) => Matrix.getConjugate(matrix.a);
 
     //#endregion
 
@@ -1078,6 +1180,7 @@ export class Calculas {
 
 }
 
+// complex
 export class Statistics {
 
     //#region static functions
@@ -1312,6 +1415,7 @@ export class Trigonometry {
 
 }
 
+// complex
 export class Convert {
 
     //#region private static functions
@@ -2662,40 +2766,40 @@ export default class Maths {
 
     static Factorial = Calculas.factorial;
 
-    static Add = <T extends Complex | Matrix | number>(a: T, b: T) => {
+    static Add = <T extends Complex | Matrix<Complex | number> | number>(a: T, b: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
                 return Algebra.add(a as number, b as number);
             case ConstructorTypes.Complex:
                 return Complex.add(a as Complex, b as Complex);
             case ConstructorTypes.Matrix:
-                return Matrix.add(a as Matrix, b as Matrix);
+                return Matrix.add(a as Matrix<Complex | number>, b as Matrix<Complex | number>);
             default:
                 throw new Error('Invalid Type Passed');
         }
     };
 
-    static Subtract = <T extends Complex | Matrix | number>(a: T, b: T) => {
+    static Subtract = <T extends Complex | Matrix<Complex | number> | number>(a: T, b: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
                 return Algebra.subtract(a as number, b as number);
             case ConstructorTypes.Complex:
                 return Complex.subtract(a as Complex, b as Complex);
             case ConstructorTypes.Matrix:
-                return Matrix.subtract(a as Matrix, b as Matrix);
+                return Matrix.subtract(a as Matrix<Complex | number>, b as Matrix<Complex | number>);
             default:
                 throw new Error('Invalid Type Passed');
         }
     };
 
-    static Multiply = <T extends Complex | Matrix | number>(a: T, b: T) => {
+    static Multiply = <T extends Complex | Matrix<Complex | number> | number>(a: T, b: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
                 return Algebra.multiply(a as number, b as number);
             case ConstructorTypes.Complex:
                 return Complex.multiply(a as Complex, b as Complex);
             case ConstructorTypes.Matrix:
-                return Matrix.multiply(a as Matrix, b as Matrix);
+                return Matrix.multiply(a as Matrix<Complex | number>, b as Matrix<Complex | number>);
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2711,27 +2815,27 @@ export default class Maths {
 
     static Cofactor = Matrix.cofactor;
 
-    static Divide = <T extends Complex | Matrix | number>(a: T, b: T) => {
+    static Divide = <T extends Complex | Matrix<Complex | number> | number>(a: T, b: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
                 return Algebra.divide(a as number, b as number);
             case ConstructorTypes.Complex:
                 return Complex.divide(a as Complex, b as Complex);
             case ConstructorTypes.Matrix:
-                return Matrix.divide(a as Matrix, b as Matrix);
+                return Matrix.divide(a as Matrix<Complex | number>, b as Matrix<Complex | number>);
             default:
                 throw new Error('Invalid Type Passed');
         }
     };
 
-    static Inverse = <T extends Complex | Matrix | number>(a: T) => {
+    static Inverse = <T extends Complex | Matrix<Complex | number> | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
                 return Algebra.inverse(a as number);
             case ConstructorTypes.Complex:
                 return Complex.inverse(a as Complex);
             case ConstructorTypes.Matrix:
-                return Matrix.inverse(a as Matrix);
+                return Matrix.inverse(a as Matrix<Complex | number>);
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2781,10 +2885,10 @@ export default class Maths {
         }
     };
 
-    static Conjugate = <T extends Complex | Matrix>(a: T) => {
+    static Conjugate = <T extends Complex | Matrix<Complex | number>>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Matrix:
-                return Matrix.conjugate(a as Matrix);
+                return Matrix.conjugate(a as Matrix<Complex | number>);
             case ConstructorTypes.Complex:
                 return Complex.conjugate(a as Complex);
             default:

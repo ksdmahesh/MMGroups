@@ -282,16 +282,22 @@ class App extends React.Component {
     console.log(Maths.Subtract(new Matrix([[1, 2], [3, 4]]), new Matrix([[2, 3], [4, 5]])));
     // [[10, 13], [22, 29]]
     console.log(Maths.Multiply(new Matrix([[1, 2], [3, 4]]), new Matrix([[2, 3], [4, 5]])));
-    // [[3, 5], [7, 9]]
+    // [[1.5, -0.5], [0.5, 0.5]]
+    console.log(Maths.Divide(new Matrix([[1, 2], [3, 4]]), new Matrix([[2, 3], [4, 5]])));
+    // [[-2, 1], [1.5, -0.5]]
+    console.log(Maths.Inverse(new Matrix([[1, 2], [3, 4]])));
+    // [[2, 4], [6, 8]]
     console.log(Maths.MatrixMultiplyWithNumber(new Matrix([[1, 2], [3, 4]]), 2));
-    // [[-1, -1], [-1, -1]]
+    // -2
     console.log(Maths.Determinent(new Matrix([[1, 2], [3, 4]])));
-    // [[10, 13], [22, 29]]
+    // [[4, -3], [-2, 1]]
     console.log(Maths.Adjugate(new Matrix([[1, 2], [3, 4]])));
-    // [[-1, -1], [-1, -1]]
+    // [[1, 3], [2, 4]]
     console.log(Maths.Transpose(new Matrix([[1, 2], [3, 4]])));
-    // [[10, 13], [22, 29]]
+    // [[4]]
     console.log(Maths.Cofactor(new Matrix([[1, 2], [3, 4]]), 0));
+    // [[1, 2], [3, 4]]
+    console.log(Maths.Conjugate(new Matrix([[1, 2], [3, 4]])));
 
     //#endregion
 
