@@ -71,57 +71,57 @@ export enum ConstructorTypes {
 //#region constants
 
 const _constants = {
-    'Speed of light c': `${2.997924580 * Math.pow(10, +8)} m.s-1 or m/s`,
-    'Permeability of vacuum μ0': `${12.566370614 * Math.pow(10, -7)} kg.m.s-2.A-2 or H/m or N/A2`,
-    'Permittivity of vacuum ε0': `${8.854187817 * Math.pow(10, -12)} kg-1.m-3.s4.A2 or F/m`,
-    'Gravitation constant G': `${6.6738480 * Math.pow(10, -11)} kg-1.m3.s-2`,
-    'Planck constant h': `${6.6260695729 * Math.pow(10, -34)} kg.m2.s-1 or J.s`,
-    'Angular Planck constant': `${1.05457172647 * Math.pow(10, -34)} kg.m2.s-1 or J.s`,
-    'Charge/Quantum ratio': `${2.41798934853 * Math.pow(10, +14)} kg-1.m-2.s2.A or A/J`,
-    'Elementary charge e': `${1.60217656535 * Math.pow(10, -19)} s.A or C`,
-    'Quantum/Charge ratio': `${4.1356675210 * Math.pow(10, -15)} kg.m2.s-2.A-1 or J/A`,
-    'Fine structure constant α': `${7.297352569824 * Math.pow(10, -3)} Dimensionless`,
-    'Inverse of fine structure constant': `${137.03599907445} Dimensionless`,
-    'Boltzmann constant k': `${1.380648813 * Math.pow(10, -23)} kg.m2.s-2.K-1 or J/K`,
-    'Planck mass mp': `${2.1765113 * Math.pow(10, -8)} kg`,
-    'Planck time tp': `${5.3910632 * Math.pow(10, -44)} s`,
-    'Planck length lp': `${1.61619997 * Math.pow(10, -35)} m`,
-    'Planck temperature': `${1.41683385 * Math.pow(10, +32)} K`,
-    'Impedance of vacuum Z0': `${376.730313461} kg.m2.s-3.A-2 or Ω`,
-    'Magnetic flux quantum Φ0': `${2.06783375846 * Math.pow(10, -15)} kg.m2.s-2.A-1 or Wb`,
-    'Josephson constant KJ': `${4.8359787011 * Math.pow(10, 14)} kg-1.m-2.s2.A or Hz/V`,
-    'von Klitzing constant RK': `${2.5812807443484 * Math.pow(10, +4)} kg.m2.s-3.A-2 or Ω`,
-    'Conductance quantum G0': `${7.748091734625 * Math.pow(10, -5)} kg-1.m-2.s3.A2 or S`,
-    'Inverse of conductance quantum': `${1.2906403721742 * Math.pow(10, +4)} kg.m2.s-3.A-2 or Ω`,
-    'Stefan-Boltzmann const. σ': `${5.67037321 * Math.pow(10, -8)} kg.s-3.K-4 or W/m2.K4`,
-    'Rydberg constant R∞': `${1.097373156853955 * Math.pow(10, +7)} m-1 or m-1 `,
-    'Hartree energy EH': `${4.3597443419 * Math.pow(10, -18)} kg.m2.s-2 or J`,
-    'Bohr radius': `${5.291772109217 * Math.pow(10, -11)} m or m`,
-    'Bohr magneton μB': `${9.2740096820 * Math.pow(10, -24)} m2.A or J/T`,
-    'Bohr magneton in Hz/T': `${1.39962455531 * Math.pow(10, +10)} kg-1.s.A or Hz/T`,
-    'Quantum of circulation': `${3.636947552024 * Math.pow(10, -4)} m2.s-1 or m2/s`,
-    'Richardson constant': `${1.20173 * Math.pow(10, +6)} A.m-2.K-2 `,
-    'Classical electron radius re': `${2.817940326727 * Math.pow(10, -15)} m`,
-    'Thomson cross section σe': `${0.665245873413 * Math.pow(10, -28)} m2`,
-    'Boltzmann constant in eV/K': `${8.617332478 * Math.pow(10, -5)} kg.m2.s-3.A-1.K-1 or V/K`,
-    'Avogadro\'s number NA': `${6.0221412927 * Math.pow(10, +23)} mol-1 or count/mol`,
-    'Molar Planck constant': `${3.990312717628 * Math.pow(10, -10)} kg.m2.s-1.mol-1 or J.s/mol`,
-    'Molar Planck constant by c': `${0.11962656577984} kg.m3.s-2.mol-1 or J.m/mol`,
-    'Electron molar mass': `${5.485799094622 * Math.pow(10, -7)} kg.mol-1 or kg/mol`,
-    'Electron molar charge': `${-9.6485336521 * Math.pow(10, +4)} s.A.mol-1 or C/mol`,
-    'Faraday constant F': `${+9.6485336521 * Math.pow(10, +4)} s.A.mol-1 or C/mol`,
-    'Molar gas constant R': `${8.314462175} kg.m2.s-2.K-1.mol-1 or J/K.mol`,
-    'Molar volume of ideal gas Vm': `${22.41396820 * Math.pow(10, -3)} m3.mol-1 or m3/mol`,
-    'Electron volt': `${1.60217656535 * Math.pow(10, -19)} kg.m2.s-2 or J`,
-    'Electron volt to mass': `${1.78266184539 * Math.pow(10, -36)} kg`,
-    'Electron volt to atomic units u': `${1.07354415024 * Math.pow(10, -9)} u`,
-    'Electron volt to frequency': `${2.41798934853 * Math.pow(10, +14)} s-1 or Hz`,
-    'Joul to eV': `${6.2415093414 * Math.pow(10, +18)} eV`,
-    'Mass to eV': `${5.6095888512 * Math.pow(10, +35)} eV`,
-    'Atomic unit u to eV': `${931.49406121 * Math.pow(10, +6)} eV`,
-    'Frequency (1 Hz) to eV': `${4.13566751691 * Math.pow(10, -15)} eV`,
-    'Light-year ly': `${9.4607304725808 * Math.pow(10, +15)} m or ~9.5 Pm`
-};
+    'Speed of light c': { value: (2.997924580 * Math.pow(10, +8)), unit: `m.s-1 or m/s` },
+    'Permeability of vacuum μ0': { value: (12.566370614 * Math.pow(10, -7)), unit: `kg.m.s-2.A-2 or H/m or N/A2` },
+    'Permittivity of vacuum ε0': { value: (8.854187817 * Math.pow(10, -12)), unit: `kg-1.m-3.s4.A2 or F/m` },
+    'Gravitation constant G': { value: (6.6738480 * Math.pow(10, -11)), unit: `kg-1.m3.s-2` },
+    'Planck constant h': { value: (6.6260695729 * Math.pow(10, -34)), unit: `kg.m2.s-1 or J.s` },
+    'Angular Planck constant': { value: (1.05457172647 * Math.pow(10, -34)), unit: `kg.m2.s-1 or J.s` },
+    'Charge/Quantum ratio': { value: (2.41798934853 * Math.pow(10, +14)), unit: `kg-1.m-2.s2.A or A/J` },
+    'Elementary charge e': { value: (1.60217656535 * Math.pow(10, -19)), unit: `s.A or C` },
+    'Quantum/Charge ratio': { value: (4.1356675210 * Math.pow(10, -15)), unit: `kg.m2.s-2.A-1 or J/A` },
+    'Fine structure constant α': { value: (7.297352569824 * Math.pow(10, -3)), unit: `Dimensionless` },
+    'Inverse of fine structure constant': { value: (137.03599907445), unit: `Dimensionless` },
+    'Boltzmann constant k': { value: (1.380648813 * Math.pow(10, -23)), unit: `kg.m2.s-2.K-1 or J/K` },
+    'Planck mass mp': { value: (2.1765113 * Math.pow(10, -8)), unit: `kg` },
+    'Planck time tp': { value: (5.3910632 * Math.pow(10, -44)), unit: `s` },
+    'Planck length lp': { value: (1.61619997 * Math.pow(10, -35)), unit: `m` },
+    'Planck temperature': { value: (1.41683385 * Math.pow(10, +32)), unit: `K` },
+    'Impedance of vacuum Z0': { value: (376.730313461), unit: `kg.m2.s-3.A-2 or Ω` },
+    'Magnetic flux quantum Φ0': { value: (2.06783375846 * Math.pow(10, -15)), unit: `kg.m2.s-2.A-1 or Wb` },
+    'Josephson constant KJ': { value: (4.8359787011 * Math.pow(10, 14)), unit: `kg-1.m-2.s2.A or Hz/V` },
+    'von Klitzing constant RK': { value: (2.5812807443484 * Math.pow(10, +4)), unit: `kg.m2.s-3.A-2 or Ω` },
+    'Conductance quantum G0': { value: (7.748091734625 * Math.pow(10, -5)), unit: `kg-1.m-2.s3.A2 or S` },
+    'Inverse of conductance quantum': { value: (1.2906403721742 * Math.pow(10, +4)), unit: `kg.m2.s-3.A-2 or Ω` },
+    'Stefan-Boltzmann const. σ': { value: (5.67037321 * Math.pow(10, -8)), unit: `kg.s-3.K-4 or W/m2.K4` },
+    'Rydberg constant R∞': { value: (1.097373156853955 * Math.pow(10, +7)), unit: `m-1 or m-1` },
+    'Hartree energy EH': { value: (4.3597443419 * Math.pow(10, -18)), unit: `kg.m2.s-2 or J` },
+    'Bohr radius': { value: (5.291772109217 * Math.pow(10, -11)), unit: `m or m` },
+    'Bohr magneton μB': { value: (9.2740096820 * Math.pow(10, -24)), unit: `m2.A or J/T` },
+    'Bohr magneton in Hz/T': { value: (1.39962455531 * Math.pow(10, +10)), unit: `kg-1.s.A or Hz/T` },
+    'Quantum of circulation': { value: (3.636947552024 * Math.pow(10, -4)), unit: `m2.s-1 or m2/s` },
+    'Richardson constant': { value: (1.20173 * Math.pow(10, +6)), unit: `A.m-2.K-2` },
+    'Classical electron radius re': { value: (2.817940326727 * Math.pow(10, -15)), unit: `m` },
+    'Thomson cross section σe': { value: (0.665245873413 * Math.pow(10, -28)), unit: `m2` },
+    'Boltzmann constant in eV/K': { value: (8.617332478 * Math.pow(10, -5)), unit: `kg.m2.s-3.A-1.K-1 or V/K` },
+    'Avogadro\'s number NA': { value: (6.0221412927 * Math.pow(10, +23)), unit: `mol-1 or count/mol` },
+    'Molar Planck constant': { value: (3.990312717628 * Math.pow(10, -10)), unit: `kg.m2.s-1.mol-1 or J.s/mol` },
+    'Molar Planck constant by c': { value: (0.11962656577984), unit: `kg.m3.s-2.mol-1 or J.m/mol` },
+    'Electron molar mass': { value: (5.485799094622 * Math.pow(10, -7)), unit: `kg.mol-1 or kg/mol` },
+    'Electron molar charge': { value: (-9.6485336521 * Math.pow(10, +4)), unit: `s.A.mol-1 or C/mol` },
+    'Faraday constant F': { value: (+9.6485336521 * Math.pow(10, +4)), unit: `s.A.mol-1 or C/mol` },
+    'Molar gas constant R': { value: (8.314462175), unit: `kg.m2.s-2.K-1.mol-1 or J/K.mol` },
+    'Molar volume of ideal gas Vm': { value: (22.41396820 * Math.pow(10, -3)), unit: `m3.mol-1 or m3/mol` },
+    'Electron volt': { value: (1.60217656535 * Math.pow(10, -19)), unit: `kg.m2.s-2 or J` },
+    'Electron volt to mass': { value: (1.78266184539 * Math.pow(10, -36)), unit: `kg` },
+    'Electron volt to atomic units u': { value: (1.07354415024 * Math.pow(10, -9)), unit: `u` },
+    'Electron volt to frequency': { value: (2.41798934853 * Math.pow(10, +14)), unit: `s-1 or Hz` },
+    'Joul to eV': { value: (6.2415093414 * Math.pow(10, +18)), unit: `eV` },
+    'Mass to eV': { value: (5.6095888512 * Math.pow(10, +35)), unit: `eV` },
+    'Atomic unit u to eV': { value: (931.49406121 * Math.pow(10, +6)), unit: `eV` },
+    'Frequency (1 Hz) to eV': { value: (4.13566751691 * Math.pow(10, -15)), unit: `eV` },
+    'Light-year ly': { value: (9.4607304725808 * Math.pow(10, +15)), unit: `m or ~9.5 Pm` }
+}
 
 type ConstType = keyof (typeof _constants);
 
@@ -233,24 +233,24 @@ export class Complex {
     static asin = (value: Complex) => {
         const { realNumber, imaginaryNumber } = Complex.log(Complex.getRootAngleLog(value, Complex.getRootAngle(new Complex(1, 0).subtract(value.multiply(value)))), new Complex(Math.E, 0));
         return new Complex(imaginaryNumber, -realNumber);
-    };
+    }
 
     static acos = (value: Complex) => {
         const { realNumber, imaginaryNumber } = Complex.asin(value);
         return new Complex((Math.PI / 2) - realNumber, -imaginaryNumber);
-    };
+    }
 
     static atan = (value: Complex) => new Complex(0, 1).divide(new Complex(2, 0)).multiply(Complex.log(new Complex(0, 1).add(value).divide(new Complex(0, 1).subtract(value)), new Complex(Math.E, 0)));
 
     static asinh = (value: Complex) => {
         const { realNumber, imaginaryNumber } = Complex.asin(new Complex(value.imaginaryNumber, -value.realNumber));
         return new Complex(-imaginaryNumber, realNumber);
-    };
+    }
 
     static acosh = (value: Complex) => {
         const { realNumber, imaginaryNumber } = Complex.acos(value);
         return (imaginaryNumber <= 0 ? new Complex(-imaginaryNumber, realNumber) : new Complex(imaginaryNumber, -realNumber));
-    };
+    }
 
     static atanh = (value: Complex) => {
         const sumOfSquares = Complex.sumOfSquares(value);
@@ -264,7 +264,7 @@ export class Complex {
         const { realNumber } = Complex.log(angleValue, new Complex(Math.E, 0));
 
         return new Complex(realNumber / 2, ((value.realNumber > 1 && 0 === value.imaginaryNumber) ? -1 : 1) * Complex.arg(angleValue) / 2);
-    };
+    }
 
     static degToRad = (a: Complex) => a.multiply(new Complex(180, 0)).divide(new Complex(Math.PI, 0))
 
@@ -290,7 +290,6 @@ export class Complex {
 
 }
 
-// complex
 export class Matrix<T extends number | Complex> {
 
     //#region members
@@ -325,7 +324,7 @@ export class Matrix<T extends number | Complex> {
         });
 
         return result;
-    };
+    }
 
     private static getDeterminentAndAdjugateByIndex = (item: Complex[][], index: number, rI: number, row: Complex[], length: number) => {
         let result: {
@@ -370,7 +369,7 @@ export class Matrix<T extends number | Complex> {
         result.determinent = ((index % 2 === 0 ? new Complex(1, 0) : new Complex(-1, 0)).multiply(item[0][index].multiply(result.determinent)));
 
         return result;
-    };
+    }
 
     private static getCofactor = <T extends number | Complex>(item: T[][], index: number) => {
         const b = Matrix.convertToComplex(item);
@@ -396,7 +395,7 @@ export class Matrix<T extends number | Complex> {
             default:
                 throw new Error('Invalid Type Passed');
         }
-    };
+    }
 
     private static convertToComplex = <T extends number | Complex>(item: T[][]) => {
         switch (item?.[0]?.[0]?.constructor?.name) {
@@ -466,7 +465,7 @@ export class Matrix<T extends number | Complex> {
             default:
                 throw new Error('Invalid Type Passed');
         }
-    };
+    }
 
     private static getTranspose = <T extends number | Complex>(item: T[][]) => {
         let mat: T[][] = [];
@@ -1905,67 +1904,6 @@ export class Convert {
 
     //#region static functions
 
-    static angleToAngle = (a: Angle, b: Angle, input: number) => {
-        Convert.validate(input);
-        switch (a) {
-            case Angle.Degree:
-                {
-                    switch (b) {
-                        case Angle.Degree:
-                            {
-                                return input;
-                            }
-                        case Angle.Gradian:
-                            {
-                                return Algebra.gradToDeg(input);
-                            }
-                        case Angle.Radian:
-                            {
-                                return Algebra.radToDeg(input);
-                            }
-                    }
-                    break;
-                }
-            case Angle.Gradian:
-                {
-                    switch (b) {
-                        case Angle.Degree:
-                            {
-                                return Algebra.degToGrad(input);
-                            }
-                        case Angle.Gradian:
-                            {
-                                return input;
-                            }
-                        case Angle.Radian:
-                            {
-                                return Algebra.radToDeg(Algebra.degToGrad(input));
-                            }
-                    }
-                    break;
-                }
-            case Angle.Radian:
-                {
-                    switch (b) {
-                        case Angle.Degree:
-                            {
-                                return Algebra.degToRad(input);
-                            }
-                        case Angle.Gradian:
-                            {
-                                return Algebra.degToRad(Algebra.gradToDeg(input));
-                            }
-                        case Angle.Radian:
-                            {
-                                return input;
-                            }
-                    }
-                    break;
-                }
-        }
-        return 0;
-    }
-
     static baseToBase = (a: Base, b: Base, input: string) => {
         switch (b) {
             case Base.Binary:
@@ -2474,6 +2412,66 @@ export default class Maths {
         }
     }
 
+    private static angleToAngle = (a: Angle, b: Angle, input: number | Complex) => {
+        switch (a) {
+            case Angle.Degree:
+                {
+                    switch (b) {
+                        case Angle.Degree:
+                            {
+                                return input;
+                            }
+                        case Angle.Gradian:
+                            {
+                                return Maths.GradToDeg(input);
+                            }
+                        case Angle.Radian:
+                            {
+                                return Maths.RadToDeg(input);
+                            }
+                    }
+                    break;
+                }
+            case Angle.Gradian:
+                {
+                    switch (b) {
+                        case Angle.Degree:
+                            {
+                                return Maths.DegToGrad(input);
+                            }
+                        case Angle.Gradian:
+                            {
+                                return input;
+                            }
+                        case Angle.Radian:
+                            {
+                                return Maths.RadToDeg(Maths.DegToGrad(input));
+                            }
+                    }
+                    break;
+                }
+            case Angle.Radian:
+                {
+                    switch (b) {
+                        case Angle.Degree:
+                            {
+                                return Maths.DegToRad(input);
+                            }
+                        case Angle.Gradian:
+                            {
+                                return Maths.DegToRad(Maths.GradToDeg(input));
+                            }
+                        case Angle.Radian:
+                            {
+                                return input;
+                            }
+                    }
+                    break;
+                }
+        }
+        return 0;
+    }
+
     //#endregion
 
     //#region public functions
@@ -2481,6 +2479,66 @@ export default class Maths {
     static TwoEquation = Algebra.twoEquation;
 
     static Threeequation = Algebra.threeequation;
+
+    static MixVsFraction = Algebra.mixVsFraction;
+
+    static Prime = Algebra.prime;
+
+    static ListOfPrime = Algebra.listOfPrime;
+
+    static Modulus = Algebra.modulus;
+
+    static ListOfLcm = Algebra.listOfLcm;
+
+    static Lcm = Algebra.lcm;
+
+    static Hcf = Algebra.hcf;
+
+    static APSum = Algebra.apSum;
+
+    static APDiff = Algebra.apDiff;
+
+    static GPSum = Algebra.gpSum;
+
+    static GPDiff = Algebra.gpDiff;
+
+    static HPSum = Algebra.hpSum;
+
+    static HPDiff = Algebra.hpDiff;
+
+    static Angle = Algebra.angle;
+
+    static And = NumberSystems.and;
+
+    static Or = NumberSystems.or;
+
+    static Xor = NumberSystems.xor;
+
+    static Not = NumberSystems.not;
+
+    static DecimalToBinary = NumberSystems.decimalToBinary;
+
+    static DecimalToOctal = NumberSystems.decimalToOctal;
+
+    static DecimalToHexa = NumberSystems.decimalToHexa;
+
+    static BinaryToDecimal = NumberSystems.binaryToDecimal;
+
+    static OctalToDecimal = NumberSystems.octalToDecimal;
+
+    static HexaToDecimal = NumberSystems.hexaToDecimal;
+
+    static Permutation = Calculas.permutation;
+
+    static Combination = Calculas.combination;
+
+    static Factorial = Calculas.factorial;
+
+    static Argument = Complex.arg;
+
+    static PolarToRectangular = Complex.polarToRectangular;
+
+    static RectangularToPolar = Complex.rectangularToPolar;
 
     static Power = <T extends Complex | number>(a: T, b: T) => {
         switch (a.constructor.name) {
@@ -2746,25 +2804,49 @@ export default class Maths {
         }
     }
 
-    static MixVsFraction = Algebra.mixVsFraction;
+    static Abs = <T extends Complex | number>(a: T) => {
+        switch (a.constructor.name) {
+            case ConstructorTypes.Number:
+                return Algebra.abs(a as number);
+            case ConstructorTypes.Complex:
+                return Complex.abs(a as Complex);
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
 
-    static And = NumberSystems.and;
+    static Ceil = <T extends Complex | number>(a: T) => {
+        switch (a.constructor.name) {
+            case ConstructorTypes.Number:
+                return Algebra.ceil(a as number);
+            case ConstructorTypes.Complex:
+                return Complex.ceil(a as Complex);
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
 
-    static Or = NumberSystems.or;
+    static Floor = <T extends Complex | number>(a: T) => {
+        switch (a.constructor.name) {
+            case ConstructorTypes.Number:
+                return Algebra.floor(a as number);
+            case ConstructorTypes.Complex:
+                return Complex.floor(a as Complex);
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
 
-    static Xor = NumberSystems.xor;
-
-    static Not = NumberSystems.not;
-
-    static Prime = Algebra.prime;
-
-    static ListOfPrime = Algebra.listOfPrime;
-
-    static Permutation = Calculas.permutation;
-
-    static Combination = Calculas.combination;
-
-    static Factorial = Calculas.factorial;
+    static Round = <T extends Complex | number>(a: T) => {
+        switch (a.constructor.name) {
+            case ConstructorTypes.Number:
+                return Algebra.round(a as number);
+            case ConstructorTypes.Complex:
+                return Complex.round(a as Complex);
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
 
     static Add = <T extends Complex | Matrix<Complex | number> | number>(a: T, b: T) => {
         switch (a.constructor.name) {
@@ -2777,7 +2859,7 @@ export default class Maths {
             default:
                 throw new Error('Invalid Type Passed');
         }
-    };
+    }
 
     static Subtract = <T extends Complex | Matrix<Complex | number> | number>(a: T, b: T) => {
         switch (a.constructor.name) {
@@ -2790,7 +2872,7 @@ export default class Maths {
             default:
                 throw new Error('Invalid Type Passed');
         }
-    };
+    }
 
     static Multiply = <T extends Complex | Matrix<Complex | number> | number>(a: T, b: T) => {
         switch (a.constructor.name) {
@@ -2803,17 +2885,7 @@ export default class Maths {
             default:
                 throw new Error('Invalid Type Passed');
         }
-    };
-
-    static MatrixMultiplyWithNumber = Matrix.multiplyWithNumber;
-
-    static Determinent = Matrix.determinent;
-
-    static Adjugate = Matrix.adjugate;
-
-    static Transpose = Matrix.transpose;
-
-    static Cofactor = Matrix.cofactor;
+    }
 
     static Divide = <T extends Complex | Matrix<Complex | number> | number>(a: T, b: T) => {
         switch (a.constructor.name) {
@@ -2826,7 +2898,7 @@ export default class Maths {
             default:
                 throw new Error('Invalid Type Passed');
         }
-    };
+    }
 
     static Inverse = <T extends Complex | Matrix<Complex | number> | number>(a: T) => {
         switch (a.constructor.name) {
@@ -2839,51 +2911,7 @@ export default class Maths {
             default:
                 throw new Error('Invalid Type Passed');
         }
-    };
-
-    static Abs = <T extends Complex | number>(a: T) => {
-        switch (a.constructor.name) {
-            case ConstructorTypes.Number:
-                return Algebra.abs(a as number);
-            case ConstructorTypes.Complex:
-                return Complex.abs(a as Complex);
-            default:
-                throw new Error('Invalid Type Passed');
-        }
-    };
-
-    static Ceil = <T extends Complex | number>(a: T) => {
-        switch (a.constructor.name) {
-            case ConstructorTypes.Number:
-                return Algebra.ceil(a as number);
-            case ConstructorTypes.Complex:
-                return Complex.ceil(a as Complex);
-            default:
-                throw new Error('Invalid Type Passed');
-        }
-    };
-
-    static Floor = <T extends Complex | number>(a: T) => {
-        switch (a.constructor.name) {
-            case ConstructorTypes.Number:
-                return Algebra.floor(a as number);
-            case ConstructorTypes.Complex:
-                return Complex.floor(a as Complex);
-            default:
-                throw new Error('Invalid Type Passed');
-        }
-    };
-
-    static Round = <T extends Complex | number>(a: T) => {
-        switch (a.constructor.name) {
-            case ConstructorTypes.Number:
-                return Algebra.round(a as number);
-            case ConstructorTypes.Complex:
-                return Complex.round(a as Complex);
-            default:
-                throw new Error('Invalid Type Passed');
-        }
-    };
+    }
 
     static Conjugate = <T extends Complex | Matrix<Complex | number>>(a: T) => {
         switch (a.constructor.name) {
@@ -2894,45 +2922,17 @@ export default class Maths {
             default:
                 throw new Error('Invalid Type Passed');
         }
-    };
+    }
 
-    static Argument = Complex.arg;
+    static MatrixMultiplyWithNumber = Matrix.multiplyWithNumber;
 
-    static Modulus = Algebra.modulus;
+    static Determinent = Matrix.determinent;
 
-    static ListOfLcm = Algebra.listOfLcm;
+    static Adjugate = Matrix.adjugate;
 
-    static Lcm = Algebra.lcm;
+    static Transpose = Matrix.transpose;
 
-    static Hcf = Algebra.hcf;
-
-    static APSum = Algebra.apSum;
-
-    static APDiff = Algebra.apDiff;
-
-    static GPSum = Algebra.gpSum;
-
-    static GPDiff = Algebra.gpDiff;
-
-    static HPSum = Algebra.hpSum;
-
-    static HPDiff = Algebra.hpDiff;
-
-    static DecimalToBinary = NumberSystems.decimalToBinary;
-
-    static DecimalToOctal = NumberSystems.decimalToOctal;
-
-    static DecimalToHexa = NumberSystems.decimalToHexa;
-
-    static BinaryToDecimal = NumberSystems.binaryToDecimal;
-
-    static OctalToDecimal = NumberSystems.octalToDecimal;
-
-    static HexaToDecimal = NumberSystems.hexaToDecimal;
-
-    static PolarToRectangular = Complex.polarToRectangular;
-
-    static RectangularToPolar = Complex.rectangularToPolar;
+    static Cofactor = Matrix.cofactor;
 
     static Mean = Statistics.mean;
 
@@ -2945,10 +2945,6 @@ export default class Maths {
     static SquareSum = Statistics.squareSum;
 
     static Sum = Statistics.sum;
-
-    static Angle = Algebra.angle;
-
-    static AngleToAngle = Convert.angleToAngle;
 
     static BaseToBase = Convert.baseToBase;
 
@@ -2972,7 +2968,9 @@ export default class Maths {
 
     static WeightToWeight = Convert.weightToWeight;
 
-    static getConstantValue = (key: ConstType) => `${Object.keys(_constants).includes(key) ? _constants[key] : ''}`
+    static AngleToAngle = Maths.angleToAngle;
+
+    static GetConstantValue = (key: ConstType) => (Object.keys(_constants).includes(key) ? _constants[key] : { value: 0, unit: '' })
 
     //#endregion
 

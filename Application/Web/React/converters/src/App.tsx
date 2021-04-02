@@ -34,7 +34,7 @@ class App extends React.Component {
     // 0.1-i0.2
     console.log(Maths.Inverse(new Complex(1, 4)));
     // 0.8-i0.2
-    console.log(Maths.getConstantValue('Speed of light c'));
+    console.log(Maths.GetConstantValue('Speed of light c'));
 
     //#endregion
 
