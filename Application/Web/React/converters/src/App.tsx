@@ -318,6 +318,19 @@ class App extends React.Component {
     // 28
     console.log(Maths.Sum([1, 2, 3, 3, 9, 10]));
 
+    // 4.667
+    console.log(Maths.Mean([new Complex(1, 0), new Complex(2, 0), new Complex(3, 0), new Complex(3, 0), new Complex(9, 0), new Complex(10, 0)]));
+    // 12.222
+    console.log(Maths.Variance([new Complex(1, 0), new Complex(2, 0), new Complex(3, 0), new Complex(3, 0), new Complex(9, 0), new Complex(10, 0)]));
+    // 3.496
+    console.log(Maths.StandardDeviation(Maths.Variance([new Complex(1, 0), new Complex(2, 0), new Complex(3, 0), new Complex(3, 0), new Complex(9, 0), new Complex(10, 0)])));
+    // 34
+    console.log(Maths.MeanSquare([new Complex(1, 0), new Complex(2, 0), new Complex(3, 0), new Complex(3, 0), new Complex(9, 0), new Complex(10, 0)]));
+    // 204
+    console.log(Maths.SquareSum([new Complex(1, 0), new Complex(2, 0), new Complex(3, 0), new Complex(3, 0), new Complex(9, 0), new Complex(10, 0)]));
+    // 28
+    console.log(Maths.Sum([new Complex(1, 0), new Complex(2, 0), new Complex(3, 0), new Complex(3, 0), new Complex(9, 0), new Complex(10, 0)]));
+
     //#endregion
 
   }

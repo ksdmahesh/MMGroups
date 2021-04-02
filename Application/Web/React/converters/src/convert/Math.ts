@@ -178,6 +178,8 @@ export class Complex {
 
     divide = (value: Complex) => new Complex(((this.realNumber * value.realNumber) + (this.imaginaryNumber * value.imaginaryNumber)) / (Math.pow(value.realNumber, 2) + Math.pow(value.imaginaryNumber, 2)), ((this.imaginaryNumber * value.realNumber) - (value.imaginaryNumber * this.realNumber)) / (Math.pow(value.realNumber, 2) + Math.pow(value.imaginaryNumber, 2)));
 
+    toObject = () => ({ realNumber: this.realNumber, imaginaryNumber: this.imaginaryNumber });
+
     //#endregion
 
     //#region static functions
@@ -214,7 +216,7 @@ export class Complex {
         return new Complex(exp * Math.cos(angle), exp * Math.sin(angle));
     }
 
-    static sqrt = (value: Complex) => Complex.pow(value, new Complex(2, 0));
+    static sqrt = (value: Complex) => Complex.pow(value, new Complex(0.5, 0));
 
     static log = (value: Complex, base: Complex) => Complex.logWithNumber(value, Math.E).divide(Complex.logWithNumber(base, Math.E));
 
@@ -1179,41 +1181,106 @@ export class Calculas {
 
 }
 
-// complex
 export class Statistics {
+
+    //#region private functions
+
+    private static getMean = <T extends Complex | number>(list: T[], length: number) => {
+        switch (list?.[0]?.constructor?.name) {
+            case ConstructorTypes.Number:
+                return (list.reduce((a, b) => Algebra.add(a as number, b as number) as T) as number / length);
+            case ConstructorTypes.Complex:
+                return ((list.reduce((a, b) => Complex.add(a as Complex, b as Complex) as T) as Complex).divide(new Complex(length, 0)));
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
+
+    private static getMeanSquare = <T extends Complex | number>(list: T[]) => {
+        switch (list?.[0]?.constructor?.name) {
+            case ConstructorTypes.Number:
+                return (list.reduce((a, b) => Algebra.add(a as number, Math.pow(b as number, 2)) as T) as number / list.length);
+            case ConstructorTypes.Complex:
+                return ((list.reduce((a, b) => Complex.add(a as Complex, Complex.multiply(b as Complex, b as Complex)) as T) as Complex).divide(new Complex(list.length, 0)));
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
+
+    private static getSquareSum = <T extends Complex | number>(list: T[]) => {
+        switch (list?.[0]?.constructor?.name) {
+            case ConstructorTypes.Number:
+                return list.reduce((a, b) => Algebra.add(a as number, Math.pow(b as number, 2)) as T);
+            case ConstructorTypes.Complex:
+                return list.reduce((a, b) => Complex.add(a as Complex, Complex.multiply(b as Complex, b as Complex)) as T);
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
+
+    private static getSum = <T extends Complex | number>(list: T[]) => {
+        switch (list?.[0]?.constructor?.name) {
+            case ConstructorTypes.Number:
+                return list.reduce((a, b) => Algebra.add(a as number, b as number) as T);
+            case ConstructorTypes.Complex:
+                return list.reduce((a, b) => Complex.add(a as Complex, b as Complex) as T);
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
+
+    //#endregion
 
     //#region static functions
 
-    static mean = (list: number[]) => (list.reduce((a, b) => a + b) / list.length).toString();
+    static mean = <T extends Complex | number>(list: T[]) => Statistics.getMean(list, list.length);
 
-    static variance = (list: number[]) => {
+    static variance = <T extends Complex | number>(list: T[]) => {
         let list1 = [...list];
-        let meanValue = Maths.Mean(list1);
-        for (let i = 0; i < list.length; i++) {
-            list1[i] = Math.pow(list1[i] - +(meanValue), 2);
+        let meanValue = Statistics.mean(list1);
+
+        switch (list?.[0]?.constructor?.name) {
+            case ConstructorTypes.Number:
+                for (let i = 0; i < list.length; i++) {
+                    list1[i] = Math.pow(Algebra.subtract(list1[i] as number, meanValue as number), 2) as T;
+                }
+                break;
+            case ConstructorTypes.Complex:
+                for (let i = 0; i < list.length; i++) {
+                    const sub = Complex.subtract(list1[i] as Complex, meanValue as Complex);
+                    list1[i] = sub.multiply(sub) as T;
+                }
+                break;
+            default:
+                throw new Error('Invalid Type Passed');
         }
-        if (meanValue.includes(".")) {
-            meanValue = (list1.reduce((a, b) => a + b) / (list1.length - 1)).toString();
+
+        if (meanValue.toString().includes(".")) {
+            meanValue = Statistics.getMean(list1, list1.length - 1);
         }
         else {
-            meanValue = (list1.reduce((a, b) => a + b) / list1.length).toString();
+            meanValue = Statistics.mean(list1);
         }
+
         return meanValue;
     }
 
-    static standardDeviation = (variance: string) => {
-        let outValue = parseFloat(variance);
-        if (!isNaN(outValue)) {
-            return Math.pow(outValue, 0.5).toString();
+    static standardDeviation = <T extends Complex | number>(variance: T) => {
+        switch (variance?.constructor?.name) {
+            case ConstructorTypes.Number:
+                return Math.sqrt(variance as number);
+            case ConstructorTypes.Complex:
+                return Complex.sqrt(variance as Complex);
+            default:
+                throw new Error('Invalid Type Passed');
         }
-        return '0';
     }
 
-    static meanSquare = (list: number[]) => ([...list].reduce((a, b) => a + Math.pow(b, 2)) / list.length).toString();
+    static meanSquare = <T extends Complex | number>(list: T[]) => Statistics.getMeanSquare(list);
 
-    static squareSum = (list: number[]) => ([...list].reduce((a, b) => a + Math.pow(b, 2))).toString();
+    static squareSum = <T extends Complex | number>(list: T[]) => Statistics.getSquareSum(list);
 
-    static sum = (list: number[]) => [...list].reduce((a, b) => a + b).toString();
+    static sum = <T extends Complex | number>(list: T[]) => Statistics.getSum(list);
 
     //#endregion
 
@@ -2977,6 +3044,17 @@ export default class Maths {
 
 //#endregion
 
+//#region Extensions
+
+Complex.prototype.toString = function () {
+    return `${this.realNumber}${this.imaginaryNumber ? `${this.imaginaryNumber}i` : ''}`;
+}
+
+Matrix.prototype.toString = function () {
+    const separator = '==========================================================';
+    return `${separator}\r\n${this.a.map(row => `\t|${row.map(col => col).join(' ')}|\r\n`).join('')}${separator}`;
+}
+
 // Complex.prototype.valueOf = function () {
 //     Complex.operands.push(this);
 //     return 3;
@@ -3008,3 +3086,5 @@ export default class Maths {
 //     enumerable: true,
 //     configurable: true,
 // });
+
+//#endregion
