@@ -180,6 +180,10 @@ export class Complex {
 
     toObject = () => ({ realNumber: this.realNumber, imaginaryNumber: this.imaginaryNumber });
 
+    toString = () => {
+        return `${this.realNumber}${this.imaginaryNumber ? `${this.imaginaryNumber < 0 ? '-' : '+'}i${Math.abs(this.imaginaryNumber)}` : ''}`;
+    }
+
     //#endregion
 
     //#region static functions
@@ -775,6 +779,11 @@ export class Matrix<T extends number | Complex> {
     multiply = <T extends number | Complex>(matrix: Matrix<T>) => Matrix.getMultiply(Matrix.convertToComplex(this.a), Matrix.convertToComplex(matrix.a));
 
     divide = <T extends number | Complex>(matrix: Matrix<T>) => Matrix.getMultiply(Matrix.convertToComplex(this.a), Matrix.convertToComplex(Matrix.getInverse(matrix.a)));
+
+    toString = () => {
+        const separator = '==========================================================';
+        return `${separator}\r\n${this.a.map(row => `\t|${row.map(col => col).join(' ')}|\r\n`).join('')}${separator}`;
+    }
 
     //#endregion
 
@@ -3045,15 +3054,6 @@ export default class Maths {
 //#endregion
 
 //#region Extensions
-
-Complex.prototype.toString = function () {
-    return `${this.realNumber}${this.imaginaryNumber ? `${this.imaginaryNumber}i` : ''}`;
-}
-
-Matrix.prototype.toString = function () {
-    const separator = '==========================================================';
-    return `${separator}\r\n${this.a.map(row => `\t|${row.map(col => col).join(' ')}|\r\n`).join('')}${separator}`;
-}
 
 // Complex.prototype.valueOf = function () {
 //     Complex.operands.push(this);

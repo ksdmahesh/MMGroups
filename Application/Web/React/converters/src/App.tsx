@@ -5,6 +5,7 @@ import Maths, { Angle, Area, Base, Complex, Energy, Length, Matrix, Mode, Powers
 // import { JsonFlatten, JsonDeflatten } from './convert/JsonFlatten';
 import { getDefaultPath, readStream, writeStream } from './server/service-call';
 
+// json-csv, csv-json, json-xml, xml-json, polyfills
 class App extends React.Component {
 
   state = {
@@ -23,6 +24,10 @@ class App extends React.Component {
 
     //#region Common
 
+    // 1+i2
+    console.log(new Complex(1, 2).toString());
+    // 1-i2
+    console.log(new Complex(1, -2).toString());
     // 3+i6
     console.log(new Complex(1, 2).add(new Complex(2, 4)));
     // 1-i
