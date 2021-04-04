@@ -78,8 +78,41 @@ const jsType: { rule: JsType } = {
 
 //#region private functions
 
-const toXml = (data: any) => {
-    return '';
+const getTabs = () => `\r\n${new Array<string>(resultIndex).fill('\t').join('')}`;
+
+const toXml = (data: any, path?: string, isArray?: boolean) => {
+    let result = `${(data.Declaration?.join('\r\n') || '')}`;
+    const props = {
+        attribute: '',
+        innerText: ''
+    }
+    try {
+        if (TypeCheck.isObject(data)) {
+            resultIndex++;
+            Object.entries(data).forEach(key => {
+                if (key[0] !== 'Declaration') {
+                    if (key[0] === '@innerText') {
+                        props.innerText += `${key[1]}`;
+                    } else if (key[0].startsWith('@')) {
+                        props.attribute += ` ${key[0].substring(1)}="${key[1]}"`;
+                    } else {
+                        result += toXml(key[1], key[0], !!TypeCheck.isArray(key[1] as any));
+                    }
+                }
+            });
+            resultIndex--;
+        } else if (TypeCheck.isArray(data)) {
+            data.forEach((x: any, index: number) => {
+                result += toXml(x, path);
+            });
+        } else {
+            result += `${data}`;
+        }
+    } catch (er) {
+
+    }
+    const textOrValue = result ? result : props.innerText;
+    return (path && !isArray) ? `${getTabs()}<${path}${props.attribute}${textOrValue ? `>${textOrValue}${textOrValue.trim().startsWith('<') ? getTabs() : ''}</${path}>` : '/>'}` : textOrValue;
 }
 
 const getName = (name: string) => {
@@ -400,11 +433,12 @@ const assignToJson = (rules: XmlType[], rule: any, prevPath?: string) => {
  * @param includeDefault If true returns with header <?xml version="1.0" encoding="UTF-8"?>, if false returns without header
  * @returns string
  */
-export const JsontoXml = (data: object, includeDefault: boolean = true) => {
-    const xml = toXml(data);
+export const JsontoXml = (props: { data: object, includeDefault: boolean }) => {
+    resultIndex = -1;
+    const xml = toXml(props.data);
 
-    if (includeDefault) {
-        return `<?xml version="1.0" encoding="UTF-8"?>\r\n${JSON.stringify(xml)}`;
+    if (props.includeDefault) {
+        return `<?xml version="1.0" encoding="UTF-8"?>\r\n${xml}`;
     }
 
     return xml;
@@ -416,13 +450,12 @@ export const JsontoXml = (data: object, includeDefault: boolean = true) => {
  * @param includeDefault If true return string with import/export, if false returns plain object
  * @returns string or object
  */
-export const XmltoJson = (data: string, includeDefault: boolean = true) => {
+export const XmltoJson = (props: { data: string, includeDefault: boolean }) => {
     jsType.rule = {};
-    toJson(data.split(''));
+    toJson(props.data.split(''));
     resultIndex = 0;
     assignToJson(allRules, jsType.rule);
-    console.log(jsType.rule)
-    if (includeDefault) {
+    if (props.includeDefault) {
         return `export const Json: any = ${JSON.stringify(jsType.rule)}`;
     }
 

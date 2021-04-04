@@ -965,13 +965,13 @@ const convertToJS = (code: string[]) => {
  * @param includeDefault If true return string with import/export, if false returns plain object
  * @returns string or object
  */
-export const CsstoJs = (css: string, convertionProps?: ConvertionProps, includeDefault: boolean = true) => {
-	convertionAttributes = convertionProps;
+export const CsstoJs = (props: { css: string, convertionProps?: ConvertionProps, includeDefault: boolean }) => {
+	convertionAttributes = props.convertionProps;
 	jsRule.rule = {};
 	jsRule.raw = {};
-	convertToJS(css.split(''));
+	convertToJS(props.css.split(''));
 
-	if (includeDefault) {
+	if (props.includeDefault) {
 		if (convertionAttributes?.useMaterialThemeStructure === undefined || convertionAttributes?.useMaterialThemeStructure === true) {
 			return (
 				`import { Theme } from "@material-ui/core";\r\nimport { Styles } from "@material-ui/styles";\r\n\r\nexport const useStyles: Styles<Theme, {}, string> = (theme: Theme) => (${JSON.stringify(materialRule)});\r\n`

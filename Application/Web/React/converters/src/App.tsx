@@ -340,8 +340,8 @@ class App extends React.Component {
   convertors = {
     CsstoJs: {
       fnName: CsstoJs,
-      read: 'sampleCss.css',
-      write: 'outCss.ts',
+      read: 'read\\sampleCss.css',
+      write: 'write\\outCss.ts',
       includeDefault: true,
       options: {
         caseType: 'camel',
@@ -350,14 +350,14 @@ class App extends React.Component {
     },
     JsonFlatten: {
       fnName: JsonFlatten,
-      read: 'sampleJson.json',
-      write: 'outJson.ts',
+      read: 'read\\sampleJson.json',
+      write: 'write\\outJson.ts',
       includeDefault: true
     },
     JsonDeflatten: {
       fnName: JsonDeflatten,
-      read: 'outJson.ts',
-      write: 'outJsonDeflat.ts',
+      read: 'write\\outJson.ts',
+      write: 'write\\outJsonDeflat.ts',
       includeDefault: true
     },
     Math: {
@@ -365,33 +365,33 @@ class App extends React.Component {
     },
     XmltoJson: {
       fnName: XmltoJson,
-      read: 'sampleXml.xml',
-      write: 'outXmlJson.ts',
+      read: 'read\\sampleXml.xml',
+      write: 'write\\outXmlJson.ts',
       includeDefault: true
     },
     JsontoXml: {
       fnName: JsontoXml,
-      read: 'outXmlJson.ts',
-      write: 'outJsonXml.ts',
-      includeDefault: true
+      read: 'write\\outXmlJson.ts',
+      write: 'write\\outJsonXml.xml',
+      includeDefault: false
     }
   }
 
   componentDidMount() {
-    this.init(this.convertors.XmltoJson);
+    this.init(this.convertors.JsontoXml);
   }
 
-  init = async (activeConvertor: { fnName: Function, read: string, write: string, options?: object }) => {
+  init = async (activeConvertor: { fnName: Function, read: string, write: string, options?: object, includeDefault?: boolean }) => {
     if (activeConvertor.read) {
       const getPath = await getDefaultPath();
       if (getPath.data) {
         this.setState({
           path: getPath.data
         }, async () => {
-          const readJson = await readStream({ path: `${this.state.path}read\\${activeConvertor.read}` });
+          const readJson = await readStream({ path: `${this.state.path}${activeConvertor.read}` });
           if (readJson.data) {
             const writeJson = await writeStream({
-              path: `${this.state.path}write\\${activeConvertor.write}`, data: activeConvertor.fnName(readJson.data, activeConvertor.options)
+              path: `${this.state.path}${activeConvertor.write}`, data: activeConvertor.fnName({ data: readJson.data, options: activeConvertor.options, includeDefault: activeConvertor.includeDefault })
             });
             if (writeJson.data?.error) {
               this.setState({ error: writeJson.data?.error });

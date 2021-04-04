@@ -86,11 +86,11 @@ const deFlatten = (data: any, deflat: any) => {
  * @param includeDefault If true return string with import/export, if false returns plain object
  * @returns string or object
  */
-export const JsonFlatten = (data: object, includeDefault: boolean = true) => {
+export const JsonFlatten = (props: { data: object, includeDefault: boolean }) => {
     const flat = {};
-    flatten(data, ['$'], flat);
+    flatten(props.data, ['$'], flat);
 
-    if (includeDefault) {
+    if (props.includeDefault) {
         return `export const resultJson: { [x: string]: string | number | bigint | boolean | null | undefined | symbol } = ${JSON.stringify(flat)}`;
     }
 
@@ -103,11 +103,11 @@ export const JsonFlatten = (data: object, includeDefault: boolean = true) => {
  * @param includeDefault If true return string with import/export, if false returns plain object
  * @returns string or object
  */
-export const JsonDeflatten = (data: object, includeDefault: boolean = true) => {
+export const JsonDeflatten = (props: { data: object, includeDefault: boolean }) => {
     const deFlat = {};
-    deFlatten(data, deFlat);
+    deFlatten(props.data, deFlat);
 
-    if (includeDefault) {
+    if (props.includeDefault) {
         return `export const resultJson: any = ${JSON.stringify(deFlat)}`;
     }
 
