@@ -72,7 +72,7 @@
 			</catalog_item>
 		</product>
 	</catalog>
-	<rootElement xmlns="startData.xsd" xmlns:xn="standardData.xsd" xmlns:cs="CompanySpecific.1.0.xsd" xmlns:xsi="http:www.w3.org2001XMLSchema-instance">
+	<rootElement xmlns="startData.xsd" xmlns:xn="standardData.xsd" xmlns:cs="CompanySpecific.1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<fileHeader fileFormat="v1.0" companyName="CompanyABC"/>
 		<fileData>
 			<xn:childContainer>

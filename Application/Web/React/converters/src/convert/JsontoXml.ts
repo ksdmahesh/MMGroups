@@ -197,6 +197,10 @@ const toJson = (code: string[]) => {
                         }
                     }
                 case Chars.ElementEnd:
+                    if (rule.type === XmlTypes.Attribute || rule.type === XmlTypes.Text || rule.type === XmlTypes.Value) {
+                        rule.actualValue += char;
+                        rule.value += char;
+                    }
                     isSelfClosed = true;
                     continue;
                 case SpecialChars.end:
