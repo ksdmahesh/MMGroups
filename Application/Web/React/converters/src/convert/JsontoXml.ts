@@ -1,5 +1,7 @@
 //#region Enums
 
+import TypeCheck from "./TypeChecker";
+
 enum Chars {
     StartTag = '<',
     EndTag = '>',
@@ -320,12 +322,22 @@ const assignToJson = (rules: XmlType[], rule: any, prevPath?: string) => {
                         }
                     } else {
                         resultIndex++;
+                        let ruleType;
                         if (!rule[currentRule.value]) {
                             rule[currentRule.value] = {};
+                            ruleType = rule[currentRule.value];
+                        } else if (TypeCheck.isObject(rule[currentRule.value])) {
+                            const cloned = TypeCheck.clone(rule[currentRule.value]);
+                            rule[currentRule.value] = [cloned];
+                            rule[currentRule.value].push({});
+                            ruleType = rule[currentRule.value][rule[currentRule.value].length - 1];
+                        } else if (TypeCheck.isArray(rule[currentRule.value])) {
+                            rule[currentRule.value].push({});
+                            ruleType = rule[currentRule.value][rule[currentRule.value].length - 1];
                         }
 
                         const isText = rules[resultIndex].type === XmlTypes.Text || rules[resultIndex].type === XmlTypes.Value;
-                        assignToJson(rules, isText ? rule : rule[currentRule.value], isText ? currentRule.value : '');
+                        assignToJson(rules, isText ? rule : ruleType, isText ? currentRule.value : '');
                     }
                     break;
                 case XmlTypes.Attribute:

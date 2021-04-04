@@ -141,7 +141,7 @@ export default class TypeCheck {
     }
 
     static clone<T = ConversionType>(value: object | Array<T>) {
-        JSON.parse(JSON.stringify(value || {}));
+        return JSON.parse(JSON.stringify(value || {}));
     }
 
     static removeItemByKey(object: any, key: string | number, withClone: boolean = false) {
