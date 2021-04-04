@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import { CsstoJs } from './convert/CsstoJs';
 import Maths, { Angle, Area, Base, Complex, Energy, Length, Matrix, Mode, Powers, Pressure, Temperature, Time, Velocity, Volume, Weight } from './convert/Math';
-// import { JsonFlatten, JsonDeflatten } from './convert/JsonFlatten';
+import { JsonFlatten, JsonDeflatten } from './convert/JsonFlatten';
+import { JsontoXml, XmltoJson } from './convert/JsontoXml';
 import { getDefaultPath, readStream, writeStream } from './server/service-call';
 
 // json-csv, csv-json, json-xml, xml-json, polyfills
@@ -14,10 +15,6 @@ class App extends React.Component {
     path: '',
     done: false,
     error: ''
-  }
-
-  componentDidMount() {
-    this.checkMath();
   }
 
   checkMath = () => {
@@ -340,27 +337,72 @@ class App extends React.Component {
 
   }
 
-  init = async () => {
-    const getPath = await getDefaultPath();
-    if (getPath.data) {
-      this.setState({
-        path: getPath.data
-      }, async () => {
-        const readJson = await readStream({ path: `${this.state.path}read\\sampleCss.css` });
-        if (readJson.data) {
-          const writeJson = await writeStream({
-            path: `${this.state.path}write\\outCss.ts`, data: CsstoJs(readJson.data, {
-              caseType: 'camel',
-              // useMaterialThemeStructure: false
-            })
-          });
-          if (writeJson.data?.error) {
-            this.setState({ error: writeJson.data?.error });
-          } else if (writeJson.data) {
-            this.setState({ done: true });
+  convertors = {
+    CsstoJs: {
+      fnName: CsstoJs,
+      read: 'sampleCss.css',
+      write: 'outCss.ts',
+      includeDefault: true,
+      options: {
+        caseType: 'camel',
+        // useMaterialThemeStructure: false
+      }
+    },
+    JsonFlatten: {
+      fnName: JsonFlatten,
+      read: 'sampleJson.json',
+      write: 'outJson.ts',
+      includeDefault: true
+    },
+    JsonDeflatten: {
+      fnName: JsonDeflatten,
+      read: 'outJson.ts',
+      write: 'outJsonDeflat.ts',
+      includeDefault: true
+    },
+    Math: {
+      fnName: this.checkMath
+    },
+    XmltoJson: {
+      fnName: XmltoJson,
+      read: 'sampleXml.xml',
+      write: 'outXmlJson.ts',
+      includeDefault: true
+    },
+    JsontoXml: {
+      fnName: JsontoXml,
+      read: 'outXmlJson.ts',
+      write: 'outJsonXml.ts',
+      includeDefault: true
+    }
+  }
+
+  componentDidMount() {
+    this.init(this.convertors.XmltoJson);
+  }
+
+  init = async (activeConvertor: { fnName: Function, read: string, write: string, options?: object }) => {
+    if (activeConvertor.read) {
+      const getPath = await getDefaultPath();
+      if (getPath.data) {
+        this.setState({
+          path: getPath.data
+        }, async () => {
+          const readJson = await readStream({ path: `${this.state.path}read\\${activeConvertor.read}` });
+          if (readJson.data) {
+            const writeJson = await writeStream({
+              path: `${this.state.path}write\\${activeConvertor.write}`, data: activeConvertor.fnName(readJson.data, activeConvertor.options)
+            });
+            if (writeJson.data?.error) {
+              this.setState({ error: writeJson.data?.error });
+            } else if (writeJson.data) {
+              this.setState({ done: true });
+            }
           }
-        }
-      })
+        })
+      }
+    } else {
+      activeConvertor.fnName();
     }
   }
 
