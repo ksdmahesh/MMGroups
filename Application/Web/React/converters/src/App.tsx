@@ -4,6 +4,7 @@ import { CsstoJs } from './convert/CsstoJs';
 import Maths, { Angle, Area, Base, Complex, Energy, Length, Matrix, Mode, Powers, Pressure, Temperature, Time, Velocity, Volume, Weight } from './convert/Math';
 import { JsonFlatten, JsonDeflatten } from './convert/JsonFlatten';
 import { JsontoXml, XmltoJson } from './convert/JsontoXml';
+import { JsontoCsv, CsvtoJson } from './convert/JsontoCsv';
 import { getDefaultPath, readStream, writeStream } from './server/service-call';
 
 // json-csv, csv-json, polyfills
@@ -374,11 +375,30 @@ class App extends React.Component {
       read: 'write\\outXmlJson.ts',
       write: 'write\\outJsonXml.xml',
       includeDefault: false
+    },
+    CsvtoJson: {
+      fnName: CsvtoJson,
+      read: 'read\\sampleCsv.csv',
+      write: 'write\\outCsvJson.ts',
+      options: {
+        containsHeaders: true,
+        rowSplitter: ['\r', '\n', '\r\n'],
+        columnSplitter: [','],
+        considerEverythingAs: undefined,
+        considerSpaceBetweenCommaAndQuotes: true
+      },
+      includeDefault: true
+    },
+    JsontoCsv: {
+      fnName: JsontoCsv,
+      read: 'write\\outCsvJson.ts',
+      write: 'write\\outJsonCsv.csv',
+      includeDefault: false
     }
   }
 
   componentDidMount() {
-    this.init(this.convertors.JsontoXml);
+    this.init(this.convertors.CsvtoJson);
   }
 
   init = async (activeConvertor: { fnName: Function, read: string, write: string, options?: object, includeDefault?: boolean }) => {
