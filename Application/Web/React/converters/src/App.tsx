@@ -384,8 +384,7 @@ class App extends React.Component {
         containsHeaders: true,
         rowSplitter: ['\r', '\n', '\r\n'],
         columnSplitter: [','],
-        considerEverythingAs: undefined,
-        considerSpaceBetweenCommaAndQuotes: true
+        considerEverythingAsColumns: false
       },
       includeDefault: true
     },

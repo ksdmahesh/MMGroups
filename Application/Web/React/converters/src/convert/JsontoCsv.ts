@@ -13,7 +13,7 @@ type ConvertionProps = {
     /**
      * @type default: true
      * @type true: considering first row as headers
-     * @type false: convert without headers using uuid
+     * @type false: convert without headers using indexes like header1, header2
      */
     containsHeaders?: boolean,
     /**
@@ -27,18 +27,11 @@ type ConvertionProps = {
      */
     columnSplitter?: string[],
     /**
-     * @type default: undefined
-     * @type columns: considering all rows and columns as columns
-     * @type rows: considering all rows and columns as rows
+     * @type default: false
+     * @type true: considering all rows and columns as columns
+     * @type false: considering all rows as rows and columns as columns
      */
-    considerEverythingAs?: 'columns' | 'rows',
-    /**
-     * @type default: true
-     * @type true: considering space after comma as started new column
-     * @example column1, "column2, column2" => taken as {{(1)column1, (2)column2, (3)column2}} instead of {{(1)column1, (2)[column2, column2]}}
-     * @type false: skipping spaces until next column or row splitters
-     */
-    considerSpaceBetweenCommaAndQuotes?: boolean
+    considerEverythingAsColumns?: boolean
 }
 
 //#endregion
@@ -127,22 +120,35 @@ const toJson = (data: string[], json: any) => {
             return { ...a, value: a.value, colIndex: a.value?.trim() ? ++colIndex : colIndex };
         }
     });
-    debugger
+
     colIndex = Math.max(...result.map(a => a.colIndex));
-
-    for (let index = 0; index <= colIndex; index++) {
-        result.filter(a => a.colIndex === index).forEach(element => {
-            if (!json[element.rowIndex]) {
-                json[element.rowIndex] = [];
-            }
-
-            if (element.value?.trim()) {
-                json[element.rowIndex][element.colIndex] = element.value;
-            }
-        });
+    rowIndex = Math.max(...result.map(a => a.rowIndex));
+    let headers = [...Array(colIndex).keys()].map(header => `header${header + 1}`);
+    let index = 0;
+    if (convertionAttributes?.containsHeaders !== false) {
+        headers = result.filter(a => !a.rowIndex && a.value?.trim()).map(header => header.value || '');
+        index++;
     }
 
-    console.log(result, json);
+    json = [];
+
+    if (convertionAttributes?.considerEverythingAsColumns) {
+        for (index = 0; index <= colIndex; index++) {
+            result.filter(a => a.colIndex === index && (convertionAttributes?.containsHeaders !== false ? a.rowIndex : true)).forEach(a => {
+                if (a.value?.trim()) {
+                    json.push({
+                        [headers[index]]: a.value
+                    });
+                }
+            });
+        }
+    } else {
+        for (; index <= rowIndex; index++) {
+            json.push(result.filter(a => a.rowIndex === index && a.value?.trim()).map((a, aIndex) => ({ [headers[aIndex]]: a.value })));
+        }
+    }
+
+    console.log(result, json, headers);
 }
 
 //#endregion
@@ -166,6 +172,7 @@ export const JsontoCsv = (props: { data: object }) => {
  */
 export const CsvtoJson = (props: { data: string, includeDefault: boolean, options: ConvertionProps }) => {
     const json: string[][] = [];
+    convertionAttributes = props.options;
     toJson(props.data.split(''), json);
 
     if (props.includeDefault) {
