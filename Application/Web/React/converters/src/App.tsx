@@ -381,7 +381,7 @@ class App extends React.Component {
       read: 'read\\sampleCsv.csv',
       write: 'write\\outCsvJson.ts',
       options: {
-        containsHeaders: true,
+        containsHeaders: false,
         rowSplitter: ['\r', '\n', '\r\n'],
         columnSplitter: [','],
         considerEverythingAsColumns: false
@@ -397,7 +397,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.init(this.convertors.CsvtoJson);
+    this.init(this.convertors.JsontoCsv);
   }
 
   init = async (activeConvertor: { fnName: Function, read: string, write: string, options?: object, includeDefault?: boolean }) => {
@@ -410,7 +410,7 @@ class App extends React.Component {
           const readJson = await readStream({ path: `${this.state.path}${activeConvertor.read}` });
           if (readJson.data) {
             const writeJson = await writeStream({
-              path: `${this.state.path}${activeConvertor.write}`, data: activeConvertor.fnName({ data: readJson.data, options: activeConvertor.options, includeDefault: activeConvertor.includeDefault })
+              path: `${this.state.path}${activeConvertor.write}`, data: activeConvertor.fnName({ data: readJson.data, convertionProps: activeConvertor.options, includeDefault: activeConvertor.includeDefault })
             });
             if (writeJson.data?.error) {
               this.setState({ error: writeJson.data?.error });

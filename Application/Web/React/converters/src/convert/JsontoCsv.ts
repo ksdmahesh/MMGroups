@@ -1,3 +1,5 @@
+import TypeCheck from './TypeChecker';
+
 //#region Enums
 
 enum SpecialChars {
@@ -50,6 +52,7 @@ const regExpEscapeChars: string[] = [
 
 let rowIndex = 0;
 let colIndex = -1;
+let csv = '';
 
 //#endregion
 
@@ -61,8 +64,27 @@ const validate = () => {
     }
 }
 
-const toCsv = (data: any) => {
-    return '';
+const toCsv = (data: { [x: string]: string }[]) => {
+    const headers: string[] = [];
+    const columns: string[][] = [];
+    data.forEach((row, rI) => {
+        if (TypeCheck.isObject(row)) {
+            Object.entries(row).forEach((column, cI) => {
+                if (!headers.includes(column[0])) {
+                    headers.push(column[0]);
+                }
+                if (!columns[rI]) {
+                    columns[rI] = [];
+                }
+
+                columns[rI][cI] = column[1];
+            })
+        }
+    })
+
+    console.log([headers, ...columns]);
+
+    return [headers, ...columns].map(a => a.join(',')).join('\r\n');
 }
 
 const toJson = (data: string[], json: any) => {
@@ -130,8 +152,6 @@ const toJson = (data: string[], json: any) => {
         index++;
     }
 
-    json = [];
-
     if (convertionAttributes?.considerEverythingAsColumns) {
         for (index = 0; index <= colIndex; index++) {
             result.filter(a => a.colIndex === index && (convertionAttributes?.containsHeaders !== false ? a.rowIndex : true)).forEach(a => {
@@ -144,11 +164,17 @@ const toJson = (data: string[], json: any) => {
         }
     } else {
         for (; index <= rowIndex; index++) {
-            json.push(result.filter(a => a.rowIndex === index && a.value?.trim()).map((a, aIndex) => ({ [headers[aIndex]]: a.value })));
+            const currentObject: { [x: string]: string } = {};
+            result.filter(a => a.rowIndex === index && a.value?.trim()).forEach((a, aIndex) => {
+                if (headers[aIndex] && a.value) {
+                    currentObject[headers[aIndex]] = a.value;
+                }
+            });
+            json.push(currentObject);
         }
     }
 
-    console.log(result, json, headers);
+    console.log(result);
 }
 
 //#endregion
@@ -158,21 +184,25 @@ const toJson = (data: string[], json: any) => {
  * @param data JSON Object
  * @returns string
  */
-export const JsontoCsv = (props: { data: object }) => {
-    const csv = toCsv(props.data);
+export const JsontoCsv = (props: { data: { [x: string]: string }[] }) => {
+    if (TypeCheck.isArray(props.data)) {
+        csv = '';
+        return toCsv(props.data);
+    }
 
-    return csv;
+    return '';
 }
 
 /**
  * For CSV to JSON Conversion
  * @param data Csv string
  * @param includeDefault If true return string with import/export, if false returns plain object
+ * @param convertionProps Converting Props to Apply
  * @returns string or object
  */
-export const CsvtoJson = (props: { data: string, includeDefault: boolean, options: ConvertionProps }) => {
-    const json: string[][] = [];
-    convertionAttributes = props.options;
+export const CsvtoJson = (props: { data: string, includeDefault: boolean, convertionProps: ConvertionProps }) => {
+    const json: any = [];
+    convertionAttributes = props.convertionProps;
     toJson(props.data.split(''), json);
 
     if (props.includeDefault) {
