@@ -7,7 +7,6 @@ import { JsontoXml, XmltoJson } from './convert/JsontoXml';
 import { JsontoCsv, CsvtoJson } from './convert/JsontoCsv';
 import { getDefaultPath, readStream, writeStream } from './server/service-call';
 
-// json-csv, csv-json, polyfills
 class App extends React.Component {
 
   state = {
