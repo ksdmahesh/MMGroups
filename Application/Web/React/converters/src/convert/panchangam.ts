@@ -18,7 +18,7 @@ export enum Graha {
 
 export enum Rasi {
     mesha = 'mesha',
-    vrishabha = 'vrishabha',
+    vrshabha = 'vrshabha',
     mithuna = 'mithuna',
     karka = 'karka',
     simha = 'simha',
@@ -124,7 +124,7 @@ export const Nakshatras = {
         deity: [Diety.ashvins],
         symbol: Symbols.ashvini,
         zodiac: { from: { angle: '0°', rasi: Rasi.mesha }, to: { angle: '13°20', rasi: Rasi.mesha } },
-        westernZodiac: { from: { angle: '23°46', rasi: Rasi.mesha }, to: { angle: '7°06', rasi: Rasi.vrishabha } }
+        westernZodiac: { from: { angle: '23°46', rasi: Rasi.mesha }, to: { angle: '7°06', rasi: Rasi.vrshabha } }
     },
     Bharani: {
         name: {
@@ -148,7 +148,7 @@ export const Nakshatras = {
         deity: [Diety.yama],
         symbol: Symbols.bharani,
         zodiac: { from: { angle: '13°20', rasi: Rasi.mesha }, to: { angle: '26°40', rasi: Rasi.mesha } },
-        westernZodiac: { from: { angle: '7°06', rasi: Rasi.vrishabha }, to: { angle: '20°26', rasi: Rasi.vrishabha } }
+        westernZodiac: { from: { angle: '7°06', rasi: Rasi.vrshabha }, to: { angle: '20°26', rasi: Rasi.vrshabha } }
     },
     Krttika: {
         name: {
@@ -171,8 +171,8 @@ export const Nakshatras = {
         lord: Graha.surya,
         deity: [Diety.agni],
         symbol: Symbols.krttika,
-        zodiac: { from: { angle: '26°40', rasi: Rasi.mesha }, to: { angle: '10°', rasi: Rasi.vrishabha } },
-        westernZodiac: { from: { angle: '20°26', rasi: Rasi.vrishabha }, to: { angle: '3°46', rasi: Rasi.mithuna } }
+        zodiac: { from: { angle: '26°40', rasi: Rasi.mesha }, to: { angle: '10°', rasi: Rasi.vrshabha } },
+        westernZodiac: { from: { angle: '20°26', rasi: Rasi.vrshabha }, to: { angle: '3°46', rasi: Rasi.mithuna } }
     },
     Rohini: {
         name: {
@@ -195,7 +195,7 @@ export const Nakshatras = {
         lord: Graha.chandra,
         symbol: Symbols.rohini,
         deity: [Diety.brahma],
-        zodiac: { from: { angle: '10°', rasi: Rasi.vrishabha }, to: { angle: '23°20', rasi: Rasi.vrishabha } },
+        zodiac: { from: { angle: '10°', rasi: Rasi.vrshabha }, to: { angle: '23°20', rasi: Rasi.vrshabha } },
         westernZodiac: { from: { angle: '3°46', rasi: Rasi.mithuna }, to: { angle: '17°06', rasi: Rasi.mithuna } }
     },
     Mrgashirsha: {
@@ -219,7 +219,7 @@ export const Nakshatras = {
         lord: Graha.mangala,
         symbol: Symbols.mrgashirsha,
         deity: [Diety.soma],
-        zodiac: { from: { angle: '23°20', rasi: Rasi.vrishabha }, to: { angle: '6°40', rasi: Rasi.mithuna } },
+        zodiac: { from: { angle: '23°20', rasi: Rasi.vrshabha }, to: { angle: '6°40', rasi: Rasi.mithuna } },
         westernZodiac: { from: { angle: '17°06', rasi: Rasi.mithuna }, to: { angle: '0°26', rasi: Rasi.karka } }
     },
     Ardra: {
@@ -411,8 +411,8 @@ export const Nakshatras = {
         lord: Graha.chandra,
         deity: [Diety.surya],
         symbol: Symbols.hasta,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '10°', rasi: Rasi.kanya }, to: { angle: '23°20', rasi: Rasi.kanya } },
+        westernZodiac: { from: { angle: '3°46', rasi: Rasi.tula }, to: { angle: '17°06', rasi: Rasi.tula } }
     },
     Chitra: {
         name: {
@@ -435,8 +435,8 @@ export const Nakshatras = {
         lord: Graha.mangala,
         deity: [Diety.tvastar, Diety.vishvakarman],
         symbol: Symbols.chitra,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '23°20', rasi: Rasi.kanya }, to: { angle: '6°40', rasi: Rasi.tula } },
+        westernZodiac: { from: { angle: '17°06', rasi: Rasi.tula }, to: { angle: '0°26', rasi: Rasi.vrscika } }
     },
     Svati: {
         name: {
@@ -459,8 +459,8 @@ export const Nakshatras = {
         lord: Graha.rahu,
         deity: [Diety.vayu],
         symbol: Symbols.svati,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '6°40', rasi: Rasi.tula }, to: { angle: '20°', rasi: Rasi.tula } },
+        westernZodiac: { from: { angle: '0°26', rasi: Rasi.vrscika }, to: { angle: '13°46', rasi: Rasi.vrscika } }
     },
     Vishakha: {
         name: {
@@ -483,8 +483,8 @@ export const Nakshatras = {
         lord: Graha.guru,
         deity: [Diety.indra, Diety.agni],
         symbol: Symbols.vishakha,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '20°', rasi: Rasi.tula }, to: { angle: '3°20', rasi: Rasi.vrscika } },
+        westernZodiac: { from: { angle: '13°46', rasi: Rasi.vrscika }, to: { angle: '27°06', rasi: Rasi.vrscika } }
     },
     Anuradha: {
         name: {
@@ -507,8 +507,8 @@ export const Nakshatras = {
         lord: Graha.shani,
         deity: [Diety.mitra],
         symbol: Symbols.anuradha,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '3°20', rasi: Rasi.vrscika }, to: { angle: '16°40', rasi: Rasi.vrscika } },
+        westernZodiac: { from: { angle: '27°06', rasi: Rasi.vrscika }, to: { angle: '10°26', rasi: Rasi.dhanusa } }
     },
     Jyeshtha: {
         name: {
@@ -531,8 +531,8 @@ export const Nakshatras = {
         lord: Graha.budha,
         deity: [Diety.indra],
         symbol: Symbols.jyeshtha,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '16°40', rasi: Rasi.vrscika }, to: { angle: '30°', rasi: Rasi.vrscika } },
+        westernZodiac: { from: { angle: '10°26', rasi: Rasi.dhanusa }, to: { angle: '23°46', rasi: Rasi.dhanusa } }
     },
     Mula: {
         name: {
@@ -555,8 +555,8 @@ export const Nakshatras = {
         lord: Graha.ketu,
         deity: [Diety.nirrti],
         symbol: Symbols.mula,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '0°', rasi: Rasi.dhanusa }, to: { angle: '13°20', rasi: Rasi.dhanusa } },
+        westernZodiac: { from: { angle: '23°46', rasi: Rasi.dhanusa }, to: { angle: '7°06', rasi: Rasi.makara } }
     },
     PurvaAshadha: {
         name: {
@@ -579,8 +579,8 @@ export const Nakshatras = {
         lord: Graha.shukra,
         deity: [Diety.apah],
         symbol: Symbols.purvaAshadha,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '13°20', rasi: Rasi.dhanusa }, to: { angle: '26°40', rasi: Rasi.dhanusa } },
+        westernZodiac: { from: { angle: '7°06', rasi: Rasi.makara }, to: { angle: '20°26', rasi: Rasi.makara } }
     },
     UttaraAshadha: {
         name: {
@@ -603,8 +603,8 @@ export const Nakshatras = {
         lord: Graha.shukra,
         deity: [Diety.visvedevas],
         symbol: Symbols.uttaraAshadha,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '26°40', rasi: Rasi.dhanusa }, to: { angle: '10°', rasi: Rasi.makara } },
+        westernZodiac: { from: { angle: '20°26', rasi: Rasi.makara }, to: { angle: '3°46', rasi: Rasi.kumbha } }
     },
     Shravana: {
         name: {
@@ -627,8 +627,8 @@ export const Nakshatras = {
         lord: Graha.chandra,
         deity: [Diety.vishnu],
         symbol: Symbols.shravana,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '10°', rasi: Rasi.makara }, to: { angle: '23°20', rasi: Rasi.makara } },
+        westernZodiac: { from: { angle: '3°46', rasi: Rasi.kumbha }, to: { angle: '17°06', rasi: Rasi.kumbha } }
     },
     Dhanishta: {
         name: {
@@ -651,8 +651,8 @@ export const Nakshatras = {
         lord: Graha.mangala,
         deity: [Diety.vasu],
         symbol: Symbols.dhanishta,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '23°20', rasi: Rasi.makara }, to: { angle: '6°40', rasi: Rasi.kumbha } },
+        westernZodiac: { from: { angle: '17°06', rasi: Rasi.kumbha }, to: { angle: '0°26', rasi: Rasi.mina } }
     },
     Shatabhisha: {
         name: {
@@ -675,8 +675,8 @@ export const Nakshatras = {
         lord: Graha.rahu,
         deity: [Diety.varuna],
         symbol: Symbols.shatabhisha,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '6°40', rasi: Rasi.kumbha }, to: { angle: '20°', rasi: Rasi.kumbha } },
+        westernZodiac: { from: { angle: '0°26', rasi: Rasi.mina }, to: { angle: '13°46', rasi: Rasi.mina } }
     },
     PurvaBhadrapada: {
         name: {
@@ -699,8 +699,8 @@ export const Nakshatras = {
         lord: Graha.guru,
         deity: [Diety.ajaikapada],
         symbol: Symbols.purvaBhadrapada,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '20°', rasi: Rasi.kumbha }, to: { angle: '3°20', rasi: Rasi.mina } },
+        westernZodiac: { from: { angle: '13°46', rasi: Rasi.mina }, to: { angle: '27°06', rasi: Rasi.mina } }
     },
     UttaraBhadrapada: {
         name: {
@@ -723,8 +723,8 @@ export const Nakshatras = {
         lord: Graha.shani,
         deity: [Diety.ahirbudhnya],
         symbol: Symbols.uttaraBhadrapada,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '3°20', rasi: Rasi.mina }, to: { angle: '16°40', rasi: Rasi.mina } },
+        westernZodiac: { from: { angle: '27°06', rasi: Rasi.mina }, to: { angle: '10°26', rasi: Rasi.mesha } }
     },
     Revati: {
         name: {
@@ -747,8 +747,8 @@ export const Nakshatras = {
         lord: Graha.budha,
         deity: [Diety.pushan],
         symbol: Symbols.revati,
-        zodiac: '',
-        westernZodiac: ''
+        zodiac: { from: { angle: '16°40', rasi: Rasi.mina }, to: { angle: '30°', rasi: Rasi.mina } },
+        westernZodiac: { from: { angle: '10°26', rasi: Rasi.mesha }, to: { angle: '23°46', rasi: Rasi.mesha } }
     }
 }
 
