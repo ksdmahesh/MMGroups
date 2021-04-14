@@ -58,7 +58,13 @@ export enum Diety {
     varuna = 'varuna',
     ajaikapada = 'ajaikapada',
     ahirbudhnya = 'ahirbudhnya',
-    pushan = 'pushan'
+    pushan = 'pushan',
+    shiva = 'shiva',
+    manmadha = 'manmadha',
+    gauri = 'gauri',
+    vinayaka = 'vinayaka',
+    kumaraswaymi = 'kumaraswaymi',
+    durga = 'durga'
 }
 
 export enum Symbols {
@@ -91,17 +97,833 @@ export enum Symbols {
     revati = 'Fish or a pair of fish, drum'
 }
 
-export enum Vaara {
-    aadi = 'aadi',
-    soma = 'soma',
-    mangala = 'mangala',
-    budha = 'budha',
-    guru = 'guru',
-    sukra = 'sukra',
-    sani = 'sani'
+export const Rtu = {
+    Vasanta: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    Grishma: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    Varsha: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    Sarad: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    Hemanta: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    Sisira: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    }
 }
 
-export const Nakshatras = {
+export const Vaara = {
+    Aadi: {
+        name: {
+            sanskrit: ['भानुवासर'],
+            odia: ['ରବିବାର'],
+            malayalam: ['ഞായര്‍'],
+            tamil: ['ஞாயிறு'],
+            sinhala: ['ඉරිදා'],
+            dhivehi: ['އާދީއްތަ'],
+            telugu: ['ఆదివారం'],
+            kannada: ['ಭಾನುವಾರ'],
+            bengali: ['রবিবার', 'রোববার'],
+            mongolian: ['наран өдөр'],
+            chinese: ['日曜日'],
+            tibetan: ['གཟའ་ཉི་མ།']
+        },
+        lord: Graha.surya
+    },
+    soma: {
+        name: {
+            sanskrit: ['इन्दुवासर'],
+            odia: ['ସୋମବାର'],
+            malayalam: ['തിങ്കള്‍'],
+            tamil: ['திங்கள்'],
+            sinhala: ['සඳුදා'],
+            dhivehi: ['ހޯމަ'],
+            telugu: ['సోమవారం'],
+            kannada: ['ಸೋಮವಾರ'],
+            bengali: ['সোমবার'],
+            mongolian: ['саран өдөр'],
+            chinese: ['月曜日'],
+            tibetan: ['གཟའ་ཟླ་བ།']
+        },
+        lord: Graha.chandra
+    },
+    mangala: {
+        name: {
+            sanskrit: ['भौमवासर'],
+            odia: ['ମଙ୍ଗଳବାର'],
+            malayalam: ['ചൊവ്വ'],
+            tamil: ['செவ்வாய்'],
+            sinhala: ['අඟහරුවාදා'],
+            dhivehi: ['އަންގާރަ'],
+            telugu: ['మంగళవారం'],
+            kannada: ['ಮಂಗಳವಾರ'],
+            bengali: ['মঙ্গলবার'],
+            mongolian: ['гал өдөр'],
+            chinese: ['火曜日'],
+            tibetan: ['གཟའ་མིག་དམར།']
+        },
+        lord: Graha.mangala
+    },
+    budha: {
+        name: {
+            sanskrit: ['सौम्यवासर'],
+            odia: ['ବୁଧବାର'],
+            malayalam: ['ബുധന്‍'],
+            tamil: ['புதன்'],
+            sinhala: ['බදාදා'],
+            dhivehi: ['ބުދަ'],
+            telugu: ['బుధవారం'],
+            kannada: ['ಬುಧವಾರ'],
+            bengali: ['বুধবার'],
+            mongolian: ['усан өдөр'],
+            chinese: ['水曜日'],
+            tibetan: ['གཟའ་ལྷག་པ།']
+        },
+        lord: Graha.budha
+    },
+    guru: {
+        name: {
+            sanskrit: ['गुरुवासर'],
+            odia: ['ଗୁରୁବାର'],
+            malayalam: ['വ്യാഴം'],
+            tamil: ['வியாழன்'],
+            sinhala: ['බ්‍රහස්පතින්දා'],
+            dhivehi: ['ބުރާސްފަތި'],
+            telugu: ['గురువారం', 'బేస్తవారం', 'లక్ష్మీవారం'],
+            kannada: ['ಗುರುವಾರ'],
+            bengali: ['বৃহস্পতিবার', 'বিশুধবার'],
+            mongolian: ['модон өдөр'],
+            chinese: ['木曜日'],
+            tibetan: ['གཟའ་ཕུར་བུ།']
+        },
+        lord: Graha.guru
+    },
+    shukra: {
+        name: {
+            sanskrit: ['भृगुवासर'],
+            odia: ['ଶୁକ୍ରବାର'],
+            malayalam: ['വെള്ളി'],
+            tamil: ['வெள்ளி'],
+            sinhala: ['සිකුරාදා'],
+            dhivehi: ['ހުކުރު'],
+            telugu: ['శుక్రవారం'],
+            kannada: ['ಶುಕ್ರವಾರ'],
+            bengali: ['শুক্রবার', 'জুমাবার'],
+            mongolian: ['төмөр өдөр', 'алтан өдөр'],
+            chinese: ['金曜日'],
+            tibetan: ['གཟའ་པ་སངས།']
+        },
+        lord: Graha.shukra
+    },
+    shani: {
+        name: {
+            sanskrit: ['स्थिरवासर'],
+            odia: ['ଶନିବାର'],
+            malayalam: ['ശനി'],
+            tamil: ['சனி'],
+            sinhala: ['සෙනසුරාදා'],
+            dhivehi: ['ހޮނިހިރު'],
+            telugu: ['శనివారం'],
+            kannada: ['ಶನಿವಾರ'],
+            bengali: ['শনিবার'],
+            mongolian: ['шороон өдөр'],
+            chinese: ['土曜日'],
+            tibetan: ['གཟའ་སྤེན་པ།']
+        },
+        lord: Graha.shani
+    }
+}
+
+export const Maasa = {
+    Caitra: {
+        name: {
+            sanskrit: ['चैत्र'],
+            odia: ['ଚୈତ୍ର'],
+            malayalam: ['മീനം'],
+            tamil: ['சித்திரை'],
+            sinhala: ['බක්'],
+            dhivehi: [''],
+            telugu: ['చైత్రము'],
+            kannada: ['ಚೈತ್ರ'],
+            bengali: ['চৈত্র'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['ནག་པ་ཟླ་བ']
+        },
+        suryaMaasa: Rasi.mina,
+        Rtu: Rtu.Vasanta
+    },
+    Vaishaka: {
+        name: {
+            sanskrit: ['वैशाख'],
+            odia: ['ବୈଶାଖ'],
+            malayalam: ['മേടം'],
+            tamil: ['வைகாசி'],
+            sinhala: ['වෙසක්'],
+            dhivehi: [''],
+            telugu: ['వైశాఖము'],
+            kannada: ['ವೈಶಾಖ'],
+            bengali: ['বৈশাখ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['ས་ག་ཟླ་བ']
+        },
+        suryaMaasa: Rasi.mesha,
+        Rtu: Rtu.Vasanta
+    },
+    Jyesta: {
+        name: {
+            sanskrit: ['ज्येष्ठ'],
+            odia: ['ଜ୍ୟେଷ୍ଠ'],
+            malayalam: ['ഇടവം'],
+            tamil: ['ஆனி'],
+            sinhala: ['පොසොන්'],
+            dhivehi: [''],
+            telugu: ['జ్యేష్ఠము'],
+            kannada: ['ಜ್ಯೇಷ್ಠ'],
+            bengali: ['জ্য়ৈষ্ঠ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['སྣྲོན་ཟླ་བ']
+        },
+        suryaMaasa: Rasi.vrshabha,
+        Rtu: Rtu.Grishma
+    },
+    Aashada: {
+        name: {
+            sanskrit: ['आषाढ़'],
+            odia: ['ଆଷାଢ଼'],
+            malayalam: ['മിഥുനം'],
+            tamil: ['ஆடி'],
+            sinhala: ['ඇසළ'],
+            dhivehi: [''],
+            telugu: ['ఆషాఢము'],
+            kannada: ['ಆಷಾಢ'],
+            bengali: ['আষাঢ়'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['ཆུ་སྟོད་ཟླ་བ']
+        },
+        suryaMaasa: Rasi.mithuna,
+        Rtu: Rtu.Grishma
+    },
+    Shaavana: {
+        name: {
+            sanskrit: ['श्रावण'],
+            odia: ['ଶ୍ରାବଣ'],
+            malayalam: ['കർക്കടകം'],
+            tamil: ['ஆவணி'],
+            sinhala: ['නිකිණි'],
+            dhivehi: [''],
+            telugu: ['శ్రావణము'],
+            kannada: ['ಶ್ರಾವಣ'],
+            bengali: ['শ্রাবণ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['གྲོ་བཞིན་ཟླ་བ']
+        },
+        suryaMaasa: Rasi.karka,
+        Rtu: Rtu.Varsha
+    },
+    Bhaadrapada: {
+        name: {
+            sanskrit: ['भाद्रपद'],
+            odia: ['ଭାଦ୍ରବ'],
+            malayalam: ['ചിങ്ങം'],
+            tamil: ['புரட்டாசி'],
+            sinhala: ['බිනර'],
+            dhivehi: [''],
+            telugu: ['భద్రపదము'],
+            kannada: ['ಭಾದ್ರಪದ'],
+            bengali: ['ভাদ্র'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['ཁྲིམས་སྟོད་ཟླ་བ']
+        },
+        suryaMaasa: Rasi.simha,
+        Rtu: Rtu.Varsha
+    },
+    Ashvina: {
+        name: {
+            sanskrit: ['आश्विन'],
+            odia: ['ଆଶ୍ୱିନ'],
+            malayalam: ['കന്നി'],
+            tamil: ['ஐப்பசி'],
+            sinhala: ['වප්'],
+            dhivehi: [''],
+            telugu: ['ఆశ్వయుజము'],
+            kannada: ['ಆಶ್ವಯುಜ'],
+            bengali: ['আশ্বিন'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['ཐ་སྐར་ཟླ་བ']
+        },
+        suryaMaasa: Rasi.kanya,
+        Rtu: Rtu.Sarad
+    },
+    Kaartika: {
+        name: {
+            sanskrit: ['कार्तिक'],
+            odia: ['କାର୍ତ୍ତିକ'],
+            malayalam: ['തുലാം'],
+            tamil: ['கார்த்திகை'],
+            sinhala: ['ඉල්'],
+            dhivehi: [''],
+            telugu: ['కార్తికము'],
+            kannada: ['ಕಾರ್ತೀಕ'],
+            bengali: ['কার্তিক'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['སྨིན་དྲུག་ཟླ་བ']
+        },
+        suryaMaasa: Rasi.tula,
+        Rtu: Rtu.Sarad
+    },
+    Maargasirsa: {
+        name: {
+            sanskrit: ['मार्गशीर्ष'],
+            odia: ['ମାର୍ଗଶିର'],
+            malayalam: ['വൃശ്ചികം'],
+            tamil: ['மார்கழி'],
+            sinhala: ['උඳුවප්'],
+            dhivehi: [''],
+            telugu: ['మార్గశిరము'],
+            kannada: ['ಮಾರ್ಗಶಿರ'],
+            bengali: ['অগ্রহায়ণ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['མགོ་ཟླ་བ']
+        },
+        suryaMaasa: Rasi.vrscika,
+        Rtu: Rtu.Hemanta
+    },
+    Pausha: {
+        name: {
+            sanskrit: ['पौष'],
+            odia: ['ପୌଷ'],
+            malayalam: ['ധനു'],
+            tamil: ['தை	'],
+            sinhala: ['දුරුතු'],
+            dhivehi: [''],
+            telugu: ['పుష్యము'],
+            kannada: ['ಪುಷ್ಯ'],
+            bengali: ['পৌষ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['རྒྱལ་ཟླ་བ']
+        },
+        suryaMaasa: Rasi.dhanusa,
+        Rtu: Rtu.Hemanta
+    },
+    Maagha: {
+        name: {
+            sanskrit: ['माघ'],
+            odia: ['ମାଘ'],
+            malayalam: ['മകരം'],
+            tamil: ['மாசி'],
+            sinhala: ['නවම්'],
+            dhivehi: [''],
+            telugu: ['మాఘము'],
+            kannada: ['ಮಾಘ'],
+            bengali: ['মাঘ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['མཆུ་ཟླ་བ']
+        },
+        suryaMaasa: Rasi.makara,
+        Rtu: Rtu.Sisira
+    },
+    Phalguna: {
+        name: {
+            sanskrit: ['फाल्गुन'],
+            odia: ['ଫାଲ୍ଗୁନ'],
+            malayalam: ['കുംഭം'],
+            tamil: ['பங்குனி'],
+            sinhala: ['මැදින්'],
+            dhivehi: [''],
+            telugu: ['ఫాల్గుణము'],
+            kannada: ['ಫಾಲ್ಗುಣ'],
+            bengali: ['ফাল্গুন'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['དབོ་ཟླ་བ']
+        },
+        suryaMaasa: Rasi.kumbha,
+        Rtu: Rtu.Sisira
+    }
+}
+
+export const Paksha = {
+    Krshna: {
+        name: {
+            sanskrit: ['कृष्ण'],
+            odia: [''],
+            malayalam: [''],
+            tamil: ['தேய்பிறை'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['కృష్ణ పక్షం'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    Shukla: {
+        name: {
+            sanskrit: ['शुक्ल'],
+            odia: [''],
+            malayalam: [''],
+            tamil: ['வளர்பிறை'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['శుక్లపక్షం'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    }
+}
+
+export const Samvatsara = {
+    Plava: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    }
+}
+
+export const Yoga = {
+    Amrta: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    }
+}
+
+export const Karana = {
+    Bava: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    }
+}
+
+export const Tithi = {
+    Prathama: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['పాడ్యమి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.agni
+    },
+    Dvitiya: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['విదియ'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.brahma
+    },
+    Trtiya: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['తదియ'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.gauri
+    },
+    Chaturti: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['చవితి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.vinayaka
+    },
+    Panchami: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['పంచమి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.sarpas
+    },
+    Shasti: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['షష్ఠి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.kumaraswaymi
+    },
+    Saptami: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['సప్తమి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.surya
+    },
+    Ashtami: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['అష్టమి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.shiva
+    },
+    Navami: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['నవమి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.durga
+    },
+    Dasami: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['దశమి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.yama
+    },
+    Ekadasi: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['ఏకాదశి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.shiva
+    },
+    Dvadasi: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['ద్వాదశి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.vishnu
+    },
+    Trayodasi: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['త్రయోదశి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.manmadha
+    },
+    Chaturdasi: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['చతుర్దశి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.shiva
+    },
+    Paurnami: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['పున్నమి', 'పూర్ణిమ', 'పౌర్ణమి'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.soma
+    },
+    Amavasya: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['అమావాస్య'],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        diety: Diety.soma
+    }
+}
+
+export const Aayana = {
+    Uthara: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    }
+}
+
+export const Nakshatra = {
     Ashvini: {
         name: {
             sanskrit: ['अश्विनी'],
