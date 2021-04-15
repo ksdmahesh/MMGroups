@@ -1,35 +1,4 @@
-export enum Graha {
-    surya = 'surya',
-    chandra = 'chandra',
-    shukra = 'shukra',
-    mangala = 'mangala',
-    guru = 'guru',
-    shani = 'shani',
-    budha = 'budha',
-    /**
-    * South Lunar Node
-    */
-    ketu = 'ketu',
-    /**
-    * North Lunar Node
-    */
-    rahu = 'rahu'
-}
-
-export enum Rasi {
-    mesha = 'mesha',
-    vrshabha = 'vrshabha',
-    mithuna = 'mithuna',
-    karka = 'karka',
-    simha = 'simha',
-    kanya = 'kanya',
-    tula = 'tula',
-    vrscika = 'vrscika',
-    dhanusa = 'dhanusa',
-    makara = 'makara',
-    kumbha = 'kumbha',
-    mina = 'mina'
-}
+//#region enums
 
 export enum Diety {
     ashvins = 'ashvins',
@@ -97,8 +66,45 @@ export enum Symbols {
     revati = 'Fish or a pair of fish, drum'
 }
 
-export const Rtu = {
-    Vasanta: {
+//#endregion
+
+//#region constants
+
+export enum Graha {
+    surya = 'surya',
+    chandra = 'chandra',
+    shukra = 'shukra',
+    mangala = 'mangala',
+    guru = 'guru',
+    shani = 'shani',
+    budha = 'budha',
+    /**
+    * South Lunar Node
+    */
+    ketu = 'ketu',
+    /**
+    * North Lunar Node
+    */
+    rahu = 'rahu'
+}
+
+export enum Rasi {
+    mesha = 'mesha',
+    vrshabha = 'vrshabha',
+    mithuna = 'mithuna',
+    karka = 'karka',
+    simha = 'simha',
+    kanya = 'kanya',
+    tula = 'tula',
+    vrscika = 'vrscika',
+    dhanusa = 'dhanusa',
+    makara = 'makara',
+    kumbha = 'kumbha',
+    mina = 'mina'
+}
+
+export const Samvatsara = {
+    Plava: {
         name: {
             sanskrit: [''],
             odia: [''],
@@ -109,6 +115,63 @@ export const Rtu = {
             telugu: [''],
             kannada: [''],
             bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    }
+}
+
+export const Yoga = {
+    Amrta: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    }
+}
+
+export const Karana = {
+    Bava: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    }
+}
+
+export const Rtu = {
+    Vasanta: {
+        name: {
+            sanskrit: ['वसन्त'],
+            odia: ['ବସନ୍ତ'],
+            malayalam: ['വസന്തം'],
+            tamil: ['இளவேனில்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['వసంతం'],
+            kannada: ['ವಸಂತ ಋತು'],
+            bengali: ['বসন্তকাল'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -116,15 +179,15 @@ export const Rtu = {
     },
     Grishma: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['ग्रीष्म'],
+            odia: ['ଗ୍ରୀଷ୍ମ'],
+            malayalam: ['ഗ്രീഷ്മം'],
+            tamil: ['முதுவேனில்'],
             sinhala: [''],
             dhivehi: [''],
-            telugu: [''],
-            kannada: [''],
-            bengali: [''],
+            telugu: ['గ్రీష్మం'],
+            kannada: ['ಗ್ರೀಷ್ಮಋತು'],
+            bengali: ['গ্রীষ্মকাল'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -132,15 +195,15 @@ export const Rtu = {
     },
     Varsha: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['वर्षा'],
+            odia: ['ବର୍ଷା'],
+            malayalam: ['വർഷം'],
+            tamil: ['கார்'],
             sinhala: [''],
             dhivehi: [''],
-            telugu: [''],
-            kannada: [''],
-            bengali: [''],
+            telugu: ['వర్షాకాలం'],
+            kannada: ['ವರ್ಷ ಋತು'],
+            bengali: ['বর্ষাকাল'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -148,15 +211,15 @@ export const Rtu = {
     },
     Sarad: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['शरद्'],
+            odia: ['ଶରତ'],
+            malayalam: ['ശരത്ത്'],
+            tamil: ['குளிர்'],
             sinhala: [''],
             dhivehi: [''],
-            telugu: [''],
-            kannada: [''],
-            bengali: [''],
+            telugu: ['శరదృతువు'],
+            kannada: ['ಶರದ್ಋತು'],
+            bengali: ['শরৎকাল'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -164,15 +227,15 @@ export const Rtu = {
     },
     Hemanta: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['हेमन्त'],
+            odia: ['ହେମନ୍ତ'],
+            malayalam: ['ഹേമന്തം'],
+            tamil: ['முன்பனி'],
             sinhala: [''],
             dhivehi: [''],
-            telugu: [''],
-            kannada: [''],
-            bengali: [''],
+            telugu: ['హేమంతం'],
+            kannada: ['ಹೇಮಂತ ಋತು'],
+            bengali: ['হেমন্তকাল'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -180,15 +243,50 @@ export const Rtu = {
     },
     Sisira: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['शिशिर'],
+            odia: ['ଶୀତ'],
+            malayalam: ['ശിശിരം'],
+            tamil: ['பின்பனி'],
             sinhala: [''],
             dhivehi: [''],
-            telugu: [''],
-            kannada: [''],
-            bengali: [''],
+            telugu: ['శిశిరం'],
+            kannada: ['ಶಿಶಿರ ಋತು'],
+            bengali: ['শীতকাল'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    }
+}
+
+export const Aayana = {
+    Uthara: {
+        name: {
+            sanskrit: ['उत्तरायणम्'],
+            odia: ['ଉତ୍ତରାଯଣ'],
+            malayalam: ['ഉത്തരായണ'],
+            tamil: ['உத்தராயணம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['ఉత్తరాయణం'],
+            kannada: ['ಉತ್ತರಾಯಣ'],
+            bengali: ['উত্তরায়ণ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    Dakshina: {
+        name: {
+            sanskrit: ['दक्षिणायणम्'],
+            odia: ['ଦକ୍ଷିଣାଯଣ'],
+            malayalam: ['ദക്ഷിണായണ'],
+            tamil: ['தட்சிணாயணம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['దక్షిణాయణం'],
+            kannada: ['ದಕ್ಷಿಣಾಯಣ'],
+            bengali: ['দক্ষিণাযণ'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -335,7 +433,9 @@ export const Maasa = {
             tibetan: ['ནག་པ་ཟླ་བ']
         },
         suryaMaasa: Rasi.mina,
-        Rtu: Rtu.Vasanta
+        rtu: Rtu.Vasanta,
+        aayana: [Aayana.Uthara]
+
     },
     Vaishaka: {
         name: {
@@ -353,7 +453,8 @@ export const Maasa = {
             tibetan: ['ས་ག་ཟླ་བ']
         },
         suryaMaasa: Rasi.mesha,
-        Rtu: Rtu.Vasanta
+        rtu: Rtu.Vasanta,
+        aayana: [Aayana.Uthara]
     },
     Jyesta: {
         name: {
@@ -371,7 +472,8 @@ export const Maasa = {
             tibetan: ['སྣྲོན་ཟླ་བ']
         },
         suryaMaasa: Rasi.vrshabha,
-        Rtu: Rtu.Grishma
+        rtu: Rtu.Grishma,
+        aayana: [Aayana.Uthara]
     },
     Aashada: {
         name: {
@@ -389,7 +491,8 @@ export const Maasa = {
             tibetan: ['ཆུ་སྟོད་ཟླ་བ']
         },
         suryaMaasa: Rasi.mithuna,
-        Rtu: Rtu.Grishma
+        rtu: Rtu.Grishma,
+        aayana: [Aayana.Uthara, Aayana.Dakshina]
     },
     Shaavana: {
         name: {
@@ -407,7 +510,8 @@ export const Maasa = {
             tibetan: ['གྲོ་བཞིན་ཟླ་བ']
         },
         suryaMaasa: Rasi.karka,
-        Rtu: Rtu.Varsha
+        rtu: Rtu.Varsha,
+        aayana: [Aayana.Dakshina]
     },
     Bhaadrapada: {
         name: {
@@ -425,7 +529,8 @@ export const Maasa = {
             tibetan: ['ཁྲིམས་སྟོད་ཟླ་བ']
         },
         suryaMaasa: Rasi.simha,
-        Rtu: Rtu.Varsha
+        rtu: Rtu.Varsha,
+        aayana: [Aayana.Dakshina]
     },
     Ashvina: {
         name: {
@@ -443,7 +548,8 @@ export const Maasa = {
             tibetan: ['ཐ་སྐར་ཟླ་བ']
         },
         suryaMaasa: Rasi.kanya,
-        Rtu: Rtu.Sarad
+        rtu: Rtu.Sarad,
+        aayana: [Aayana.Dakshina]
     },
     Kaartika: {
         name: {
@@ -461,7 +567,8 @@ export const Maasa = {
             tibetan: ['སྨིན་དྲུག་ཟླ་བ']
         },
         suryaMaasa: Rasi.tula,
-        Rtu: Rtu.Sarad
+        rtu: Rtu.Sarad,
+        aayana: [Aayana.Dakshina]
     },
     Maargasirsa: {
         name: {
@@ -479,14 +586,15 @@ export const Maasa = {
             tibetan: ['མགོ་ཟླ་བ']
         },
         suryaMaasa: Rasi.vrscika,
-        Rtu: Rtu.Hemanta
+        rtu: Rtu.Hemanta,
+        aayana: [Aayana.Dakshina]
     },
     Pausha: {
         name: {
             sanskrit: ['पौष'],
             odia: ['ପୌଷ'],
             malayalam: ['ധനു'],
-            tamil: ['தை	'],
+            tamil: ['தை'],
             sinhala: ['දුරුතු'],
             dhivehi: [''],
             telugu: ['పుష్యము'],
@@ -497,7 +605,8 @@ export const Maasa = {
             tibetan: ['རྒྱལ་ཟླ་བ']
         },
         suryaMaasa: Rasi.dhanusa,
-        Rtu: Rtu.Hemanta
+        rtu: Rtu.Hemanta,
+        aayana: [Aayana.Dakshina, Aayana.Uthara]
     },
     Maagha: {
         name: {
@@ -515,7 +624,8 @@ export const Maasa = {
             tibetan: ['མཆུ་ཟླ་བ']
         },
         suryaMaasa: Rasi.makara,
-        Rtu: Rtu.Sisira
+        rtu: Rtu.Sisira,
+        aayana: [Aayana.Uthara]
     },
     Phalguna: {
         name: {
@@ -533,7 +643,8 @@ export const Maasa = {
             tibetan: ['དབོ་ཟླ་བ']
         },
         suryaMaasa: Rasi.kumbha,
-        Rtu: Rtu.Sisira
+        rtu: Rtu.Sisira,
+        aayana: [Aayana.Uthara]
     }
 }
 
@@ -541,14 +652,14 @@ export const Paksha = {
     Krshna: {
         name: {
             sanskrit: ['कृष्ण'],
-            odia: [''],
-            malayalam: [''],
+            odia: ['କୃଷ୍ଣପକ୍ଷ'],
+            malayalam: ['കൃഷ്ണ പക്ഷം'],
             tamil: ['தேய்பிறை'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['కృష్ణ పక్షం'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ಕೃಷ್ಣ ಪಕ್ಷ', 'ವದ್ಯ ಪಕ್ಷ'],
+            bengali: ['কৃষ্ণ পক্ষ'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -557,71 +668,14 @@ export const Paksha = {
     Shukla: {
         name: {
             sanskrit: ['शुक्ल'],
-            odia: [''],
-            malayalam: [''],
+            odia: ['ଶୁକ୍ଳପକ୍ଷ'],
+            malayalam: ['ശുക്ല പക്ഷം'],
             tamil: ['வளர்பிறை'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['శుక్లపక్షం'],
-            kannada: [''],
-            bengali: [''],
-            mongolian: [''],
-            chinese: [''],
-            tibetan: ['']
-        }
-    }
-}
-
-export const Samvatsara = {
-    Plava: {
-        name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
-            sinhala: [''],
-            dhivehi: [''],
-            telugu: [''],
-            kannada: [''],
-            bengali: [''],
-            mongolian: [''],
-            chinese: [''],
-            tibetan: ['']
-        }
-    }
-}
-
-export const Yoga = {
-    Amrta: {
-        name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
-            sinhala: [''],
-            dhivehi: [''],
-            telugu: [''],
-            kannada: [''],
-            bengali: [''],
-            mongolian: [''],
-            chinese: [''],
-            tibetan: ['']
-        }
-    }
-}
-
-export const Karana = {
-    Bava: {
-        name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
-            sinhala: [''],
-            dhivehi: [''],
-            telugu: [''],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ಶುಕ್ಲ ಪಕ್ಷ', 'ಗೌರ ಪಕ್ಷ'],
+            bengali: ['শুক্ল পক্ষ'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -632,15 +686,15 @@ export const Karana = {
 export const Tithi = {
     Prathama: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['प्रतिपदा', 'प्रथमा'],
+            odia: ['ପ୍ରତିପଦ'],
+            malayalam: ['പ്രഥമ', 'പ്രതിപദം'],
+            tamil: ['பிரதமை'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['పాడ్యమి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ಪ್ರತಿಪತ್'],
+            bengali: ['প্রতিপদ'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -649,15 +703,15 @@ export const Tithi = {
     },
     Dvitiya: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['द्वितीया'],
+            odia: ['ଦ୍ୱିତୀୟା'],
+            malayalam: ['ദ്വിതീയ'],
+            tamil: ['துவிதியை'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['విదియ'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ದ್ವಿತೀಯಾ'],
+            bengali: ['দ্বিতীয়া'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -666,15 +720,15 @@ export const Tithi = {
     },
     Trtiya: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['तृतीया'],
+            odia: ['ତୃତୀୟା'],
+            malayalam: ['തൃതിയ'],
+            tamil: ['திருதியை'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['తదియ'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ತೃತೀಯಾ'],
+            bengali: ['তৃতীয়া'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -683,15 +737,15 @@ export const Tithi = {
     },
     Chaturti: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['चतुर्थी'],
+            odia: ['ଚତୁର୍ଥୀ'],
+            malayalam: ['ചതുർത്ഥി'],
+            tamil: ['சதுர்த்தி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['చవితి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ಚತುರ್ಥೀ'],
+            bengali: ['চতুর্থী'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -700,15 +754,15 @@ export const Tithi = {
     },
     Panchami: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['पञ्चमी'],
+            odia: ['ପଞ୍ଚମୀ'],
+            malayalam: ['പഞ്ചമി'],
+            tamil: ['பஞ்சமி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['పంచమి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ಪಂಚಮೀ'],
+            bengali: ['পঞ্চমী'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -717,15 +771,15 @@ export const Tithi = {
     },
     Shasti: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['षष्ठी'],
+            odia: ['ଷଷ୍ଠୀ'],
+            malayalam: ['ഷഷ്ഠി'],
+            tamil: ['சஷ்டி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['షష్ఠి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ಷಷ್ಠೀ'],
+            bengali: ['ষষ্ঠী'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -734,15 +788,15 @@ export const Tithi = {
     },
     Saptami: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['सप्तमी'],
+            odia: ['ସପ୍ତମୀ'],
+            malayalam: ['സപ്തമി'],
+            tamil: ['சப்தமி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['సప్తమి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ಸಪ್ತಮೀ'],
+            bengali: ['সপ্তমী'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -751,15 +805,15 @@ export const Tithi = {
     },
     Ashtami: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['अष्टमी'],
+            odia: ['ଅଷ୍ଟମୀ'],
+            malayalam: ['അഷ്ടമി'],
+            tamil: ['அஷ்டமி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['అష్టమి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ಅಷ್ಟಮೀ'],
+            bengali: ['অষ্টমী'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -768,15 +822,15 @@ export const Tithi = {
     },
     Navami: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['नवमी'],
+            odia: ['ନବମୀ'],
+            malayalam: ['നവമി'],
+            tamil: ['நவமி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['నవమి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ನವಮೀ'],
+            bengali: ['নবমী'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -785,15 +839,15 @@ export const Tithi = {
     },
     Dasami: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['दशमी'],
+            odia: ['ଦଶମୀ'],
+            malayalam: ['ദശമി'],
+            tamil: ['தசமி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['దశమి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ದಶಮೀ'],
+            bengali: ['দশমী'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -802,32 +856,32 @@ export const Tithi = {
     },
     Ekadasi: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['एकादशी'],
+            odia: ['ଏକାଦଶୀ'],
+            malayalam: ['ഏകാദശി'],
+            tamil: ['ஏகாதசி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['ఏకాదశి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ಏಕಾದಶೀ'],
+            bengali: ['একাদশী'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
         },
-        diety: Diety.shiva
+        diety: Diety.visvedevas
     },
     Dvadasi: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['द्वादशी'],
+            odia: ['ଦ୍ୱାଦଶୀ'],
+            malayalam: ['ദ്വാദശി'],
+            tamil: ['துவாதசி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['ద్వాదశి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ದ್ವಾದಶೀ'],
+            bengali: ['দ্বাদশী'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -836,15 +890,15 @@ export const Tithi = {
     },
     Trayodasi: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['त्रयोदशी'],
+            odia: ['ତ୍ରୟୋଦଶୀ'],
+            malayalam: ['ത്രയോദശി'],
+            tamil: ['திரயோதசி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['త్రయోదశి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ತ್ರಯೋದಶೀ'],
+            bengali: ['ত্রয়োদশী'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -853,15 +907,15 @@ export const Tithi = {
     },
     Chaturdasi: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['चतुर्दशी'],
+            odia: ['ଚତୁର୍ଦ୍ଦଶୀ'],
+            malayalam: ['ചതുർദശി'],
+            tamil: ['சதுர்த்தசி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['చతుర్దశి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ಚತುರ್ದಶೀ'],
+            bengali: ['চতুর্দশী'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -870,15 +924,15 @@ export const Tithi = {
     },
     Paurnami: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['पूर्णिमा', 'पूर्णिमा'],
+            odia: ['ପୂର୍ଣ୍ଣିମା'],
+            malayalam: ['പൌർണമിയോ'],
+            tamil: ['பௌர்ணமி', 'முழுநிலவு', 'முழுமதி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['పున్నమి', 'పూర్ణిమ', 'పౌర్ణమి'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ಪೂರ್ಣಿಮಾ'],
+            bengali: ['পূর্ণিমা'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
@@ -887,39 +941,20 @@ export const Tithi = {
     },
     Amavasya: {
         name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
+            sanskrit: ['अमावस्या'],
+            odia: ['ଅମାବାସ୍ୟା'],
+            malayalam: ['അമാവാസിയോ'],
+            tamil: ['அமாவாசை', 'புதுநிலவு', 'மறைமதி'],
             sinhala: [''],
             dhivehi: [''],
             telugu: ['అమావాస్య'],
-            kannada: [''],
-            bengali: [''],
+            kannada: ['ಅಮಾವಾಸ್ಯೆ'],
+            bengali: ['অমাবস্যা'],
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
         },
-        diety: Diety.soma
-    }
-}
-
-export const Aayana = {
-    Uthara: {
-        name: {
-            sanskrit: [''],
-            odia: [''],
-            malayalam: [''],
-            tamil: [''],
-            sinhala: [''],
-            dhivehi: [''],
-            telugu: [''],
-            kannada: [''],
-            bengali: [''],
-            mongolian: [''],
-            chinese: [''],
-            tibetan: ['']
-        }
+        diety: Diety.pitrs
     }
 }
 
@@ -1574,6 +1609,10 @@ export const Nakshatra = {
     }
 }
 
+//#endregion
+
+//#region functions
+
 export const getBhogansha = (graha: Graha) => {
     switch (graha) {
         case Graha.chandra:
@@ -1586,3 +1625,5 @@ export const getBhogansha = (graha: Graha) => {
 }
 
 export const getTithi = () => ((getBhogansha(Graha.chandra) - getBhogansha(Graha.surya)) / 12);
+
+//#endregion
