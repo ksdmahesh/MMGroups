@@ -66,6 +66,12 @@ export enum Symbols {
     revati = 'Fish or a pair of fish, drum'
 }
 
+export enum StiraChara {
+    stira = 'stira',
+    chara = 'chara',
+    dvisvabhava = 'dvisvabhava'
+}
+
 //#endregion
 
 //#region constants
@@ -88,83 +94,396 @@ export enum Graha {
     rahu = 'rahu'
 }
 
-export enum Rasi {
-    mesha = 'mesha',
-    vrshabha = 'vrshabha',
-    mithuna = 'mithuna',
-    karka = 'karka',
-    simha = 'simha',
-    kanya = 'kanya',
-    tula = 'tula',
-    vrscika = 'vrscika',
-    dhanusa = 'dhanusa',
-    makara = 'makara',
-    kumbha = 'kumbha',
-    mina = 'mina'
+export const Bhuta = {
+    Agni: {
+        name: {
+            sanskrit: ['मेष'],
+            odia: ['ମେଷ'],
+            malayalam: ['മേടം'],
+            tamil: ['மேசம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['మేషము'],
+            kannada: ['ಮೇಷ'],
+            bengali: ['মেষ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    Bhumi: {
+        name: {
+            sanskrit: ['मेष'],
+            odia: ['ମେଷ'],
+            malayalam: ['മേടം'],
+            tamil: ['மேசம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['మేషము'],
+            kannada: ['ಮೇಷ'],
+            bengali: ['মেষ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    Vayu: {
+        name: {
+            sanskrit: ['मेष'],
+            odia: ['ମେଷ'],
+            malayalam: ['മേടം'],
+            tamil: ['மேசம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['మేషము'],
+            kannada: ['ಮೇಷ'],
+            bengali: ['মেষ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    Apa: {
+        name: {
+            sanskrit: ['मेष'],
+            odia: ['ମେଷ'],
+            malayalam: ['മേടം'],
+            tamil: ['மேசம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['మేషము'],
+            kannada: ['ಮೇಷ'],
+            bengali: ['মেষ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    Akasha: {
+        name: {
+            sanskrit: ['मेष'],
+            odia: ['ମେଷ'],
+            malayalam: ['മേടം'],
+            tamil: ['மேசம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['మేషము'],
+            kannada: ['ಮೇಷ'],
+            bengali: ['মেষ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    }
+}
+
+export const Rasi = {
+    Mesha: {
+        name: {
+            sanskrit: ['मेष'],
+            odia: ['ମେଷ'],
+            malayalam: ['മേടം'],
+            tamil: ['மேசம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['మేషము'],
+            kannada: ['ಮೇಷ'],
+            bengali: ['মেষ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        westernZodiac: 'Aries',
+        stiraChara: StiraChara.chara,
+        bhuta: Bhuta.Agni,
+        graha: Graha.mangala,
+        mitra:[],
+        satru:[]
+    },
+    Vrshabha: {
+        name: {
+            sanskrit: ['वृषभ'],
+            odia: ['ବୃଷ'],
+            malayalam: ['ഇടവം'],
+            tamil: ['ரிசபம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['వృషభము'],
+            kannada: ['ವೃಷಭ'],
+            bengali: ['বৃষ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        westernZodiac: 'Taurus',
+        stiraChara: StiraChara.stira,
+        bhuta: Bhuta.Bhumi,
+        graha: Graha.shukra
+    },
+    Mithuna: {
+        name: {
+            sanskrit: ['मिथुन'],
+            odia: ['ମିଥୁନ'],
+            malayalam: ['മിഥുനം'],
+            tamil: ['மிதுனம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['మిథునము'],
+            kannada: ['ಮಿಥುನ'],
+            bengali: ['মিথুন'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        westernZodiac: 'Gemini',
+        stiraChara: StiraChara.dvisvabhava,
+        bhuta: Bhuta.Vayu,
+        graha: Graha.budha
+    },
+    Karka: {
+        name: {
+            sanskrit: ['कर्क'],
+            odia: ['କର୍କଟ'],
+            malayalam: ['കർക്കടകം'],
+            tamil: ['கடகம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['కర్కాటకము'],
+            kannada: ['ಕರ್ಕಾಟಕ'],
+            bengali: ['কর্কট'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        westernZodiac: 'Cancer',
+        stiraChara: StiraChara.chara,
+        bhuta: Bhuta.Apa,
+        graha: Graha.chandra
+    },
+    Simha: {
+        name: {
+            sanskrit: ['सिंह'],
+            odia: ['ସିଂହ'],
+            malayalam: ['ചിങ്ങം'],
+            tamil: ['சிம்மம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['సింహము'],
+            kannada: ['ಸಿಂಹ'],
+            bengali: ['সিংহ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        westernZodiac: 'Leo',
+        stiraChara: StiraChara.stira,
+        bhuta: Bhuta.Agni,
+        graha: Graha.surya
+    },
+    Kanya: {
+        name: {
+            sanskrit: ['कन्या'],
+            odia: ['କନ୍ୟା'],
+            malayalam: ['കന്നി'],
+            tamil: ['கன்னி'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['కన్య'],
+            kannada: ['ಕನ್ಯಾ'],
+            bengali: ['কন্যা'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        westernZodiac: 'Virgo',
+        stiraChara: StiraChara.dvisvabhava,
+        bhuta: Bhuta.Bhumi,
+        graha: Graha.budha
+    },
+    Tula: {
+        name: {
+            sanskrit: ['तुला'],
+            odia: ['ତୁଳା'],
+            malayalam: ['തുലാം'],
+            tamil: ['துலாம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['తుల'],
+            kannada: ['ತುಲಾ'],
+            bengali: ['তুলা'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        westernZodiac: 'Libra',
+        stiraChara: StiraChara.chara,
+        bhuta: Bhuta.Vayu,
+        graha: Graha.shukra
+    },
+    Vrscika: {
+        name: {
+            sanskrit: ['वृश्चिक'],
+            odia: ['ବିଛା'],
+            malayalam: ['വൃശ്ചികം'],
+            tamil: ['விருச்சிகம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['వృచ్చికము'],
+            kannada: ['ವೃಶ್ಚಿಕ'],
+            bengali: ['বৃশ্চিক'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        westernZodiac: 'Scorpio',
+        stiraChara: StiraChara.stira,
+        bhuta: Bhuta.Apa,
+        graha: Graha.mangala
+    },
+    Dhanusa: {
+        name: {
+            sanskrit: ['धनुष'],
+            odia: ['ଧନୁ'],
+            malayalam: ['ധനു'],
+            tamil: ['தனுசு'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['ధనుస్సు'],
+            kannada: ['ಧನು'],
+            bengali: ['ধনু'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        westernZodiac: 'Sagittarius',
+        stiraChara: StiraChara.dvisvabhava,
+        bhuta: Bhuta.Agni,
+        graha: Graha.guru
+    },
+    Makara: {
+        name: {
+            sanskrit: ['मकर'],
+            odia: ['ମକର'],
+            malayalam: ['മകരം'],
+            tamil: ['மகரம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['మకరము'],
+            kannada: ['ಮಕರ'],
+            bengali: ['মকর'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        westernZodiac: 'Capricorn',
+        stiraChara: StiraChara.chara,
+        bhuta: Bhuta.Bhumi,
+        graha: Graha.shani
+    },
+    Kumbha: {
+        name: {
+            sanskrit: ['कुम्भ'],
+            odia: ['କୁମ୍ଭ'],
+            malayalam: ['കുംഭം'],
+            tamil: ['கும்பம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['కుంభము'],
+            kannada: ['ಕುಂಭ'],
+            bengali: ['কুম্ভ'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        westernZodiac: 'Aquarius',
+        stiraChara: StiraChara.stira,
+        bhuta: Bhuta.Vayu,
+        graha: Graha.shani
+    },
+    Meena: {
+        name: {
+            sanskrit: ['मीन'],
+            odia: ['ମୀନ'],
+            malayalam: ['മീനം'],
+            tamil: ['மீனம்'],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: ['మీనము'],
+            kannada: ['ಮೀನ'],
+            bengali: ['মীন'],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        },
+        westernZodiac: 'Pisces',
+        stiraChara: StiraChara.dvisvabhava,
+        bhuta: Bhuta.Apa,
+        graha: Graha.guru
+    },
 }
 
 export const Yuga = {
     Satya: {
         name: {
-            sanskrit: ['सत्यलोक'],
-            odia: ['ସତ୍ଯଲୋକ'],
-            malayalam: ['സത്യലോക'],
-            tamil: ['சத்ய லோகம்'],
+            sanskrit: ['सत्ययुग', 'कृतयुग'],
+            odia: ['ସତ୍ଯଯୁଗ', 'କୃତଯୁଗ'],
+            malayalam: ['സത്യയുഗ', 'കൃതയുഗ'],
+            tamil: ['சத்ய யுகம்', 'கிருத யுகம்'],
             sinhala: [''],
             dhivehi: [''],
-            telugu: ['సత్యలోక'],
-            kannada: ['ಸತ್ಯಲೋಕ'],
-            bengali: ['সত্যলোক'],
+            telugu: ['సత్యయుగ', 'కృతయుగ'],
+            kannada: ['ಸತ್ಯಯುಗ', 'ಕೃತಯುಗ'],
+            bengali: ['সত্যযুগ', 'কৃতযুগ'],
             mongolian: [''],
-            chinese: [''],
+            chinese: ['圆满时'],
             tibetan: ['']
         }
     },
     Treta: {
         name: {
-            sanskrit: ['सत्यलोक'],
-            odia: ['ସତ୍ଯଲୋକ'],
-            malayalam: ['സത്യലോക'],
-            tamil: ['சத்ய லோகம்'],
+            sanskrit: ['त्रेतायुग'],
+            odia: ['ତ୍ରେତାଯୁଗ'],
+            malayalam: ['ത്രേതായുഗ'],
+            tamil: ['திரேதா யுகம்'],
             sinhala: [''],
             dhivehi: [''],
-            telugu: ['సత్యలోక'],
-            kannada: ['ಸತ್ಯಲೋಕ'],
-            bengali: ['সত্যলোক'],
+            telugu: ['త్రేతాయుగ'],
+            kannada: ['ತ್ರೇತಾಯುಗ'],
+            bengali: ['ত্রেতাযুগ'],
             mongolian: [''],
-            chinese: [''],
+            chinese: ['三分时'],
             tibetan: ['']
         }
     },
     Dvapara: {
         name: {
-            sanskrit: ['सत्यलोक'],
-            odia: ['ସତ୍ଯଲୋକ'],
-            malayalam: ['സത്യലോക'],
-            tamil: ['சத்ய லோகம்'],
+            sanskrit: ['द्वापरयुग'],
+            odia: ['ଦ୍ଵାପରଯୁଗ'],
+            malayalam: ['ദ്വാപരയുഗ'],
+            tamil: ['துவாபர யுகம்'],
             sinhala: [''],
             dhivehi: [''],
-            telugu: ['సత్యలోక'],
-            kannada: ['ಸತ್ಯಲೋಕ'],
-            bengali: ['সত্যলোক'],
+            telugu: ['ద్వాపరయుగ'],
+            kannada: ['ದ್ವಾಪರಯುಗ'],
+            bengali: ['দ্বাপরযুগ'],
             mongolian: [''],
-            chinese: [''],
+            chinese: ['二分时'],
             tibetan: ['']
         }
     },
     Kali: {
         name: {
-            sanskrit: ['सत्यलोक'],
-            odia: ['ସତ୍ଯଲୋକ'],
-            malayalam: ['സത്യലോക'],
-            tamil: ['சத்ய லோகம்'],
+            sanskrit: ['कलियुग'],
+            odia: ['କଲିଯୁଗ'],
+            malayalam: ['കലിയുഗ'],
+            tamil: ['கலியுகம்'],
             sinhala: [''],
             dhivehi: [''],
-            telugu: ['సత్యలోక'],
-            kannada: ['ಸತ್ಯಲೋಕ'],
-            bengali: ['সত্যলোক'],
+            telugu: ['కలియుగ'],
+            kannada: ['ಕಲಿಯುಗ'],
+            bengali: ['কলিযুগ'],
             mongolian: [''],
-            chinese: [''],
+            chinese: ['争斗时'],
             tibetan: ['']
         }
     }
@@ -1919,7 +2238,7 @@ export const Karana = {
             chinese: [''],
             tibetan: ['']
         },
-        type: 'stira'
+        stiraChara: StiraChara.stira
     },
     Chatushpaada: {
         name: {
@@ -1936,7 +2255,7 @@ export const Karana = {
             chinese: [''],
             tibetan: ['']
         },
-        type: 'stira'
+        stiraChara: StiraChara.stira
     },
     Naaga: {
         name: {
@@ -1953,7 +2272,7 @@ export const Karana = {
             chinese: [''],
             tibetan: ['']
         },
-        type: 'stira'
+        stiraChara: StiraChara.stira
     },
     Kimstughna: {
         name: {
@@ -1970,7 +2289,7 @@ export const Karana = {
             chinese: [''],
             tibetan: ['']
         },
-        type: 'stira'
+        stiraChara: StiraChara.stira
     },
     Bava: {
         name: {
@@ -1987,7 +2306,7 @@ export const Karana = {
             chinese: [''],
             tibetan: ['']
         },
-        type: 'chara'
+        stiraChara: StiraChara.chara
     },
     Baalava: {
         name: {
@@ -2004,7 +2323,7 @@ export const Karana = {
             chinese: [''],
             tibetan: ['']
         },
-        type: 'chara'
+        stiraChara: StiraChara.chara
     },
     Kaulava: {
         name: {
@@ -2021,7 +2340,7 @@ export const Karana = {
             chinese: [''],
             tibetan: ['']
         },
-        type: 'chara'
+        stiraChara: StiraChara.chara
     },
     Taitula: {
         name: {
@@ -2038,7 +2357,7 @@ export const Karana = {
             chinese: [''],
             tibetan: ['']
         },
-        type: 'chara'
+        stiraChara: StiraChara.chara
     },
     Garaja: {
         name: {
@@ -2055,7 +2374,7 @@ export const Karana = {
             chinese: [''],
             tibetan: ['']
         },
-        type: 'chara'
+        stiraChara: StiraChara.chara
     },
     Vanija: {
         name: {
@@ -2072,7 +2391,7 @@ export const Karana = {
             chinese: [''],
             tibetan: ['']
         },
-        type: 'chara'
+        stiraChara: StiraChara.chara
     },
     Vishti: {
         name: {
@@ -2089,7 +2408,7 @@ export const Karana = {
             chinese: [''],
             tibetan: ['']
         },
-        type: 'chara'
+        stiraChara: StiraChara.chara
     }
 }
 
@@ -2243,7 +2562,7 @@ export const Vaara = {
             chinese: ['日曜日'],
             tibetan: ['གཟའ་ཉི་མ།']
         },
-        lord: Graha.surya
+        graha: Graha.surya
     },
     soma: {
         name: {
@@ -2260,7 +2579,7 @@ export const Vaara = {
             chinese: ['月曜日'],
             tibetan: ['གཟའ་ཟླ་བ།']
         },
-        lord: Graha.chandra
+        graha: Graha.chandra
     },
     mangala: {
         name: {
@@ -2277,7 +2596,7 @@ export const Vaara = {
             chinese: ['火曜日'],
             tibetan: ['གཟའ་མིག་དམར།']
         },
-        lord: Graha.mangala
+        graha: Graha.mangala
     },
     budha: {
         name: {
@@ -2294,7 +2613,7 @@ export const Vaara = {
             chinese: ['水曜日'],
             tibetan: ['གཟའ་ལྷག་པ།']
         },
-        lord: Graha.budha
+        graha: Graha.budha
     },
     guru: {
         name: {
@@ -2311,7 +2630,7 @@ export const Vaara = {
             chinese: ['木曜日'],
             tibetan: ['གཟའ་ཕུར་བུ།']
         },
-        lord: Graha.guru
+        graha: Graha.guru
     },
     shukra: {
         name: {
@@ -2328,7 +2647,7 @@ export const Vaara = {
             chinese: ['金曜日'],
             tibetan: ['གཟའ་པ་སངས།']
         },
-        lord: Graha.shukra
+        graha: Graha.shukra
     },
     shani: {
         name: {
@@ -2345,7 +2664,7 @@ export const Vaara = {
             chinese: ['土曜日'],
             tibetan: ['གཟའ་སྤེན་པ།']
         },
-        lord: Graha.shani
+        graha: Graha.shani
     }
 }
 
@@ -2365,10 +2684,9 @@ export const Maasa = {
             chinese: [''],
             tibetan: ['ནག་པ་ཟླ་བ']
         },
-        suryaMaasa: Rasi.mina,
+        suryaMaasa: Rasi.Meena,
         rtu: Rtu.Vasanta,
         aayana: [Aayana.Uthara]
-
     },
     Vaishaka: {
         name: {
@@ -2385,7 +2703,7 @@ export const Maasa = {
             chinese: [''],
             tibetan: ['ས་ག་ཟླ་བ']
         },
-        suryaMaasa: Rasi.mesha,
+        suryaMaasa: Rasi.Mesha,
         rtu: Rtu.Vasanta,
         aayana: [Aayana.Uthara]
     },
@@ -2404,7 +2722,7 @@ export const Maasa = {
             chinese: [''],
             tibetan: ['སྣྲོན་ཟླ་བ']
         },
-        suryaMaasa: Rasi.vrshabha,
+        suryaMaasa: Rasi.Vrshabha,
         rtu: Rtu.Grishma,
         aayana: [Aayana.Uthara]
     },
@@ -2423,7 +2741,7 @@ export const Maasa = {
             chinese: [''],
             tibetan: ['ཆུ་སྟོད་ཟླ་བ']
         },
-        suryaMaasa: Rasi.mithuna,
+        suryaMaasa: Rasi.Mithuna,
         rtu: Rtu.Grishma,
         aayana: [Aayana.Uthara, Aayana.Dakshina]
     },
@@ -2442,7 +2760,7 @@ export const Maasa = {
             chinese: [''],
             tibetan: ['གྲོ་བཞིན་ཟླ་བ']
         },
-        suryaMaasa: Rasi.karka,
+        suryaMaasa: Rasi.Karka,
         rtu: Rtu.Varsha,
         aayana: [Aayana.Dakshina]
     },
@@ -2461,7 +2779,7 @@ export const Maasa = {
             chinese: [''],
             tibetan: ['ཁྲིམས་སྟོད་ཟླ་བ']
         },
-        suryaMaasa: Rasi.simha,
+        suryaMaasa: Rasi.Simha,
         rtu: Rtu.Varsha,
         aayana: [Aayana.Dakshina]
     },
@@ -2480,7 +2798,7 @@ export const Maasa = {
             chinese: [''],
             tibetan: ['ཐ་སྐར་ཟླ་བ']
         },
-        suryaMaasa: Rasi.kanya,
+        suryaMaasa: Rasi.Kanya,
         rtu: Rtu.Sarad,
         aayana: [Aayana.Dakshina]
     },
@@ -2499,7 +2817,7 @@ export const Maasa = {
             chinese: [''],
             tibetan: ['སྨིན་དྲུག་ཟླ་བ']
         },
-        suryaMaasa: Rasi.tula,
+        suryaMaasa: Rasi.Tula,
         rtu: Rtu.Sarad,
         aayana: [Aayana.Dakshina]
     },
@@ -2518,7 +2836,7 @@ export const Maasa = {
             chinese: [''],
             tibetan: ['མགོ་ཟླ་བ']
         },
-        suryaMaasa: Rasi.vrscika,
+        suryaMaasa: Rasi.Vrscika,
         rtu: Rtu.Hemanta,
         aayana: [Aayana.Dakshina]
     },
@@ -2537,7 +2855,7 @@ export const Maasa = {
             chinese: [''],
             tibetan: ['རྒྱལ་ཟླ་བ']
         },
-        suryaMaasa: Rasi.dhanusa,
+        suryaMaasa: Rasi.Dhanusa,
         rtu: Rtu.Hemanta,
         aayana: [Aayana.Dakshina, Aayana.Uthara]
     },
@@ -2556,7 +2874,7 @@ export const Maasa = {
             chinese: [''],
             tibetan: ['མཆུ་ཟླ་བ']
         },
-        suryaMaasa: Rasi.makara,
+        suryaMaasa: Rasi.Makara,
         rtu: Rtu.Sisira,
         aayana: [Aayana.Uthara]
     },
@@ -2575,7 +2893,7 @@ export const Maasa = {
             chinese: [''],
             tibetan: ['དབོ་ཟླ་བ']
         },
-        suryaMaasa: Rasi.kumbha,
+        suryaMaasa: Rasi.Kumbha,
         rtu: Rtu.Sisira,
         aayana: [Aayana.Uthara]
     }
@@ -2974,11 +3292,11 @@ export const Nakshatra = {
         pada: ['चु', 'चे', 'चो', 'ला'],
         description: '"physician to the Gods"',
         associatedStars: 'β and γ Arietis',
-        lord: Graha.ketu,
+        graha: Graha.ketu,
         deity: [Diety.ashvins],
         symbol: Symbols.ashvini,
-        zodiac: { from: { angle: '0°', rasi: Rasi.mesha }, to: { angle: '13°20', rasi: Rasi.mesha } },
-        westernZodiac: { from: { angle: '23°46', rasi: Rasi.mesha }, to: { angle: '7°06', rasi: Rasi.vrshabha } }
+        zodiac: { from: { angle: '0°', rasi: Rasi.Mesha }, to: { angle: '13°20', rasi: Rasi.Mesha } },
+        westernZodiac: { from: { angle: '23°46', rasi: Rasi.Mesha }, to: { angle: '7°06', rasi: Rasi.Vrshabha } }
     },
     Bharani: {
         name: {
@@ -2998,11 +3316,11 @@ export const Nakshatra = {
         pada: ['ली', 'लू', 'ले', 'लो'],
         description: '"the bearer"',
         associatedStars: '35, 39, and 41 Arietis',
-        lord: Graha.shukra,
+        graha: Graha.shukra,
         deity: [Diety.yama],
         symbol: Symbols.bharani,
-        zodiac: { from: { angle: '13°20', rasi: Rasi.mesha }, to: { angle: '26°40', rasi: Rasi.mesha } },
-        westernZodiac: { from: { angle: '7°06', rasi: Rasi.vrshabha }, to: { angle: '20°26', rasi: Rasi.vrshabha } }
+        zodiac: { from: { angle: '13°20', rasi: Rasi.Mesha }, to: { angle: '26°40', rasi: Rasi.Mesha } },
+        westernZodiac: { from: { angle: '7°06', rasi: Rasi.Vrshabha }, to: { angle: '20°26', rasi: Rasi.Vrshabha } }
     },
     Krttika: {
         name: {
@@ -3022,11 +3340,11 @@ export const Nakshatra = {
         pada: ['अ', 'ई', 'उ', 'ए'],
         description: 'an old name of the Pleiades; personified as the nurses of Kārttikeya, a son of Shiva.',
         associatedStars: 'Pleiades',
-        lord: Graha.surya,
+        graha: Graha.surya,
         deity: [Diety.agni],
         symbol: Symbols.krttika,
-        zodiac: { from: { angle: '26°40', rasi: Rasi.mesha }, to: { angle: '10°', rasi: Rasi.vrshabha } },
-        westernZodiac: { from: { angle: '20°26', rasi: Rasi.vrshabha }, to: { angle: '3°46', rasi: Rasi.mithuna } }
+        zodiac: { from: { angle: '26°40', rasi: Rasi.Mesha }, to: { angle: '10°', rasi: Rasi.Vrshabha } },
+        westernZodiac: { from: { angle: '20°26', rasi: Rasi.Vrshabha }, to: { angle: '3°46', rasi: Rasi.Mithuna } }
     },
     Rohini: {
         name: {
@@ -3046,11 +3364,11 @@ export const Nakshatra = {
         pada: ['ओ', 'वा', 'वी', 'वु'],
         description: '"the red one", a name of Aldebaran. Also known as brāhmī',
         associatedStars: 'Aldebaran',
-        lord: Graha.chandra,
+        graha: Graha.chandra,
         symbol: Symbols.rohini,
         deity: [Diety.brahma],
-        zodiac: { from: { angle: '10°', rasi: Rasi.vrshabha }, to: { angle: '23°20', rasi: Rasi.vrshabha } },
-        westernZodiac: { from: { angle: '3°46', rasi: Rasi.mithuna }, to: { angle: '17°06', rasi: Rasi.mithuna } }
+        zodiac: { from: { angle: '10°', rasi: Rasi.Vrshabha }, to: { angle: '23°20', rasi: Rasi.Vrshabha } },
+        westernZodiac: { from: { angle: '3°46', rasi: Rasi.Mithuna }, to: { angle: '17°06', rasi: Rasi.Mithuna } }
     },
     Mrgashirsha: {
         name: {
@@ -3070,11 +3388,11 @@ export const Nakshatra = {
         pada: ['वे', 'वो', 'का', 'की'],
         description: '"the deer\'s head". Also known as āgrahāyaṇī',
         associatedStars: 'λ, φ Orionis',
-        lord: Graha.mangala,
+        graha: Graha.mangala,
         symbol: Symbols.mrgashirsha,
         deity: [Diety.soma],
-        zodiac: { from: { angle: '23°20', rasi: Rasi.vrshabha }, to: { angle: '6°40', rasi: Rasi.mithuna } },
-        westernZodiac: { from: { angle: '17°06', rasi: Rasi.mithuna }, to: { angle: '0°26', rasi: Rasi.karka } }
+        zodiac: { from: { angle: '23°20', rasi: Rasi.Vrshabha }, to: { angle: '6°40', rasi: Rasi.Mithuna } },
+        westernZodiac: { from: { angle: '17°06', rasi: Rasi.Mithuna }, to: { angle: '0°26', rasi: Rasi.Karka } }
     },
     Ardra: {
         name: {
@@ -3094,11 +3412,11 @@ export const Nakshatra = {
         pada: ['कु', 'घ', 'ङ', 'छ'],
         description: '"the storm god"',
         associatedStars: 'Betelgeuse',
-        lord: Graha.rahu,
+        graha: Graha.rahu,
         symbol: Symbols.ardra,
         deity: [Diety.rudra],
-        zodiac: { from: { angle: '6°40', rasi: Rasi.mithuna }, to: { angle: '20°', rasi: Rasi.mithuna } },
-        westernZodiac: { from: { angle: '0°26', rasi: Rasi.karka }, to: { angle: '13°46', rasi: Rasi.karka } }
+        zodiac: { from: { angle: '6°40', rasi: Rasi.Mithuna }, to: { angle: '20°', rasi: Rasi.Mithuna } },
+        westernZodiac: { from: { angle: '0°26', rasi: Rasi.Karka }, to: { angle: '13°46', rasi: Rasi.Karka } }
     },
     Punarvasu: {
         name: {
@@ -3118,11 +3436,11 @@ export const Nakshatra = {
         pada: ['के', 'को', 'हा', 'ही'],
         description: '"the two restorers of goods", also known as yamakau "the two chariots"',
         associatedStars: 'Castor and Pollux',
-        lord: Graha.guru,
+        graha: Graha.guru,
         symbol: Symbols.punarvasu,
         deity: [Diety.aditi],
-        zodiac: { from: { angle: '20°', rasi: Rasi.mithuna }, to: { angle: '3°20', rasi: Rasi.karka } },
-        westernZodiac: { from: { angle: '13°46', rasi: Rasi.karka }, to: { angle: '27°06', rasi: Rasi.karka } }
+        zodiac: { from: { angle: '20°', rasi: Rasi.Mithuna }, to: { angle: '3°20', rasi: Rasi.Karka } },
+        westernZodiac: { from: { angle: '13°46', rasi: Rasi.Karka }, to: { angle: '27°06', rasi: Rasi.Karka } }
     },
     Pushya: {
         name: {
@@ -3142,11 +3460,11 @@ export const Nakshatra = {
         pada: ['हु', 'हे', 'हो', 'ड'],
         description: '"the nourisher", also known as sidhya or tiṣya',
         associatedStars: 'γ, δ and θ Cancri',
-        lord: Graha.shani,
+        graha: Graha.shani,
         deity: [Diety.brhaspati],
         symbol: Symbols.pushya,
-        zodiac: { from: { angle: '3°20', rasi: Rasi.karka }, to: { angle: '16°40', rasi: Rasi.karka } },
-        westernZodiac: { from: { angle: '27°06', rasi: Rasi.karka }, to: { angle: '10°26', rasi: Rasi.simha } }
+        zodiac: { from: { angle: '3°20', rasi: Rasi.Karka }, to: { angle: '16°40', rasi: Rasi.Karka } },
+        westernZodiac: { from: { angle: '27°06', rasi: Rasi.Karka }, to: { angle: '10°26', rasi: Rasi.Simha } }
     },
     Ashlesha: {
         name: {
@@ -3166,11 +3484,11 @@ export const Nakshatra = {
         pada: ['डी', 'डू', 'डे', 'डो'],
         description: '"the embrace"',
         associatedStars: 'δ, ε, η, ρ, and σ Hydrae',
-        lord: Graha.budha,
+        graha: Graha.budha,
         deity: [Diety.sarpas],
         symbol: Symbols.ashlesha,
-        zodiac: { from: { angle: '16°40', rasi: Rasi.karka }, to: { angle: '30°', rasi: Rasi.karka } },
-        westernZodiac: { from: { angle: '10°26', rasi: Rasi.simha }, to: { angle: '23°46', rasi: Rasi.simha } }
+        zodiac: { from: { angle: '16°40', rasi: Rasi.Karka }, to: { angle: '30°', rasi: Rasi.Karka } },
+        westernZodiac: { from: { angle: '10°26', rasi: Rasi.Simha }, to: { angle: '23°46', rasi: Rasi.Simha } }
     },
     Magha: {
         name: {
@@ -3190,11 +3508,11 @@ export const Nakshatra = {
         pada: ['मा', 'मी', 'मू', 'मे'],
         description: '"the bountiful"',
         associatedStars: 'Regulus',
-        lord: Graha.ketu,
+        graha: Graha.ketu,
         deity: [Diety.pitrs],
         symbol: Symbols.magha,
-        zodiac: { from: { angle: '0°', rasi: Rasi.simha }, to: { angle: '13°20', rasi: Rasi.simha } },
-        westernZodiac: { from: { angle: '23°46', rasi: Rasi.simha }, to: { angle: '7°06', rasi: Rasi.kanya } }
+        zodiac: { from: { angle: '0°', rasi: Rasi.Simha }, to: { angle: '13°20', rasi: Rasi.Simha } },
+        westernZodiac: { from: { angle: '23°46', rasi: Rasi.Simha }, to: { angle: '7°06', rasi: Rasi.Kanya } }
     },
     PurvaPhalguni: {
         name: {
@@ -3214,11 +3532,11 @@ export const Nakshatra = {
         pada: ['मो', 'टा', 'टी', 'टू'],
         description: '"first reddish one"',
         associatedStars: 'δ and θ Leonis',
-        lord: Graha.shukra,
+        graha: Graha.shukra,
         deity: [Diety.bhaga],
         symbol: Symbols.purvaPhalguni,
-        zodiac: { from: { angle: '13°20', rasi: Rasi.simha }, to: { angle: '26°40', rasi: Rasi.simha } },
-        westernZodiac: { from: { angle: '7°06', rasi: Rasi.kanya }, to: { angle: '20°26', rasi: Rasi.kanya } }
+        zodiac: { from: { angle: '13°20', rasi: Rasi.Simha }, to: { angle: '26°40', rasi: Rasi.Simha } },
+        westernZodiac: { from: { angle: '7°06', rasi: Rasi.Kanya }, to: { angle: '20°26', rasi: Rasi.Kanya } }
     },
     UttaraPhalguni: {
         name: {
@@ -3238,11 +3556,11 @@ export const Nakshatra = {
         pada: ['टे', 'टो', 'पा', 'पी'],
         description: '"second reddish one"',
         associatedStars: 'Denebola',
-        lord: Graha.surya,
+        graha: Graha.surya,
         deity: [Diety.aryaman],
         symbol: Symbols.uttaraPhalguni,
-        zodiac: { from: { angle: '26°40', rasi: Rasi.simha }, to: { angle: '10°', rasi: Rasi.kanya } },
-        westernZodiac: { from: { angle: '20°26', rasi: Rasi.kanya }, to: { angle: '3°46', rasi: Rasi.tula } }
+        zodiac: { from: { angle: '26°40', rasi: Rasi.Simha }, to: { angle: '10°', rasi: Rasi.Kanya } },
+        westernZodiac: { from: { angle: '20°26', rasi: Rasi.Kanya }, to: { angle: '3°46', rasi: Rasi.Tula } }
     },
     Hasta: {
         name: {
@@ -3262,11 +3580,11 @@ export const Nakshatra = {
         pada: ['पू', 'ष', 'ण', 'ठ'],
         description: '"the hand"',
         associatedStars: '',
-        lord: Graha.chandra,
+        graha: Graha.chandra,
         deity: [Diety.surya],
         symbol: Symbols.hasta,
-        zodiac: { from: { angle: '10°', rasi: Rasi.kanya }, to: { angle: '23°20', rasi: Rasi.kanya } },
-        westernZodiac: { from: { angle: '3°46', rasi: Rasi.tula }, to: { angle: '17°06', rasi: Rasi.tula } }
+        zodiac: { from: { angle: '10°', rasi: Rasi.Kanya }, to: { angle: '23°20', rasi: Rasi.Kanya } },
+        westernZodiac: { from: { angle: '3°46', rasi: Rasi.Tula }, to: { angle: '17°06', rasi: Rasi.Tula } }
     },
     Chitra: {
         name: {
@@ -3286,11 +3604,11 @@ export const Nakshatra = {
         pada: ['पे', 'पो', 'रा', 'री'],
         description: '"the bright one", a name of Spica',
         associatedStars: '',
-        lord: Graha.mangala,
+        graha: Graha.mangala,
         deity: [Diety.tvastar, Diety.vishvakarman],
         symbol: Symbols.chitra,
-        zodiac: { from: { angle: '23°20', rasi: Rasi.kanya }, to: { angle: '6°40', rasi: Rasi.tula } },
-        westernZodiac: { from: { angle: '17°06', rasi: Rasi.tula }, to: { angle: '0°26', rasi: Rasi.vrscika } }
+        zodiac: { from: { angle: '23°20', rasi: Rasi.Kanya }, to: { angle: '6°40', rasi: Rasi.Tula } },
+        westernZodiac: { from: { angle: '17°06', rasi: Rasi.Tula }, to: { angle: '0°26', rasi: Rasi.Vrscika } }
     },
     Svati: {
         name: {
@@ -3310,11 +3628,11 @@ export const Nakshatra = {
         pada: ['रू', 'रे', 'रो', 'ता'],
         description: '"Su-Ati (sanskrit) Very good" name of Arcturus',
         associatedStars: '',
-        lord: Graha.rahu,
+        graha: Graha.rahu,
         deity: [Diety.vayu],
         symbol: Symbols.svati,
-        zodiac: { from: { angle: '6°40', rasi: Rasi.tula }, to: { angle: '20°', rasi: Rasi.tula } },
-        westernZodiac: { from: { angle: '0°26', rasi: Rasi.vrscika }, to: { angle: '13°46', rasi: Rasi.vrscika } }
+        zodiac: { from: { angle: '6°40', rasi: Rasi.Tula }, to: { angle: '20°', rasi: Rasi.Tula } },
+        westernZodiac: { from: { angle: '0°26', rasi: Rasi.Vrscika }, to: { angle: '13°46', rasi: Rasi.Vrscika } }
     },
     Vishakha: {
         name: {
@@ -3334,11 +3652,11 @@ export const Nakshatra = {
         pada: ['ती', 'तू', 'ते', 'तो'],
         description: '"forked, having branches"; also known as rādhā "the gift"',
         associatedStars: '',
-        lord: Graha.guru,
+        graha: Graha.guru,
         deity: [Diety.indra, Diety.agni],
         symbol: Symbols.vishakha,
-        zodiac: { from: { angle: '20°', rasi: Rasi.tula }, to: { angle: '3°20', rasi: Rasi.vrscika } },
-        westernZodiac: { from: { angle: '13°46', rasi: Rasi.vrscika }, to: { angle: '27°06', rasi: Rasi.vrscika } }
+        zodiac: { from: { angle: '20°', rasi: Rasi.Tula }, to: { angle: '3°20', rasi: Rasi.Vrscika } },
+        westernZodiac: { from: { angle: '13°46', rasi: Rasi.Vrscika }, to: { angle: '27°06', rasi: Rasi.Vrscika } }
     },
     Anuradha: {
         name: {
@@ -3358,11 +3676,11 @@ export const Nakshatra = {
         pada: ['ना', 'नी', 'नू', 'ने'],
         description: '"following rādhā"',
         associatedStars: '',
-        lord: Graha.shani,
+        graha: Graha.shani,
         deity: [Diety.mitra],
         symbol: Symbols.anuradha,
-        zodiac: { from: { angle: '3°20', rasi: Rasi.vrscika }, to: { angle: '16°40', rasi: Rasi.vrscika } },
-        westernZodiac: { from: { angle: '27°06', rasi: Rasi.vrscika }, to: { angle: '10°26', rasi: Rasi.dhanusa } }
+        zodiac: { from: { angle: '3°20', rasi: Rasi.Vrscika }, to: { angle: '16°40', rasi: Rasi.Vrscika } },
+        westernZodiac: { from: { angle: '27°06', rasi: Rasi.Vrscika }, to: { angle: '10°26', rasi: Rasi.Dhanusa } }
     },
     Jyeshtha: {
         name: {
@@ -3382,11 +3700,11 @@ export const Nakshatra = {
         pada: ['नो', 'या', 'यी', 'यू'],
         description: '"the eldest, most excellent"',
         associatedStars: '',
-        lord: Graha.budha,
+        graha: Graha.budha,
         deity: [Diety.indra],
         symbol: Symbols.jyeshtha,
-        zodiac: { from: { angle: '16°40', rasi: Rasi.vrscika }, to: { angle: '30°', rasi: Rasi.vrscika } },
-        westernZodiac: { from: { angle: '10°26', rasi: Rasi.dhanusa }, to: { angle: '23°46', rasi: Rasi.dhanusa } }
+        zodiac: { from: { angle: '16°40', rasi: Rasi.Vrscika }, to: { angle: '30°', rasi: Rasi.Vrscika } },
+        westernZodiac: { from: { angle: '10°26', rasi: Rasi.Dhanusa }, to: { angle: '23°46', rasi: Rasi.Dhanusa } }
     },
     Mula: {
         name: {
@@ -3406,11 +3724,11 @@ export const Nakshatra = {
         pada: ['ये', 'यो', 'भा', 'भी'],
         description: '"the root"',
         associatedStars: '',
-        lord: Graha.ketu,
+        graha: Graha.ketu,
         deity: [Diety.nirrti],
         symbol: Symbols.mula,
-        zodiac: { from: { angle: '0°', rasi: Rasi.dhanusa }, to: { angle: '13°20', rasi: Rasi.dhanusa } },
-        westernZodiac: { from: { angle: '23°46', rasi: Rasi.dhanusa }, to: { angle: '7°06', rasi: Rasi.makara } }
+        zodiac: { from: { angle: '0°', rasi: Rasi.Dhanusa }, to: { angle: '13°20', rasi: Rasi.Dhanusa } },
+        westernZodiac: { from: { angle: '23°46', rasi: Rasi.Dhanusa }, to: { angle: '7°06', rasi: Rasi.Makara } }
     },
     PurvaAshadha: {
         name: {
@@ -3430,11 +3748,11 @@ export const Nakshatra = {
         pada: ['भू', 'धा', 'फा', 'ढा'],
         description: '"first of the āṣāḍhā", āṣāḍhā "the invincible one" being the name of a constellation',
         associatedStars: '',
-        lord: Graha.shukra,
+        graha: Graha.shukra,
         deity: [Diety.apah],
         symbol: Symbols.purvaAshadha,
-        zodiac: { from: { angle: '13°20', rasi: Rasi.dhanusa }, to: { angle: '26°40', rasi: Rasi.dhanusa } },
-        westernZodiac: { from: { angle: '7°06', rasi: Rasi.makara }, to: { angle: '20°26', rasi: Rasi.makara } }
+        zodiac: { from: { angle: '13°20', rasi: Rasi.Dhanusa }, to: { angle: '26°40', rasi: Rasi.Dhanusa } },
+        westernZodiac: { from: { angle: '7°06', rasi: Rasi.Makara }, to: { angle: '20°26', rasi: Rasi.Makara } }
     },
     UttaraAshadha: {
         name: {
@@ -3454,11 +3772,11 @@ export const Nakshatra = {
         pada: ['भे', 'भो', 'जा', 'जी'],
         description: '"second of the āṣāḍhā"',
         associatedStars: '',
-        lord: Graha.shukra,
+        graha: Graha.shukra,
         deity: [Diety.visvedevas],
         symbol: Symbols.uttaraAshadha,
-        zodiac: { from: { angle: '26°40', rasi: Rasi.dhanusa }, to: { angle: '10°', rasi: Rasi.makara } },
-        westernZodiac: { from: { angle: '20°26', rasi: Rasi.makara }, to: { angle: '3°46', rasi: Rasi.kumbha } }
+        zodiac: { from: { angle: '26°40', rasi: Rasi.Dhanusa }, to: { angle: '10°', rasi: Rasi.Makara } },
+        westernZodiac: { from: { angle: '20°26', rasi: Rasi.Makara }, to: { angle: '3°46', rasi: Rasi.Kumbha } }
     },
     Shravana: {
         name: {
@@ -3478,11 +3796,11 @@ export const Nakshatra = {
         pada: ['खी', 'खू', 'खे', 'खो'],
         description: '',
         associatedStars: '',
-        lord: Graha.chandra,
+        graha: Graha.chandra,
         deity: [Diety.vishnu],
         symbol: Symbols.shravana,
-        zodiac: { from: { angle: '10°', rasi: Rasi.makara }, to: { angle: '23°20', rasi: Rasi.makara } },
-        westernZodiac: { from: { angle: '3°46', rasi: Rasi.kumbha }, to: { angle: '17°06', rasi: Rasi.kumbha } }
+        zodiac: { from: { angle: '10°', rasi: Rasi.Makara }, to: { angle: '23°20', rasi: Rasi.Makara } },
+        westernZodiac: { from: { angle: '3°46', rasi: Rasi.Kumbha }, to: { angle: '17°06', rasi: Rasi.Kumbha } }
     },
     Dhanishta: {
         name: {
@@ -3502,11 +3820,11 @@ export const Nakshatra = {
         pada: ['गा', 'गी', 'गु', 'गे'],
         description: '"most famous", also Shravishthā "swiftest"',
         associatedStars: '',
-        lord: Graha.mangala,
+        graha: Graha.mangala,
         deity: [Diety.vasu],
         symbol: Symbols.dhanishta,
-        zodiac: { from: { angle: '23°20', rasi: Rasi.makara }, to: { angle: '6°40', rasi: Rasi.kumbha } },
-        westernZodiac: { from: { angle: '17°06', rasi: Rasi.kumbha }, to: { angle: '0°26', rasi: Rasi.mina } }
+        zodiac: { from: { angle: '23°20', rasi: Rasi.Makara }, to: { angle: '6°40', rasi: Rasi.Kumbha } },
+        westernZodiac: { from: { angle: '17°06', rasi: Rasi.Kumbha }, to: { angle: '0°26', rasi: Rasi.Meena } }
     },
     Shatabhisha: {
         name: {
@@ -3526,11 +3844,11 @@ export const Nakshatra = {
         pada: ['गो', 'सा', 'सी', 'सू'],
         description: '"requiring a hundred physicians"',
         associatedStars: '',
-        lord: Graha.rahu,
+        graha: Graha.rahu,
         deity: [Diety.varuna],
         symbol: Symbols.shatabhisha,
-        zodiac: { from: { angle: '6°40', rasi: Rasi.kumbha }, to: { angle: '20°', rasi: Rasi.kumbha } },
-        westernZodiac: { from: { angle: '0°26', rasi: Rasi.mina }, to: { angle: '13°46', rasi: Rasi.mina } }
+        zodiac: { from: { angle: '6°40', rasi: Rasi.Kumbha }, to: { angle: '20°', rasi: Rasi.Kumbha } },
+        westernZodiac: { from: { angle: '0°26', rasi: Rasi.Meena }, to: { angle: '13°46', rasi: Rasi.Meena } }
     },
     PurvaBhadrapada: {
         name: {
@@ -3550,11 +3868,11 @@ export const Nakshatra = {
         pada: ['से', 'सो', 'दा', 'दी'],
         description: '"the first of the blessed feet"',
         associatedStars: '',
-        lord: Graha.guru,
+        graha: Graha.guru,
         deity: [Diety.ajaikapada],
         symbol: Symbols.purvaBhadrapada,
-        zodiac: { from: { angle: '20°', rasi: Rasi.kumbha }, to: { angle: '3°20', rasi: Rasi.mina } },
-        westernZodiac: { from: { angle: '13°46', rasi: Rasi.mina }, to: { angle: '27°06', rasi: Rasi.mina } }
+        zodiac: { from: { angle: '20°', rasi: Rasi.Kumbha }, to: { angle: '3°20', rasi: Rasi.Meena } },
+        westernZodiac: { from: { angle: '13°46', rasi: Rasi.Meena }, to: { angle: '27°06', rasi: Rasi.Meena } }
     },
     UttaraBhadrapada: {
         name: {
@@ -3574,11 +3892,11 @@ export const Nakshatra = {
         pada: ['दू', 'थ', 'झ', 'ञ'],
         description: '"the second of the blessed feet"',
         associatedStars: '',
-        lord: Graha.shani,
+        graha: Graha.shani,
         deity: [Diety.ahirbudhnya],
         symbol: Symbols.uttaraBhadrapada,
-        zodiac: { from: { angle: '3°20', rasi: Rasi.mina }, to: { angle: '16°40', rasi: Rasi.mina } },
-        westernZodiac: { from: { angle: '27°06', rasi: Rasi.mina }, to: { angle: '10°26', rasi: Rasi.mesha } }
+        zodiac: { from: { angle: '3°20', rasi: Rasi.Meena }, to: { angle: '16°40', rasi: Rasi.Meena } },
+        westernZodiac: { from: { angle: '27°06', rasi: Rasi.Meena }, to: { angle: '10°26', rasi: Rasi.Mesha } }
     },
     Revati: {
         name: {
@@ -3598,11 +3916,11 @@ export const Nakshatra = {
         pada: ['दे', 'दो', 'च', 'ची'],
         description: '"prosperous"',
         associatedStars: '',
-        lord: Graha.budha,
+        graha: Graha.budha,
         deity: [Diety.pushan],
         symbol: Symbols.revati,
-        zodiac: { from: { angle: '16°40', rasi: Rasi.mina }, to: { angle: '30°', rasi: Rasi.mina } },
-        westernZodiac: { from: { angle: '10°26', rasi: Rasi.mesha }, to: { angle: '23°46', rasi: Rasi.mesha } }
+        zodiac: { from: { angle: '16°40', rasi: Rasi.Meena }, to: { angle: '30°', rasi: Rasi.Meena } },
+        westernZodiac: { from: { angle: '10°26', rasi: Rasi.Mesha }, to: { angle: '23°46', rasi: Rasi.Mesha } }
     }
 }
 
