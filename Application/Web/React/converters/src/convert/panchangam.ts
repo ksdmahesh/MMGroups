@@ -33,7 +33,11 @@ export enum Diety {
     gauri = 'gauri',
     vinayaka = 'vinayaka',
     kumaraswaymi = 'kumaraswaymi',
-    durga = 'durga'
+    durga = 'durga',
+    swaha = 'swaha',
+    prthvi = 'prthvi',
+    lehari = 'lehari',
+    varuni = 'varuni'
 }
 
 export enum Symbols {
@@ -72,10 +76,139 @@ export enum StiraChara {
     dvisvabhava = 'dvisvabhava'
 }
 
+export enum Dosha {
+    vata = 'vata',
+    pitta = 'pitta',
+    kapha = 'kapha'
+}
+
+export enum Anguli {
+    /**
+     * Little Finger
+     */
+    kanishthika = 'kanishthika',
+    /**
+     * Ring Finger
+     */
+    anamika = 'anamika',
+    /**
+     * Middle Finger
+     */
+    madhyama = 'madhyama',
+    /**
+     * Index Finger
+     */
+    tarjani = 'tarjani',
+    /**
+     * Thumb
+     */
+    angustha = 'angustha',
+}
+
+export enum Chakra {
+    muladhara = 'muladhara',
+    swadhishthan = 'swadhishthan',
+    manipura = 'manipura',
+    anahata = 'anahata',
+    vishuddha = 'vishuddha',
+    ajna = 'ajna',
+    sahasrara = 'sahasrara'
+}
+
+export enum Ruchi {
+    /**
+     * sweet
+     */
+    madhura = 'madhura',
+    /**
+     * sour
+     */
+    amla = 'amla',
+    /**
+     * salt
+     */
+    lavana = 'lavana',
+    /**
+     * pungent
+     */
+    katu = 'katu',
+    /**
+     * bitter
+     */
+    tikta = 'tikta',
+    /**
+     * astringent
+     */
+    kashaya = 'kashaya'
+}
+
+export enum KaalaGhataka {
+    truti,
+    renu,
+    lava,
+    leekshana,
+    lipta,
+    vipala,
+    pala,
+    vighata,
+    vinaadi,
+    ghati,
+    naadi,
+    danda,
+    muhurta,
+    ahoraatra,
+    tatpara,
+    nimesha,
+    kastha,
+    kala,
+    ghatika,
+    paramaanu,
+    anu,
+    trasarenu,
+    vedha,
+    ksana,
+    laghu,
+    maasa,
+    rtu,
+    ayana,
+    samvatsara,
+    devahoraatra,
+    prahara,
+    hora,
+    yaama,
+    saavanahoraatra,
+    mahaakalpa,
+    mahaapralaya,
+    paraardha,
+    kalpa,
+    pralaya,
+    manvantara,
+    manvantaraSandhya,
+    caturYuga,
+    krtaYugaSandhya,
+    krtaYugaSandhyaamsa,
+    krtaYuga,
+    tretaaYugaSandhya,
+    tretaaYugaSandhyaamsa,
+    tretaaYuga,
+    dvaaparaYugaSandhya,
+    dvaaparaYugaSandhyaamsa,
+    dvaaparaYuga,
+    kaliYugaSandhya,
+    kaliYugaSandhyaamsa,
+    kaliYuga,
+    brahma,
+    manu,
+    deva,
+    pitr,
+    manusya
+}
+
 //#endregion
 
 //#region constants
 
+// bukthi
 export enum Graha {
     surya = 'surya',
     chandra = 'chandra',
@@ -94,10 +227,160 @@ export enum Graha {
     rahu = 'rahu'
 }
 
+export const Dik = {
+    purva: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    pashcima: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    uttara: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    dakshina: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    isana: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    agneya: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    vayavya: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    nairta: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    },
+    /**
+     * only for vastu
+     */
+    madhya: {
+        name: {
+            sanskrit: [''],
+            odia: [''],
+            malayalam: [''],
+            tamil: [''],
+            sinhala: [''],
+            dhivehi: [''],
+            telugu: [''],
+            kannada: [''],
+            bengali: [''],
+            mongolian: [''],
+            chinese: [''],
+            tibetan: ['']
+        }
+    }
+}
+
 export const Bhuta = {
     Agni: {
         name: {
-            sanskrit: ['मेष'],
+            sanskrit: ['अग्नि'],
             odia: ['ମେଷ'],
             malayalam: ['മേടം'],
             tamil: ['மேசம்'],
@@ -109,11 +392,17 @@ export const Bhuta = {
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
-        }
+        },
+        diety: Diety.swaha,
+        dosha: [Dosha.pitta],
+        anguli: Anguli.angustha,
+        chakra: [Chakra.manipura],
+        dik: Dik.dakshina,
+        ruchi: [Ruchi.amla, Ruchi.lavana, Ruchi.katu]
     },
     Bhumi: {
         name: {
-            sanskrit: ['मेष'],
+            sanskrit: ['पृथ्वी'],
             odia: ['ମେଷ'],
             malayalam: ['മേടം'],
             tamil: ['மேசம்'],
@@ -125,11 +414,17 @@ export const Bhuta = {
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
-        }
+        },
+        diety: Diety.prthvi,
+        dosha: [Dosha.kapha],
+        anguli: Anguli.anamika,
+        chakra: [Chakra.muladhara],
+        dik: Dik.madhya,
+        ruchi: [Ruchi.madhura, Ruchi.amla, Ruchi.kashaya]
     },
     Vayu: {
         name: {
-            sanskrit: ['मेष'],
+            sanskrit: ['वायु'],
             odia: ['ମେଷ'],
             malayalam: ['മേടം'],
             tamil: ['மேசம்'],
@@ -141,11 +436,17 @@ export const Bhuta = {
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
-        }
+        },
+        diety: Diety.lehari,
+        dosha: [Dosha.vata],
+        anguli: Anguli.tarjani,
+        chakra: [Chakra.manipura],
+        dik: Dik.pashcima,
+        ruchi: [Ruchi.katu, Ruchi.tikta, Ruchi.kashaya]
     },
     Apa: {
         name: {
-            sanskrit: ['मेष'],
+            sanskrit: ['अप'],
             odia: ['ମେଷ'],
             malayalam: ['മേടം'],
             tamil: ['மேசம்'],
@@ -157,11 +458,17 @@ export const Bhuta = {
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
-        }
+        },
+        diety: Diety.varuni,
+        dosha: [Dosha.pitta, Dosha.kapha],
+        anguli: Anguli.kanishthika,
+        chakra: [Chakra.swadhishthan],
+        dik: Dik.uttara,
+        ruchi: [Ruchi.madhura, Ruchi.lavana]
     },
     Akasha: {
         name: {
-            sanskrit: ['मेष'],
+            sanskrit: ['आकाश'],
             odia: ['ମେଷ'],
             malayalam: ['മേടം'],
             tamil: ['மேசம்'],
@@ -173,7 +480,13 @@ export const Bhuta = {
             mongolian: [''],
             chinese: [''],
             tibetan: ['']
-        }
+        },
+        diety: Diety.vishnu,
+        dosha: [Dosha.vata],
+        anguli: Anguli.madhyama,
+        chakra: [Chakra.vishuddha, Chakra.ajna, Chakra.sahasrara],
+        dik: Dik.purva,
+        ruchi: [Ruchi.tikta]
     }
 }
 
@@ -197,8 +510,8 @@ export const Rasi = {
         stiraChara: StiraChara.chara,
         bhuta: Bhuta.Agni,
         graha: Graha.mangala,
-        mitra:[],
-        satru:[]
+        mitra: [],
+        satru: []
     },
     Vrshabha: {
         name: {
@@ -3296,7 +3609,15 @@ export const Nakshatra = {
         deity: [Diety.ashvins],
         symbol: Symbols.ashvini,
         zodiac: { from: { angle: '0°', rasi: Rasi.Mesha }, to: { angle: '13°20', rasi: Rasi.Mesha } },
-        westernZodiac: { from: { angle: '23°46', rasi: Rasi.Mesha }, to: { angle: '7°06', rasi: Rasi.Vrshabha } }
+        westernZodiac: { from: { angle: '23°46', rasi: Rasi.Mesha }, to: { angle: '7°06', rasi: Rasi.Vrshabha } },
+        gana: '',
+        jaati: '',
+        vrksha: '',
+        pashu: '',
+        pakshi: '',
+        nadi: '',
+        varna: '',
+        ratna: ''
     },
     Bharani: {
         name: {
