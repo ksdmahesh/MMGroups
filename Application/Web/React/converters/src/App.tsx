@@ -6,6 +6,7 @@ import { JsonFlatten, JsonDeflatten } from './convert/JsonFlatten';
 import { JsontoXml, XmltoJson } from './convert/JsontoXml';
 import { JsontoCsv, CsvtoJson } from './convert/JsontoCsv';
 import { getDefaultPath, readStream, writeStream } from './server/service-call';
+import { Panchangam } from './convert/panchangam';
 
 class App extends React.Component {
 
@@ -337,6 +338,30 @@ class App extends React.Component {
 
   }
 
+  checkPanchanga = () => {
+
+    const panchanga = new Panchangam(13.628756, 79.419182);
+    //#region Common
+
+    // 0.8-i0.2
+    // console.log(panchanga.getKaala(Date.now() / 1000), new Date(panchanga.getKaala(Date.now() / 1000) * 1000));
+
+    console.log(panchanga.getTithi(16, 4, 2021));
+    console.log(panchanga.getTithi(17, 4, 2021));
+    console.log(panchanga.getTithi(18, 4, 2021));
+    console.log(panchanga.getTithi(19, 4, 2021));
+    console.log(panchanga.getTithi(20, 4, 2021));
+
+    // console.log(panchanga.julianDate(10, 5, 2021));
+    
+    // console.log(panchanga.julianDay(10, 5, 2021));
+
+    // console.log(panchanga.getYoga());
+
+    //#endregion
+
+  }
+
   convertors = {
     CsstoJs: {
       fnName: CsstoJs,
@@ -362,6 +387,9 @@ class App extends React.Component {
     },
     Math: {
       fnName: this.checkMath
+    },
+    Panchanga: {
+      fnName: this.checkPanchanga
     },
     XmltoJson: {
       fnName: XmltoJson,
@@ -396,10 +424,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.init(this.convertors.JsontoCsv);
+    this.init(this.convertors.Panchanga);
   }
 
-  init = async (activeConvertor: { fnName: Function, read: string, write: string, options?: object, includeDefault?: boolean }) => {
+  init = async (activeConvertor: { fnName: Function, read?: string, write?: string, options?: object, includeDefault?: boolean }) => {
     if (activeConvertor.read) {
       const getPath = await getDefaultPath();
       if (getPath.data) {
