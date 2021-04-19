@@ -351,9 +351,11 @@ class App extends React.Component {
     console.log(panchanga.getTithi(18, 4, 2021));
     console.log(panchanga.getTithi(19, 4, 2021));
     console.log(panchanga.getTithi(20, 4, 2021));
+    console.log(panchanga.getKarana(19, 4, 2021));
+    console.log(panchanga.getProperties());
 
     // console.log(panchanga.julianDate(10, 5, 2021));
-    
+
     // console.log(panchanga.julianDay(10, 5, 2021));
 
     // console.log(panchanga.getYoga());

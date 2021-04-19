@@ -321,20 +321,73 @@ export enum Graha {
     rahu = 'rahu'
 }
 
-export enum Amsha {
-    akshamsha,
-    rekamsha
-}
-
 //#endregion
 
 export class Panchangam {
 
     //#region fields
 
-    Akshamsha: number;
+    properties: {
+        akshamsha?: number,
+        rekamsha?: number,
+        rasi?: string,
+        yuga?: string,
+        yugaStartedOn?: string,
+        yugaEndsOn?: string,
+        samvatsara?: string,
+        yoga?: string,
+        karana?: string[],
+        rtu?: string,
+        aayana?: string,
+        vaara?: string,
+        maasa?: string,
+        suryaMaasa?: string,
+        paksha?: string,
+        tithi?: string,
+        nakshatra?: string,
+        graha?: string,
+        rahuKaala?: string,
+        yamaGanda?: string,
+        guliKaala?: string,
+        abhijit?: string,
+        durMuhurta?: string,
+        maasaarambhaAmaavasya?: boolean
+    } = {};
 
-    Rekamsha: number;
+    Amsha = {
+        akshamsha: {
+            name: {
+                sanskrit: [''],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        rekamsha: {
+            name: {
+                sanskrit: [''],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        }
+    }
 
     Dik = {
         purva: {
@@ -4393,9 +4446,10 @@ export class Panchangam {
 
     //#region constructor
 
-    constructor(akshamsha: number, rekamsha: number) {
-        this.Akshamsha = akshamsha;
-        this.Rekamsha = rekamsha;
+    constructor(akshamsha: number, rekamsha: number, maasaarambhaAmaavasya?: boolean) {
+        this.properties.akshamsha = akshamsha;
+        this.properties.rekamsha = rekamsha;
+        this.properties.maasaarambhaAmaavasya = maasaarambhaAmaavasya;
     }
 
     //#endregion
@@ -4421,15 +4475,47 @@ export class Panchangam {
         }
     }
 
+    getTithi = (d: number, m: number, y: number) => {
+        const tithi = Math.floor(this.moonPhase(d, m, y));
+        const allTithis = Object.entries(this.Tithi);
+        let index;
+        if (tithi > 15) {
+            this.properties.paksha = 'krshna';
+            if (tithi === 30) {
+                index = 16;
+            }
+            else {
+                index = 15 - tithi - 1;
+            }
+        } else {
+            index = tithi - 1;
+        }
+        this.properties.paksha = 'shukla';
+        this.properties.tithi = allTithis[index][0];
+        return allTithis[index][1];
+    }
+
     // ghati, vikathi
     // 27 with 800' each total 360deg 1/60deg of each
     getYoga = () => (Maths.DegToRad(Maths.MinuteToDeg((this.getBhogansha(Graha.chandra) + this.getBhogansha(Graha.surya)))) as number / (Maths.DegToRad(Maths.MinuteToDeg(800)) as number));
 
-    getKarana = () => ((this.getBhogansha(Graha.chandra) - this.getBhogansha(Graha.surya)) / 12);
+    getKarana = (d: number, m: number, y: number) => {
+        const tithi = this.getTithi(d, m, y)?.karana;
+        // this.properties.karana = (this.properties?.paksha === 'shukla'
+        //     ?
+        //     tithi?.sukla
+        //     :
+        //     tithi?.krshna);
+        return (
+            this.properties?.paksha === 'shukla'
+                ?
+                tithi?.sukla
+                :
+                tithi?.krshna
+        );
+    }
 
     getNakshatra = () => ((this.getBhogansha(Graha.chandra) - this.getBhogansha(Graha.surya)) / 12);
-
-    getTithi = this.moonPhase;
 
     getDivasa = () => ((this.getBhogansha(Graha.chandra) - this.getBhogansha(Graha.surya)) / 12);
 
@@ -4439,6 +4525,7 @@ export class Panchangam {
 
     getKaala = (seconds: number) => VedaKaalaGhataka.samvatsara * seconds;
 
+    getProperties = () => this.properties;
     //#endregion
 
 }
