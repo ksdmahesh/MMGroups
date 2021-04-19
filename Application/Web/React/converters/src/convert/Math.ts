@@ -300,13 +300,13 @@ export class Matrix<T extends number | Complex> {
 
     //#region members
 
-    a: Array<Array<T>>;
+    a: T[][];
 
     //#endregion
 
     //#region constructor
 
-    constructor(a: Array<Array<T>>) {
+    constructor(a: T[][]) {
         this.a = a;
     }
 
@@ -404,14 +404,11 @@ export class Matrix<T extends number | Complex> {
     }
 
     private static convertToComplex = <T extends number | Complex>(item: T[][]) => {
-        switch (item?.[0]?.[0]?.constructor?.name) {
-            case ConstructorTypes.Number:
-                return item.map(a => a.map(b => new Complex(b as number, 0)));
-            case ConstructorTypes.Complex:
-                return item as Complex[][];
-            default:
-                throw new Error('Invalid Type Passed');
+        if (item.some(a => a?.constructor?.name !== ConstructorTypes.Number && a?.constructor?.name !== ConstructorTypes.Complex)) {
+            throw new Error('Invalid Type Passed');
         }
+
+        return item.map(a => a.map(b => b?.constructor?.name === ConstructorTypes.Number ? new Complex(b as number, 0) : b as Complex));
     }
 
     private static getInverse = <T extends number | Complex>(item: T[][]) => {

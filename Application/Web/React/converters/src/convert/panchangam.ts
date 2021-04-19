@@ -2984,7 +2984,12 @@ export class Panchangam {
                 chinese: ['日曜日'],
                 tibetan: ['གཟའ་ཉི་མ།']
             },
-            graha: Graha.surya
+            graha: Graha.surya,
+            rahuKaala: '07:40-09:15',
+            yamaGanda: '10:51-12:26',
+            guliKaala: '14:02-15:37',
+            abhijit: '12:01-12:52',
+            durMuhurta: ['12:52-13:43', '15:24-16:15']
         },
         soma: {
             name: {
@@ -3001,7 +3006,12 @@ export class Panchangam {
                 chinese: ['月曜日'],
                 tibetan: ['གཟའ་ཟླ་བ།']
             },
-            graha: Graha.chandra
+            graha: Graha.chandra,
+            rahuKaala: '07:40-09:15',
+            yamaGanda: '10:51-12:26',
+            guliKaala: '14:02-15:37',
+            abhijit: '12:01-12:52',
+            durMuhurta: ['12:52-13:43', '15:24-16:15']
         },
         mangala: {
             name: {
@@ -3018,7 +3028,12 @@ export class Panchangam {
                 chinese: ['火曜日'],
                 tibetan: ['གཟའ་མིག་དམར།']
             },
-            graha: Graha.mangala
+            graha: Graha.mangala,
+            rahuKaala: '07:40-09:15',
+            yamaGanda: '10:51-12:26',
+            guliKaala: '14:02-15:37',
+            abhijit: '12:01-12:52',
+            durMuhurta: ['12:52-13:43', '15:24-16:15']
         },
         budha: {
             name: {
@@ -3035,7 +3050,12 @@ export class Panchangam {
                 chinese: ['水曜日'],
                 tibetan: ['གཟའ་ལྷག་པ།']
             },
-            graha: Graha.budha
+            graha: Graha.budha,
+            rahuKaala: '07:40-09:15',
+            yamaGanda: '10:51-12:26',
+            guliKaala: '14:02-15:37',
+            abhijit: '12:01-12:52',
+            durMuhurta: ['12:52-13:43', '15:24-16:15']
         },
         guru: {
             name: {
@@ -3052,7 +3072,12 @@ export class Panchangam {
                 chinese: ['木曜日'],
                 tibetan: ['གཟའ་ཕུར་བུ།']
             },
-            graha: Graha.guru
+            graha: Graha.guru,
+            rahuKaala: '07:40-09:15',
+            yamaGanda: '10:51-12:26',
+            guliKaala: '14:02-15:37',
+            abhijit: '12:01-12:52',
+            durMuhurta: ['12:52-13:43', '15:24-16:15']
         },
         shukra: {
             name: {
@@ -3069,7 +3094,12 @@ export class Panchangam {
                 chinese: ['金曜日'],
                 tibetan: ['གཟའ་པ་སངས།']
             },
-            graha: Graha.shukra
+            graha: Graha.shukra,
+            rahuKaala: '07:40-09:15',
+            yamaGanda: '10:51-12:26',
+            guliKaala: '14:02-15:37',
+            abhijit: '12:01-12:52',
+            durMuhurta: ['12:52-13:43', '15:24-16:15']
         },
         shani: {
             name: {
@@ -3086,7 +3116,12 @@ export class Panchangam {
                 chinese: ['土曜日'],
                 tibetan: ['གཟའ་སྤེན་པ།']
             },
-            graha: Graha.shani
+            graha: Graha.shani,
+            rahuKaala: '07:40-09:15',
+            yamaGanda: '10:51-12:26',
+            guliKaala: '14:02-15:37',
+            abhijit: '12:01-12:52',
+            durMuhurta: ['12:52-13:43', '15:24-16:15']
         }
     }
 
