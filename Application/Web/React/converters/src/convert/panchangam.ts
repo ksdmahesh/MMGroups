@@ -321,41 +321,363 @@ export enum Graha {
     rahu = 'rahu'
 }
 
+export enum Amsha {
+    akshamsha = 'akshamsha',
+    rekamsha = 'rekamsha'
+}
+
+export enum Dik {
+    purva = 'purva',
+    pashcima = 'pashcima',
+    uttara = 'uttara',
+    dakshina = 'dakshina',
+    isana = 'isana',
+    agneya = 'agneya',
+    vayavya = 'vayavya',
+    nairta = 'nairta',
+    madhya = 'madhya'
+}
+
+export enum Bhuta {
+    agni = 'agni',
+    bhumi = 'bhumi',
+    vayu = 'vayu',
+    apa = 'apa',
+    akasha = 'akasha'
+}
+
+export enum Rasi {
+    mesha = 'mesha',
+    vrshabha = 'vrshabha',
+    mithuna = 'mithuna',
+    karka = 'karka',
+    simha = 'simha',
+    kanya = 'kanya',
+    tula = 'tula',
+    vrscika = 'vrscika',
+    dhanusa = 'dhanusa',
+    makara = 'makara',
+    kumbha = 'kumbha',
+    meena = 'meena',
+}
+
+export enum Yuga {
+    satya = 'satya',
+    treta = 'treta',
+    dvapara = 'dvapara',
+    kali = 'kali',
+}
+
+export enum Loka {
+    satya = 'satya',
+    tapa = 'tapa',
+    jana = 'jana',
+    mahar = 'mahar',
+    svar = 'svar',
+    bhuvar = 'bhuvar',
+    bhu = 'bhu',
+    atala = 'atala',
+    vitala = 'vitala',
+    sutala = 'sutala',
+    talatala = 'talatala',
+    mahatala = 'mahatala',
+    rasatala = 'rasatala',
+    patala = 'patala',
+}
+
+export enum Samvatsara {
+    prabhava = 'prabhava',
+    vibhava = 'vibhava',
+    shukla = 'shukla',
+    pramoda = 'pramoda',
+    prajaapati = 'prajaapati',
+    angirasa = 'angirasa',
+    shreemukha = 'shreemukha',
+    bhaava = 'bhaava',
+    yuva = 'yuva',
+    dhaata = 'dhaata',
+    ishvara = 'ishvara',
+    bahudhaanya = 'bahudhaanya',
+    pramaathi = 'pramaathi',
+    vikrama = 'vikrama',
+    vrshapraja = 'vrshapraja',
+    chitrabhanu = 'chitrabhanu',
+    subhaanu = 'subhaanu',
+    taarana = 'taarana',
+    paarthiva = 'paarthiva',
+    vyaya = 'vyaya',
+    sarvajit = 'sarvajit',
+    sarvadhaari = 'sarvadhaari',
+    virodhi = 'virodhi',
+    vikrti = 'vikrti',
+    khara = 'khara',
+    nandana = 'nandana',
+    vijaya = 'vijaya',
+    jaya = 'jaya',
+    manmatha = 'manmatha',
+    durmukha = 'durmukha',
+    hevilambi = 'hevilambi',
+    vilambi = 'vilambi',
+    vikaari = 'vikaari',
+    shaarvari = 'shaarvari',
+    plava = 'plava',
+    shubhakrta = 'shubhakrta',
+    shobhakrta = 'shobhakrta',
+    krodhi = 'krodhi',
+    vishvaavasu = 'vishvaavasu',
+    paraabhava = 'paraabhava',
+    plavanga = 'plavanga',
+    keelaka = 'keelaka',
+    saumya = 'saumya',
+    saadhaarana = 'saadhaarana',
+    virodhakrta = 'virodhakrta',
+    paridhaavi = 'paridhaavi',
+    pramaadica = 'pramaadica',
+    ananda = 'ananda',
+    raakshasa = 'raakshasa',
+    nala = 'nala',
+    pingala = 'pingala',
+    kaalayukta = 'kaalayukta',
+    siddharthi = 'siddharthi',
+    raudra = 'raudra',
+    durmati = 'durmati',
+    dundubhi = 'dundubhi',
+    rudhirodgaari = 'rudhirodgaari',
+    raktaakshi = 'raktaakshi',
+    krodhana = 'krodhana',
+    akshaya = 'akshaya',
+}
+
+export enum Yoga {
+    amrta = 'amrta',
+    marana = 'marana',
+    prabalarishta = 'prabalarishta',
+    viskambha = 'viskambha',
+    preeti = 'preeti',
+    ayushmaan = 'ayushmaan',
+    saubhaagya = 'saubhaagya',
+    shobhana = 'shobhana',
+    atiganda = 'atiganda',
+    sukarma = 'sukarma',
+    dhrti = 'dhrti',
+    shoola = 'shoola',
+    ganda = 'ganda',
+    vrddhi = 'vrddhi',
+    dhruva = 'dhruva',
+    vyaaghata = 'vyaaghata',
+    harshana = 'harshana',
+    vajra = 'vajra',
+    siddhi = 'siddhi',
+    vyatipaata = 'vyatipaata',
+    variyana = 'variyana',
+    parigha = 'parigha',
+    shiva = 'shiva',
+    siddha = 'siddha',
+    saadhya = 'saadhya',
+    shubha = 'shubha',
+    shukla = 'shukla',
+    brahma = 'brahma',
+    maahendra = 'maahendra',
+    vaidhrti = 'vaidhrti',
+}
+
+export enum Karana {
+    shakuni = 'shakuni',
+    chatushpaada = 'chatushpaada',
+    naaga = 'naaga',
+    kimstughna = 'kimstughna',
+    bava = 'bava',
+    baalava = 'baalava',
+    kaulava = 'kaulava',
+    taitula = 'taitula',
+    garaja = 'garaja',
+    vanija = 'vanija',
+    vishti = 'vishti',
+}
+
+export enum Rtu {
+    vasanta = 'vasanta',
+    grishma = 'grishma',
+    varsha = 'varsha',
+    sarad = 'sarad',
+    hemanta = 'hemanta',
+    sisira = 'sisira',
+}
+
+export enum Aayana {
+    uthara = 'uthara',
+    dakshina = 'dakshina',
+}
+
+export enum Vaara {
+    aadi = 'aadi',
+    soma = 'soma',
+    mangala = 'mangala',
+    budha = 'budha',
+    guru = 'guru',
+    shukra = 'shukra',
+    shani = 'shani',
+}
+
+export enum Maasa {
+    caitra = 'caitra',
+    vaishaka = 'vaishaka',
+    jyesta = 'jyesta',
+    aashada = 'aashada',
+    shaavana = 'shaavana',
+    bhaadrapada = 'bhaadrapada',
+    ashvina = 'ashvina',
+    kaartika = 'kaartika',
+    maargasirsa = 'maargasirsa',
+    pausha = 'pausha',
+    maagha = 'maagha',
+    phalguna = 'phalguna',
+}
+
+export enum Paksha {
+    krshna = 'krshna',
+    shukla = 'shukla',
+}
+
+export enum Tithi {
+    prathama = 'prathama',
+    dvitiya = 'dvitiya',
+    trtiya = 'trtiya',
+    chaturti = 'chaturti',
+    panchami = 'panchami',
+    shasti = 'shasti',
+    saptami = 'saptami',
+    ashtami = 'ashtami',
+    navami = 'navami',
+    dasami = 'dasami',
+    ekadasi = 'ekadasi',
+    dvadasi = 'dvadasi',
+    trayodasi = 'trayodasi',
+    chaturdasi = 'chaturdasi',
+    paurnami = 'paurnami',
+    amavasya = 'amavasya',
+}
+
+export enum Nakshatra {
+    ashvini = 'ashvini',
+    bharani = 'bharani',
+    krttika = 'krttika',
+    rohini = 'rohini',
+    mrgashirsha = 'mrgashirsha',
+    ardra = 'ardra',
+    punarvasu = 'punarvasu',
+    pushya = 'pushya',
+    ashlesha = 'ashlesha',
+    magha = 'magha',
+    purvaPhalguni = 'purvaPhalguni',
+    uttaraPhalguni = 'uttaraPhalguni',
+    hasta = 'hasta',
+    chitra = 'chitra',
+    svati = 'svati',
+    vishakha = 'vishakha',
+    anuradha = 'anuradha',
+    jyeshtha = 'jyeshtha',
+    mula = 'mula',
+    purvaAshadha = 'purvaAshadha',
+    uttaraAshadha = 'uttaraAshadha',
+    shravana = 'shravana',
+    dhanishta = 'dhanishta',
+    shatabhisha = 'shatabhisha',
+    purvaBhadrapada = 'purvaBhadrapada',
+    uttaraBhadrapada = 'uttaraBhadrapada',
+    revati = 'revati',
+}
+
+//#endregion
+
+//#region Types
+
+type Properties = {
+    akshamsha?: number,
+    rekamsha?: number,
+    rasi?: string,
+    yuga?: string,
+    yugaStartedOn?: string,
+    yugaEndsOn?: string,
+    samvatsara?: string,
+    yoga?: string,
+    karana?: string[],
+    rtu?: string,
+    aayana?: string,
+    vaara?: string,
+    maasa?: string,
+    suryaMaasa?: string,
+    paksha?: string,
+    tithi?: string,
+    nakshatra?: string,
+    graha?: string,
+    rahuKaala?: string,
+    yamaGanda?: string,
+    guliKaala?: string,
+    abhijit?: string,
+    durMuhurta?: string,
+    maasaarambhaAmaavasya?: boolean
+};
+
+type Name = {
+    name: {
+        sanskrit: string[],
+        odia: string[],
+        malayalam: string[],
+        tamil: string[],
+        sinhala: string[],
+        dhivehi: string[],
+        telugu: string[],
+        kannada: string[],
+        bengali: string[],
+        mongolian: string[],
+        chinese: string[],
+        tibetan: string[]
+    }
+};
+
+type AmshaType = { [key in keyof typeof Amsha]: Name };
+
+type DikType = { [key in keyof typeof Dik]: Name };
+
+type BhutaType = { [key in keyof typeof Bhuta]: Name & { diety: Diety, dosha: Dosha[], anguli: Anguli, chakra: Chakra[], dik: Name, ruchi: Ruchi[] } };
+
+type RasiType = { [key in keyof typeof Rasi]: Name & { westernZodiac: string, stiraChara: string, bhuta: BhutaType['agni'], graha: string, mitra: Rasi[], satru: Rasi[] } };
+
+type YugaType = { [key in keyof typeof Yuga]: Name };
+
+type LokaType = { [key in keyof typeof Loka]: Name };
+
+type SamvatsaraType = { [key in keyof typeof Samvatsara]: Name & { diety: string } };
+
+type YogaType = { [key in keyof typeof Yoga]: Name };
+
+type KaranaType = { [key in keyof typeof Karana]: Name & { stiraChara: string } };
+
+type RtuType = { [key in keyof typeof Rtu]: Name };
+
+type AayanaType = { [key in keyof typeof Aayana]: Name };
+
+type VaaraType = { [key in keyof typeof Vaara]: Name & { graha: string, rahuKaala: string, yamaGanda: string, guliKaala: string, abhijit: string, durMuhurta: string[] } };
+
+type MaasaType = { [key in keyof typeof Maasa]: Name & { suryaMaasa: RasiType['mesha'], rtu: RtuType['hemanta'], aayana: AayanaType['uthara'][] } };
+
+type PakshaType = { [key in keyof typeof Paksha]: Name };
+
+type TithiType = { [key in keyof typeof Tithi]: Name & { diety: string, karana: { sukla: KaranaType['bava'][], krshna: KaranaType['bava'][] } } };
+
+type NakshatraType = { [key in keyof typeof Nakshatra]: Name & { pada: string[], description: string, associatedStars: string, graha: string, deity: string[], symbol: string, zodiac: { from: { angle: string, rasi: RasiType['mesha'] }, to: { angle: string, rasi: RasiType['mesha'] } }, westernZodiac: { from: { angle: string, rasi: RasiType['mesha'] }, to: { angle: string, rasi: RasiType['mesha'] } }, gana: string, jaati: string, vrksha: string, pashu: string, pakshi: string, nadi: string, varna: string, ratna: string } };
+
 //#endregion
 
 export class Panchangam {
 
     //#region fields
 
-    properties: {
-        akshamsha?: number,
-        rekamsha?: number,
-        rasi?: string,
-        yuga?: string,
-        yugaStartedOn?: string,
-        yugaEndsOn?: string,
-        samvatsara?: string,
-        yoga?: string,
-        karana?: string[],
-        rtu?: string,
-        aayana?: string,
-        vaara?: string,
-        maasa?: string,
-        suryaMaasa?: string,
-        paksha?: string,
-        tithi?: string,
-        nakshatra?: string,
-        graha?: string,
-        rahuKaala?: string,
-        yamaGanda?: string,
-        guliKaala?: string,
-        abhijit?: string,
-        durMuhurta?: string,
-        maasaarambhaAmaavasya?: boolean
-    } = {};
+    properties: Properties = {};
 
-    Amsha = {
-        akshamsha: {
+    Amsha: AmshaType = {
+        [Amsha.akshamsha]: {
             name: {
                 sanskrit: [''],
                 odia: [''],
@@ -371,7 +693,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        rekamsha: {
+        [Amsha.rekamsha]: {
             name: {
                 sanskrit: [''],
                 odia: [''],
@@ -389,8 +711,8 @@ export class Panchangam {
         }
     }
 
-    Dik = {
-        purva: {
+    Dik: DikType = {
+        [Dik.purva]: {
             name: {
                 sanskrit: [''],
                 odia: [''],
@@ -406,7 +728,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        pashcima: {
+        [Dik.pashcima]: {
             name: {
                 sanskrit: [''],
                 odia: [''],
@@ -422,7 +744,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        uttara: {
+        [Dik.uttara]: {
             name: {
                 sanskrit: [''],
                 odia: [''],
@@ -438,7 +760,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        dakshina: {
+        [Dik.dakshina]: {
             name: {
                 sanskrit: [''],
                 odia: [''],
@@ -454,7 +776,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        isana: {
+        [Dik.isana]: {
             name: {
                 sanskrit: [''],
                 odia: [''],
@@ -470,7 +792,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        agneya: {
+        [Dik.agneya]: {
             name: {
                 sanskrit: [''],
                 odia: [''],
@@ -486,7 +808,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        vayavya: {
+        [Dik.vayavya]: {
             name: {
                 sanskrit: [''],
                 odia: [''],
@@ -502,7 +824,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        nairta: {
+        [Dik.nairta]: {
             name: {
                 sanskrit: [''],
                 odia: [''],
@@ -521,7 +843,7 @@ export class Panchangam {
         /**
          * only for vastu
          */
-        madhya: {
+        [Dik.madhya]: {
             name: {
                 sanskrit: [''],
                 odia: [''],
@@ -539,8 +861,8 @@ export class Panchangam {
         }
     }
 
-    Bhuta = {
-        Agni: {
+    Bhuta: BhutaType = {
+        [Bhuta.agni]: {
             name: {
                 sanskrit: ['अग्नि'],
                 odia: ['ମେଷ'],
@@ -562,7 +884,7 @@ export class Panchangam {
             dik: this.Dik.dakshina,
             ruchi: [Ruchi.amla, Ruchi.lavana, Ruchi.katu]
         },
-        Bhumi: {
+        [Bhuta.bhumi]: {
             name: {
                 sanskrit: ['पृथ्वी'],
                 odia: ['ମେଷ'],
@@ -584,7 +906,7 @@ export class Panchangam {
             dik: this.Dik.madhya,
             ruchi: [Ruchi.madhura, Ruchi.amla, Ruchi.kashaya]
         },
-        Vayu: {
+        [Bhuta.vayu]: {
             name: {
                 sanskrit: ['वायु'],
                 odia: ['ମେଷ'],
@@ -606,7 +928,7 @@ export class Panchangam {
             dik: this.Dik.pashcima,
             ruchi: [Ruchi.katu, Ruchi.tikta, Ruchi.kashaya]
         },
-        Apa: {
+        [Bhuta.apa]: {
             name: {
                 sanskrit: ['अप'],
                 odia: ['ମେଷ'],
@@ -628,7 +950,7 @@ export class Panchangam {
             dik: this.Dik.uttara,
             ruchi: [Ruchi.madhura, Ruchi.lavana]
         },
-        Akasha: {
+        [Bhuta.akasha]: {
             name: {
                 sanskrit: ['आकाश'],
                 odia: ['ମେଷ'],
@@ -652,8 +974,8 @@ export class Panchangam {
         }
     }
 
-    Rasi = {
-        Mesha: {
+    Rasi: RasiType = {
+        [Rasi.mesha]: {
             name: {
                 sanskrit: ['मेष'],
                 odia: ['ମେଷ'],
@@ -670,12 +992,12 @@ export class Panchangam {
             },
             westernZodiac: 'Aries',
             stiraChara: StiraChara.chara,
-            bhuta: this.Bhuta.Agni,
+            bhuta: this.Bhuta.agni,
             graha: Graha.mangala,
             mitra: [],
             satru: []
         },
-        Vrshabha: {
+        [Rasi.vrshabha]: {
             name: {
                 sanskrit: ['वृषभ'],
                 odia: ['ବୃଷ'],
@@ -692,10 +1014,12 @@ export class Panchangam {
             },
             westernZodiac: 'Taurus',
             stiraChara: StiraChara.stira,
-            bhuta: this.Bhuta.Bhumi,
-            graha: Graha.shukra
+            bhuta: this.Bhuta.bhumi,
+            graha: Graha.shukra,
+            mitra: [],
+            satru: []
         },
-        Mithuna: {
+        [Rasi.mithuna]: {
             name: {
                 sanskrit: ['मिथुन'],
                 odia: ['ମିଥୁନ'],
@@ -712,10 +1036,12 @@ export class Panchangam {
             },
             westernZodiac: 'Gemini',
             stiraChara: StiraChara.dvisvabhava,
-            bhuta: this.Bhuta.Vayu,
-            graha: Graha.budha
+            bhuta: this.Bhuta.vayu,
+            graha: Graha.budha,
+            mitra: [],
+            satru: []
         },
-        Karka: {
+        [Rasi.karka]: {
             name: {
                 sanskrit: ['कर्क'],
                 odia: ['କର୍କଟ'],
@@ -732,10 +1058,12 @@ export class Panchangam {
             },
             westernZodiac: 'Cancer',
             stiraChara: StiraChara.chara,
-            bhuta: this.Bhuta.Apa,
-            graha: Graha.chandra
+            bhuta: this.Bhuta.apa,
+            graha: Graha.chandra,
+            mitra: [],
+            satru: []
         },
-        Simha: {
+        [Rasi.simha]: {
             name: {
                 sanskrit: ['सिंह'],
                 odia: ['ସିଂହ'],
@@ -752,10 +1080,12 @@ export class Panchangam {
             },
             westernZodiac: 'Leo',
             stiraChara: StiraChara.stira,
-            bhuta: this.Bhuta.Agni,
-            graha: Graha.surya
+            bhuta: this.Bhuta.agni,
+            graha: Graha.surya,
+            mitra: [],
+            satru: []
         },
-        Kanya: {
+        [Rasi.kanya]: {
             name: {
                 sanskrit: ['कन्या'],
                 odia: ['କନ୍ୟା'],
@@ -772,10 +1102,12 @@ export class Panchangam {
             },
             westernZodiac: 'Virgo',
             stiraChara: StiraChara.dvisvabhava,
-            bhuta: this.Bhuta.Bhumi,
-            graha: Graha.budha
+            bhuta: this.Bhuta.bhumi,
+            graha: Graha.budha,
+            mitra: [],
+            satru: []
         },
-        Tula: {
+        [Rasi.tula]: {
             name: {
                 sanskrit: ['तुला'],
                 odia: ['ତୁଳା'],
@@ -792,10 +1124,12 @@ export class Panchangam {
             },
             westernZodiac: 'Libra',
             stiraChara: StiraChara.chara,
-            bhuta: this.Bhuta.Vayu,
-            graha: Graha.shukra
+            bhuta: this.Bhuta.vayu,
+            graha: Graha.shukra,
+            mitra: [],
+            satru: []
         },
-        Vrscika: {
+        [Rasi.vrscika]: {
             name: {
                 sanskrit: ['वृश्चिक'],
                 odia: ['ବିଛା'],
@@ -812,10 +1146,12 @@ export class Panchangam {
             },
             westernZodiac: 'Scorpio',
             stiraChara: StiraChara.stira,
-            bhuta: this.Bhuta.Apa,
-            graha: Graha.mangala
+            bhuta: this.Bhuta.apa,
+            graha: Graha.mangala,
+            mitra: [],
+            satru: []
         },
-        Dhanusa: {
+        [Rasi.dhanusa]: {
             name: {
                 sanskrit: ['धनुष'],
                 odia: ['ଧନୁ'],
@@ -832,10 +1168,12 @@ export class Panchangam {
             },
             westernZodiac: 'Sagittarius',
             stiraChara: StiraChara.dvisvabhava,
-            bhuta: this.Bhuta.Agni,
-            graha: Graha.guru
+            bhuta: this.Bhuta.agni,
+            graha: Graha.guru,
+            mitra: [],
+            satru: []
         },
-        Makara: {
+        [Rasi.makara]: {
             name: {
                 sanskrit: ['मकर'],
                 odia: ['ମକର'],
@@ -852,10 +1190,12 @@ export class Panchangam {
             },
             westernZodiac: 'Capricorn',
             stiraChara: StiraChara.chara,
-            bhuta: this.Bhuta.Bhumi,
-            graha: Graha.shani
+            bhuta: this.Bhuta.bhumi,
+            graha: Graha.shani,
+            mitra: [],
+            satru: []
         },
-        Kumbha: {
+        [Rasi.kumbha]: {
             name: {
                 sanskrit: ['कुम्भ'],
                 odia: ['କୁମ୍ଭ'],
@@ -872,10 +1212,12 @@ export class Panchangam {
             },
             westernZodiac: 'Aquarius',
             stiraChara: StiraChara.stira,
-            bhuta: this.Bhuta.Vayu,
-            graha: Graha.shani
+            bhuta: this.Bhuta.vayu,
+            graha: Graha.shani,
+            mitra: [],
+            satru: []
         },
-        Meena: {
+        [Rasi.meena]: {
             name: {
                 sanskrit: ['मीन'],
                 odia: ['ମୀନ'],
@@ -892,13 +1234,15 @@ export class Panchangam {
             },
             westernZodiac: 'Pisces',
             stiraChara: StiraChara.dvisvabhava,
-            bhuta: this.Bhuta.Apa,
-            graha: Graha.guru
-        },
+            bhuta: this.Bhuta.apa,
+            graha: Graha.guru,
+            mitra: [],
+            satru: []
+        }
     }
 
-    Yuga = {
-        Satya: {
+    Yuga: YugaType = {
+        [Yuga.satya]: {
             name: {
                 sanskrit: ['सत्ययुग', 'कृतयुग'],
                 odia: ['ସତ୍ଯଯୁଗ', 'କୃତଯୁଗ'],
@@ -914,7 +1258,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Treta: {
+        [Yuga.treta]: {
             name: {
                 sanskrit: ['त्रेतायुग'],
                 odia: ['ତ୍ରେତାଯୁଗ'],
@@ -930,7 +1274,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Dvapara: {
+        [Yuga.dvapara]: {
             name: {
                 sanskrit: ['द्वापरयुग'],
                 odia: ['ଦ୍ଵାପରଯୁଗ'],
@@ -946,7 +1290,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Kali: {
+        [Yuga.kali]: {
             name: {
                 sanskrit: ['कलियुग'],
                 odia: ['କଲିଯୁଗ'],
@@ -964,8 +1308,8 @@ export class Panchangam {
         }
     }
 
-    Loka = {
-        Satya: {
+    Loka: LokaType = {
+        [Loka.satya]: {
             name: {
                 sanskrit: ['सत्यलोक'],
                 odia: ['ସତ୍ଯଲୋକ'],
@@ -981,7 +1325,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Tapa: {
+        [Loka.tapa]: {
             name: {
                 sanskrit: ['तपलोक'],
                 odia: ['ତପଲୋକ'],
@@ -997,7 +1341,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Jana: {
+        [Loka.jana]: {
             name: {
                 sanskrit: ['जनलोक'],
                 odia: ['ଜନଲୋକ'],
@@ -1013,7 +1357,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Mahar: {
+        [Loka.mahar]: {
             name: {
                 sanskrit: ['महर्लोक'],
                 odia: ['ମହର୍ଲୋକ'],
@@ -1029,7 +1373,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Svar: {
+        [Loka.svar]: {
             name: {
                 sanskrit: ['स्वर्लोक'],
                 odia: ['ସ୍ଵର୍ଲୋକ'],
@@ -1045,7 +1389,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Bhuvar: {
+        [Loka.bhuvar]: {
             name: {
                 sanskrit: ['भुवर्लोक'],
                 odia: ['ଭୁଵର୍ଲୋକ'],
@@ -1061,7 +1405,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Bhu: {
+        [Loka.bhu]: {
             name: {
                 sanskrit: ['भूलोक'],
                 odia: ['ଭୂଲୋକ'],
@@ -1077,7 +1421,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Atala: {
+        [Loka.atala]: {
             name: {
                 sanskrit: ['अतळलोक'],
                 odia: ['ଅତଳଲୋକ'],
@@ -1093,7 +1437,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Vitala: {
+        [Loka.vitala]: {
             name: {
                 sanskrit: ['वितळलोक'],
                 odia: ['ଵିତଳଲୋକ'],
@@ -1109,7 +1453,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Sutala: {
+        [Loka.sutala]: {
             name: {
                 sanskrit: ['सुतळलोक'],
                 odia: ['ସୁତଳଲୋକ'],
@@ -1125,7 +1469,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Talatala: {
+        [Loka.talatala]: {
             name: {
                 sanskrit: ['तलातळलोक'],
                 odia: ['ତଲାତଳଲୋକ'],
@@ -1141,7 +1485,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Mahatala: {
+        [Loka.mahatala]: {
             name: {
                 sanskrit: ['महातळलोक'],
                 odia: ['ମହାତଳଲୋକ'],
@@ -1157,7 +1501,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Rasatala: {
+        [Loka.rasatala]: {
             name: {
                 sanskrit: ['रसातळलोक'],
                 odia: ['ରସାତଳଲୋକ'],
@@ -1173,7 +1517,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Patala: {
+        [Loka.patala]: {
             name: {
                 sanskrit: ['पाताळलोक'],
                 odia: ['ପାତାଳଲୋକ'],
@@ -1191,8 +1535,8 @@ export class Panchangam {
         }
     }
 
-    Samvatsara = {
-        Prabhava: {
+    Samvatsara: SamvatsaraType = {
+        [Samvatsara.prabhava]: {
             name: {
                 sanskrit: ['प्रभव'],
                 odia: ['ପ୍ରଭଵ'],
@@ -1209,7 +1553,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Vibhava: {
+        [Samvatsara.vibhava]: {
             name: {
                 sanskrit: ['विभव'],
                 odia: ['ଵିଭଵ'],
@@ -1226,7 +1570,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Shukla: {
+        [Samvatsara.shukla]: {
             name: {
                 sanskrit: ['शुक्ल'],
                 odia: ['ଶୁକ୍ଲ'],
@@ -1243,7 +1587,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Pramoda: {
+        [Samvatsara.pramoda]: {
             name: {
                 sanskrit: ['प्रमोद'],
                 odia: ['ପ୍ରମୋଦୂତ'],
@@ -1260,7 +1604,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Prajaapati: {
+        [Samvatsara.prajaapati]: {
             name: {
                 sanskrit: ['प्रजापति'],
                 odia: ['ପ୍ରଜୋତ୍ପତ୍ତି'],
@@ -1277,7 +1621,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Angirasa: {
+        [Samvatsara.angirasa]: {
             name: {
                 sanskrit: ['अंगिरस'],
                 odia: ['ଆଂଗୀରସ'],
@@ -1294,7 +1638,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Shreemukha: {
+        [Samvatsara.shreemukha]: {
             name: {
                 sanskrit: ['श्रीमुख'],
                 odia: ['ଶ୍ରୀମୁଖ'],
@@ -1311,7 +1655,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Bhaava: {
+        [Samvatsara.bhaava]: {
             name: {
                 sanskrit: ['भाव'],
                 odia: ['ଭାଵ'],
@@ -1328,7 +1672,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Yuva: {
+        [Samvatsara.yuva]: {
             name: {
                 sanskrit: ['युव'],
                 odia: ['ଯୁଵ'],
@@ -1345,7 +1689,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Dhaata: {
+        [Samvatsara.dhaata]: {
             name: {
                 sanskrit: ['धाता'],
                 odia: ['ଧାତ୍ରି'],
@@ -1362,7 +1706,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Ishvara: {
+        [Samvatsara.ishvara]: {
             name: {
                 sanskrit: ['ईश्वर'],
                 odia: ['ଈଶ୍ଵର'],
@@ -1379,7 +1723,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Bahudhaanya: {
+        [Samvatsara.bahudhaanya]: {
             name: {
                 sanskrit: ['बहुधान्य'],
                 odia: ['ବହୁଧାନ୍ଯ'],
@@ -1396,7 +1740,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Pramaathi: {
+        [Samvatsara.pramaathi]: {
             name: {
                 sanskrit: ['प्रमाथी'],
                 odia: ['ପ୍ରମାଥି'],
@@ -1413,7 +1757,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Vikrama: {
+        [Samvatsara.vikrama]: {
             name: {
                 sanskrit: ['विक्रम'],
                 odia: ['ଵିକ୍ରମ'],
@@ -1430,7 +1774,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Vrshapraja: {
+        [Samvatsara.vrshapraja]: {
             name: {
                 sanskrit: ['वृष', 'वृषप्रजा'],
                 odia: ['ଵୃଷ', 'ଵିଷୁ', 'ଵୃଷପ୍ରଜା'],
@@ -1447,7 +1791,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Chitrabhanu: {
+        [Samvatsara.chitrabhanu]: {
             name: {
                 sanskrit: ['चित्रभानु'],
                 odia: ['ଚିତ୍ରଭାନୁ'],
@@ -1464,7 +1808,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Subhaanu: {
+        [Samvatsara.subhaanu]: {
             name: {
                 sanskrit: ['सुभानु'],
                 odia: ['ସ୍ଵଭାନୁ'],
@@ -1481,7 +1825,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Taarana: {
+        [Samvatsara.taarana]: {
             name: {
                 sanskrit: ['तारण'],
                 odia: ['ତାରଣ'],
@@ -1498,7 +1842,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Paarthiva: {
+        [Samvatsara.paarthiva]: {
             name: {
                 sanskrit: ['पार्थिव'],
                 odia: ['ପାର୍ଥିଵ'],
@@ -1515,7 +1859,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Vyaya: {
+        [Samvatsara.vyaya]: {
             name: {
                 sanskrit: ['व्यय'],
                 odia: ['ଵ୍ଯଯ'],
@@ -1532,7 +1876,7 @@ export class Panchangam {
             },
             diety: Diety.brahma
         },
-        Sarvajit: {
+        [Samvatsara.sarvajit]: {
             name: {
                 sanskrit: ['सर्वजीत'],
                 odia: ['ସର୍ଵଜିତ୍'],
@@ -1549,7 +1893,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Sarvadhaari: {
+        [Samvatsara.sarvadhaari]: {
             name: {
                 sanskrit: ['सर्वधारी'],
                 odia: ['ସର୍ଵଧାରି'],
@@ -1566,7 +1910,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Virodhi: {
+        [Samvatsara.virodhi]: {
             name: {
                 sanskrit: ['विरोधी'],
                 odia: ['ଵିରୋଧି'],
@@ -1583,7 +1927,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Vikrti: {
+        [Samvatsara.vikrti]: {
             name: {
                 sanskrit: ['विकृति'],
                 odia: ['ଵିକୃତ'],
@@ -1600,7 +1944,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Khara: {
+        [Samvatsara.khara]: {
             name: {
                 sanskrit: ['खर'],
                 odia: ['ଖର'],
@@ -1617,7 +1961,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Nandana: {
+        [Samvatsara.nandana]: {
             name: {
                 sanskrit: ['नंदन'],
                 odia: ['ନଂଦନ'],
@@ -1634,7 +1978,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Vijaya: {
+        [Samvatsara.vijaya]: {
             name: {
                 sanskrit: ['विजय'],
                 odia: ['ଵିଜଯ'],
@@ -1651,7 +1995,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Jaya: {
+        [Samvatsara.jaya]: {
             name: {
                 sanskrit: ['जय'],
                 odia: ['ଜଯ'],
@@ -1668,7 +2012,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Manmatha: {
+        [Samvatsara.manmatha]: {
             name: {
                 sanskrit: ['मन्मथ'],
                 odia: ['ମନ୍ମଥ'],
@@ -1685,7 +2029,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Durmukha: {
+        [Samvatsara.durmukha]: {
             name: {
                 sanskrit: ['दुर्मुख'],
                 odia: ['ଦୁର୍ମୁଖି'],
@@ -1702,7 +2046,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Hevilambi: {
+        [Samvatsara.hevilambi]: {
             name: {
                 sanskrit: ['हेविळंबि'],
                 odia: ['ହେଵିଳଂବି'],
@@ -1719,7 +2063,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Vilambi: {
+        [Samvatsara.vilambi]: {
             name: {
                 sanskrit: ['विळंबि'],
                 odia: ['ଵିଳଂବି'],
@@ -1736,7 +2080,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Vikaari: {
+        [Samvatsara.vikaari]: {
             name: {
                 sanskrit: ['विकारी'],
                 odia: ['ଵିକାରି'],
@@ -1753,7 +2097,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Shaarvari: {
+        [Samvatsara.shaarvari]: {
             name: {
                 sanskrit: ['शार्वरी'],
                 odia: ['ଶାର୍ଵରି'],
@@ -1770,7 +2114,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Plava: {
+        [Samvatsara.plava]: {
             name: {
                 sanskrit: ['प्लव'],
                 odia: ['ପ୍ଲଵ'],
@@ -1787,7 +2131,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Shubhakrta: {
+        [Samvatsara.shubhakrta]: {
             name: {
                 sanskrit: ['शुभकृत'],
                 odia: ['ଶୁଭକୃତ୍'],
@@ -1804,7 +2148,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Shobhakrta: {
+        [Samvatsara.shobhakrta]: {
             name: {
                 sanskrit: ['शोभकृत'],
                 odia: ['ଶୋଭାକୃତ୍'],
@@ -1821,7 +2165,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Krodhi: {
+        [Samvatsara.krodhi]: {
             name: {
                 sanskrit: ['क्रोधी'],
                 odia: ['କ୍ରୋଧି'],
@@ -1838,7 +2182,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Vishvaavasu: {
+        [Samvatsara.vishvaavasu]: {
             name: {
                 sanskrit: ['विश्वावसु'],
                 odia: ['ଵିଶ୍ଵାଵସୁ'],
@@ -1855,7 +2199,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Paraabhava: {
+        [Samvatsara.paraabhava]: {
             name: {
                 sanskrit: ['पराभव'],
                 odia: ['ପରାଭଵ'],
@@ -1872,7 +2216,7 @@ export class Panchangam {
             },
             diety: Diety.vishnu
         },
-        Plavanga: {
+        [Samvatsara.plavanga]: {
             name: {
                 sanskrit: ['प्लवंग'],
                 odia: ['ପ୍ଲଵଂଗ'],
@@ -1889,7 +2233,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Keelaka: {
+        [Samvatsara.keelaka]: {
             name: {
                 sanskrit: ['कीलक'],
                 odia: ['କୀଲକ'],
@@ -1906,7 +2250,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Saumya: {
+        [Samvatsara.saumya]: {
             name: {
                 sanskrit: ['सौम्य'],
                 odia: ['ସୌମ୍ଯ'],
@@ -1923,7 +2267,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Saadhaarana: {
+        [Samvatsara.saadhaarana]: {
             name: {
                 sanskrit: ['साधारण'],
                 odia: ['ସାଧାରଣ'],
@@ -1940,7 +2284,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Virodhakrta: {
+        [Samvatsara.virodhakrta]: {
             name: {
                 sanskrit: ['विरोधकृत'],
                 odia: ['ଵିରୋଧିକୃତ୍'],
@@ -1957,7 +2301,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Paridhaavi: {
+        [Samvatsara.paridhaavi]: {
             name: {
                 sanskrit: ['परिधावी'],
                 odia: ['ପରିଧାଵି'],
@@ -1974,7 +2318,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Pramaadica: {
+        [Samvatsara.pramaadica]: {
             name: {
                 sanskrit: ['प्रमादीच'],
                 odia: ['ପ୍ରମାଦୀ'],
@@ -1991,7 +2335,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Ananda: {
+        [Samvatsara.ananda]: {
             name: {
                 sanskrit: ['आनंद'],
                 odia: ['ଆନଂଦ'],
@@ -2008,7 +2352,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Raakshasa: {
+        [Samvatsara.raakshasa]: {
             name: {
                 sanskrit: ['राक्षस'],
                 odia: ['ରାକ୍ଷସ'],
@@ -2025,7 +2369,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Nala: {
+        [Samvatsara.nala]: {
             name: {
                 sanskrit: ['आनल', 'नल'],
                 odia: ['ନଳ'],
@@ -2042,7 +2386,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Pingala: {
+        [Samvatsara.pingala]: {
             name: {
                 sanskrit: ['पिंगल'],
                 odia: ['ପିଂଗଳ'],
@@ -2059,7 +2403,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Kaalayukta: {
+        [Samvatsara.kaalayukta]: {
             name: {
                 sanskrit: ['कालयुक्त'],
                 odia: ['କାଳଯୁକ୍ତି'],
@@ -2076,7 +2420,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Siddharthi: {
+        [Samvatsara.siddharthi]: {
             name: {
                 sanskrit: ['सिद्धार्थी'],
                 odia: ['ସିଦ୍ଧାର୍ଥି'],
@@ -2093,7 +2437,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Raudra: {
+        [Samvatsara.raudra]: {
             name: {
                 sanskrit: ['रौद्र'],
                 odia: ['ରୁଦ୍ର', 'ରୌଦ୍ରି'],
@@ -2110,7 +2454,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Durmati: {
+        [Samvatsara.durmati]: {
             name: {
                 sanskrit: ['दुर्मति'],
                 odia: ['ଦୁର୍ମତି'],
@@ -2127,7 +2471,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Dundubhi: {
+        [Samvatsara.dundubhi]: {
             name: {
                 sanskrit: ['दुन्दुभी'],
                 odia: ['ଦୁଂଦୁଭି'],
@@ -2144,7 +2488,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Rudhirodgaari: {
+        [Samvatsara.rudhirodgaari]: {
             name: {
                 sanskrit: ['रूधिरोद्गारी'],
                 odia: ['ରୁଧିରୋଦ୍ଗାରି'],
@@ -2161,7 +2505,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Raktaakshi: {
+        [Samvatsara.raktaakshi]: {
             name: {
                 sanskrit: ['रक्ताक्षी'],
                 odia: ['ରକ୍ତାକ୍ଷି'],
@@ -2178,7 +2522,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Krodhana: {
+        [Samvatsara.krodhana]: {
             name: {
                 sanskrit: ['क्रोधन', 'मन्यु'],
                 odia: ['କ୍ରୋଧନ'],
@@ -2195,7 +2539,7 @@ export class Panchangam {
             },
             diety: Diety.shiva
         },
-        Akshaya: {
+        [Samvatsara.akshaya]: {
             name: {
                 sanskrit: ['अक्षय'],
                 odia: ['ଅକ୍ଷଯ', 'କ୍ଷଯ'],
@@ -2214,8 +2558,8 @@ export class Panchangam {
         }
     }
 
-    Yoga = {
-        Amrta: {
+    Yoga: YogaType = {
+        [Yoga.amrta]: {
             name: {
                 sanskrit: ['अमृत'],
                 odia: ['ଅମୃତ'],
@@ -2231,7 +2575,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Marana: {
+        [Yoga.marana]: {
             name: {
                 sanskrit: ['मरण'],
                 odia: ['ମରଣ'],
@@ -2247,7 +2591,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Prabalarishta: {
+        [Yoga.prabalarishta]: {
             name: {
                 sanskrit: ['प्रबलरिष्ट'],
                 odia: ['ପ୍ରବଲରିଷ୍ଟ'],
@@ -2263,7 +2607,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Viskambha: {
+        [Yoga.viskambha]: {
             name: {
                 sanskrit: ['विष्कम्भ'],
                 odia: ['ଵିଷ୍କମ୍ଭ'],
@@ -2279,7 +2623,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Preeti: {
+        [Yoga.preeti]: {
             name: {
                 sanskrit: ['प्रीति'],
                 odia: ['ପ୍ରୀତି'],
@@ -2295,7 +2639,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Ayushmaan: {
+        [Yoga.ayushmaan]: {
             name: {
                 sanskrit: ['आयुष्मत्', 'आयुष्मान्'],
                 odia: ['ଆଯୁଷ୍ମତ୍', 'ଆଯୁଷ୍ମାନ୍'],
@@ -2311,7 +2655,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Saubhaagya: {
+        [Yoga.saubhaagya]: {
             name: {
                 sanskrit: ['सौभाग्य'],
                 odia: ['ସୌଭାଗ୍ଯ'],
@@ -2327,7 +2671,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Shobhana: {
+        [Yoga.shobhana]: {
             name: {
                 sanskrit: ['शोभन'],
                 odia: ['ଶୋଭନ'],
@@ -2343,7 +2687,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Atiganda: {
+        [Yoga.atiganda]: {
             name: {
                 sanskrit: ['अतिगण्ड'],
                 odia: ['ଅତିଗଣ୍ଡ'],
@@ -2359,7 +2703,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Sukarma: {
+        [Yoga.sukarma]: {
             name: {
                 sanskrit: ['सुकर्मा'],
                 odia: ['ସୁକର୍ମା'],
@@ -2375,7 +2719,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Dhrti: {
+        [Yoga.dhrti]: {
             name: {
                 sanskrit: ['धृति'],
                 odia: ['ଧୃତି'],
@@ -2391,7 +2735,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Shoola: {
+        [Yoga.shoola]: {
             name: {
                 sanskrit: ['शूल'],
                 odia: ['ଶୂଲ'],
@@ -2407,7 +2751,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Ganda: {
+        [Yoga.ganda]: {
             name: {
                 sanskrit: ['गण्ड'],
                 odia: ['ଗଣ୍ଡ'],
@@ -2423,7 +2767,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Vrddhi: {
+        [Yoga.vrddhi]: {
             name: {
                 sanskrit: ['वृद्धि'],
                 odia: ['ଵୃଦ୍ଧି'],
@@ -2439,7 +2783,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Dhruva: {
+        [Yoga.dhruva]: {
             name: {
                 sanskrit: ['ध्रुव'],
                 odia: ['ଧ୍ରୁଵ'],
@@ -2455,7 +2799,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Vyaaghata: {
+        [Yoga.vyaaghata]: {
             name: {
                 sanskrit: ['व्याघात'],
                 odia: ['ଵ୍ଯାଘାତ'],
@@ -2471,7 +2815,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Harshana: {
+        [Yoga.harshana]: {
             name: {
                 sanskrit: ['हर्षण'],
                 odia: ['ହର୍ଷଣ'],
@@ -2487,7 +2831,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Vajra: {
+        [Yoga.vajra]: {
             name: {
                 sanskrit: ['वज्र'],
                 odia: ['ଵଜ୍ର'],
@@ -2503,7 +2847,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Siddhi: {
+        [Yoga.siddhi]: {
             name: {
                 sanskrit: ['सिद्धि'],
                 odia: ['ସିଦ୍ଧି'],
@@ -2519,7 +2863,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Vyatipaata: {
+        [Yoga.vyatipaata]: {
             name: {
                 sanskrit: ['व्यतिपात'],
                 odia: ['ଵ୍ଯତିପାତ'],
@@ -2535,7 +2879,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Variyana: {
+        [Yoga.variyana]: {
             name: {
                 sanskrit: ['वरीयान'],
                 odia: ['ଵରୀଯାନ'],
@@ -2551,7 +2895,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Parigha: {
+        [Yoga.parigha]: {
             name: {
                 sanskrit: ['परिघ'],
                 odia: ['ପରିଘ'],
@@ -2567,7 +2911,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Shiva: {
+        [Yoga.shiva]: {
             name: {
                 sanskrit: ['शिव'],
                 odia: ['ଶିଵ'],
@@ -2583,7 +2927,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Siddha: {
+        [Yoga.siddha]: {
             name: {
                 sanskrit: ['सिद्ध'],
                 odia: ['ସିଦ୍ଧ'],
@@ -2599,7 +2943,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Saadhya: {
+        [Yoga.saadhya]: {
             name: {
                 sanskrit: ['साध्य'],
                 odia: ['ସାଧ୍ଯ'],
@@ -2615,7 +2959,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Shubha: {
+        [Yoga.shubha]: {
             name: {
                 sanskrit: ['शुभ'],
                 odia: ['ଶୁଭ'],
@@ -2631,7 +2975,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Shukla: {
+        [Yoga.shukla]: {
             name: {
                 sanskrit: ['शुक्ल'],
                 odia: ['ଶୁକ୍ଲ'],
@@ -2647,7 +2991,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Brahma: {
+        [Yoga.brahma]: {
             name: {
                 sanskrit: ['ब्रह्म'],
                 odia: ['ବ୍ରହ୍ମ'],
@@ -2663,7 +3007,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Maahendra: {
+        [Yoga.maahendra]: {
             name: {
                 sanskrit: ['इन्द्र', 'महीन्द्र'],
                 odia: ['ଇନ୍ଦ୍ର', 'ମହୀନ୍ଦ୍ର'],
@@ -2679,7 +3023,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Vaidhrti: {
+        [Yoga.vaidhrti]: {
             name: {
                 sanskrit: ['वैधृति'],
                 odia: ['ଵୈଧୃତି'],
@@ -2697,8 +3041,8 @@ export class Panchangam {
         }
     }
 
-    Karana = {
-        Shakuni: {
+    Karana: KaranaType = {
+        [Karana.shakuni]: {
             name: {
                 sanskrit: ['शकुनि'],
                 odia: ['ଶକୁନି'],
@@ -2715,7 +3059,7 @@ export class Panchangam {
             },
             stiraChara: StiraChara.stira
         },
-        Chatushpaada: {
+        [Karana.chatushpaada]: {
             name: {
                 sanskrit: ['चतुष्पाद'],
                 odia: ['ଚତୁଷ୍ପାଦ'],
@@ -2732,7 +3076,7 @@ export class Panchangam {
             },
             stiraChara: StiraChara.stira
         },
-        Naaga: {
+        [Karana.naaga]: {
             name: {
                 sanskrit: ['नाग'],
                 odia: ['ନାଗ'],
@@ -2749,7 +3093,7 @@ export class Panchangam {
             },
             stiraChara: StiraChara.stira
         },
-        Kimstughna: {
+        [Karana.kimstughna]: {
             name: {
                 sanskrit: ['किंस्तुघ्न'],
                 odia: ['କିଂସ୍ତୁଘ୍ନ'],
@@ -2766,7 +3110,7 @@ export class Panchangam {
             },
             stiraChara: StiraChara.stira
         },
-        Bava: {
+        [Karana.bava]: {
             name: {
                 sanskrit: ['बव'],
                 odia: ['ବଵ'],
@@ -2783,7 +3127,7 @@ export class Panchangam {
             },
             stiraChara: StiraChara.chara
         },
-        Baalava: {
+        [Karana.baalava]: {
             name: {
                 sanskrit: ['बालव'],
                 odia: ['ବାଲଵ'],
@@ -2800,7 +3144,7 @@ export class Panchangam {
             },
             stiraChara: StiraChara.chara
         },
-        Kaulava: {
+        [Karana.kaulava]: {
             name: {
                 sanskrit: ['कौलव'],
                 odia: ['କୌଲଵ'],
@@ -2817,7 +3161,7 @@ export class Panchangam {
             },
             stiraChara: StiraChara.chara
         },
-        Taitula: {
+        [Karana.taitula]: {
             name: {
                 sanskrit: ['तैतुल', 'तैतिल'],
                 odia: ['ତୈତୁଲ', 'ତୈତିଲ'],
@@ -2834,7 +3178,7 @@ export class Panchangam {
             },
             stiraChara: StiraChara.chara
         },
-        Garaja: {
+        [Karana.garaja]: {
             name: {
                 sanskrit: ['गर', 'गरज'],
                 odia: ['ଗର', 'ଗରଜ'],
@@ -2851,7 +3195,7 @@ export class Panchangam {
             },
             stiraChara: StiraChara.chara
         },
-        Vanija: {
+        [Karana.vanija]: {
             name: {
                 sanskrit: ['वणिज'],
                 odia: ['ଵଣିଜ'],
@@ -2868,7 +3212,7 @@ export class Panchangam {
             },
             stiraChara: StiraChara.chara
         },
-        Vishti: {
+        [Karana.vishti]: {
             name: {
                 sanskrit: ['विष्टि', 'भद्रा'],
                 odia: ['ଵିଷ୍ଟି', 'ଭଦ୍ରା'],
@@ -2887,8 +3231,8 @@ export class Panchangam {
         }
     }
 
-    Rtu = {
-        Vasanta: {
+    Rtu: RtuType = {
+        [Rtu.vasanta]: {
             name: {
                 sanskrit: ['वसन्त'],
                 odia: ['ବସନ୍ତ'],
@@ -2904,7 +3248,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Grishma: {
+        [Rtu.grishma]: {
             name: {
                 sanskrit: ['ग्रीष्म'],
                 odia: ['ଗ୍ରୀଷ୍ମ'],
@@ -2920,7 +3264,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Varsha: {
+        [Rtu.varsha]: {
             name: {
                 sanskrit: ['वर्षा'],
                 odia: ['ବର୍ଷା'],
@@ -2936,7 +3280,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Sarad: {
+        [Rtu.sarad]: {
             name: {
                 sanskrit: ['शरद्'],
                 odia: ['ଶରତ'],
@@ -2952,7 +3296,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Hemanta: {
+        [Rtu.hemanta]: {
             name: {
                 sanskrit: ['हेमन्त'],
                 odia: ['ହେମନ୍ତ'],
@@ -2968,7 +3312,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Sisira: {
+        [Rtu.sisira]: {
             name: {
                 sanskrit: ['शिशिर'],
                 odia: ['ଶୀତ'],
@@ -2986,8 +3330,8 @@ export class Panchangam {
         }
     }
 
-    Aayana = {
-        Uthara: {
+    Aayana: AayanaType = {
+        [Aayana.uthara]: {
             name: {
                 sanskrit: ['उत्तरायणम्'],
                 odia: ['ଉତ୍ତରାଯଣ'],
@@ -3003,7 +3347,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Dakshina: {
+        [Aayana.dakshina]: {
             name: {
                 sanskrit: ['दक्षिणायणम्'],
                 odia: ['ଦକ୍ଷିଣାଯଣ'],
@@ -3021,8 +3365,8 @@ export class Panchangam {
         }
     }
 
-    Vaara = {
-        Aadi: {
+    Vaara: VaaraType = {
+        [Vaara.aadi]: {
             name: {
                 sanskrit: ['भानुवासर'],
                 odia: ['ରବିବାର'],
@@ -3044,7 +3388,7 @@ export class Panchangam {
             abhijit: '12:01-12:52',
             durMuhurta: ['12:52-13:43', '15:24-16:15']
         },
-        soma: {
+        [Vaara.soma]: {
             name: {
                 sanskrit: ['इन्दुवासर'],
                 odia: ['ସୋମବାର'],
@@ -3066,7 +3410,7 @@ export class Panchangam {
             abhijit: '12:01-12:52',
             durMuhurta: ['12:52-13:43', '15:24-16:15']
         },
-        mangala: {
+        [Vaara.mangala]: {
             name: {
                 sanskrit: ['भौमवासर'],
                 odia: ['ମଙ୍ଗଳବାର'],
@@ -3088,7 +3432,7 @@ export class Panchangam {
             abhijit: '12:01-12:52',
             durMuhurta: ['12:52-13:43', '15:24-16:15']
         },
-        budha: {
+        [Vaara.budha]: {
             name: {
                 sanskrit: ['सौम्यवासर'],
                 odia: ['ବୁଧବାର'],
@@ -3110,7 +3454,7 @@ export class Panchangam {
             abhijit: '12:01-12:52',
             durMuhurta: ['12:52-13:43', '15:24-16:15']
         },
-        guru: {
+        [Vaara.guru]: {
             name: {
                 sanskrit: ['गुरुवासर'],
                 odia: ['ଗୁରୁବାର'],
@@ -3132,7 +3476,7 @@ export class Panchangam {
             abhijit: '12:01-12:52',
             durMuhurta: ['12:52-13:43', '15:24-16:15']
         },
-        shukra: {
+        [Vaara.shukra]: {
             name: {
                 sanskrit: ['भृगुवासर'],
                 odia: ['ଶୁକ୍ରବାର'],
@@ -3154,7 +3498,7 @@ export class Panchangam {
             abhijit: '12:01-12:52',
             durMuhurta: ['12:52-13:43', '15:24-16:15']
         },
-        shani: {
+        [Vaara.shani]: {
             name: {
                 sanskrit: ['स्थिरवासर'],
                 odia: ['ଶନିବାର'],
@@ -3178,8 +3522,8 @@ export class Panchangam {
         }
     }
 
-    Maasa = {
-        Caitra: {
+    Maasa: MaasaType = {
+        [Maasa.caitra]: {
             name: {
                 sanskrit: ['चैत्र'],
                 odia: ['ଚୈତ୍ର'],
@@ -3194,11 +3538,11 @@ export class Panchangam {
                 chinese: [''],
                 tibetan: ['ནག་པ་ཟླ་བ']
             },
-            suryaMaasa: this.Rasi.Meena,
-            rtu: this.Rtu.Vasanta,
-            aayana: [this.Aayana.Uthara]
+            suryaMaasa: this.Rasi.meena,
+            rtu: this.Rtu.vasanta,
+            aayana: [this.Aayana.uthara]
         },
-        Vaishaka: {
+        [Maasa.vaishaka]: {
             name: {
                 sanskrit: ['वैशाख'],
                 odia: ['ବୈଶାଖ'],
@@ -3213,11 +3557,11 @@ export class Panchangam {
                 chinese: [''],
                 tibetan: ['ས་ག་ཟླ་བ']
             },
-            suryaMaasa: this.Rasi.Mesha,
-            rtu: this.Rtu.Vasanta,
-            aayana: [this.Aayana.Uthara]
+            suryaMaasa: this.Rasi.mesha,
+            rtu: this.Rtu.vasanta,
+            aayana: [this.Aayana.uthara]
         },
-        Jyesta: {
+        [Maasa.jyesta]: {
             name: {
                 sanskrit: ['ज्येष्ठ'],
                 odia: ['ଜ୍ୟେଷ୍ଠ'],
@@ -3232,11 +3576,11 @@ export class Panchangam {
                 chinese: [''],
                 tibetan: ['སྣྲོན་ཟླ་བ']
             },
-            suryaMaasa: this.Rasi.Vrshabha,
-            rtu: this.Rtu.Grishma,
-            aayana: [this.Aayana.Uthara]
+            suryaMaasa: this.Rasi.vrshabha,
+            rtu: this.Rtu.grishma,
+            aayana: [this.Aayana.uthara]
         },
-        Aashada: {
+        [Maasa.aashada]: {
             name: {
                 sanskrit: ['आषाढ़'],
                 odia: ['ଆଷାଢ଼'],
@@ -3251,11 +3595,11 @@ export class Panchangam {
                 chinese: [''],
                 tibetan: ['ཆུ་སྟོད་ཟླ་བ']
             },
-            suryaMaasa: this.Rasi.Mithuna,
-            rtu: this.Rtu.Grishma,
-            aayana: [this.Aayana.Uthara, this.Aayana.Dakshina]
+            suryaMaasa: this.Rasi.mithuna,
+            rtu: this.Rtu.grishma,
+            aayana: [this.Aayana.uthara, this.Aayana.dakshina]
         },
-        Shaavana: {
+        [Maasa.shaavana]: {
             name: {
                 sanskrit: ['श्रावण'],
                 odia: ['ଶ୍ରାବଣ'],
@@ -3270,11 +3614,11 @@ export class Panchangam {
                 chinese: [''],
                 tibetan: ['གྲོ་བཞིན་ཟླ་བ']
             },
-            suryaMaasa: this.Rasi.Karka,
-            rtu: this.Rtu.Varsha,
-            aayana: [this.Aayana.Dakshina]
+            suryaMaasa: this.Rasi.karka,
+            rtu: this.Rtu.varsha,
+            aayana: [this.Aayana.dakshina]
         },
-        Bhaadrapada: {
+        [Maasa.bhaadrapada]: {
             name: {
                 sanskrit: ['भाद्रपद'],
                 odia: ['ଭାଦ୍ରବ'],
@@ -3289,11 +3633,11 @@ export class Panchangam {
                 chinese: [''],
                 tibetan: ['ཁྲིམས་སྟོད་ཟླ་བ']
             },
-            suryaMaasa: this.Rasi.Simha,
-            rtu: this.Rtu.Varsha,
-            aayana: [this.Aayana.Dakshina]
+            suryaMaasa: this.Rasi.simha,
+            rtu: this.Rtu.varsha,
+            aayana: [this.Aayana.dakshina]
         },
-        Ashvina: {
+        [Maasa.ashvina]: {
             name: {
                 sanskrit: ['आश्विन'],
                 odia: ['ଆଶ୍ୱିନ'],
@@ -3308,11 +3652,11 @@ export class Panchangam {
                 chinese: [''],
                 tibetan: ['ཐ་སྐར་ཟླ་བ']
             },
-            suryaMaasa: this.Rasi.Kanya,
-            rtu: this.Rtu.Sarad,
-            aayana: [this.Aayana.Dakshina]
+            suryaMaasa: this.Rasi.kanya,
+            rtu: this.Rtu.sarad,
+            aayana: [this.Aayana.dakshina]
         },
-        Kaartika: {
+        [Maasa.kaartika]: {
             name: {
                 sanskrit: ['कार्तिक'],
                 odia: ['କାର୍ତ୍ତିକ'],
@@ -3327,11 +3671,11 @@ export class Panchangam {
                 chinese: [''],
                 tibetan: ['སྨིན་དྲུག་ཟླ་བ']
             },
-            suryaMaasa: this.Rasi.Tula,
-            rtu: this.Rtu.Sarad,
-            aayana: [this.Aayana.Dakshina]
+            suryaMaasa: this.Rasi.tula,
+            rtu: this.Rtu.sarad,
+            aayana: [this.Aayana.dakshina]
         },
-        Maargasirsa: {
+        [Maasa.maargasirsa]: {
             name: {
                 sanskrit: ['मार्गशीर्ष'],
                 odia: ['ମାର୍ଗଶିର'],
@@ -3346,11 +3690,11 @@ export class Panchangam {
                 chinese: [''],
                 tibetan: ['མགོ་ཟླ་བ']
             },
-            suryaMaasa: this.Rasi.Vrscika,
-            rtu: this.Rtu.Hemanta,
-            aayana: [this.Aayana.Dakshina]
+            suryaMaasa: this.Rasi.vrscika,
+            rtu: this.Rtu.hemanta,
+            aayana: [this.Aayana.dakshina]
         },
-        Pausha: {
+        [Maasa.pausha]: {
             name: {
                 sanskrit: ['पौष'],
                 odia: ['ପୌଷ'],
@@ -3365,11 +3709,11 @@ export class Panchangam {
                 chinese: [''],
                 tibetan: ['རྒྱལ་ཟླ་བ']
             },
-            suryaMaasa: this.Rasi.Dhanusa,
-            rtu: this.Rtu.Hemanta,
-            aayana: [this.Aayana.Dakshina, this.Aayana.Uthara]
+            suryaMaasa: this.Rasi.dhanusa,
+            rtu: this.Rtu.hemanta,
+            aayana: [this.Aayana.dakshina, this.Aayana.uthara]
         },
-        Maagha: {
+        [Maasa.maagha]: {
             name: {
                 sanskrit: ['माघ'],
                 odia: ['ମାଘ'],
@@ -3384,11 +3728,11 @@ export class Panchangam {
                 chinese: [''],
                 tibetan: ['མཆུ་ཟླ་བ']
             },
-            suryaMaasa: this.Rasi.Makara,
-            rtu: this.Rtu.Sisira,
-            aayana: [this.Aayana.Uthara]
+            suryaMaasa: this.Rasi.makara,
+            rtu: this.Rtu.sisira,
+            aayana: [this.Aayana.uthara]
         },
-        Phalguna: {
+        [Maasa.phalguna]: {
             name: {
                 sanskrit: ['फाल्गुन'],
                 odia: ['ଫାଲ୍ଗୁନ'],
@@ -3403,14 +3747,14 @@ export class Panchangam {
                 chinese: [''],
                 tibetan: ['དབོ་ཟླ་བ']
             },
-            suryaMaasa: this.Rasi.Kumbha,
-            rtu: this.Rtu.Sisira,
-            aayana: [this.Aayana.Uthara]
+            suryaMaasa: this.Rasi.kumbha,
+            rtu: this.Rtu.sisira,
+            aayana: [this.Aayana.uthara]
         }
     }
 
-    Paksha = {
-        Krshna: {
+    Paksha: PakshaType = {
+        [Paksha.krshna]: {
             name: {
                 sanskrit: ['कृष्ण'],
                 odia: ['କୃଷ୍ଣପକ୍ଷ'],
@@ -3426,7 +3770,7 @@ export class Panchangam {
                 tibetan: ['']
             }
         },
-        Shukla: {
+        [Paksha.shukla]: {
             name: {
                 sanskrit: ['शुक्ल'],
                 odia: ['ଶୁକ୍ଳପକ୍ଷ'],
@@ -3444,8 +3788,8 @@ export class Panchangam {
         }
     }
 
-    Tithi = {
-        Prathama: {
+    Tithi: TithiType = {
+        [Tithi.prathama]: {
             name: {
                 sanskrit: ['प्रतिपदा', 'प्रथमा'],
                 odia: ['ପ୍ରତିପଦ'],
@@ -3462,11 +3806,11 @@ export class Panchangam {
             },
             diety: Diety.agni,
             karana: {
-                sukla: [this.Karana.Kimstughna, this.Karana.Bava],
-                krshna: [this.Karana.Baalava, this.Karana.Kaulava]
+                sukla: [this.Karana.kimstughna, this.Karana.bava],
+                krshna: [this.Karana.baalava, this.Karana.kaulava]
             }
         },
-        Dvitiya: {
+        [Tithi.dvitiya]: {
             name: {
                 sanskrit: ['द्वितीया'],
                 odia: ['ଦ୍ୱିତୀୟା'],
@@ -3483,11 +3827,11 @@ export class Panchangam {
             },
             diety: Diety.brahma,
             karana: {
-                sukla: [this.Karana.Baalava, this.Karana.Kaulava],
-                krshna: [this.Karana.Taitula, this.Karana.Garaja]
+                sukla: [this.Karana.baalava, this.Karana.kaulava],
+                krshna: [this.Karana.taitula, this.Karana.garaja]
             }
         },
-        Trtiya: {
+        [Tithi.trtiya]: {
             name: {
                 sanskrit: ['तृतीया'],
                 odia: ['ତୃତୀୟା'],
@@ -3504,11 +3848,11 @@ export class Panchangam {
             },
             diety: Diety.gauri,
             karana: {
-                sukla: [this.Karana.Taitula, this.Karana.Garaja],
-                krshna: [this.Karana.Vanija, this.Karana.Vishti]
+                sukla: [this.Karana.taitula, this.Karana.garaja],
+                krshna: [this.Karana.vanija, this.Karana.vishti]
             }
         },
-        Chaturti: {
+        [Tithi.chaturti]: {
             name: {
                 sanskrit: ['चतुर्थी'],
                 odia: ['ଚତୁର୍ଥୀ'],
@@ -3525,11 +3869,11 @@ export class Panchangam {
             },
             diety: Diety.vinayaka,
             karana: {
-                sukla: [this.Karana.Vanija, this.Karana.Vishti],
-                krshna: [this.Karana.Bava, this.Karana.Baalava]
+                sukla: [this.Karana.vanija, this.Karana.vishti],
+                krshna: [this.Karana.bava, this.Karana.baalava]
             }
         },
-        Panchami: {
+        [Tithi.panchami]: {
             name: {
                 sanskrit: ['पञ्चमी'],
                 odia: ['ପଞ୍ଚମୀ'],
@@ -3546,11 +3890,11 @@ export class Panchangam {
             },
             diety: Diety.sarpas,
             karana: {
-                sukla: [this.Karana.Bava, this.Karana.Baalava],
-                krshna: [this.Karana.Kaulava, this.Karana.Taitula]
+                sukla: [this.Karana.bava, this.Karana.baalava],
+                krshna: [this.Karana.kaulava, this.Karana.taitula]
             }
         },
-        Shasti: {
+        [Tithi.shasti]: {
             name: {
                 sanskrit: ['षष्ठी'],
                 odia: ['ଷଷ୍ଠୀ'],
@@ -3567,11 +3911,11 @@ export class Panchangam {
             },
             diety: Diety.kumaraswaymi,
             karana: {
-                sukla: [this.Karana.Kaulava, this.Karana.Taitula],
-                krshna: [this.Karana.Garaja, this.Karana.Vanija]
+                sukla: [this.Karana.kaulava, this.Karana.taitula],
+                krshna: [this.Karana.garaja, this.Karana.vanija]
             }
         },
-        Saptami: {
+        [Tithi.saptami]: {
             name: {
                 sanskrit: ['सप्तमी'],
                 odia: ['ସପ୍ତମୀ'],
@@ -3588,11 +3932,11 @@ export class Panchangam {
             },
             diety: Diety.surya,
             karana: {
-                sukla: [this.Karana.Garaja, this.Karana.Vanija],
-                krshna: [this.Karana.Vishti, this.Karana.Bava]
+                sukla: [this.Karana.garaja, this.Karana.vanija],
+                krshna: [this.Karana.vishti, this.Karana.bava]
             }
         },
-        Ashtami: {
+        [Tithi.ashtami]: {
             name: {
                 sanskrit: ['अष्टमी'],
                 odia: ['ଅଷ୍ଟମୀ'],
@@ -3609,11 +3953,11 @@ export class Panchangam {
             },
             diety: Diety.shiva,
             karana: {
-                sukla: [this.Karana.Vishti, this.Karana.Bava],
-                krshna: [this.Karana.Baalava, this.Karana.Kaulava]
+                sukla: [this.Karana.vishti, this.Karana.bava],
+                krshna: [this.Karana.baalava, this.Karana.kaulava]
             }
         },
-        Navami: {
+        [Tithi.navami]: {
             name: {
                 sanskrit: ['नवमी'],
                 odia: ['ନବମୀ'],
@@ -3630,11 +3974,11 @@ export class Panchangam {
             },
             diety: Diety.durga,
             karana: {
-                sukla: [this.Karana.Baalava, this.Karana.Kaulava],
-                krshna: [this.Karana.Taitula, this.Karana.Garaja]
+                sukla: [this.Karana.baalava, this.Karana.kaulava],
+                krshna: [this.Karana.taitula, this.Karana.garaja]
             }
         },
-        Dasami: {
+        [Tithi.dasami]: {
             name: {
                 sanskrit: ['दशमी'],
                 odia: ['ଦଶମୀ'],
@@ -3651,11 +3995,11 @@ export class Panchangam {
             },
             diety: Diety.yama,
             karana: {
-                sukla: [this.Karana.Taitula, this.Karana.Garaja],
-                krshna: [this.Karana.Vanija, this.Karana.Vishti]
+                sukla: [this.Karana.taitula, this.Karana.garaja],
+                krshna: [this.Karana.vanija, this.Karana.vishti]
             }
         },
-        Ekadasi: {
+        [Tithi.ekadasi]: {
             name: {
                 sanskrit: ['एकादशी'],
                 odia: ['ଏକାଦଶୀ'],
@@ -3672,11 +4016,11 @@ export class Panchangam {
             },
             diety: Diety.visvedevas,
             karana: {
-                sukla: [this.Karana.Vanija, this.Karana.Vishti],
-                krshna: [this.Karana.Bava, this.Karana.Baalava]
+                sukla: [this.Karana.vanija, this.Karana.vishti],
+                krshna: [this.Karana.bava, this.Karana.baalava]
             }
         },
-        Dvadasi: {
+        [Tithi.dvadasi]: {
             name: {
                 sanskrit: ['द्वादशी'],
                 odia: ['ଦ୍ୱାଦଶୀ'],
@@ -3693,11 +4037,11 @@ export class Panchangam {
             },
             diety: Diety.vishnu,
             karana: {
-                sukla: [this.Karana.Bava, this.Karana.Baalava],
-                krshna: [this.Karana.Kaulava, this.Karana.Taitula]
+                sukla: [this.Karana.bava, this.Karana.baalava],
+                krshna: [this.Karana.kaulava, this.Karana.taitula]
             }
         },
-        Trayodasi: {
+        [Tithi.trayodasi]: {
             name: {
                 sanskrit: ['त्रयोदशी'],
                 odia: ['ତ୍ରୟୋଦଶୀ'],
@@ -3714,11 +4058,11 @@ export class Panchangam {
             },
             diety: Diety.manmadha,
             karana: {
-                sukla: [this.Karana.Kaulava, this.Karana.Taitula],
-                krshna: [this.Karana.Garaja, this.Karana.Vanija]
+                sukla: [this.Karana.kaulava, this.Karana.taitula],
+                krshna: [this.Karana.garaja, this.Karana.vanija]
             }
         },
-        Chaturdasi: {
+        [Tithi.chaturdasi]: {
             name: {
                 sanskrit: ['चतुर्दशी'],
                 odia: ['ଚତୁର୍ଦ୍ଦଶୀ'],
@@ -3735,11 +4079,11 @@ export class Panchangam {
             },
             diety: Diety.shiva,
             karana: {
-                sukla: [this.Karana.Garaja, this.Karana.Vanija],
-                krshna: [this.Karana.Vishti, this.Karana.Shakuni]
+                sukla: [this.Karana.garaja, this.Karana.vanija],
+                krshna: [this.Karana.vishti, this.Karana.shakuni]
             }
         },
-        Paurnami: {
+        [Tithi.paurnami]: {
             name: {
                 sanskrit: ['पूर्णिमा', 'पूर्णिमा'],
                 odia: ['ପୂର୍ଣ୍ଣିମା'],
@@ -3756,11 +4100,11 @@ export class Panchangam {
             },
             diety: Diety.soma,
             karana: {
-                sukla: [this.Karana.Vishti, this.Karana.Bava],
+                sukla: [this.Karana.vishti, this.Karana.bava],
                 krshna: []
             }
         },
-        Amavasya: {
+        [Tithi.amavasya]: {
             name: {
                 sanskrit: ['अमावस्या'],
                 odia: ['ଅମାବାସ୍ୟା'],
@@ -3778,13 +4122,13 @@ export class Panchangam {
             diety: Diety.pitrs,
             karana: {
                 sukla: [],
-                krshna: [this.Karana.Chatushpaada, this.Karana.Naaga]
+                krshna: [this.Karana.chatushpaada, this.Karana.naaga]
             }
         }
     }
 
-    Nakshatra = {
-        Ashvini: {
+    Nakshatra: NakshatraType = {
+        [Nakshatra.ashvini]: {
             name: {
                 sanskrit: ['अश्विनी'],
                 odia: ['ଅଶ୍ଵିନୀ'],
@@ -3805,8 +4149,8 @@ export class Panchangam {
             graha: Graha.ketu,
             deity: [Diety.ashvins],
             symbol: Symbols.ashvini,
-            zodiac: { from: { angle: '0°', rasi: this.Rasi.Mesha }, to: { angle: '13°20', rasi: this.Rasi.Mesha } },
-            westernZodiac: { from: { angle: '23°46', rasi: this.Rasi.Mesha }, to: { angle: '7°06', rasi: this.Rasi.Vrshabha } },
+            zodiac: { from: { angle: '0°', rasi: this.Rasi.mesha }, to: { angle: '13°20', rasi: this.Rasi.mesha } },
+            westernZodiac: { from: { angle: '23°46', rasi: this.Rasi.mesha }, to: { angle: '7°06', rasi: this.Rasi.vrshabha } },
             gana: '',
             jaati: '',
             vrksha: '',
@@ -3816,7 +4160,7 @@ export class Panchangam {
             varna: '',
             ratna: ''
         },
-        Bharani: {
+        [Nakshatra.bharani]: {
             name: {
                 sanskrit: ['भरणी'],
                 odia: ['ଦ୍ଵିଜା'],
@@ -3837,10 +4181,18 @@ export class Panchangam {
             graha: Graha.shukra,
             deity: [Diety.yama],
             symbol: Symbols.bharani,
-            zodiac: { from: { angle: '13°20', rasi: this.Rasi.Mesha }, to: { angle: '26°40', rasi: this.Rasi.Mesha } },
-            westernZodiac: { from: { angle: '7°06', rasi: this.Rasi.Vrshabha }, to: { angle: '20°26', rasi: this.Rasi.Vrshabha } }
+            zodiac: { from: { angle: '13°20', rasi: this.Rasi.mesha }, to: { angle: '26°40', rasi: this.Rasi.mesha } },
+            westernZodiac: { from: { angle: '7°06', rasi: this.Rasi.vrshabha }, to: { angle: '20°26', rasi: this.Rasi.vrshabha } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Krttika: {
+        [Nakshatra.krttika]: {
             name: {
                 sanskrit: ['कृत्तिका'],
                 odia: ['କୃତିକା'],
@@ -3861,10 +4213,18 @@ export class Panchangam {
             graha: Graha.surya,
             deity: [Diety.agni],
             symbol: Symbols.krttika,
-            zodiac: { from: { angle: '26°40', rasi: this.Rasi.Mesha }, to: { angle: '10°', rasi: this.Rasi.Vrshabha } },
-            westernZodiac: { from: { angle: '20°26', rasi: this.Rasi.Vrshabha }, to: { angle: '3°46', rasi: this.Rasi.Mithuna } }
+            zodiac: { from: { angle: '26°40', rasi: this.Rasi.mesha }, to: { angle: '10°', rasi: this.Rasi.vrshabha } },
+            westernZodiac: { from: { angle: '20°26', rasi: this.Rasi.vrshabha }, to: { angle: '3°46', rasi: this.Rasi.mithuna } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Rohini: {
+        [Nakshatra.rohini]: {
             name: {
                 sanskrit: ['रोहिणी'],
                 odia: ['ରୋହିଣୀ'],
@@ -3885,10 +4245,18 @@ export class Panchangam {
             graha: Graha.chandra,
             symbol: Symbols.rohini,
             deity: [Diety.brahma],
-            zodiac: { from: { angle: '10°', rasi: this.Rasi.Vrshabha }, to: { angle: '23°20', rasi: this.Rasi.Vrshabha } },
-            westernZodiac: { from: { angle: '3°46', rasi: this.Rasi.Mithuna }, to: { angle: '17°06', rasi: this.Rasi.Mithuna } }
+            zodiac: { from: { angle: '10°', rasi: this.Rasi.vrshabha }, to: { angle: '23°20', rasi: this.Rasi.vrshabha } },
+            westernZodiac: { from: { angle: '3°46', rasi: this.Rasi.mithuna }, to: { angle: '17°06', rasi: this.Rasi.mithuna } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Mrgashirsha: {
+        [Nakshatra.mrgashirsha]: {
             name: {
                 sanskrit: ['म्रृगशीर्षा'],
                 odia: ['ମୃଗଶିରା'],
@@ -3909,10 +4277,18 @@ export class Panchangam {
             graha: Graha.mangala,
             symbol: Symbols.mrgashirsha,
             deity: [Diety.soma],
-            zodiac: { from: { angle: '23°20', rasi: this.Rasi.Vrshabha }, to: { angle: '6°40', rasi: this.Rasi.Mithuna } },
-            westernZodiac: { from: { angle: '17°06', rasi: this.Rasi.Mithuna }, to: { angle: '0°26', rasi: this.Rasi.Karka } }
+            zodiac: { from: { angle: '23°20', rasi: this.Rasi.vrshabha }, to: { angle: '6°40', rasi: this.Rasi.mithuna } },
+            westernZodiac: { from: { angle: '17°06', rasi: this.Rasi.mithuna }, to: { angle: '0°26', rasi: this.Rasi.karka } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Ardra: {
+        [Nakshatra.ardra]: {
             name: {
                 sanskrit: ['आर्द्रा'],
                 odia: ['ଆଦ୍ରା'],
@@ -3933,10 +4309,18 @@ export class Panchangam {
             graha: Graha.rahu,
             symbol: Symbols.ardra,
             deity: [Diety.rudra],
-            zodiac: { from: { angle: '6°40', rasi: this.Rasi.Mithuna }, to: { angle: '20°', rasi: this.Rasi.Mithuna } },
-            westernZodiac: { from: { angle: '0°26', rasi: this.Rasi.Karka }, to: { angle: '13°46', rasi: this.Rasi.Karka } }
+            zodiac: { from: { angle: '6°40', rasi: this.Rasi.mithuna }, to: { angle: '20°', rasi: this.Rasi.mithuna } },
+            westernZodiac: { from: { angle: '0°26', rasi: this.Rasi.karka }, to: { angle: '13°46', rasi: this.Rasi.karka } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Punarvasu: {
+        [Nakshatra.punarvasu]: {
             name: {
                 sanskrit: ['पुनर्वसु'],
                 odia: ['ପୁନର୍ବସୁ'],
@@ -3957,10 +4341,18 @@ export class Panchangam {
             graha: Graha.guru,
             symbol: Symbols.punarvasu,
             deity: [Diety.aditi],
-            zodiac: { from: { angle: '20°', rasi: this.Rasi.Mithuna }, to: { angle: '3°20', rasi: this.Rasi.Karka } },
-            westernZodiac: { from: { angle: '13°46', rasi: this.Rasi.Karka }, to: { angle: '27°06', rasi: this.Rasi.Karka } }
+            zodiac: { from: { angle: '20°', rasi: this.Rasi.mithuna }, to: { angle: '3°20', rasi: this.Rasi.karka } },
+            westernZodiac: { from: { angle: '13°46', rasi: this.Rasi.karka }, to: { angle: '27°06', rasi: this.Rasi.karka } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Pushya: {
+        [Nakshatra.pushya]: {
             name: {
                 sanskrit: ['पुष्य'],
                 odia: ['ପୁଷ୍ୟା'],
@@ -3981,10 +4373,18 @@ export class Panchangam {
             graha: Graha.shani,
             deity: [Diety.brhaspati],
             symbol: Symbols.pushya,
-            zodiac: { from: { angle: '3°20', rasi: this.Rasi.Karka }, to: { angle: '16°40', rasi: this.Rasi.Karka } },
-            westernZodiac: { from: { angle: '27°06', rasi: this.Rasi.Karka }, to: { angle: '10°26', rasi: this.Rasi.Simha } }
+            zodiac: { from: { angle: '3°20', rasi: this.Rasi.karka }, to: { angle: '16°40', rasi: this.Rasi.karka } },
+            westernZodiac: { from: { angle: '27°06', rasi: this.Rasi.karka }, to: { angle: '10°26', rasi: this.Rasi.simha } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Ashlesha: {
+        [Nakshatra.ashlesha]: {
             name: {
                 sanskrit: ['आश्ळेषा', 'आश्लेषा'],
                 odia: ['ଆଶ୍ଳେଷା'],
@@ -4005,10 +4405,18 @@ export class Panchangam {
             graha: Graha.budha,
             deity: [Diety.sarpas],
             symbol: Symbols.ashlesha,
-            zodiac: { from: { angle: '16°40', rasi: this.Rasi.Karka }, to: { angle: '30°', rasi: this.Rasi.Karka } },
-            westernZodiac: { from: { angle: '10°26', rasi: this.Rasi.Simha }, to: { angle: '23°46', rasi: this.Rasi.Simha } }
+            zodiac: { from: { angle: '16°40', rasi: this.Rasi.karka }, to: { angle: '30°', rasi: this.Rasi.karka } },
+            westernZodiac: { from: { angle: '10°26', rasi: this.Rasi.simha }, to: { angle: '23°46', rasi: this.Rasi.simha } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Magha: {
+        [Nakshatra.magha]: {
             name: {
                 sanskrit: ['मघा'],
                 odia: ['ମଘା'],
@@ -4029,10 +4437,18 @@ export class Panchangam {
             graha: Graha.ketu,
             deity: [Diety.pitrs],
             symbol: Symbols.magha,
-            zodiac: { from: { angle: '0°', rasi: this.Rasi.Simha }, to: { angle: '13°20', rasi: this.Rasi.Simha } },
-            westernZodiac: { from: { angle: '23°46', rasi: this.Rasi.Simha }, to: { angle: '7°06', rasi: this.Rasi.Kanya } }
+            zodiac: { from: { angle: '0°', rasi: this.Rasi.simha }, to: { angle: '13°20', rasi: this.Rasi.simha } },
+            westernZodiac: { from: { angle: '23°46', rasi: this.Rasi.simha }, to: { angle: '7°06', rasi: this.Rasi.kanya } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        PurvaPhalguni: {
+        [Nakshatra.purvaPhalguni]: {
             name: {
                 sanskrit: ['पूर्व फल्गुनी'],
                 odia: ['ପୂର୍ବ ଫାଲ୍ଗୁନୀ'],
@@ -4053,10 +4469,18 @@ export class Panchangam {
             graha: Graha.shukra,
             deity: [Diety.bhaga],
             symbol: Symbols.purvaPhalguni,
-            zodiac: { from: { angle: '13°20', rasi: this.Rasi.Simha }, to: { angle: '26°40', rasi: this.Rasi.Simha } },
-            westernZodiac: { from: { angle: '7°06', rasi: this.Rasi.Kanya }, to: { angle: '20°26', rasi: this.Rasi.Kanya } }
+            zodiac: { from: { angle: '13°20', rasi: this.Rasi.simha }, to: { angle: '26°40', rasi: this.Rasi.simha } },
+            westernZodiac: { from: { angle: '7°06', rasi: this.Rasi.kanya }, to: { angle: '20°26', rasi: this.Rasi.kanya } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        UttaraPhalguni: {
+        [Nakshatra.uttaraPhalguni]: {
             name: {
                 sanskrit: ['उत्तर फल्गुनी'],
                 odia: ['ଉତ୍ତର ଫାଲ୍ଗୁନୀ'],
@@ -4077,10 +4501,18 @@ export class Panchangam {
             graha: Graha.surya,
             deity: [Diety.aryaman],
             symbol: Symbols.uttaraPhalguni,
-            zodiac: { from: { angle: '26°40', rasi: this.Rasi.Simha }, to: { angle: '10°', rasi: this.Rasi.Kanya } },
-            westernZodiac: { from: { angle: '20°26', rasi: this.Rasi.Kanya }, to: { angle: '3°46', rasi: this.Rasi.Tula } }
+            zodiac: { from: { angle: '26°40', rasi: this.Rasi.simha }, to: { angle: '10°', rasi: this.Rasi.kanya } },
+            westernZodiac: { from: { angle: '20°26', rasi: this.Rasi.kanya }, to: { angle: '3°46', rasi: this.Rasi.tula } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Hasta: {
+        [Nakshatra.hasta]: {
             name: {
                 sanskrit: ['हस्त'],
                 odia: ['ହସ୍ତା'],
@@ -4101,10 +4533,18 @@ export class Panchangam {
             graha: Graha.chandra,
             deity: [Diety.surya],
             symbol: Symbols.hasta,
-            zodiac: { from: { angle: '10°', rasi: this.Rasi.Kanya }, to: { angle: '23°20', rasi: this.Rasi.Kanya } },
-            westernZodiac: { from: { angle: '3°46', rasi: this.Rasi.Tula }, to: { angle: '17°06', rasi: this.Rasi.Tula } }
+            zodiac: { from: { angle: '10°', rasi: this.Rasi.kanya }, to: { angle: '23°20', rasi: this.Rasi.kanya } },
+            westernZodiac: { from: { angle: '3°46', rasi: this.Rasi.tula }, to: { angle: '17°06', rasi: this.Rasi.tula } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Chitra: {
+        [Nakshatra.chitra]: {
             name: {
                 sanskrit: ['चित्रा'],
                 odia: ['ଚିତ୍ରା'],
@@ -4125,10 +4565,18 @@ export class Panchangam {
             graha: Graha.mangala,
             deity: [Diety.tvastar, Diety.vishvakarman],
             symbol: Symbols.chitra,
-            zodiac: { from: { angle: '23°20', rasi: this.Rasi.Kanya }, to: { angle: '6°40', rasi: this.Rasi.Tula } },
-            westernZodiac: { from: { angle: '17°06', rasi: this.Rasi.Tula }, to: { angle: '0°26', rasi: this.Rasi.Vrscika } }
+            zodiac: { from: { angle: '23°20', rasi: this.Rasi.kanya }, to: { angle: '6°40', rasi: this.Rasi.tula } },
+            westernZodiac: { from: { angle: '17°06', rasi: this.Rasi.tula }, to: { angle: '0°26', rasi: this.Rasi.vrscika } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Svati: {
+        [Nakshatra.svati]: {
             name: {
                 sanskrit: ['स्वाती'],
                 odia: ['ସ୍ଵାତୀ'],
@@ -4149,10 +4597,18 @@ export class Panchangam {
             graha: Graha.rahu,
             deity: [Diety.vayu],
             symbol: Symbols.svati,
-            zodiac: { from: { angle: '6°40', rasi: this.Rasi.Tula }, to: { angle: '20°', rasi: this.Rasi.Tula } },
-            westernZodiac: { from: { angle: '0°26', rasi: this.Rasi.Vrscika }, to: { angle: '13°46', rasi: this.Rasi.Vrscika } }
+            zodiac: { from: { angle: '6°40', rasi: this.Rasi.tula }, to: { angle: '20°', rasi: this.Rasi.tula } },
+            westernZodiac: { from: { angle: '0°26', rasi: this.Rasi.vrscika }, to: { angle: '13°46', rasi: this.Rasi.vrscika } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Vishakha: {
+        [Nakshatra.vishakha]: {
             name: {
                 sanskrit: ['विशाखा'],
                 odia: ['ବିଶାଖା'],
@@ -4173,10 +4629,18 @@ export class Panchangam {
             graha: Graha.guru,
             deity: [Diety.indra, Diety.agni],
             symbol: Symbols.vishakha,
-            zodiac: { from: { angle: '20°', rasi: this.Rasi.Tula }, to: { angle: '3°20', rasi: this.Rasi.Vrscika } },
-            westernZodiac: { from: { angle: '13°46', rasi: this.Rasi.Vrscika }, to: { angle: '27°06', rasi: this.Rasi.Vrscika } }
+            zodiac: { from: { angle: '20°', rasi: this.Rasi.tula }, to: { angle: '3°20', rasi: this.Rasi.vrscika } },
+            westernZodiac: { from: { angle: '13°46', rasi: this.Rasi.vrscika }, to: { angle: '27°06', rasi: this.Rasi.vrscika } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Anuradha: {
+        [Nakshatra.anuradha]: {
             name: {
                 sanskrit: ['अनुराधा'],
                 odia: ['ଅନୁରାଧା'],
@@ -4197,10 +4661,18 @@ export class Panchangam {
             graha: Graha.shani,
             deity: [Diety.mitra],
             symbol: Symbols.anuradha,
-            zodiac: { from: { angle: '3°20', rasi: this.Rasi.Vrscika }, to: { angle: '16°40', rasi: this.Rasi.Vrscika } },
-            westernZodiac: { from: { angle: '27°06', rasi: this.Rasi.Vrscika }, to: { angle: '10°26', rasi: this.Rasi.Dhanusa } }
+            zodiac: { from: { angle: '3°20', rasi: this.Rasi.vrscika }, to: { angle: '16°40', rasi: this.Rasi.vrscika } },
+            westernZodiac: { from: { angle: '27°06', rasi: this.Rasi.vrscika }, to: { angle: '10°26', rasi: this.Rasi.dhanusa } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Jyeshtha: {
+        [Nakshatra.jyeshtha]: {
             name: {
                 sanskrit: ['ज्येष्ठा'],
                 odia: ['ଜ୍ୟୋଷ୍ଠା'],
@@ -4221,10 +4693,18 @@ export class Panchangam {
             graha: Graha.budha,
             deity: [Diety.indra],
             symbol: Symbols.jyeshtha,
-            zodiac: { from: { angle: '16°40', rasi: this.Rasi.Vrscika }, to: { angle: '30°', rasi: this.Rasi.Vrscika } },
-            westernZodiac: { from: { angle: '10°26', rasi: this.Rasi.Dhanusa }, to: { angle: '23°46', rasi: this.Rasi.Dhanusa } }
+            zodiac: { from: { angle: '16°40', rasi: this.Rasi.vrscika }, to: { angle: '30°', rasi: this.Rasi.vrscika } },
+            westernZodiac: { from: { angle: '10°26', rasi: this.Rasi.dhanusa }, to: { angle: '23°46', rasi: this.Rasi.dhanusa } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Mula: {
+        [Nakshatra.mula]: {
             name: {
                 sanskrit: ['मूल'],
                 odia: ['ମୂଳା'],
@@ -4245,10 +4725,18 @@ export class Panchangam {
             graha: Graha.ketu,
             deity: [Diety.nirrti],
             symbol: Symbols.mula,
-            zodiac: { from: { angle: '0°', rasi: this.Rasi.Dhanusa }, to: { angle: '13°20', rasi: this.Rasi.Dhanusa } },
-            westernZodiac: { from: { angle: '23°46', rasi: this.Rasi.Dhanusa }, to: { angle: '7°06', rasi: this.Rasi.Makara } }
+            zodiac: { from: { angle: '0°', rasi: this.Rasi.dhanusa }, to: { angle: '13°20', rasi: this.Rasi.dhanusa } },
+            westernZodiac: { from: { angle: '23°46', rasi: this.Rasi.dhanusa }, to: { angle: '7°06', rasi: this.Rasi.makara } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        PurvaAshadha: {
+        [Nakshatra.purvaAshadha]: {
             name: {
                 sanskrit: ['पूर्वाषाढा'],
                 odia: ['ପୂର୍ବାଷାଢା'],
@@ -4269,10 +4757,18 @@ export class Panchangam {
             graha: Graha.shukra,
             deity: [Diety.apah],
             symbol: Symbols.purvaAshadha,
-            zodiac: { from: { angle: '13°20', rasi: this.Rasi.Dhanusa }, to: { angle: '26°40', rasi: this.Rasi.Dhanusa } },
-            westernZodiac: { from: { angle: '7°06', rasi: this.Rasi.Makara }, to: { angle: '20°26', rasi: this.Rasi.Makara } }
+            zodiac: { from: { angle: '13°20', rasi: this.Rasi.dhanusa }, to: { angle: '26°40', rasi: this.Rasi.dhanusa } },
+            westernZodiac: { from: { angle: '7°06', rasi: this.Rasi.makara }, to: { angle: '20°26', rasi: this.Rasi.makara } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        UttaraAshadha: {
+        [Nakshatra.uttaraAshadha]: {
             name: {
                 sanskrit: ['उत्तराषाढा'],
                 odia: ['ଉତ୍ତରଷାଢା'],
@@ -4293,12 +4789,20 @@ export class Panchangam {
             graha: Graha.shukra,
             deity: [Diety.visvedevas],
             symbol: Symbols.uttaraAshadha,
-            zodiac: { from: { angle: '26°40', rasi: this.Rasi.Dhanusa }, to: { angle: '10°', rasi: this.Rasi.Makara } },
-            westernZodiac: { from: { angle: '20°26', rasi: this.Rasi.Makara }, to: { angle: '3°46', rasi: this.Rasi.Kumbha } }
+            zodiac: { from: { angle: '26°40', rasi: this.Rasi.dhanusa }, to: { angle: '10°', rasi: this.Rasi.makara } },
+            westernZodiac: { from: { angle: '20°26', rasi: this.Rasi.makara }, to: { angle: '3°46', rasi: this.Rasi.kumbha } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Shravana: {
+        [Nakshatra.shravana]: {
             name: {
-                श्sanskrit: ['रवण'],
+                sanskrit: ['श्रवण'],
                 odia: ['ଶ୍ରବଣା'],
                 malayalam: ['ഓണം', 'തിരുവോണം'],
                 tamil: ['திருவோணம்'],
@@ -4317,10 +4821,18 @@ export class Panchangam {
             graha: Graha.chandra,
             deity: [Diety.vishnu],
             symbol: Symbols.shravana,
-            zodiac: { from: { angle: '10°', rasi: this.Rasi.Makara }, to: { angle: '23°20', rasi: this.Rasi.Makara } },
-            westernZodiac: { from: { angle: '3°46', rasi: this.Rasi.Kumbha }, to: { angle: '17°06', rasi: this.Rasi.Kumbha } }
+            zodiac: { from: { angle: '10°', rasi: this.Rasi.makara }, to: { angle: '23°20', rasi: this.Rasi.makara } },
+            westernZodiac: { from: { angle: '3°46', rasi: this.Rasi.kumbha }, to: { angle: '17°06', rasi: this.Rasi.kumbha } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Dhanishta: {
+        [Nakshatra.dhanishta]: {
             name: {
                 sanskrit: ['श्रविष्ठा', 'धनिष्ठा'],
                 odia: ['ଧନିଷ୍ଠା'],
@@ -4341,10 +4853,18 @@ export class Panchangam {
             graha: Graha.mangala,
             deity: [Diety.vasu],
             symbol: Symbols.dhanishta,
-            zodiac: { from: { angle: '23°20', rasi: this.Rasi.Makara }, to: { angle: '6°40', rasi: this.Rasi.Kumbha } },
-            westernZodiac: { from: { angle: '17°06', rasi: this.Rasi.Kumbha }, to: { angle: '0°26', rasi: this.Rasi.Meena } }
+            zodiac: { from: { angle: '23°20', rasi: this.Rasi.makara }, to: { angle: '6°40', rasi: this.Rasi.kumbha } },
+            westernZodiac: { from: { angle: '17°06', rasi: this.Rasi.kumbha }, to: { angle: '0°26', rasi: this.Rasi.meena } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Shatabhisha: {
+        [Nakshatra.shatabhisha]: {
             name: {
                 sanskrit: ['शतभिषक्', 'शततारका'],
                 odia: ['ସତଭିଷା'],
@@ -4365,10 +4885,18 @@ export class Panchangam {
             graha: Graha.rahu,
             deity: [Diety.varuna],
             symbol: Symbols.shatabhisha,
-            zodiac: { from: { angle: '6°40', rasi: this.Rasi.Kumbha }, to: { angle: '20°', rasi: this.Rasi.Kumbha } },
-            westernZodiac: { from: { angle: '0°26', rasi: this.Rasi.Meena }, to: { angle: '13°46', rasi: this.Rasi.Meena } }
+            zodiac: { from: { angle: '6°40', rasi: this.Rasi.kumbha }, to: { angle: '20°', rasi: this.Rasi.kumbha } },
+            westernZodiac: { from: { angle: '0°26', rasi: this.Rasi.meena }, to: { angle: '13°46', rasi: this.Rasi.meena } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        PurvaBhadrapada: {
+        [Nakshatra.purvaBhadrapada]: {
             name: {
                 sanskrit: ['पूर्वभाद्रपदा', 'पूर्वप्रोष्ठपदा'],
                 odia: ['ପୂର୍ବଭାଦ୍ରପଦ'],
@@ -4389,10 +4917,18 @@ export class Panchangam {
             graha: Graha.guru,
             deity: [Diety.ajaikapada],
             symbol: Symbols.purvaBhadrapada,
-            zodiac: { from: { angle: '20°', rasi: this.Rasi.Kumbha }, to: { angle: '3°20', rasi: this.Rasi.Meena } },
-            westernZodiac: { from: { angle: '13°46', rasi: this.Rasi.Meena }, to: { angle: '27°06', rasi: this.Rasi.Meena } }
+            zodiac: { from: { angle: '20°', rasi: this.Rasi.kumbha }, to: { angle: '3°20', rasi: this.Rasi.meena } },
+            westernZodiac: { from: { angle: '13°46', rasi: this.Rasi.meena }, to: { angle: '27°06', rasi: this.Rasi.meena } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        UttaraBhadrapada: {
+        [Nakshatra.uttaraBhadrapada]: {
             name: {
                 sanskrit: ['उत्तरभाद्रपदा', 'उत्तरप्रोष्ठपदा'],
                 odia: ['ଉତ୍ତରାଭାଦ୍ରପଦ'],
@@ -4413,10 +4949,18 @@ export class Panchangam {
             graha: Graha.shani,
             deity: [Diety.ahirbudhnya],
             symbol: Symbols.uttaraBhadrapada,
-            zodiac: { from: { angle: '3°20', rasi: this.Rasi.Meena }, to: { angle: '16°40', rasi: this.Rasi.Meena } },
-            westernZodiac: { from: { angle: '27°06', rasi: this.Rasi.Meena }, to: { angle: '10°26', rasi: this.Rasi.Mesha } }
+            zodiac: { from: { angle: '3°20', rasi: this.Rasi.meena }, to: { angle: '16°40', rasi: this.Rasi.meena } },
+            westernZodiac: { from: { angle: '27°06', rasi: this.Rasi.meena }, to: { angle: '10°26', rasi: this.Rasi.mesha } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         },
-        Revati: {
+        [Nakshatra.revati]: {
             name: {
                 sanskrit: ['रेवती'],
                 odia: ['ରେବତୀ'],
@@ -4437,8 +4981,16 @@ export class Panchangam {
             graha: Graha.budha,
             deity: [Diety.pushan],
             symbol: Symbols.revati,
-            zodiac: { from: { angle: '16°40', rasi: this.Rasi.Meena }, to: { angle: '30°', rasi: this.Rasi.Meena } },
-            westernZodiac: { from: { angle: '10°26', rasi: this.Rasi.Mesha }, to: { angle: '23°46', rasi: this.Rasi.Mesha } }
+            zodiac: { from: { angle: '16°40', rasi: this.Rasi.meena }, to: { angle: '30°', rasi: this.Rasi.meena } },
+            westernZodiac: { from: { angle: '10°26', rasi: this.Rasi.mesha }, to: { angle: '23°46', rasi: this.Rasi.mesha } },
+            gana: '',
+            jaati: '',
+            vrksha: '',
+            pashu: '',
+            pakshi: '',
+            nadi: '',
+            varna: '',
+            ratna: ''
         }
     }
 
@@ -4526,6 +5078,7 @@ export class Panchangam {
     getKaala = (seconds: number) => VedaKaalaGhataka.samvatsara * seconds;
 
     getProperties = () => this.properties;
+    
     //#endregion
 
 }
