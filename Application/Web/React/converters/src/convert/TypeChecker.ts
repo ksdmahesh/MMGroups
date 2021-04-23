@@ -166,4 +166,9 @@ export default class TypeCheck {
         return array.splice(index, 0, insertItem);
     }
 
+    static takeNextIfNull = <T>(list: Array<T>): T => list.find((a: any) => !TypeCheck.isNull(a) && !TypeCheck.isUndefined(a)) || list[list.length - 1];
+
+    static toOADate = (date: Date) => (date.getTime() / 86400000) + (25569 - (date.getTimezoneOffset() / (60 * 24)));
+
+    static fromOADate = (oadate: number) => new Date(((oadate - 25569 + (((new Date(((oadate - 25569) * 86400000))).getTimezoneOffset()) / (60 * 24))) * 86400000));
 }

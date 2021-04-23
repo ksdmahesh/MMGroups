@@ -210,6 +210,8 @@ export class Complex {
 
     static conjugate = (value: Complex) => new Complex(value.realNumber, -value.imaginaryNumber);
 
+    static trunc = (value: Complex) => new Complex(Math.trunc(value.realNumber), Math.trunc(value.imaginaryNumber));
+
     static pow = (value: Complex, power: Complex) => {
         const log = Math.log(Math.sqrt(Math.pow(value.realNumber, 2) + Math.pow(value.imaginaryNumber, 2)));
         const arg = Complex.arg(value);
@@ -270,6 +272,17 @@ export class Complex {
         const { realNumber } = Complex.log(angleValue, new Complex(Math.E, 0));
 
         return new Complex(realNumber / 2, ((value.realNumber > 1 && 0 === value.imaginaryNumber) ? -1 : 1) * Complex.arg(angleValue) / 2);
+    }
+
+    static decimalToDeg = (a: Complex) => {
+        const degrees = Complex.trunc(a);
+        const b = { realNumber: `0.${`${a.realNumber}`.split('.')[1]}`, imaginaryNumber: `0.${`${a.imaginaryNumber}`.split('.')[1]}` };
+        const c = { realNumber: b.realNumber ? (+b.realNumber * 60) : +b.realNumber, imaginaryNumber: b.imaginaryNumber ? (+b.imaginaryNumber * 60) : +b.imaginaryNumber };
+        const minutes = Complex.trunc(new Complex(isNaN(c.realNumber) ? 0 : c.realNumber, isNaN(c.imaginaryNumber) ? 0 : c.imaginaryNumber));
+        const d = { realNumber: `0.${`${c.realNumber}`.split('.')[1]}`, imaginaryNumber: `0.${`${c.imaginaryNumber}`.split('.')[1]}` };
+        const e = { realNumber: d.realNumber ? (+d.realNumber * 60) : +d.realNumber, imaginaryNumber: d.imaginaryNumber ? (+d.imaginaryNumber * 60) : +d.imaginaryNumber };
+        const seconds = new Complex(isNaN(e.realNumber) ? 0 : e.realNumber, isNaN(e.imaginaryNumber) ? 0 : e.imaginaryNumber);
+        return `${degrees.toString()}°${minutes.toString()}'${seconds.toString()}"`;
     }
 
     static degToRad = (a: Complex) => a.multiply(new Complex(180, 0)).divide(new Complex(Math.PI, 0))
@@ -840,6 +853,16 @@ export class Algebra {
     static pow = (value: number, power: number) => Math.pow(value, power);
 
     static log = (value: number, base: number) => (Math.log(value) / Math.log(base));
+
+    static decimalToDeg = (a: number) => {
+        const degrees = Math.trunc(a);
+        const b = `0.${`${a}`.split('.')[1]}`;
+        const c = b ? (+b * 60) : +b;
+        const minutes = Math.trunc(c);
+        const d = `0.${`${c}`.split('.')[1]}`;
+        const seconds = d ? (+d * 60) : +d;
+        return `${degrees}°${minutes || 0}'${seconds || 0}"`;
+    }
 
     static degToRad = (a: number) => ((a * 180) / (Math.PI));
 
@@ -2783,6 +2806,17 @@ export default class Maths {
                 return Maths.getInverseAngle(Trigonometry.atanh(a as number), mode);
             case ConstructorTypes.Complex:
                 return Maths.getInverseAngle(Complex.atanh(a as Complex), mode);
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
+
+    static DecimalToDeg = <T extends Complex | number>(a: T) => {
+        switch (a.constructor.name) {
+            case ConstructorTypes.Number:
+                return Algebra.decimalToDeg(a as number);
+            case ConstructorTypes.Complex:
+                return Complex.decimalToDeg(a as Complex);
             default:
                 throw new Error('Invalid Type Passed');
         }

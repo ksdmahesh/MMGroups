@@ -1,6 +1,11 @@
-//#region enums
+//#region imports
 
-import Maths from "./Math";
+import Maths, { Mode } from "./Math";
+import TypeCheck from "./TypeChecker";
+
+//#endregion
+
+//#region enums
 
 export enum Diety {
     ashvins = 'ashvins',
@@ -588,27 +593,68 @@ export enum Nakshatra {
     revati = 'revati',
 }
 
+export enum CalendarType {
+    saka = 'saka',
+    vikrama = 'vikrama',
+    vikramaKaartika = 'vikramaKaartika',
+    default = 'default',
+    defaultNorth = 'defaultNorth'
+}
+
 //#endregion
 
 //#region Types
 
-type Properties = {
+type PanchangaType = {
     akshamsha?: number,
     rekamsha?: number,
+    /**
+     * @type default: true
+     * @type true: month starts with amaavasya
+     * @type false: month starts with paurnami
+     */
+    maasaarambhaAmaavasya?: boolean,
+    /**
+     * @type default: sanskrit
+     */
+    language?: keyof Name['name'],
+    /**
+     * @type default: true
+     * @type true: displays language equivalent transliteration script
+     * @type false: displays selected language script
+     */
+    transliterate?: boolean,
+    /**
+     * @type default: current date and time
+     * @type Date: if provide result is based on provided date
+     */
+    date?: Date,
+    calendarType?: CalendarType,
+    /**
+     * @typedef sun's declination
+     */
+    suryaapratigraha?: string,
+    /**
+     * @typedef sun's right ascension
+     */
+    suryalankodhaya?: string
+};
+
+type Properties = {
     rasi?: string,
-    yuga?: string,
+    yuga?: { name: string[], currentYear: number, startsOn: Date, endsOn: Date },
     yugaStartedOn?: string,
     yugaEndsOn?: string,
-    samvatsara?: string,
+    samvatsara?: { name: string[], year: number },
     yoga?: string,
-    karana?: string[],
-    rtu?: string,
-    aayana?: string,
+    karana?: string[][],
+    rtu?: string[],
+    aayana?: string[][],
     vaara?: string,
-    maasa?: string,
-    suryaMaasa?: string,
-    paksha?: string,
-    tithi?: string,
+    maasa?: string[],
+    suryaMaasa?: string[],
+    paksha?: keyof PakshaType,
+    tithi?: string[],
     nakshatra?: string,
     graha?: string,
     rahuKaala?: string,
@@ -616,8 +662,9 @@ type Properties = {
     guliKaala?: string,
     abhijit?: string,
     durMuhurta?: string,
-    maasaarambhaAmaavasya?: boolean
-};
+    suryodhaya?: Date,
+    suryaasthama?: Date
+} & PanchangaType;
 
 type Name = {
     name: {
@@ -644,7 +691,7 @@ type BhutaType = { [key in keyof typeof Bhuta]: Name & { diety: Diety, dosha: Do
 
 type RasiType = { [key in keyof typeof Rasi]: Name & { westernZodiac: string, stiraChara: string, bhuta: BhutaType['agni'], graha: string, mitra: Rasi[], satru: Rasi[] } };
 
-type YugaType = { [key in keyof typeof Yuga]: Name };
+type YugaType = { [key in keyof typeof Yuga]: Name & { startsOn: Date, endsOn: Date, lifeSpan: number, height: string } };
 
 type LokaType = { [key in keyof typeof Loka]: Name };
 
@@ -664,7 +711,7 @@ type MaasaType = { [key in keyof typeof Maasa]: Name & { suryaMaasa: RasiType['m
 
 type PakshaType = { [key in keyof typeof Paksha]: Name };
 
-type TithiType = { [key in keyof typeof Tithi]: Name & { diety: string, karana: { sukla: KaranaType['bava'][], krshna: KaranaType['bava'][] } } };
+type TithiType = { [key in keyof typeof Tithi]: Name & { diety: string, karana: { [Paksha.shukla]: KaranaType['bava'][], [Paksha.krshna]: KaranaType['bava'][] } } };
 
 type NakshatraType = { [key in keyof typeof Nakshatra]: Name & { pada: string[], description: string, associatedStars: string, graha: string, deity: string[], symbol: string, zodiac: { from: { angle: string, rasi: RasiType['mesha'] }, to: { angle: string, rasi: RasiType['mesha'] } }, westernZodiac: { from: { angle: string, rasi: RasiType['mesha'] }, to: { angle: string, rasi: RasiType['mesha'] } }, gana: string, jaati: string, vrksha: string, pashu: string, pakshi: string, nadi: string, varna: string, ratna: string } };
 
@@ -1256,7 +1303,11 @@ export class Panchangam {
                 mongolian: [''],
                 chinese: ['圆满时'],
                 tibetan: ['']
-            }
+            },
+            startsOn: new Date(-3891102, 0, 1),
+            endsOn: new Date(-2163103, 0, 1),
+            lifeSpan: 100000,
+            height: '33 ft, 6 inches'
         },
         [Yuga.treta]: {
             name: {
@@ -1272,7 +1323,11 @@ export class Panchangam {
                 mongolian: [''],
                 chinese: ['三分时'],
                 tibetan: ['']
-            }
+            },
+            startsOn: new Date(-2163102, 0, 1),
+            endsOn: new Date(-867103, 0, 1),
+            lifeSpan: 10000,
+            height: '22 ft, 4 inches'
         },
         [Yuga.dvapara]: {
             name: {
@@ -1288,7 +1343,11 @@ export class Panchangam {
                 mongolian: [''],
                 chinese: ['二分时'],
                 tibetan: ['']
-            }
+            },
+            startsOn: new Date(-867102, 0, 1),
+            endsOn: new Date(-3103, 0, 1),
+            lifeSpan: 1000,
+            height: '11 ft, 2 inches'
         },
         [Yuga.kali]: {
             name: {
@@ -1304,7 +1363,11 @@ export class Panchangam {
                 mongolian: [''],
                 chinese: ['争斗时'],
                 tibetan: ['']
-            }
+            },
+            startsOn: new Date(-3102, 0, 1),
+            endsOn: new Date(428899, 0, 1),
+            lifeSpan: 100,
+            height: '5 ft, 3 inches'
         }
     }
 
@@ -3806,8 +3869,8 @@ export class Panchangam {
             },
             diety: Diety.agni,
             karana: {
-                sukla: [this.Karana.kimstughna, this.Karana.bava],
-                krshna: [this.Karana.baalava, this.Karana.kaulava]
+                [Paksha.shukla]: [this.Karana.kimstughna, this.Karana.bava],
+                [Paksha.krshna]: [this.Karana.baalava, this.Karana.kaulava]
             }
         },
         [Tithi.dvitiya]: {
@@ -3827,8 +3890,8 @@ export class Panchangam {
             },
             diety: Diety.brahma,
             karana: {
-                sukla: [this.Karana.baalava, this.Karana.kaulava],
-                krshna: [this.Karana.taitula, this.Karana.garaja]
+                [Paksha.shukla]: [this.Karana.baalava, this.Karana.kaulava],
+                [Paksha.krshna]: [this.Karana.taitula, this.Karana.garaja]
             }
         },
         [Tithi.trtiya]: {
@@ -3848,8 +3911,8 @@ export class Panchangam {
             },
             diety: Diety.gauri,
             karana: {
-                sukla: [this.Karana.taitula, this.Karana.garaja],
-                krshna: [this.Karana.vanija, this.Karana.vishti]
+                [Paksha.shukla]: [this.Karana.taitula, this.Karana.garaja],
+                [Paksha.krshna]: [this.Karana.vanija, this.Karana.vishti]
             }
         },
         [Tithi.chaturti]: {
@@ -3869,8 +3932,8 @@ export class Panchangam {
             },
             diety: Diety.vinayaka,
             karana: {
-                sukla: [this.Karana.vanija, this.Karana.vishti],
-                krshna: [this.Karana.bava, this.Karana.baalava]
+                [Paksha.shukla]: [this.Karana.vanija, this.Karana.vishti],
+                [Paksha.krshna]: [this.Karana.bava, this.Karana.baalava]
             }
         },
         [Tithi.panchami]: {
@@ -3890,8 +3953,8 @@ export class Panchangam {
             },
             diety: Diety.sarpas,
             karana: {
-                sukla: [this.Karana.bava, this.Karana.baalava],
-                krshna: [this.Karana.kaulava, this.Karana.taitula]
+                [Paksha.shukla]: [this.Karana.bava, this.Karana.baalava],
+                [Paksha.krshna]: [this.Karana.kaulava, this.Karana.taitula]
             }
         },
         [Tithi.shasti]: {
@@ -3911,8 +3974,8 @@ export class Panchangam {
             },
             diety: Diety.kumaraswaymi,
             karana: {
-                sukla: [this.Karana.kaulava, this.Karana.taitula],
-                krshna: [this.Karana.garaja, this.Karana.vanija]
+                [Paksha.shukla]: [this.Karana.kaulava, this.Karana.taitula],
+                [Paksha.krshna]: [this.Karana.garaja, this.Karana.vanija]
             }
         },
         [Tithi.saptami]: {
@@ -3932,8 +3995,8 @@ export class Panchangam {
             },
             diety: Diety.surya,
             karana: {
-                sukla: [this.Karana.garaja, this.Karana.vanija],
-                krshna: [this.Karana.vishti, this.Karana.bava]
+                [Paksha.shukla]: [this.Karana.garaja, this.Karana.vanija],
+                [Paksha.krshna]: [this.Karana.vishti, this.Karana.bava]
             }
         },
         [Tithi.ashtami]: {
@@ -3953,8 +4016,8 @@ export class Panchangam {
             },
             diety: Diety.shiva,
             karana: {
-                sukla: [this.Karana.vishti, this.Karana.bava],
-                krshna: [this.Karana.baalava, this.Karana.kaulava]
+                [Paksha.shukla]: [this.Karana.vishti, this.Karana.bava],
+                [Paksha.krshna]: [this.Karana.baalava, this.Karana.kaulava]
             }
         },
         [Tithi.navami]: {
@@ -3974,8 +4037,8 @@ export class Panchangam {
             },
             diety: Diety.durga,
             karana: {
-                sukla: [this.Karana.baalava, this.Karana.kaulava],
-                krshna: [this.Karana.taitula, this.Karana.garaja]
+                [Paksha.shukla]: [this.Karana.baalava, this.Karana.kaulava],
+                [Paksha.krshna]: [this.Karana.taitula, this.Karana.garaja]
             }
         },
         [Tithi.dasami]: {
@@ -3995,8 +4058,8 @@ export class Panchangam {
             },
             diety: Diety.yama,
             karana: {
-                sukla: [this.Karana.taitula, this.Karana.garaja],
-                krshna: [this.Karana.vanija, this.Karana.vishti]
+                [Paksha.shukla]: [this.Karana.taitula, this.Karana.garaja],
+                [Paksha.krshna]: [this.Karana.vanija, this.Karana.vishti]
             }
         },
         [Tithi.ekadasi]: {
@@ -4016,8 +4079,8 @@ export class Panchangam {
             },
             diety: Diety.visvedevas,
             karana: {
-                sukla: [this.Karana.vanija, this.Karana.vishti],
-                krshna: [this.Karana.bava, this.Karana.baalava]
+                [Paksha.shukla]: [this.Karana.vanija, this.Karana.vishti],
+                [Paksha.krshna]: [this.Karana.bava, this.Karana.baalava]
             }
         },
         [Tithi.dvadasi]: {
@@ -4037,8 +4100,8 @@ export class Panchangam {
             },
             diety: Diety.vishnu,
             karana: {
-                sukla: [this.Karana.bava, this.Karana.baalava],
-                krshna: [this.Karana.kaulava, this.Karana.taitula]
+                [Paksha.shukla]: [this.Karana.bava, this.Karana.baalava],
+                [Paksha.krshna]: [this.Karana.kaulava, this.Karana.taitula]
             }
         },
         [Tithi.trayodasi]: {
@@ -4058,8 +4121,8 @@ export class Panchangam {
             },
             diety: Diety.manmadha,
             karana: {
-                sukla: [this.Karana.kaulava, this.Karana.taitula],
-                krshna: [this.Karana.garaja, this.Karana.vanija]
+                [Paksha.shukla]: [this.Karana.kaulava, this.Karana.taitula],
+                [Paksha.krshna]: [this.Karana.garaja, this.Karana.vanija]
             }
         },
         [Tithi.chaturdasi]: {
@@ -4079,20 +4142,20 @@ export class Panchangam {
             },
             diety: Diety.shiva,
             karana: {
-                sukla: [this.Karana.garaja, this.Karana.vanija],
-                krshna: [this.Karana.vishti, this.Karana.shakuni]
+                [Paksha.shukla]: [this.Karana.garaja, this.Karana.vanija],
+                [Paksha.krshna]: [this.Karana.vishti, this.Karana.shakuni]
             }
         },
         [Tithi.paurnami]: {
             name: {
-                sanskrit: ['पूर्णिमा', 'पूर्णिमा'],
+                sanskrit: ['पौर्णमि', 'पूर्णिमा'],
                 odia: ['ପୂର୍ଣ୍ଣିମା'],
                 malayalam: ['പൌർണമിയോ'],
                 tamil: ['பௌர்ணமி', 'முழுநிலவு', 'முழுமதி'],
                 sinhala: [''],
                 dhivehi: [''],
                 telugu: ['పున్నమి', 'పూర్ణిమ', 'పౌర్ణమి'],
-                kannada: ['ಪೂರ್ಣಿಮಾ'],
+                kannada: ['ಪೌರ್ಣಮಿ', 'ಪೂರ್ಣಿಮಾ'],
                 bengali: ['পূর্ণিমা'],
                 mongolian: [''],
                 chinese: [''],
@@ -4100,8 +4163,8 @@ export class Panchangam {
             },
             diety: Diety.soma,
             karana: {
-                sukla: [this.Karana.vishti, this.Karana.bava],
-                krshna: []
+                [Paksha.shukla]: [this.Karana.vishti, this.Karana.bava],
+                [Paksha.krshna]: []
             }
         },
         [Tithi.amavasya]: {
@@ -4121,8 +4184,8 @@ export class Panchangam {
             },
             diety: Diety.pitrs,
             karana: {
-                sukla: [],
-                krshna: [this.Karana.chatushpaada, this.Karana.naaga]
+                [Paksha.shukla]: [],
+                [Paksha.krshna]: [this.Karana.chatushpaada, this.Karana.naaga]
             }
         }
     }
@@ -4998,25 +5061,61 @@ export class Panchangam {
 
     //#region constructor
 
-    constructor(akshamsha: number, rekamsha: number, maasaarambhaAmaavasya?: boolean) {
-        this.properties.akshamsha = akshamsha;
-        this.properties.rekamsha = rekamsha;
-        this.properties.maasaarambhaAmaavasya = maasaarambhaAmaavasya;
+    constructor(props: PanchangaType) {
+        navigator.geolocation.getCurrentPosition((position) => this.getProperties({ position, props }), () => this.getProperties({ props }));
     }
 
     //#endregion
 
     //#region private functions
 
-    private julianDay = (d: number, m: number, y: number) => ((1461 * (y + 4800 + (m - 14) / 12)) / 4 + (367 * (m - 2 - 12 * ((m - 14) / 12))) / 12 - (3 * ((y + 4900 + (m - 14) / 12) / 100)) / 4 + d - 32075)
+    private getProperties = (props: { position?: any, props: PanchangaType }) => {
+        this.properties.akshamsha = TypeCheck.takeNextIfNull([props.props.akshamsha, props.position?.coords.latitude, 0]);
+        this.properties.rekamsha = TypeCheck.takeNextIfNull([props.props.rekamsha, props.position?.coords.longitude, 0]);
+        this.properties.maasaarambhaAmaavasya = TypeCheck.takeNextIfNull([props.props.maasaarambhaAmaavasya, true]);
+        this.properties.language = TypeCheck.takeNextIfNull([props.props.language, 'sanskrit']);
+        this.properties.transliterate = TypeCheck.takeNextIfNull([props.props.transliterate, true]);
+        this.properties.date = props.props.date;
+        this.setProperties();
+    }
+
+    private julianDay = (date: Date) => (TypeCheck.toOADate(date) + 2415018.5);
+
+    private gregorianDay = (julian: number) => TypeCheck.fromOADate(julian - 2415018.5);
 
     private moonPhase = (d: number, m: number, y: number) => parseFloat(`0.${`${(2 - parseInt(`${y / 100}`) + parseInt(`${parseInt(`${y / 100}`) / 4}`) + d + parseInt(`${365.25 * (y + 4716)}`) + parseInt(`${30.6001 * ((m < 3 ? m + 11 : m) + 1)}`) - 1524.5 - 2451549.5) / 29.53}`.split('.')[1]}`) * 29.53;
 
-    //#endregion
+    private getSunRiseAndSet = (date: Date) => {
+        const { meanHour, solarTransit } = this.getMeanHourAndTransit(date);
+        this.properties.suryodhaya = this.gregorianDay(solarTransit - (meanHour / 360));
+        this.properties.suryaasthama = this.gregorianDay(solarTransit + (meanHour / 360));
+    }
 
-    //#region functions
+    private getMeanLongitude = (date: Date) => 280.460 + (0.9856474 * (this.julianDay(date) - 2451545));
 
-    getBhogansha = (graha: Graha) => {
+    private getMeanSolarDay = (date: Date) => (this.julianDay(date) - 2451545 + (69.184 / 86400) - ((this.properties.rekamsha || 0) / 360));
+
+    private getMeanHourAndTransit = (date: Date) => {
+        const { declination, rightAscension, solarTransit } = this.getSunDeclinationAndTransit(date);
+        this.properties.suryaapratigraha = Maths.DecimalToDeg(declination);
+        this.properties.suryalankodhaya = Maths.DecimalToDeg(rightAscension);
+        return { meanHour: Maths.ACos(((Maths.Sin(-0.83, Mode.Degree) as number) - ((Maths.Sin(this.properties.akshamsha || 0, Mode.Degree) as number) * (Maths.Sin(declination, Mode.Degree) as number))) / (((Maths.Cos(this.properties.akshamsha || 0, Mode.Degree) as number) * (Maths.Cos(declination, Mode.Degree) as number))), Mode.Degree) as number, solarTransit };
+    }
+
+    private getSolarTransit = (meanSolarTime: number, solarMeanAnomaly: number, eclipticLongitude: number) => 2451545.0 + meanSolarTime + (0.0053 * (Maths.Sin(solarMeanAnomaly, Mode.Degree) as number)) - (0.0069 * (Maths.Sin(2 * eclipticLongitude, Mode.Degree) as number));
+
+    private getSunDeclinationAndTransit = (date: Date) => {
+        const meanSolarTime = this.getMeanSolarDay(date);
+        const solarMeanAnomaly = (357.5291 + 0.98560028 * meanSolarTime) % 360;
+        const equationOfCenter = (1.9148 * (Maths.Sin(solarMeanAnomaly, Mode.Degree) as number)) + (0.02 * (Maths.Sin(2 * solarMeanAnomaly, Mode.Degree) as number)) + (0.0003 * (Maths.Sin(3 * solarMeanAnomaly, Mode.Degree) as number));
+        const eclipticLongitude = (solarMeanAnomaly + equationOfCenter + 180 + 102.9372) % 360;
+        const solarTransit = this.getSolarTransit(meanSolarTime, solarMeanAnomaly, eclipticLongitude);
+        const AU = 1.00014 - (0.01671 * (Maths.Cos(solarMeanAnomaly, Mode.Degree) as number)) - (0.00014 * (Maths.Cos(2 * solarMeanAnomaly, Mode.Degree) as number));
+        const obliquityOfEcliptic = 23.439 - (0.0000004 * meanSolarTime);
+        return { rightAscension: (Maths.ATan((Maths.Cos(obliquityOfEcliptic, Mode.Degree) as number) * (Maths.Tan(eclipticLongitude, Mode.Degree) as number), Mode.Degree) as number), declination: Maths.ASin((Maths.Sin(eclipticLongitude, Mode.Degree) as number) * (Maths.Sin(23.44, Mode.Degree) as number), Mode.Degree) as number, solarTransit };
+    }
+
+    private getBhogansha = (graha: Graha) => {
         switch (graha) {
             case Graha.chandra:
                 return 143.364;
@@ -5027,7 +5126,9 @@ export class Panchangam {
         }
     }
 
-    getTithi = (d: number, m: number, y: number) => {
+    private getName = (name: Name) => name?.name?.[this.properties.language || 'sanskrit'];
+
+    private getTithi = (d: number, m: number, y: number) => {
         const tithi = Math.floor(this.moonPhase(d, m, y));
         const allTithis = Object.entries(this.Tithi);
         let index;
@@ -5037,48 +5138,105 @@ export class Panchangam {
                 index = 16;
             }
             else {
-                index = 15 - tithi - 1;
+                index = Math.abs(15 - tithi - 1);
             }
         } else {
             index = tithi - 1;
         }
         this.properties.paksha = 'shukla';
-        this.properties.tithi = allTithis[index][0];
+        this.properties.tithi = this.getName(allTithis[index][1]);
         return allTithis[index][1];
     }
 
-    // ghati, vikathi
     // 27 with 800' each total 360deg 1/60deg of each
-    getYoga = () => (Maths.DegToRad(Maths.MinuteToDeg((this.getBhogansha(Graha.chandra) + this.getBhogansha(Graha.surya)))) as number / (Maths.DegToRad(Maths.MinuteToDeg(800)) as number));
+    private getYoga = () => (Maths.DegToRad(Maths.MinuteToDeg((this.getBhogansha(Graha.chandra) + this.getBhogansha(Graha.surya)))) as number / (Maths.DegToRad(Maths.MinuteToDeg(800)) as number));
 
-    getKarana = (d: number, m: number, y: number) => {
-        const tithi = this.getTithi(d, m, y)?.karana;
-        // this.properties.karana = (this.properties?.paksha === 'shukla'
-        //     ?
-        //     tithi?.sukla
-        //     :
-        //     tithi?.krshna);
-        return (
-            this.properties?.paksha === 'shukla'
-                ?
-                tithi?.sukla
-                :
-                tithi?.krshna
-        );
+    private setKarana = (tithi: TithiType['prathama']) => {
+        this.properties.karana = tithi?.karana?.[this.properties?.paksha || Paksha.shukla]?.map(a => this.getName(a));
     }
 
-    getNakshatra = () => ((this.getBhogansha(Graha.chandra) - this.getBhogansha(Graha.surya)) / 12);
+    private getNakshatra = () => ((this.getBhogansha(Graha.chandra) - this.getBhogansha(Graha.surya)) / 12);
 
-    getDivasa = () => ((this.getBhogansha(Graha.chandra) - this.getBhogansha(Graha.surya)) / 12);
+    private getDivasa = (maasa: number) => ((this.getBhogansha(Graha.chandra) - this.getBhogansha(Graha.surya)) / 12);
 
-    getSamvatsara = () => ((this.getBhogansha(Graha.chandra) - this.getBhogansha(Graha.surya)) / 12);
+    private getMaasa = () => {
+        const maasa = 0;
+        const allMaasas = Object.entries(this.Maasa);
+        this.properties.maasa = this.getName(allMaasas[maasa][1]);
+        this.properties.suryaMaasa = this.getName(allMaasas[maasa][1].suryaMaasa);
+        this.properties.aayana = allMaasas[maasa][1].aayana.map(a => this.getName(a));
+        this.properties.rtu = this.getName(allMaasas[maasa][1].rtu);
+        return maasa;
+    }
 
-    getYuga = () => ((this.getBhogansha(Graha.chandra) - this.getBhogansha(Graha.surya)) / 12);
+    private getSamvatsara = (year: number, maasa: number) => {
+        switch (this.properties.calendarType) {
+            case CalendarType.defaultNorth:
+                this.properties.samvatsara = {
+                    year: (year + 56 + (maasa - 8 >= 0 ? 1 : 0)),
+                    name: this.getName(this.Samvatsara.akshaya)
+                };
+                break;
+            case CalendarType.saka:
+                this.properties.samvatsara = {
+                    year: year - 78,
+                    name: this.getName(this.Samvatsara.akshaya)
+                };
+                break;
+            case CalendarType.vikrama:
+                this.properties.samvatsara = {
+                    year: (year + 57),
+                    name: this.getName(this.Samvatsara.akshaya)
+                };
+                break;
+            case CalendarType.vikramaKaartika:
+                this.properties.samvatsara = {
+                    year: (year + 56 + (maasa - 7 > 0 ? 1 : 0)),
+                    name: this.getName(this.Samvatsara.akshaya)
+                };
+                break;
+            default:
+                this.properties.samvatsara = {
+                    year: (year + 57),
+                    name: this.getName(this.Samvatsara.akshaya)
+                };
+                break;
+        }
+    }
 
-    getKaala = (seconds: number) => VedaKaalaGhataka.samvatsara * seconds;
+    private setYuga = (yuga: Yuga, year: number) => {
+        this.properties.yuga = {
+            name: this.getName(this.Yuga[yuga]),
+            currentYear: 3102 + year,
+            startsOn: this.Yuga[yuga].startsOn,
+            endsOn: this.Yuga[yuga].endsOn
+        };
+    }
 
-    getProperties = () => this.properties;
-    
+    private getKaala = (seconds: number) => VedaKaalaGhataka.samvatsara * seconds;
+
+    private callback = (date: Date) => {
+        const year = date.getFullYear();
+        const tithi = this.getTithi(date.getDate(), date.getMonth(), year);
+        this.getSunRiseAndSet(date);
+        this.setKarana(tithi);
+        this.getYoga();
+        this.getNakshatra();
+        const maasa = this.getMaasa();
+        this.getDivasa(maasa);
+        this.getSamvatsara(year, maasa);
+        this.setYuga(Yuga.kali, year);
+        this.getKaala(1);
+    }
+
+    private setProperties = () => {
+        if (this.properties.date) {
+            this.callback(this.properties.date);
+        } else {
+            this.callback(new Date(Date.now()));
+        }
+    }
+
     //#endregion
 
 }
