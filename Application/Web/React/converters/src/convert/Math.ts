@@ -285,6 +285,8 @@ export class Complex {
         return `${degrees.toString()}°${minutes.toString()}'${seconds.toString()}"`;
     }
 
+    static degToHour = (a: Complex) => a.divide(new Complex(15, 0));
+
     static degToRad = (a: Complex) => a.multiply(new Complex(180, 0)).divide(new Complex(Math.PI, 0))
 
     static radToDeg = (a: Complex) => a.multiply(new Complex(Math.PI, 0)).divide(new Complex(180, 0));
@@ -863,6 +865,10 @@ export class Algebra {
         const seconds = d ? (+d * 60) : +d;
         return `${degrees}°${minutes || 0}'${seconds || 0}"`;
     }
+
+    static timeToHour = (a: Date) => (a.getUTCHours() + (a.getUTCMinutes() / 60) + (a.getUTCSeconds() / 3600) + (a.getUTCMilliseconds() / 3600000));
+
+    static degToHour = (a: number) => (a / 15);
 
     static degToRad = (a: number) => ((a * 180) / (Math.PI));
 
@@ -2821,6 +2827,19 @@ export default class Maths {
                 throw new Error('Invalid Type Passed');
         }
     }
+
+    static DegToHour = <T extends Complex | number>(a: T) => {
+        switch (a.constructor.name) {
+            case ConstructorTypes.Number:
+                return Algebra.degToHour(a as number);
+            case ConstructorTypes.Complex:
+                return Complex.degToHour(a as Complex);
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
+
+    static TimeToHour = Algebra.timeToHour;
 
     static DegToRad = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {

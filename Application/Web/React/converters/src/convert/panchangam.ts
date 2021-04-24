@@ -5083,7 +5083,7 @@ export class Panchangam {
 
     private gregorianDay = (julian: number) => TypeCheck.fromOADate(julian - 2415018.5);
 
-    private moonPhase = (d: number, m: number, y: number) => parseFloat(`0.${`${(2 - parseInt(`${y / 100}`) + parseInt(`${parseInt(`${y / 100}`) / 4}`) + d + parseInt(`${365.25 * (y + 4716)}`) + parseInt(`${30.6001 * ((m < 3 ? m + 11 : m) + 1)}`) - 1524.5 - 2451549.5) / 29.53}`.split('.')[1]}`) * 29.53;
+    private moonPhase = (d: number, m: number, y: number) => parseFloat(`0.${`${(2 - parseInt(`${y / 100}`) + parseInt(`${parseInt(`${y / 100}`) / 4}`) + d + parseInt(`${365.25636 * (y + 4716)}`) + parseInt(`${30.6001 * ((m < 3 ? m + 11 : m) + 1)}`) - 1524.5 - 2451549.5) / 29.53}`.split('.')[1]}`) * 29.53;
 
     private getSunRiseAndSet = (date: Date) => {
         const { meanHour, solarTransit } = this.getMeanHourAndTransit(date);
@@ -5091,12 +5091,10 @@ export class Panchangam {
         this.properties.suryaasthama = this.gregorianDay(solarTransit + (meanHour / 360));
     }
 
-    private getMeanLongitude = (date: Date) => 280.460 + (0.9856474 * (this.julianDay(date) - 2451545));
-
     private getMeanSolarDay = (date: Date) => (this.julianDay(date) - 2451545 + (69.184 / 86400) - ((this.properties.rekamsha || 0) / 360));
 
     private getMeanHourAndTransit = (date: Date) => {
-        const { declination, rightAscension, solarTransit } = this.getSunDeclinationAndTransit(date);
+        const { declination, rightAscension, solarTransit } = this.getSunRightAscensionDeclinationAndTransit(date);
         this.properties.suryaapratigraha = Maths.DecimalToDeg(declination);
         this.properties.suryalankodhaya = Maths.DecimalToDeg(rightAscension);
         return { meanHour: Maths.ACos(((Maths.Sin(-0.83, Mode.Degree) as number) - ((Maths.Sin(this.properties.akshamsha || 0, Mode.Degree) as number) * (Maths.Sin(declination, Mode.Degree) as number))) / (((Maths.Cos(this.properties.akshamsha || 0, Mode.Degree) as number) * (Maths.Cos(declination, Mode.Degree) as number))), Mode.Degree) as number, solarTransit };
@@ -5104,7 +5102,7 @@ export class Panchangam {
 
     private getSolarTransit = (meanSolarTime: number, solarMeanAnomaly: number, eclipticLongitude: number) => 2451545.0 + meanSolarTime + (0.0053 * (Maths.Sin(solarMeanAnomaly, Mode.Degree) as number)) - (0.0069 * (Maths.Sin(2 * eclipticLongitude, Mode.Degree) as number));
 
-    private getSunDeclinationAndTransit = (date: Date) => {
+    private getSunRightAscensionDeclinationAndTransit = (date: Date) => {
         const meanSolarTime = this.getMeanSolarDay(date);
         const solarMeanAnomaly = (357.5291 + 0.98560028 * meanSolarTime) % 360;
         const equationOfCenter = (1.9148 * (Maths.Sin(solarMeanAnomaly, Mode.Degree) as number)) + (0.02 * (Maths.Sin(2 * solarMeanAnomaly, Mode.Degree) as number)) + (0.0003 * (Maths.Sin(3 * solarMeanAnomaly, Mode.Degree) as number));
@@ -5112,7 +5110,37 @@ export class Panchangam {
         const solarTransit = this.getSolarTransit(meanSolarTime, solarMeanAnomaly, eclipticLongitude);
         const AU = 1.00014 - (0.01671 * (Maths.Cos(solarMeanAnomaly, Mode.Degree) as number)) - (0.00014 * (Maths.Cos(2 * solarMeanAnomaly, Mode.Degree) as number));
         const obliquityOfEcliptic = 23.439 - (0.0000004 * meanSolarTime);
-        return { rightAscension: (Maths.ATan((Maths.Cos(obliquityOfEcliptic, Mode.Degree) as number) * (Maths.Tan(eclipticLongitude, Mode.Degree) as number), Mode.Degree) as number), declination: Maths.ASin((Maths.Sin(eclipticLongitude, Mode.Degree) as number) * (Maths.Sin(23.44, Mode.Degree) as number), Mode.Degree) as number, solarTransit };
+        return { rightAscension: Maths.DegToHour(Maths.ATan((Maths.Cos(obliquityOfEcliptic, Mode.Degree) as number) * (Maths.Tan(eclipticLongitude, Mode.Degree) as number), Mode.Degree) as number), declination: Maths.ASin((Maths.Sin(eclipticLongitude, Mode.Degree) as number) * (Maths.Sin(23.44, Mode.Degree) as number), Mode.Degree) as number, solarTransit };
+    }
+
+    private getMoonRiseAndSet = (date: Date) => {
+        const { meanHour, solarTransit } = this.getMeanHourAndTransit(date);
+        this.properties.suryodhaya = this.gregorianDay(solarTransit - (meanHour / 360));
+        this.properties.suryaasthama = this.gregorianDay(solarTransit + (meanHour / 360));
+    }
+
+    private getGMST = (julianNumber: number) => {
+        const T = (julianNumber - 2451545.0) / 36525;
+        return 24110.54841 + (8640184.812866 * T) + (0.093104 * T * T) - (0.0000062 * T * T * T);
+    }
+
+    private getGMST2 = (date: Date) => {
+        return 100.4606184 + (0.9856473662862 * (this.getMeanSolarDay(date))) + (15 * Maths.TimeToHour(date));
+    }
+
+    private getLMST = (julianNumber: number) => (this.getGMST(julianNumber) + (this.properties.rekamsha || 0));
+
+    private getLMST2 = (date: Date) => (this.getGMST2(date) + (this.properties.rekamsha || 0));
+
+    private getMoonRightAscensionDeclinationAndTransit = (date: Date) => {
+        const moonIncline = 5.14;
+        const sunIncline = 23.5;
+        const moonOrbit = 27.32166;
+        const earthOrbit = 23.439;
+        const ascendingNode = 0;
+        const descendingNode = 0;
+        const shift = 18.59992;
+        const shallow = 5.14;
     }
 
     private getBhogansha = (graha: Graha) => {
@@ -5216,9 +5244,12 @@ export class Panchangam {
     private getKaala = (seconds: number) => VedaKaalaGhataka.samvatsara * seconds;
 
     private callback = (date: Date) => {
+        this.getLMST(this.julianDay(date));
+        this.getLMST2(date);
         const year = date.getFullYear();
         const tithi = this.getTithi(date.getDate(), date.getMonth(), year);
         this.getSunRiseAndSet(date);
+        this.getMoonRiseAndSet(date);
         this.setKarana(tithi);
         this.getYoga();
         this.getNakshatra();

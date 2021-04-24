@@ -171,4 +171,8 @@ export default class TypeCheck {
     static toOADate = (date: Date) => (date.getTime() / 86400000) + (25569 - (date.getTimezoneOffset() / (60 * 24)));
 
     static fromOADate = (oadate: number) => new Date(((oadate - 25569 + (((new Date(((oadate - 25569) * 86400000))).getTimezoneOffset()) / (60 * 24))) * 86400000));
+
+    static getDateDifference1 = (date1: Date, date2: Date) => ((Date.parse(date1.toDateString()) - Date.parse(date2.toDateString())) / 86400000);
+
+    static getDateDifference = (start: Date, end: Date) => (((end.getTime() - start.getTime()) / 86400000) - (end.getTimezoneOffset() - start.getTimezoneOffset()) / (60 * 24));
 }

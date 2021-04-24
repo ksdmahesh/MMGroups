@@ -383,7 +383,7 @@ class App extends React.Component {
     // console.log(panchanga.getKaala(Date.now() / 1000), new Date(panchanga.getKaala(Date.now() / 1000) * 1000));
 
     const time = setInterval(() => {
-      console.log(panchanga.properties.suryaapratigraha, panchanga.properties.suryalankodhaya);
+      console.log(panchanga.properties);
       clearInterval(time);
     }, 2000)
 
