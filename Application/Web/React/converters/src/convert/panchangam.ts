@@ -601,6 +601,18 @@ export enum CalendarType {
     defaultNorth = 'defaultNorth'
 }
 
+export enum Planets {
+    Mercury = 'Mercury',
+    Venus = 'Venus',
+    Earth = 'Earth',
+    Mars = 'Mars',
+    Jupiter = 'Jupiter',
+    Saturn = 'Saturn',
+    Uranus = 'Uranus',
+    Neptune = 'Neptune',
+    Pluto = 'Pluto'
+}
+
 //#endregion
 
 //#region Types
@@ -722,6 +734,107 @@ export class Panchangam {
     //#region fields
 
     properties: Properties = {};
+
+    MA: { [key in Planets]: { M0: number, M1: number } } = {
+        Mercury: { M0: 174.7948, M1: 4.09233445 },
+        Venus: { M0: 50.4161, M1: 1.60213034 },
+        Earth: { M0: 357.5291, M1: 0.98560028 },
+        Mars: { M0: 19.3730, M1: 0.52402068 },
+        Jupiter: { M0: 20.0202, M1: 0.08308529 },
+        Saturn: { M0: 317.0207, M1: 0.03344414 },
+        Uranus: { M0: 141.0498, M1: 0.01172834 },
+        Neptune: { M0: 256.2250, M1: 0.00598103 },
+        Pluto: { M0: 14.882, M1: 0.00396 }
+    }
+
+    EC: { [key in Planets]: { C1: number, C2: number, C3?: number, C4?: number, C5?: number, C6?: number, EC: number } } = {
+        Mercury: { C1: 23.4400, C2: 2.9818, C3: 0.5255, C4: 0.1058, C5: 0.0241, C6: 0.0055, EC: 0.0026 },
+        Venus: { C1: 0.7758, C2: 0.0033, EC: 0.0000 },
+        Earth: { C1: 1.9148, C2: 0.0200, C3: 0.0003, EC: 0.0000 },
+        Mars: { C1: 10.6912, C2: 0.6228, C3: 0.0503, C4: 0.0046, C5: 0.0005, EC: 0.0001 },
+        Jupiter: { C1: 5.5549, C2: 0.1683, C3: 0.0071, C4: 0.0003, EC: 0.0001 },
+        Saturn: { C1: 6.3585, C2: 0.2204, C3: 0.0106, C4: 0.0006, EC: 0.0001 },
+        Uranus: { C1: 5.3042, C2: 0.1534, C3: 0.0062, C4: 0.0003, EC: 0.0001 },
+        Neptune: { C1: 1.0302, C2: 0.0058, EC: 0.0001 },
+        Pluto: { C1: 28.3150, C2: 4.3408, C3: 0.9214, C4: 0.2235, C5: 0.0627, C6: 0.0174, EC: 0.0096 }
+    }
+
+    POE: { [key in Planets]: { Perihelion: number, Obliquity: number } } = {
+        Mercury: { Perihelion: 230.3265, Obliquity: 0.0351 },
+        Venus: { Perihelion: 73.7576, Obliquity: 2.6376 },
+        Earth: { Perihelion: 102.9373, Obliquity: 23.4393 },
+        Mars: { Perihelion: 71.0041, Obliquity: 25.1918 },
+        Jupiter: { Perihelion: 237.1015, Obliquity: 3.1189 },
+        Saturn: { Perihelion: 99.4587, Obliquity: 26.7285 },
+        Uranus: { Perihelion: 5.4634, Obliquity: 82.2298 },
+        Neptune: { Perihelion: 182.2100, Obliquity: 27.8477 },
+        Pluto: { Perihelion: 184.5484, Obliquity: 119.6075 }
+    }
+
+    Obs: { [key in Planets]: { theta0: number, theta1: number } } = {
+        Mercury: { theta0: 132.3282, theta1: 6.1385025 },
+        Venus: { theta0: 104.9067, theta1: -1.4813688 },
+        Earth: { theta0: 280.1470, theta1: 360.9856235 },
+        Mars: { theta0: 313.3827, theta1: 350.89198226 },
+        Jupiter: { theta0: 145.9722, theta1: 870.5360000 },
+        Saturn: { theta0: 174.3508, theta1: 810.7939024 },
+        Uranus: { theta0: 29.6474, theta1: -501.1600928 },
+        Neptune: { theta0: 52.4160, theta1: 536.3128662 },
+        Pluto: { theta0: 122.2370, theta1: 56.3625225 }
+    }
+
+    ECAD: { [key in Planets]: { D1: number, A2: number, D3?: number, A4?: number, D5?: number, A6?: number, EA: number, ED: number } } = {
+        Mercury: { A2: -0.0000, EA: 0.0000, D1: 0.0351, ED: 0.0000 },
+        Venus: { A2: -0.0304, EA: 0.0001, D1: 2.6367, D3: 0.0009, ED: 0.0036 },
+        Earth: { A2: -2.4657, A4: 0.0529, A6: -0.0014, EA: 0.0003, D1: 22.7908, D3: 0.5991, D5: 0.0492, ED: 0.0003 },
+        Mars: { A2: -2.8608, A4: 0.0713, A6: -0.0022, EA: 0.0004, D1: 24.3880, D3: 0.7332, D5: 0.0706, ED: 0.0011 },
+        Jupiter: { A2: -0.0425, EA: 0.0001, D1: 3.1173, D3: 0.0015, ED: 0.0034 },
+        Saturn: { A2: -3.2338, A4: 0.0909, A6: -0.0031, EA: 0.0009, D1: 25.7696, D3: 0.8640, D5: 0.0949, ED: 0.0010 },
+        Uranus: { A2: -42.5874, A4: 12.8117, A6: -2.6077, EA: 17.6902, D1: 56.9083, D3: -0.8433, D5: 26.1648, ED: 3.34 },
+        Neptune: { A2: -3.5214, A4: 0.1078, A6: -0.0039, EA: 0.0163, D1: 26.7643, D3: 0.9669, D5: 0.1166, ED: 0.060 },
+        Pluto: { A2: -19.3248, A4: 3.0286, A6: -0.4092, EA: 0.5052, D1: 49.8309, D3: 4.9707, D5: 5.5910, ED: 0.19 }
+    }
+
+    /**
+     * J1 = (EC.C1/(Obs.theta1-MA.M1))
+     * J2 = (ECAD.A2/(Obs.theta1-MA.M1))
+     * J3 = (360/(Obs.theta1-MA.M1))
+     */
+    JT: { [key in Planets]: { J1: number, J2: number, J3: number } } = (() => {
+        const transit: any = {};
+        Object.keys(Planets).forEach(planet => {
+            transit[planet] = {};
+            const de = this.Obs[planet as keyof typeof Planets].theta1 - this.MA[planet as keyof typeof Planets].M1;
+            transit[planet].J1 = this.EC[planet as keyof typeof Planets].C1 / de;
+            transit[planet].J2 = this.ECAD[planet as keyof typeof Planets].A2 / de;
+            transit[planet].J3 = 360 / de;
+        });
+        return transit;
+    })();
+
+    HA: { [key in Planets]: { H1: number, H3?: number, H5?: number } } = {
+        Mercury: { H1: 0.035 },
+        Venus: { H1: 2.636, H3: 0.001 },
+        Earth: { H1: 22.137, H3: 0.599, H5: 0.016 },
+        Mars: { H1: 23.576, H3: 0.733, H5: 0.024 },
+        Jupiter: { H1: 3.116, H3: 0.002 },
+        Saturn: { H1: 24.800, H3: 0.864, H5: 0.032 },
+        Uranus: { H1: 28.680, H3: -0.843, H5: 8.722 },
+        Neptune: { H1: 26.668, H3: 0.967, H5: 0.039 },
+        Pluto: { H1: 38.648, H3: 4.971, H5: 1.864 }
+    }
+
+    RHA: { [key in Planets]: { h0: number, dSun: number, sinH0: number } } = {
+        Mercury: { h0: -0.69, dSun: 1.38, sinH0: -0.0120 },
+        Venus: { h0: -0.37, dSun: 0.74, sinH0: -0.0064 },
+        Earth: { h0: -0.83, dSun: 0.53, sinH0: -0.0146 },
+        Mars: { h0: -0.17, dSun: 0.35, sinH0: -0.0031 },
+        Jupiter: { h0: -0.05, dSun: 0.10, sinH0: -0.0009 },
+        Saturn: { h0: -0.03, dSun: 0.06, sinH0: -0.0005 },
+        Uranus: { h0: -0.01, dSun: 0.03, sinH0: -0.0002 },
+        Neptune: { h0: -0.01, dSun: 0.02, sinH0: -0.0002 },
+        Pluto: { h0: -0.01, dSun: 0.01, sinH0: -0.0001 }
+    }
 
     Amsha: AmshaType = {
         [Amsha.akshamsha]: {
@@ -5085,62 +5198,66 @@ export class Panchangam {
 
     private moonPhase = (d: number, m: number, y: number) => parseFloat(`0.${`${(2 - parseInt(`${y / 100}`) + parseInt(`${parseInt(`${y / 100}`) / 4}`) + d + parseInt(`${365.25636 * (y + 4716)}`) + parseInt(`${30.6001 * ((m < 3 ? m + 11 : m) + 1)}`) - 1524.5 - 2451549.5) / 29.53}`.split('.')[1]}`) * 29.53;
 
+    private getElevationOfObserver = (declination: number) => ((this.RHA.Earth.h0) / ((Maths.Cos((declination) - (this.properties.akshamsha || 0), Mode.Degree) as number) * (Maths.Cos((declination) + (this.properties.akshamsha || 0), Mode.Degree) as number)));
+
     private getSunRiseAndSet = (date: Date) => {
-        const { meanHour, solarTransit } = this.getMeanHourAndTransit(date);
-        this.properties.suryodhaya = this.gregorianDay(solarTransit - (meanHour / 360));
-        this.properties.suryaasthama = this.gregorianDay(solarTransit + (meanHour / 360));
+        const { meanHour, solarTransit, elevationOfObserver, AU } = this.getMeanHourAndTransit(date);
+        this.properties.suryodhaya = this.gregorianDay((solarTransit - ((meanHour / 360) * this.JT.Earth.J3)));
+        this.properties.suryaasthama = this.gregorianDay((solarTransit + ((meanHour / 360) * this.JT.Earth.J3)));
     }
 
-    private getMeanSolarDay = (date: Date) => (this.julianDay(date) - 2451545 + (69.184 / 86400) - ((this.properties.rekamsha || 0) / 360));
+    private getMeanSolarDay = (date: Date) => (this.julianDay(date) - 2451545 + (69.184 / 86400) - (((this.properties.rekamsha || 0) * this.JT.Earth.J3) / 360));
 
     private getMeanHourAndTransit = (date: Date) => {
-        const { declination, rightAscension, solarTransit } = this.getSunRightAscensionDeclinationAndTransit(date);
+        const { declination, rightAscension, solarTransit, AU } = this.getSunRightAscensionDeclinationAndTransit(date);
         this.properties.suryaapratigraha = Maths.DecimalToDeg(declination);
         this.properties.suryalankodhaya = Maths.DecimalToDeg(rightAscension);
-        return { meanHour: Maths.ACos(((Maths.Sin(-0.83, Mode.Degree) as number) - ((Maths.Sin(this.properties.akshamsha || 0, Mode.Degree) as number) * (Maths.Sin(declination, Mode.Degree) as number))) / (((Maths.Cos(this.properties.akshamsha || 0, Mode.Degree) as number) * (Maths.Cos(declination, Mode.Degree) as number))), Mode.Degree) as number, solarTransit };
+        const elevationOfObserver = this.getElevationOfObserver(declination);
+        return { meanHour: Maths.ACos(((Maths.Sin(this.RHA.Earth.h0, Mode.Degree) as number) - ((Maths.Sin(this.properties.akshamsha || 0, Mode.Degree) as number) * (Maths.Sin(declination, Mode.Degree) as number))) / (((Maths.Cos(this.properties.akshamsha || 0, Mode.Degree) as number) * (Maths.Cos(declination, Mode.Degree) as number))), Mode.Degree) as number, solarTransit, elevationOfObserver, AU };
     }
 
-    private getSolarTransit = (meanSolarTime: number, solarMeanAnomaly: number, eclipticLongitude: number) => 2451545.0 + meanSolarTime + (0.0053 * (Maths.Sin(solarMeanAnomaly, Mode.Degree) as number)) - (0.0069 * (Maths.Sin(2 * eclipticLongitude, Mode.Degree) as number));
+    private getSolarTransit = (meanSolarTime: number, solarMeanAnomaly: number, eclipticLongitude: number) => (2451545.0 + meanSolarTime + (this.JT.Earth.J1 * (Maths.Sin(solarMeanAnomaly, Mode.Degree) as number)) + (this.JT.Earth.J2 * (Maths.Sin(2 * eclipticLongitude, Mode.Degree) as number)));
 
     private getSunRightAscensionDeclinationAndTransit = (date: Date) => {
         const meanSolarTime = this.getMeanSolarDay(date);
-        const solarMeanAnomaly = (357.5291 + 0.98560028 * meanSolarTime) % 360;
-        const equationOfCenter = (1.9148 * (Maths.Sin(solarMeanAnomaly, Mode.Degree) as number)) + (0.02 * (Maths.Sin(2 * solarMeanAnomaly, Mode.Degree) as number)) + (0.0003 * (Maths.Sin(3 * solarMeanAnomaly, Mode.Degree) as number));
-        const eclipticLongitude = (solarMeanAnomaly + equationOfCenter + 180 + 102.9372) % 360;
+        const solarMeanAnomaly = (this.MA.Earth.M0 + this.MA.Earth.M1 * meanSolarTime) % 360;
+        const equationOfCenter = (this.EC.Earth.C1 * (Maths.Sin(solarMeanAnomaly, Mode.Degree) as number)) + (this.EC.Earth.C2 * (Maths.Sin(2 * solarMeanAnomaly, Mode.Degree) as number)) + ((this.EC.Earth.C3 || 0) * (Maths.Sin(3 * solarMeanAnomaly, Mode.Degree) as number));
+        const eclipticLongitude = (solarMeanAnomaly + equationOfCenter + 180 + this.POE.Earth.Perihelion) % 360;
         const solarTransit = this.getSolarTransit(meanSolarTime, solarMeanAnomaly, eclipticLongitude);
         const AU = 1.00014 - (0.01671 * (Maths.Cos(solarMeanAnomaly, Mode.Degree) as number)) - (0.00014 * (Maths.Cos(2 * solarMeanAnomaly, Mode.Degree) as number));
-        const obliquityOfEcliptic = 23.439 - (0.0000004 * meanSolarTime);
-        return { rightAscension: Maths.DegToHour(Maths.ATan((Maths.Cos(obliquityOfEcliptic, Mode.Degree) as number) * (Maths.Tan(eclipticLongitude, Mode.Degree) as number), Mode.Degree) as number), declination: Maths.ASin((Maths.Sin(eclipticLongitude, Mode.Degree) as number) * (Maths.Sin(23.44, Mode.Degree) as number), Mode.Degree) as number, solarTransit };
+        const obliquityOfEcliptic = this.POE.Earth.Obliquity - (0.0000004 * meanSolarTime);
+        return { rightAscension: Maths.DegToHour(Maths.ATan((Maths.Cos(obliquityOfEcliptic, Mode.Degree) as number) * (Maths.Tan(eclipticLongitude, Mode.Degree) as number), Mode.Degree) as number), declination: Maths.ASin((Maths.Sin(eclipticLongitude, Mode.Degree) as number) * (Maths.Sin(obliquityOfEcliptic, Mode.Degree) as number), Mode.Degree) as number, solarTransit, AU };
     }
 
+    private astroRefraction = (h: number) => {
+        if (h < 0) // the following formula works for positive altitudes only.
+            h = 0; // if h = -0.08901179 a div/0 would occur.
+
+        // formula 16.4 of "Astronomical Algorithms" 2nd edition by Jean Meeus (Willmann-Bell, Richmond) 1998.
+        // 1.02 / tan(h + 10.26 / (h + 5.10)) h in degrees, result in arc minutes -> converted to rad:
+        return 0.0002967 / Math.tan(h + 0.00312536 / (h + 0.08901179));
+    }
     private getMoonRiseAndSet = (date: Date) => {
-        const { meanHour, solarTransit } = this.getMeanHourAndTransit(date);
-        this.properties.suryodhaya = this.gregorianDay(solarTransit - (meanHour / 360));
-        this.properties.suryaasthama = this.gregorianDay(solarTransit + (meanHour / 360));
-    }
+        // const rad = Math.PI / 180;
+        const d = this.julianDay(date) - 2451545.0;
+        const meanSolarTime = this.getMeanSolarDay(date);
+        const M = (357.5291 + 0.98560028 * meanSolarTime) % 360;
+        const equationOfCenter = (1.9148 * (Maths.Sin(M, Mode.Degree) as number)) + (0.02 * (Maths.Sin(2 * M, Mode.Degree) as number)) + (0.0003 * (Maths.Sin(3 * M, Mode.Degree) as number));
+        const L = (M + equationOfCenter + 180 + 102.9372) % 360;
+        // var L = rad * (218.316 + 13.176396 * d); // ecliptic longitude
+        // var M = rad * (134.963 + 13.064993 * d); // mean anomaly
+        var F = (93.272 + 13.229350 * d); // mean distance
 
-    private getGMST = (julianNumber: number) => {
-        const T = (julianNumber - 2451545.0) / 36525;
-        return 24110.54841 + (8640184.812866 * T) + (0.093104 * T * T) - (0.0000062 * T * T * T);
-    }
+        var l = L + 6.289 * Math.sin(M); // longitude
+        var b = 5.128 * Math.sin(F);     // latitude
+        var dt = 385001 - 20905 * Math.cos(M);  // distance to the moon in km
 
-    private getGMST2 = (date: Date) => {
-        return 100.4606184 + (0.9856473662862 * (this.getMeanSolarDay(date))) + (15 * Maths.TimeToHour(date));
-    }
-
-    private getLMST = (julianNumber: number) => (this.getGMST(julianNumber) + (this.properties.rekamsha || 0));
-
-    private getLMST2 = (date: Date) => (this.getGMST2(date) + (this.properties.rekamsha || 0));
-
-    private getMoonRightAscensionDeclinationAndTransit = (date: Date) => {
-        const moonIncline = 5.14;
-        const sunIncline = 23.5;
-        const moonOrbit = 27.32166;
-        const earthOrbit = 23.439;
-        const ascendingNode = 0;
-        const descendingNode = 0;
-        const shift = 18.59992;
-        const shallow = 5.14;
+        const e = 23.4397;
+        return {
+            RightAscension: Math.atan2(Math.sin(l) * Math.cos(e) - Math.tan(b) * Math.sin(e), Math.cos(l)),
+            Declination: Math.asin(Math.sin(b) * Math.cos(e) + Math.cos(b) * Math.sin(e) * Math.sin(l)),
+            Distance: dt
+        };
     }
 
     private getBhogansha = (graha: Graha) => {
@@ -5244,8 +5361,6 @@ export class Panchangam {
     private getKaala = (seconds: number) => VedaKaalaGhataka.samvatsara * seconds;
 
     private callback = (date: Date) => {
-        this.getLMST(this.julianDay(date));
-        this.getLMST2(date);
         const year = date.getFullYear();
         const tithi = this.getTithi(date.getDate(), date.getMonth(), year);
         this.getSunRiseAndSet(date);
