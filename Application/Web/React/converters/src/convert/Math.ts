@@ -282,7 +282,7 @@ export class Complex {
         const d = { realNumber: `0.${`${c.realNumber}`.split('.')[1]}`, imaginaryNumber: `0.${`${c.imaginaryNumber}`.split('.')[1]}` };
         const e = { realNumber: d.realNumber ? (+d.realNumber * 60) : +d.realNumber, imaginaryNumber: d.imaginaryNumber ? (+d.imaginaryNumber * 60) : +d.imaginaryNumber };
         const seconds = new Complex(isNaN(e.realNumber) ? 0 : e.realNumber, isNaN(e.imaginaryNumber) ? 0 : e.imaginaryNumber);
-        return `${degrees.toString()}°${minutes.toString()}'${seconds.toString()}"`;
+        return { degree: `${degrees.toString()}°${minutes.toString()}'${seconds.toString()}"`, decimal: a };
     }
 
     static degToHour = (a: Complex) => a.divide(new Complex(15, 0));
@@ -863,7 +863,7 @@ export class Algebra {
         const minutes = Math.trunc(c);
         const d = `0.${`${c}`.split('.')[1]}`;
         const seconds = d ? (+d * 60) : +d;
-        return `${degrees}°${minutes || 0}'${seconds || 0}"`;
+        return { degree: `${degrees}°${minutes || 0}'${seconds || 0}"`, decimal: a };
     }
 
     static timeToHour = (a: Date) => (a.getUTCHours() + (a.getUTCMinutes() / 60) + (a.getUTCSeconds() / 3600) + (a.getUTCMilliseconds() / 3600000));
