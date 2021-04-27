@@ -745,6 +745,12 @@ const cos = (a: number) => Maths.Cos(a, Mode.Degree) as number;
 
 const tan = (a: number) => Maths.Tan(a, Mode.Degree) as number;
 
+const sinh = (a: number) => Maths.Sinh(a, Mode.Degree) as number;
+
+const cosh = (a: number) => Maths.Cosh(a, Mode.Degree) as number;
+
+const tanh = (a: number) => Maths.Tanh(a, Mode.Degree) as number;
+
 const asin = (a: number) => Maths.ASin(a, Mode.Degree) as number;
 
 const acos = (a: number) => Maths.ACos(a, Mode.Degree) as number;
@@ -894,6 +900,26 @@ export class Panchangam {
         Pluto: { ra: 132.993, d: -6.163, omg: 110.307, i: 17.140, w: 113.768, w1: 302.695, w2: 56.3625225 }
     }
 
+    GVT = {
+        Sun: { g: 27.964, weight: 1398 },
+        Mercury: { g: 0.376, weight: 19 },
+        Venus: { g: 0.905, weight: 45 },
+        Earth: { g: 1.000, weight: 50 },
+        Mars: { g: 0.379, weight: 19 },
+        Jupiter: { g: 2.530, weight: 127 },
+        Saturn: { g: 1.064, weight: 53 },
+        Uranus: { g: 0.905, weight: 45 },
+        Neptune: { g: 1.137, weight: 57 },
+        Pluto: { g: 0.067, weight: 3 },
+        Io: { g: 0.185, weight: 9 },
+        Moon: { g: 0.164, weight: 8 },
+        Ganymede: { g: 0.146, weight: 7 },
+        Titan: { g: 0.139, weight: 7 },
+        Europa: { g: 0.133, weight: 7 },
+        Callisto: { g: 0.128, weight: 6 },
+        Triton: { g: 0.080, weight: 4 }
+    }
+
     //#endregion
 
     //#region Moon
@@ -963,6 +989,8 @@ export class Panchangam {
     }
 
     //#endregion
+
+    //#region Members
 
     Amsha: AmshaType = {
         [Amsha.akshamsha]: {
@@ -5300,6 +5328,8 @@ export class Panchangam {
 
     //#endregion
 
+    //#endregion
+
     //#region constructor
 
     constructor(props: PanchangaType) {
@@ -5359,20 +5389,45 @@ export class Panchangam {
 
     private getLunarTransit = (meanSolarTime: number, solarMeanAnomaly: number, eclipticLongitude: number) => (2451545.0 + meanSolarTime + (this.JT.Earth.J1 * sin(solarMeanAnomaly)) + (this.JT.Earth.J2 * sin(2 * eclipticLongitude)));
 
-    private getMeanLunarDay = (date: Date) => (this.julianDay(date) - 2451545 + (69.184 / 86400) - (((this.properties.rekamsha || 0) * this.JT.Earth.J3) / 360));
-
-    private getSemiMajorAxis = () => {
-
+    private getDistanceAndCoordinates = (eccentricity: number, semiMajorAxis: number, trueAnomaly: number) => {
+        const r = (semiMajorAxis * (1 - (eccentricity * eccentricity))) / (1 + (eccentricity * cos(trueAnomaly)));
+        return ({
+            r,
+            x: r * cos(trueAnomaly),
+            y: r * sin(trueAnomaly)
+        });
     }
 
+    private getTrueAnomaly = (eccentricity: number, time: number) => {
+        const eccentricAnomaly = 0;
+        if (eccentricity >= 0 && eccentricity < 1) {
+            const excess = eccentricity - 1;
+            let meanAnomaly = time * Math.sqrt(this.GVT.Earth.g / ((this.MEC.Earth?.a || 0) * (this.MEC.Earth?.a || 0) * (this.MEC.Earth?.a || 0)));
+            while (Math.abs(meanAnomaly) > Math.PI) {
+                meanAnomaly << meanAnomaly;
+            }
+            // const ma = eccentricAnomaly - (eccentricity * sin(eccentricAnomaly));
+            const te = tan(eccentricAnomaly / 2);
+            return ({
+                te,
+                tv: te * Math.sqrt((1 + eccentricity) / (1 - eccentricity))
+            });
+        }
+    }
+
+    private getTraverseAngle = (semiMajorAxis: number) => (0.9856076686 / Math.sqrt(semiMajorAxis * semiMajorAxis * semiMajorAxis));
+
+    private getMeanLunarDay = (date: Date) => (this.julianDay(date) - 2451545);
+
     private getMoonRightAscensionDeclinationAndTransit = (date: Date) => {
-        const meanSolarTime = this.getMeanLunarDay(date);
-        const solarMeanAnomaly = (this.MA.Earth.M0 + this.MA.Earth.M1 * meanSolarTime) % 360;
-        const equationOfCenter = (this.EC.Earth.C1 * sin(solarMeanAnomaly)) + (this.EC.Earth.C2 * sin(2 * solarMeanAnomaly)) + ((this.EC.Earth.C3 || 0) * sin(3 * solarMeanAnomaly));
-        const eclipticLongitude = (solarMeanAnomaly + equationOfCenter + 180 + this.POE.Earth.Perihelion) % 360;
-        const solarTransit = this.getLunarTransit(meanSolarTime, solarMeanAnomaly, eclipticLongitude);
-        const AU = 1.00014 - (0.01671 * cos(solarMeanAnomaly)) - (0.00014 * cos(2 * solarMeanAnomaly));
-        const obliquityOfEcliptic = this.POE.Earth.Obliquity - (0.0000004 * meanSolarTime);
+        const meanLunarTime = this.getMeanLunarDay(date);
+        const traverseAngle = this.getTraverseAngle(this.MEC.Earth?.a || 0);
+        const lunarMeanAnomaly = (this.MA.Earth.M0 + (meanLunarTime * traverseAngle));
+        const equationOfCenter = (this.EC.Earth.C1 * sin(lunarMeanAnomaly)) + (this.EC.Earth.C2 * sin(2 * lunarMeanAnomaly)) + ((this.EC.Earth.C3 || 0) * sin(3 * lunarMeanAnomaly));
+        const eclipticLongitude = (lunarMeanAnomaly + equationOfCenter + 180 + this.POE.Earth.Perihelion) % 360;
+        const solarTransit = this.getLunarTransit(lunarMeanAnomaly, lunarMeanAnomaly, eclipticLongitude);
+        const AU = 1.00014 - (0.01671 * cos(lunarMeanAnomaly)) - (0.00014 * cos(2 * lunarMeanAnomaly));
+        const obliquityOfEcliptic = this.POE.Earth.Obliquity - (0.0000004 * lunarMeanAnomaly);
         return { rightAscension: degToHour(atan((cos(obliquityOfEcliptic)) * tan(eclipticLongitude))), declination: asin(sin(eclipticLongitude) * sin(obliquityOfEcliptic)), solarTransit, AU };
     }
 
