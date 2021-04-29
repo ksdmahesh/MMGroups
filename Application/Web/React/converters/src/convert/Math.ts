@@ -2644,9 +2644,9 @@ export default class Maths {
     static Power = <T extends Complex | number>(a: T, b: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.pow(a as number, b as number);
+                return Algebra.pow(a as number, b as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.pow(a as Complex, b as Complex);
+                return Complex.pow(a as Complex, b as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2655,9 +2655,9 @@ export default class Maths {
     static Log = <T extends Complex | number>(a: T, b: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.log(a as number, b as number);
+                return Algebra.log(a as number, b as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.log(a as Complex, b as Complex);
+                return Complex.log(a as Complex, b as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2666,9 +2666,9 @@ export default class Maths {
     static Exponential = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.pow(Math.E, a as number);
+                return Algebra.pow(Math.E, a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.pow(new Complex(Math.E, 0), a as Complex);
+                return Complex.pow(new Complex(Math.E, 0), a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2677,9 +2677,9 @@ export default class Maths {
     static InverseLog = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.pow(10, a as number);
+                return Algebra.pow(10, a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.pow(new Complex(10, 0), a as Complex);
+                return Complex.pow(new Complex(10, 0), a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2688,9 +2688,9 @@ export default class Maths {
     static Sin = <T extends Complex | number>(a: T, mode: Mode) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Trigonometry.sin(Maths.getAngle(a as number, mode));
+                return Trigonometry.sin(Maths.getAngle(a as number, mode)) as T;
             case ConstructorTypes.Complex:
-                return Complex.sin(Maths.getAngle(a as Complex, mode));
+                return Complex.sin(Maths.getAngle(a as Complex, mode)) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2699,9 +2699,9 @@ export default class Maths {
     static Cos = <T extends Complex | number>(a: T, mode: Mode) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Trigonometry.cos(Maths.getAngle(a as number, mode));
+                return Trigonometry.cos(Maths.getAngle(a as number, mode)) as T;
             case ConstructorTypes.Complex:
-                return Complex.cos(Maths.getAngle(a as Complex, mode));
+                return Complex.cos(Maths.getAngle(a as Complex, mode)) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2710,9 +2710,9 @@ export default class Maths {
     static Tan = <T extends Complex | number>(a: T, mode: Mode) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Trigonometry.tan(Maths.getAngle(a as number, mode));
+                return Trigonometry.tan(Maths.getAngle(a as number, mode)) as T;
             case ConstructorTypes.Complex:
-                return Complex.tan(Maths.getAngle(a as Complex, mode));
+                return Complex.tan(Maths.getAngle(a as Complex, mode)) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2721,9 +2721,9 @@ export default class Maths {
     static Sinh = <T extends Complex | number>(a: T, mode: Mode) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Trigonometry.sinh(Maths.getAngle(a as number, mode));
+                return Trigonometry.sinh(Maths.getAngle(a as number, mode)) as T;
             case ConstructorTypes.Complex:
-                return Complex.sinh(Maths.getAngle(a as Complex, mode));
+                return Complex.sinh(Maths.getAngle(a as Complex, mode)) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2732,9 +2732,9 @@ export default class Maths {
     static Cosh = <T extends Complex | number>(a: T, mode: Mode) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Trigonometry.cosh(Maths.getAngle(a as number, mode));
+                return Trigonometry.cosh(Maths.getAngle(a as number, mode)) as T;
             case ConstructorTypes.Complex:
-                return Complex.cosh(Maths.getAngle(a as Complex, mode));
+                return Complex.cosh(Maths.getAngle(a as Complex, mode)) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2743,9 +2743,9 @@ export default class Maths {
     static Tanh = <T extends Complex | number>(a: T, mode: Mode) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Trigonometry.tanh(Maths.getAngle(a as number, mode));
+                return Trigonometry.tanh(Maths.getAngle(a as number, mode)) as T;
             case ConstructorTypes.Complex:
-                return Complex.tanh(Maths.getAngle(a as Complex, mode));
+                return Complex.tanh(Maths.getAngle(a as Complex, mode)) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2754,9 +2754,9 @@ export default class Maths {
     static ASin = <T extends Complex | number>(a: T, mode: Mode) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Maths.getInverseAngle(Trigonometry.asin(a as number), mode);
+                return Maths.getInverseAngle(Trigonometry.asin(a as number), mode) as T;
             case ConstructorTypes.Complex:
-                return Maths.getInverseAngle(Complex.asin(a as Complex), mode);
+                return Maths.getInverseAngle(Complex.asin(a as Complex), mode) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2765,9 +2765,9 @@ export default class Maths {
     static ACos = <T extends Complex | number>(a: T, mode: Mode) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Maths.getInverseAngle(Trigonometry.acos(a as number), mode);
+                return Maths.getInverseAngle(Trigonometry.acos(a as number), mode) as T;
             case ConstructorTypes.Complex:
-                return Maths.getInverseAngle(Complex.acos(a as Complex), mode);
+                return Maths.getInverseAngle(Complex.acos(a as Complex), mode) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2776,9 +2776,9 @@ export default class Maths {
     static ATan = <T extends Complex | number>(a: T, mode: Mode) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Maths.getInverseAngle(Trigonometry.atan(a as number), mode);
+                return Maths.getInverseAngle(Trigonometry.atan(a as number), mode) as T;
             case ConstructorTypes.Complex:
-                return Maths.getInverseAngle(Complex.atan(a as Complex), mode);
+                return Maths.getInverseAngle(Complex.atan(a as Complex), mode) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2787,9 +2787,9 @@ export default class Maths {
     static ASinh = <T extends Complex | number>(a: T, mode: Mode) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Maths.getInverseAngle(Trigonometry.asinh(a as number), mode);
+                return Maths.getInverseAngle(Trigonometry.asinh(a as number), mode) as T;
             case ConstructorTypes.Complex:
-                return Maths.getInverseAngle(Complex.asinh(a as Complex), mode);
+                return Maths.getInverseAngle(Complex.asinh(a as Complex), mode) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2798,9 +2798,9 @@ export default class Maths {
     static ACosh = <T extends Complex | number>(a: T, mode: Mode) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Maths.getInverseAngle(Trigonometry.acosh(a as number), mode);
+                return Maths.getInverseAngle(Trigonometry.acosh(a as number), mode) as T;
             case ConstructorTypes.Complex:
-                return Maths.getInverseAngle(Complex.acosh(a as Complex), mode);
+                return Maths.getInverseAngle(Complex.acosh(a as Complex), mode) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2809,9 +2809,9 @@ export default class Maths {
     static ATanh = <T extends Complex | number>(a: T, mode: Mode) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Maths.getInverseAngle(Trigonometry.atanh(a as number), mode);
+                return Maths.getInverseAngle(Trigonometry.atanh(a as number), mode) as T;
             case ConstructorTypes.Complex:
-                return Maths.getInverseAngle(Complex.atanh(a as Complex), mode);
+                return Maths.getInverseAngle(Complex.atanh(a as Complex), mode) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2831,9 +2831,9 @@ export default class Maths {
     static DegToHour = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.degToHour(a as number);
+                return Algebra.degToHour(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.degToHour(a as Complex);
+                return Complex.degToHour(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2844,9 +2844,9 @@ export default class Maths {
     static DegToRad = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.degToRad(a as number);
+                return Algebra.degToRad(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.degToRad(a as Complex);
+                return Complex.degToRad(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2855,9 +2855,9 @@ export default class Maths {
     static RadToDeg = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.radToDeg(a as number);
+                return Algebra.radToDeg(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.radToDeg(a as Complex);
+                return Complex.radToDeg(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2866,9 +2866,9 @@ export default class Maths {
     static DegToGrad = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.degToGrad(a as number);
+                return Algebra.degToGrad(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.degToGrad(a as Complex);
+                return Complex.degToGrad(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2877,9 +2877,9 @@ export default class Maths {
     static GradToDeg = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.gradToDeg(a as number);
+                return Algebra.gradToDeg(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.gradToDeg(a as Complex);
+                return Complex.gradToDeg(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2888,9 +2888,9 @@ export default class Maths {
     static MinuteToDeg = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.minuteToDeg(a as number);
+                return Algebra.minuteToDeg(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.minuteToDeg(a as Complex);
+                return Complex.minuteToDeg(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2899,9 +2899,9 @@ export default class Maths {
     static DegToMinute = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.degToMinute(a as number);
+                return Algebra.degToMinute(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.degToMinute(a as Complex);
+                return Complex.degToMinute(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2910,9 +2910,9 @@ export default class Maths {
     static SecondsToDeg = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.secondsToDeg(a as number);
+                return Algebra.secondsToDeg(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.secondsToDeg(a as Complex);
+                return Complex.secondsToDeg(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2921,9 +2921,9 @@ export default class Maths {
     static DegToSeconds = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.degToSeconds(a as number);
+                return Algebra.degToSeconds(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.degToSeconds(a as Complex);
+                return Complex.degToSeconds(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2932,9 +2932,9 @@ export default class Maths {
     static Abs = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.abs(a as number);
+                return Algebra.abs(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.abs(a as Complex);
+                return Complex.abs(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2943,9 +2943,9 @@ export default class Maths {
     static Ceil = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.ceil(a as number);
+                return Algebra.ceil(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.ceil(a as Complex);
+                return Complex.ceil(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2954,9 +2954,9 @@ export default class Maths {
     static Floor = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.floor(a as number);
+                return Algebra.floor(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.floor(a as Complex);
+                return Complex.floor(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2965,9 +2965,9 @@ export default class Maths {
     static Round = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.round(a as number);
+                return Algebra.round(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.round(a as Complex);
+                return Complex.round(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2976,11 +2976,11 @@ export default class Maths {
     static Add = <T extends Complex | Matrix<Complex | number> | number>(a: T, b: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.add(a as number, b as number);
+                return Algebra.add(a as number, b as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.add(a as Complex, b as Complex);
+                return Complex.add(a as Complex, b as Complex) as T;
             case ConstructorTypes.Matrix:
-                return Matrix.add(a as Matrix<Complex | number>, b as Matrix<Complex | number>);
+                return Matrix.add(a as Matrix<Complex | number>, b as Matrix<Complex | number>) as T[][];
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -2989,11 +2989,11 @@ export default class Maths {
     static Subtract = <T extends Complex | Matrix<Complex | number> | number>(a: T, b: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.subtract(a as number, b as number);
+                return Algebra.subtract(a as number, b as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.subtract(a as Complex, b as Complex);
+                return Complex.subtract(a as Complex, b as Complex) as T;
             case ConstructorTypes.Matrix:
-                return Matrix.subtract(a as Matrix<Complex | number>, b as Matrix<Complex | number>);
+                return Matrix.subtract(a as Matrix<Complex | number>, b as Matrix<Complex | number>) as T[][];
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -3002,11 +3002,11 @@ export default class Maths {
     static Multiply = <T extends Complex | Matrix<Complex | number> | number>(a: T, b: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.multiply(a as number, b as number);
+                return Algebra.multiply(a as number, b as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.multiply(a as Complex, b as Complex);
+                return Complex.multiply(a as Complex, b as Complex) as T;
             case ConstructorTypes.Matrix:
-                return Matrix.multiply(a as Matrix<Complex | number>, b as Matrix<Complex | number>);
+                return Matrix.multiply(a as Matrix<Complex | number>, b as Matrix<Complex | number>) as T[][];
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -3015,11 +3015,11 @@ export default class Maths {
     static Divide = <T extends Complex | Matrix<Complex | number> | number>(a: T, b: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.divide(a as number, b as number);
+                return Algebra.divide(a as number, b as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.divide(a as Complex, b as Complex);
+                return Complex.divide(a as Complex, b as Complex) as T;
             case ConstructorTypes.Matrix:
-                return Matrix.divide(a as Matrix<Complex | number>, b as Matrix<Complex | number>);
+                return Matrix.divide(a as Matrix<Complex | number>, b as Matrix<Complex | number>) as T[][];
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -3028,11 +3028,11 @@ export default class Maths {
     static Inverse = <T extends Complex | Matrix<Complex | number> | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.inverse(a as number);
+                return Algebra.inverse(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.inverse(a as Complex);
+                return Complex.inverse(a as Complex) as T;
             case ConstructorTypes.Matrix:
-                return Matrix.inverse(a as Matrix<Complex | number>);
+                return Matrix.inverse(a as Matrix<Complex | number>) as T[][];
             default:
                 throw new Error('Invalid Type Passed');
         }
@@ -3041,9 +3041,9 @@ export default class Maths {
     static Conjugate = <T extends Complex | Matrix<Complex | number>>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Matrix:
-                return Matrix.conjugate(a as Matrix<Complex | number>);
+                return Matrix.conjugate(a as Matrix<Complex | number>) as T[][];
             case ConstructorTypes.Complex:
-                return Complex.conjugate(a as Complex);
+                return Complex.conjugate(a as Complex) as T;
             default:
                 throw new Error('Invalid Type Passed');
         }

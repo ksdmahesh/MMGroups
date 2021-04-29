@@ -281,29 +281,29 @@ class App extends React.Component {
     //#region Matrix
 
     // [[3, 5], [7, 9]]
-    console.log(Maths.Add(new Matrix([[1, 2], [3, 4]]), new Matrix([[2, 3], [4, 5]])));
+    console.log(Maths.Add(new Matrix<number>([[1, 2], [3, 4]]), new Matrix<number>([[2, 3], [4, 5]])));
     // [[-1, -1], [-1, -1]]
-    console.log(Maths.Subtract(new Matrix([[1, 2], [3, 4]]), new Matrix([[2, 3], [4, 5]])));
+    console.log(Maths.Subtract(new Matrix<number>([[1, 2], [3, 4]]), new Matrix<number>([[2, 3], [4, 5]])));
     // [[10, 13], [22, 29]]
-    console.log(Maths.Multiply(new Matrix([[1, 2], [3, 4]]), new Matrix([[2, 3], [4, 5]])));
+    console.log(Maths.Multiply(new Matrix<number>([[1, 2], [3, 4]]), new Matrix<number>([[2, 3], [4, 5]])));
     // [[1.5, -0.5], [0.5, 0.5]]
-    console.log(Maths.Divide(new Matrix([[1, 2], [3, 4]]), new Matrix([[2, 3], [4, 5]])));
+    console.log(Maths.Divide(new Matrix<number>([[1, 2], [3, 4]]), new Matrix<number>([[2, 3], [4, 5]])));
     // [[-2, 1], [1.5, -0.5]]
-    console.log(Maths.Inverse(new Matrix([[1, 2], [3, 4]])));
+    console.log(Maths.Inverse(new Matrix<number>([[1, 2], [3, 4]])));
     // [[2, 4], [6, 8]]
-    console.log(Maths.MatrixMultiplyWithNumber(new Matrix([[1, 2], [3, 4]]), 2));
+    console.log(Maths.MatrixMultiplyWithNumber(new Matrix<number>([[1, 2], [3, 4]]), 2));
     // -2
-    console.log(Maths.Determinent(new Matrix([[1, 2], [3, 4]])));
+    console.log(Maths.Determinent(new Matrix<number>([[1, 2], [3, 4]])));
     // [[4, -3], [-2, 1]]
-    console.log(Maths.Adjugate(new Matrix([[1, 2], [3, 4]])));
+    console.log(Maths.Adjugate(new Matrix<number>([[1, 2], [3, 4]])));
     // [[1, 3], [2, 4]]
-    console.log(Maths.Transpose(new Matrix([[1, 2], [3, 4]])));
+    console.log(Maths.Transpose(new Matrix<number>([[1, 2], [3, 4]])));
     // [[4]]
-    console.log(Maths.Cofactor(new Matrix([[1, 2], [3, 4]]), 0));
+    console.log(Maths.Cofactor(new Matrix<number>([[1, 2], [3, 4]]), 0));
     // [[1, 2], [3, 4]]
-    console.log(Maths.Conjugate(new Matrix([[1, 2], [3, 4]])));
+    console.log(Maths.Conjugate(new Matrix<number>([[1, 2], [3, 4]])));
     // [[1-i2, 3-i4], [1, -i4]]
-    console.log(Maths.Conjugate(new Matrix([[new Complex(1, 2), new Complex(3, 4)], [new Complex(1, 0), new Complex(0, 4)]])));
+    console.log(Maths.Conjugate(new Matrix<Complex>([[new Complex(1, 2), new Complex(3, 4)], [new Complex(1, 0), new Complex(0, 4)]])));
 
     //#endregion
 

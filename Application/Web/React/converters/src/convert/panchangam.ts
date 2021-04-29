@@ -739,31 +739,31 @@ type NakshatraType = { [key in keyof typeof Nakshatra]: Name & { pada: string[],
 
 //#region Constants
 
-const sin = (a: number) => Maths.Sin(a, Mode.Degree) as number;
+const sin = (a: number) => Maths.Sin(a, Mode.Degree);
 
-const cos = (a: number) => Maths.Cos(a, Mode.Degree) as number;
+const cos = (a: number) => Maths.Cos(a, Mode.Degree);
 
-const tan = (a: number) => Maths.Tan(a, Mode.Degree) as number;
+const tan = (a: number) => Maths.Tan(a, Mode.Degree);
 
-const sinh = (a: number) => Maths.Sinh(a, Mode.Degree) as number;
+const sinh = (a: number) => Maths.Sinh(a, Mode.Degree);
 
-const cosh = (a: number) => Maths.Cosh(a, Mode.Degree) as number;
+const cosh = (a: number) => Maths.Cosh(a, Mode.Degree);
 
-const tanh = (a: number) => Maths.Tanh(a, Mode.Degree) as number;
+const tanh = (a: number) => Maths.Tanh(a, Mode.Degree);
 
-const asin = (a: number) => Maths.ASin(a, Mode.Degree) as number;
+const asin = (a: number) => Maths.ASin(a, Mode.Degree);
 
-const acos = (a: number) => Maths.ACos(a, Mode.Degree) as number;
+const acos = (a: number) => Maths.ACos(a, Mode.Degree);
 
-const atan = (a: number) => Maths.ATan(a, Mode.Degree) as number;
+const atan = (a: number) => Maths.ATan(a, Mode.Degree);
 
-const degToHour = (a: number) => Maths.DegToHour(a) as number;
+const degToHour = (a: number) => Maths.DegToHour(a);
 
 const decimalToDeg = (a: number) => Maths.DecimalToDeg(a) as { degree: string, decimal: number };
 
-const degToRad = (a: number) => Maths.DegToRad(a) as number;
+const degToRad = (a: number) => Maths.DegToRad(a);
 
-const minuteToDeg = (a: number) => Maths.MinuteToDeg(a) as number;
+const minuteToDeg = (a: number) => Maths.MinuteToDeg(a);
 
 const sq = (a: number) => a * a;
 
