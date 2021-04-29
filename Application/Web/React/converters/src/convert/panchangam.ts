@@ -5478,8 +5478,8 @@ export class Panchangam {
             index = tithi - 1;
         }
         this.properties.paksha = 'shukla';
-        this.properties.tithi = this.getName(allTithis[index][1]);
-        return allTithis[index][1];
+        this.properties.tithi = this.getName(allTithis[index]?.[1]);
+        return allTithis[index]?.[1];
     }
 
     // 27 with 800' each total 360deg 1/60deg of each
