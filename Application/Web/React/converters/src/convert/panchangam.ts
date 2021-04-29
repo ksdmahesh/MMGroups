@@ -765,6 +765,20 @@ const degToRad = (a: number) => Maths.DegToRad(a) as number;
 
 const minuteToDeg = (a: number) => Maths.MinuteToDeg(a) as number;
 
+const sq = (a: number) => a * a;
+
+const cb = (a: number) => a * a * a;
+
+const sqrt = Math.sqrt;
+
+const cbrt = Math.cbrt;
+
+const floor = Math.floor;
+
+const PI = Math.PI;
+
+const abs = Math.abs;
+
 //#endregion
 
 export class Panchangam {
@@ -5402,20 +5416,21 @@ export class Panchangam {
         const eccentricAnomaly = 0;
         if (eccentricity >= 0 && eccentricity < 1) {
             const excess = eccentricity - 1;
-            let meanAnomaly = time * Math.sqrt(this.GVT.Earth.g / ((this.MEC.Earth?.a || 0) * (this.MEC.Earth?.a || 0) * (this.MEC.Earth?.a || 0)));
-            while (Math.abs(meanAnomaly) > Math.PI) {
-                meanAnomaly << meanAnomaly;
-            }
+            let meanAnomaly = time * sqrt(this.GVT.Earth.g / cb(this.MEC.Earth?.a || 0));
+            // while (abs(meanAnomaly) > PI) {
+            //     meanAnomaly = meanAnomaly << meanAnomaly;
+            // }
+            const perifocalAnomaly = meanAnomaly / sqrt(cb(excess));
             // const ma = eccentricAnomaly - (eccentricity * sin(eccentricAnomaly));
             const te = tan(eccentricAnomaly / 2);
             return ({
                 te,
-                tv: te * Math.sqrt((1 + eccentricity) / (1 - eccentricity))
+                tv: te * sqrt((1 + eccentricity) / (1 - eccentricity))
             });
         }
     }
 
-    private getTraverseAngle = (semiMajorAxis: number) => (0.9856076686 / Math.sqrt(semiMajorAxis * semiMajorAxis * semiMajorAxis));
+    private getTraverseAngle = (semiMajorAxis: number) => (0.9856076686 / sqrt(cb(semiMajorAxis)));
 
     private getMeanLunarDay = (date: Date) => (this.julianDay(date) - 2451545);
 
@@ -5448,7 +5463,7 @@ export class Panchangam {
     private getName = (name: Name) => name?.name?.[this.properties.language || 'sanskrit'];
 
     private getTithi = (d: number, m: number, y: number) => {
-        const tithi = Math.floor(this.moonPhase(d, m, y));
+        const tithi = floor(this.moonPhase(d, m, y));
         const allTithis = Object.entries(this.Tithi);
         let index;
         if (tithi > 15) {
@@ -5457,7 +5472,7 @@ export class Panchangam {
                 index = 16;
             }
             else {
-                index = Math.abs(15 - tithi - 1);
+                index = abs(15 - tithi - 1);
             }
         } else {
             index = tithi - 1;
