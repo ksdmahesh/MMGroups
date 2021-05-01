@@ -378,19 +378,6 @@ class App extends React.Component {
     // console.log({ g, g1, w, JR, JS1 });
     const panchanga = new Panchangam({});
     console.log(panchanga.properties);
-    //#region Common
-
-    // 0.8-i0.2
-    // console.log(panchanga.getKaala(Date.now() / 1000), new Date(panchanga.getKaala(Date.now() / 1000) * 1000));
-
-    // console.log(panchanga.julianDate(10, 5, 2021));
-
-    // console.log(panchanga.julianDay(10, 5, 2021));
-
-    // console.log(panchanga.getYoga());
-
-    //#endregion
-
   }
 
   convertors = {
