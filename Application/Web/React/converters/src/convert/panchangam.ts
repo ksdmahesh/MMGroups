@@ -670,7 +670,7 @@ type Properties = {
     karana?: string[][],
     rtu?: string[],
     aayana?: string[][],
-    vaara?: string,
+    vaara?: string[],
     maasa?: string[],
     suryaMaasa?: string[],
     paksha?: keyof PakshaType,
@@ -681,7 +681,7 @@ type Properties = {
     yamaGanda?: string,
     guliKaala?: string,
     abhijit?: string,
-    durMuhurta?: string,
+    durMuhurta?: string[],
     suryodhaya?: Date,
     suryaasthama?: Date
 } & PanchangaType;
@@ -5547,9 +5547,23 @@ export class Panchangam {
         };
     }
 
+    private setVaara = (julian: number) => {
+        const day = TypeCheck.getWeekDay(julian);
+        const { rahuKaala, yamaGanda, guliKaala, abhijit, durMuhurta, name } = Object.entries(this.Vaara)[day][1];
+        this.properties.vaara = this.getName({ name });
+        this.properties.rahuKaala = rahuKaala;
+        this.properties.yamaGanda = yamaGanda;
+        this.properties.guliKaala = guliKaala;
+        this.properties.abhijit = abhijit;
+        this.properties.durMuhurta = durMuhurta;
+    }
+
     private getKaala = (seconds: number) => VedaKaalaGhataka.samvatsara * seconds;
 
     private callback = (date: Date) => {
+        const julian = TypeCheck.julianDay(date);
+        const julianDayAtStart = TypeCheck.julianDay(new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+        this.setVaara(julian);
         const year = date.getFullYear();
         const tithi = this.getTithi(date.getDate(), date.getMonth(), year);
         this.getSunRiseAndSet(date);
