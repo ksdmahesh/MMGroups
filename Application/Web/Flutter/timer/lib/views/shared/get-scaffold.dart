@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Scaffold getScaffold(BuildContext context, Map json, Map bindings) {
+Scaffold getScaffold(BuildContext context, Map<String, String> json,
+    Map<String, dynamic> bindings) {
   return Scaffold(
     appBar: AppBar(
       // Here we take the value from the MyHomePage object that was created by
