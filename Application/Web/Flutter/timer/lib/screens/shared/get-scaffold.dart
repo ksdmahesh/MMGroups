@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Scaffold getScaffold(BuildContext context, Map<String, String> json,
+Scaffold getScaffold(BuildContext context, Map<String, dynamic> json,
     Map<String, dynamic> bindings) {
   return Scaffold(
     appBar: AppBar(
