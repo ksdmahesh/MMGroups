@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:timer/views/home_page/home_page.dart';
+import 'package:timer/screens/home_page.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key}) : super(key: key);

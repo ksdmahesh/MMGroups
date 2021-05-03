@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timer/views/shared/get-scaffold.dart';
+import 'package:timer/screens/shared/get-scaffold.dart';
 import 'package:timer/data/home_page_json.dart';
 import 'package:timer/widgets/home_page_widget.dart';
 
