@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timer/widgets/left_bar_widget.dart';
 
 Scaffold getScaffold(BuildContext context, Map<String, dynamic> json,
     Map<String, dynamic> bindings) {
@@ -7,6 +8,15 @@ Scaffold getScaffold(BuildContext context, Map<String, dynamic> json,
       // Here we take the value from the MyHomePage object that was created by
       // the App.build method, and use it to set our appbar title.
       title: Text('${json["title"]}'),
+    ),
+    drawer: Drawer(
+      child: LeftBar(
+        items: {
+          'Item 1': 'Item 1',
+          'Item 2': 'Item 2',
+          'Item 3': 'Item 3',
+        },
+      ),
     ),
     body: Center(
       // Center is a layout widget. It takes a single child and positions it

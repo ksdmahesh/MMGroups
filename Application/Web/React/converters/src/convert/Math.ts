@@ -129,6 +129,88 @@ type ConstType = keyof (typeof _constants);
 
 //#region classes
 
+export class Economy {
+
+    //#region static functions
+
+    static simpleInterest = (principal: number, numberOfMonths: number, rateOfInterest: number) => ((principal * numberOfMonths * rateOfInterest) / (12 * 100));
+
+    static componentInterest = (principal: number, numberOfYears: number, rateOfInterest: number, frequencyOfMonths: number) => ((Math.pow(1 + (rateOfInterest / (frequencyOfMonths * 100)), frequencyOfMonths * numberOfYears) - 1) * principal);
+
+    static amortizationLoan = (principal: number, numberOfMonths: number, rateOfInterest: number) => {
+        const rate = rateOfInterest / 1200;
+        const rateOfMonths = Math.pow(1 + rate, numberOfMonths);
+        const loan = (principal * rate * rateOfMonths) / (rateOfMonths - 1);
+        const total = loan * numberOfMonths;
+        return { loan, total, interest: total - principal };
+    }
+
+    static discountRate = (principal: number, rateOfInterest: number) => (principal * rateOfInterest / 100);
+
+    //#endregion
+
+}
+
+export class DateTime {
+
+    //#region members
+
+    date: Date;
+
+    //#endregion
+
+    //#region  constructor
+
+    constructor(date: Date) {
+        this.date = date;
+    }
+
+    //#endregion
+
+    //#region static functions
+
+    static toOADate = (date: Date) => (date.getTime() / 86400000) + (25569 - (date.getTimezoneOffset() / (60 * 24)));
+
+    static fromOADate = (oadate: number) => new Date(((oadate - 25569 + (((new Date(((oadate - 25569) * 86400000))).getTimezoneOffset()) / (60 * 24))) * 86400000));
+
+    static julianDay = (date: Date) => (DateTime.toOADate(date) + 2415018.5);
+
+    static gregorianDay = (julian: number) => DateTime.fromOADate(julian - 2415018.5);
+
+    static getWeekDay = (julian: number) => {
+        let julianFloor = Math.floor(julian) + 0.5;
+        if (julian < julianFloor) {
+            julianFloor -= 1;
+        }
+
+        const day = (julianFloor + 1.5);
+        return Math.floor(day - (Math.floor(day / 7) * 7));;
+    }
+
+    static getDateDifference = (start: Date, end: Date) => (((end.getTime() - start.getTime()) / 86400000) - (end.getTimezoneOffset() - start.getTimezoneOffset()) / (60 * 24));
+
+    static getAge = (start: Date, end: Date) => {
+        var age = new Date(DateTime.getDateDifference(start, end) * 86400000);
+        age.setFullYear(age.getFullYear() - 1970);
+        return age;
+    }
+
+    //#endregion
+
+    //#region functions
+
+    toOADate = () => DateTime.toOADate(this.date);
+
+    julianDay = () => DateTime.julianDay(this.date);
+
+    getDateDifference = (end: Date) => DateTime.getDateDifference(this.date, end);
+
+    getAge = (start: Date) => DateTime.getAge(start, this.date);
+
+    //#endregion
+
+}
+
 export class Complex {
 
     //#region members
@@ -2576,6 +2658,28 @@ export default class Maths {
     //#endregion
 
     //#region public functions
+
+    static SimpleInterest = Economy.simpleInterest;
+
+    static ComponentInterest = Economy.componentInterest;
+
+    static AmortizationLoanEMI = Economy.amortizationLoan;
+
+    static DiscountRate = Economy.discountRate;
+
+    static ToOADate = DateTime.toOADate;
+
+    static FromOADate = DateTime.fromOADate;
+
+    static JulianDay = DateTime.julianDay;
+
+    static GregorianDay = DateTime.gregorianDay;
+
+    static GetWeekDay = DateTime.getWeekDay;
+
+    static GetDateDifference = DateTime.getDateDifference;
+
+    static GetAge = DateTime.getAge;
 
     static TwoEquation = Algebra.twoEquation;
 

@@ -168,25 +168,4 @@ export default class TypeCheck {
 
     static takeNextIfNull = <T>(list: Array<T>): T => list.find((a: any) => !TypeCheck.isNull(a) && !TypeCheck.isUndefined(a)) || list[list.length - 1];
 
-    static toOADate = (date: Date) => (date.getTime() / 86400000) + (25569 - (date.getTimezoneOffset() / (60 * 24)));
-
-    static fromOADate = (oadate: number) => new Date(((oadate - 25569 + (((new Date(((oadate - 25569) * 86400000))).getTimezoneOffset()) / (60 * 24))) * 86400000));
-
-    static julianDay = (date: Date) => (TypeCheck.toOADate(date) + 2415018.5);
-
-    static gregorianDay = (julian: number) => TypeCheck.fromOADate(julian - 2415018.5);
-
-    static getDateDifference1 = (date1: Date, date2: Date) => ((Date.parse(date1.toDateString()) - Date.parse(date2.toDateString())) / 86400000);
-
-    static getWeekDay = (julian: number) => {
-        let julianFloor = Math.floor(julian) + 0.5;
-        if (julian < julianFloor) {
-            julianFloor -= 1;
-        }
-
-        const day = (julianFloor + 1.5);
-        return Math.floor(day - (Math.floor(day / 7) * 7));;
-    }
-
-    static getDateDifference = (start: Date, end: Date) => (((end.getTime() - start.getTime()) / 86400000) - (end.getTimezoneOffset() - start.getTimezoneOffset()) / (60 * 24));
 }
