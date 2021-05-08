@@ -671,7 +671,8 @@ type Properties = {
     abhijit?: string,
     durMuhurta?: string[],
     suryodhaya?: Date,
-    suryaasthama?: Date
+    suryaasthama?: Date,
+    ayanamsa?: number
 } & PanchangaType;
 
 type Name = {
@@ -751,6 +752,8 @@ const decimalToDeg = (a: number) => Maths.DecimalToDeg(a) as { degree: string, d
 
 const degToRad = (a: number) => Maths.DegToRad(a);
 
+const radToDeg = (a: number) => Maths.RadToDeg(a);
+
 const minuteToDeg = (a: number) => Maths.MinuteToDeg(a);
 
 const sq = (a: number) => a * a;
@@ -772,6 +775,14 @@ const julianDay = Maths.JulianDay;
 const gregorianDay = Maths.GregorianDay;
 
 const getWeekDay = Maths.GetWeekDay;
+
+const julian1900 = julianDay(new Date(1900, 0, 1));
+
+const fix360 = (v: number) => {
+    while (v < 0.0) v += 360.0;
+    while (v > 360.0) v -= 360.0;
+    return v;
+}
 
 //#endregion
 
@@ -5243,10 +5254,217 @@ export class Panchangam {
 
     private getKaala = (seconds: number) => VedaKaalaGhataka.samvatsara * seconds;
 
+    private getUtcDate = (date: Date) => (((date.getUTCHours()) + (date.getUTCMinutes() / 60) + (date.getUTCSeconds() / 3600) + (date.getUTCMilliseconds() / 3600000)) / 24);
+
+    private getJulianUTC = (date: Date) => {
+        const dateAtStart = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+        const julianDayAtStartUTC = julianDay(dateAtStart) + this.getUtcDate(date);
+        const gregorianDayAtStartUTC = gregorianDay(julianDayAtStartUTC).getUTCFullYear();
+        const julianDayAtStartUTC1800 = (julianDayAtStartUTC - julianDay(new Date(1800, 0, 1))) / 36525;
+        var efdt = [124, 85, 62, 48, 37, 26, 16, 10, 9, 10, 11, 11, 12, 13, 15, 16, 17, 17, 13.7, 12.5, 12, 7.5, 5.7, 7.1, 7.9, 1.6, -5.4, -5.9, -2.7, 10.5, 21.2, 24, 24.3, 29.2, 33.2, 40.2, 50.5, 56.9, 65.7, 75.5];
+        let dt;
+
+        if (gregorianDayAtStartUTC >= 2010) {
+            dt = 25.5 * sq(julianDayAtStartUTC1800) - 39;
+        } else if (gregorianDayAtStartUTC >= 1620 && gregorianDayAtStartUTC < 2010) {
+            const i1 = Math.floor((gregorianDayAtStartUTC - 1620) / 10);
+            const di = gregorianDayAtStartUTC - (1620 + i1 * 10);
+            dt = (efdt[i1] + ((efdt[i1 + 1] - efdt[i1]) * di) / 10);
+        } else if (gregorianDayAtStartUTC >= 948 && gregorianDayAtStartUTC < 1620) {
+            dt = 25.5 * sq(julianDayAtStartUTC1800);
+        } else {
+            dt = 1361.7 + 320 * julianDayAtStartUTC1800 + 44.3 * sq(julianDayAtStartUTC1800);
+        }
+
+        dt /= 3600;
+
+        return julianDayAtStartUTC + (dt / 24);
+    }
+
+    // private nutation = (jd) => {
+
+    //     t = (jd - 2415020) / 36525;
+    //     t2 = t * t;
+
+    //     // avg len sun
+    //     ls = 279.6967 + 36000.7689 * t + 0.000303 * t2;
+    //     // avg len moon
+    //     l = 270.4341639 + 481267.8831417 * t - 0.0011333333 * t2;
+    //     // avg anomaly sun
+    //     ms = 358.4758333333334 + 35999.04974999958 * t - t2 * 1.500000059604645e-4;
+    //     // avg anomaly moon
+    //     ml = 296.1046083333757 + 477198.8491083336 * t + 0.0091916667090522 * t2;
+    //     // the diff medium len of moon and sun (avg elongation moon)
+    //     d = 350.7374861110581 + 445267.1142166667 * t - t2 * 1.436111132303874e-3;
+
+    //     om = 259.1832750002543 - 1934.142008333206 * t + .0020777778 * t2;
+    //     ls *= d2r; l *= d2r; ms *= d2r; ml *= d2r; d *= d2r; om *= d2r;
+    //     d2 = d * d; l2 = l * l; ls2 = ls * ls;
+
+    //     with (Math) {
+    //         nut = (-17.2327 - 0.01737 * t) * sin(om);
+    //         nut += 0.2088 * sin(2.0 * om);
+    //         nut += 0.0675 * sin(ml);
+    //         nut -= 0.0149 * sin(ml - d2);
+    //         nut -= 0.0342 * sin(l2 - om);
+    //         nut += 0.0114 * sin(l2 - ml);
+    //         nut -= 0.2037 * sin(l2);
+    //         nut -= 0.0261 * sin(l2 + ml);
+    //         nut += 0.0124 * sin(ls2 - om);
+    //         nut += 0.0214 * sin(ls2 - ms);
+    //         nut -= 1.2729 * sin(ls2);
+    //         nut -= 0.0497 * sin(ls2 + ms);
+    //         nut += 0.1261 * sin(ms);
+    //         nut = nut / 3600.0;
+    //     }
+    //     return nut;
+    // }
+
+    private getMoonLength = (julian: number) => {
+        // days from 1900
+        const tdays = julian - 2415020;
+        const t = tdays / 36525;
+        const t2 = t * t;
+        const t3 = t * t * t;
+
+        // slope travels to the equator
+        const ob = 23.452294 - 0.0130125 * t - 0.00000164 * t2 + 0.000000503 * t3;
+        // the average length moon
+        let l = 270.4337361 + 13.176396544528099 * tdays - 5.86 * t2 / 3600 + 0.0068 * t3 / 3600;
+        // the difference medium length Moon and the Sun (the averageElongation Moon):
+        let d = 350.7374861110581 + 445267.1142166667 * t - t2 * 1.436111132303874e-3 + 0.0000018888889 * t3;
+        // Perigee moon
+        const pe = 334.329556 + 14648522.52 * t / 3600 - 37.17 * t2 / 3600 - 0.045 * t3 / 3600;
+        // the average anomoly sun
+        let ms = 358.4758333333334 + 35999.04974999958 * t - t2 * 1.500000059604645e-4 - t3 * 3.3333333623078e-6;
+        // The average anomoloy moon
+        //ml = 296.1046083333757 + 477198.8491083336*t + 0.0091916667090522*t2 + 0.0000143888893*t3;
+        let ml = fix360(l - pe);
+        // Rising length node orbit the moon:
+        const om = 259.183275 - 6962911.23 * t / 3600 + 7.48 * t2 / 3600 + 0.008 * t3 / 3600;
+        // the average length Moon, measured from the bottom up hub orbit:
+
+        let f = fix360(l - om);
+
+        // periodic revisions
+        const r2rad = radToDeg(360.0);
+        const tb = tdays * 1e-12; // *10^12
+        const t2c = tdays * tdays * 1e-16; // *10^16
+        const a1 = sin(r2rad * (0.53733431 - 10104982 * tb + 191 * t2c));
+        const a2 = sin(r2rad * (0.71995354 - 147094228 * tb + 43 * t2c));
+        const c2 = cos(r2rad * (0.71995354 - 147094228 * tb + 43 * t2c));
+        const a3 = sin(r2rad * (0.14222222 + 1536238 * tb));
+        const a4 = sin(r2rad * (0.48398132 - 147269147 * tb + 43 * t2c));
+        const c4 = cos(r2rad * (0.48398132 - 147269147 * tb + 43 * t2c));
+        const a5 = sin(r2rad * (0.52453688 - 147162675 * tb + 43 * t2c));
+        const a6 = sin(r2rad * (0.84536324 - 11459387 * tb));
+        const a7 = sin(r2rad * (0.23363774 + 1232723 * tb + 191 * t2c));
+        const a8 = sin(r2rad * (0.58750000 + 9050118 * tb));
+        const a9 = sin(r2rad * (0.61043085 - 67718733 * tb));
+
+        const dlm = 0.84 * a3 + 0.31 * a7 + 14.27 * a1 + 7.261 * a2 + 0.282 * a4 + 0.237 * a6;
+        const dpm = -2.1 * a3 - 2.076 * a2 - 0.840 * a4 - 0.593 * a6;
+        const dkm = 0.63 * a3 + 95.96 * a2 + 15.58 * a4 + 1.86 * a5;
+        const dls = -6.4 * a3 - 0.27 * a8 - 1.89 * a6 + 0.20 * a9;
+        let dgc = (-4.318 * c2 - 0.698 * c4) / 3600.0 / 360.0;
+        dgc = (1.000002708 + 139.978 * dgc);
+
+        ml = radToDeg(ml + (dlm - dpm) / 3600.0); //Average anomoly moon
+        ms = radToDeg(ms + dls / 3600.0); //Average anomoly sun
+        f = radToDeg(f + (dlm - dkm) / 3600.0);
+        d = radToDeg(d + (dlm - dls) / 3600.0); //avg elongation moon
+
+        let lk = 0, lk1 = 0, sk = 0, sinp = 0, nib = 0, g1c = 0;
+        let i1corr = 1.0 - 6.8320e-8 * tdays;
+        let i2corr = dgc * dgc;
+
+        // let arg;
+        // for (let i = 0; i < 93; i++) { // outrage at length
+        //     arg = corrMoon[i].mlcor * ml + corrMoon[i].mscor * ms + corrMoon[i].fcor * f + corrMoon[i].dcor * d;
+        //     sinarg = sin(arg);
+        //     if (corrMoon[i].mscor != 0) {
+        //         sinarg *= i1corr;
+        //         if (corrMoon[i].mscor == 2 || corrMoon[i].mscor == -2) sinarg *= i1corr;
+        //     }
+        //     if (corrMoon[i].fcor != 0) sinarg *= i2corr;
+        //     lk += corrMoon[i].lcor * sinarg;
+        // }
+        // for (let i = 0; i < 27; i++) { // outrage at length additional
+        //     arg = corrMoon2[i].ml * ml + corrMoon2[i].ms * ms + corrMoon2[i].f * f + corrMoon2[i].d * d;
+        //     sinarg = sin(arg);
+        //     lk1 += corrMoon2[i].l * sinarg;
+        // }
+
+        // resentments of the planets
+        let dlid = 0.822 * sin(r2rad * (0.32480 - 0.0017125594 * tdays));
+        dlid += 0.307 * sin(r2rad * (0.14905 - 0.0034251187 * tdays));
+        dlid += 0.348 * sin(r2rad * (0.68266 - 0.0006873156 * tdays));
+        dlid += 0.662 * sin(r2rad * (0.65162 + 0.0365724168 * tdays));
+        dlid += 0.643 * sin(r2rad * (0.88098 - 0.0025069941 * tdays));
+        dlid += 1.137 * sin(r2rad * (0.85823 + 0.0364487270 * tdays));
+        dlid += 0.436 * sin(r2rad * (0.71892 + 0.0362179180 * tdays));
+        dlid += 0.327 * sin(r2rad * (0.97639 + 0.0001734910 * tdays));
+
+        // l = l + this.nutation(julian) + (dlm + lk + lk1 + dlid) / 3600.0;
+        const LmoonYoga = l;
+        //alert("Lmoon="+l);
+        l = fix360(l);
+
+        // angular velocity of the moon on ecliptic (deg/day):
+        let vl = 13.176397;
+        vl = vl + 1.434006 * cos(ml);
+        vl = vl + .280135 * cos(2 * d);
+        vl = vl + .251632 * cos(2 * d - ml);
+        vl = vl + .09742 * cos(2 * ml);
+        vl = vl - .052799 * cos(2 * f);
+        vl = vl + .034848 * cos(2 * d + ml);
+        vl = vl + .018732 * cos(2 * d - ms);
+        vl = vl + .010316 * cos(2 * d - ms - ml);
+        vl = vl + .008649 * cos(ms - ml);
+        vl = vl - .008642 * cos(2 * f + ml);
+        vl = vl - .007471 * cos(ms + ml);
+        vl = vl - .007387 * cos(d);
+        vl = vl + .006864 * cos(3 * ml);
+        vl = vl + .00665 * cos(4 * d - ml);
+        vl = vl + .003523 * cos(2 * d + 2 * ml);
+        vl = vl + .003377 * cos(4 * d - 2 * ml);
+        vl = vl + .003287 * cos(4 * d);
+        vl = vl - .003193 * cos(ms);
+        vl = vl - .003003 * cos(2 * d + ms);
+        vl = vl + .002577 * cos(ml - ms + 2 * d);
+        vl = vl - .002567 * cos(2 * f - ml);
+        vl = vl - .001794 * cos(2 * d - 2 * ml);
+        vl = vl - .001716 * cos(ml - 2 * f - 2 * d);
+        vl = vl - .001698 * cos(2 * d + ms - ml);
+        vl = vl - .001415 * cos(2 * d + 2 * f);
+        vl = vl + .001183 * cos(2 * ml - ms);
+        vl = vl + .00115 * cos(d + ms);
+        vl = vl - .001035 * cos(d + ml);
+        vl = vl - .001019 * cos(2 * f + 2 * ml);
+        vl = vl - .001006 * cos(ms + 2 * ml);
+        const skor = vl;
+        //l += ay;
+        //if(l < 0.0)l += 360.0;
+        return l;
+    }
+
+    private getAyanamsa = (julian: number) => {
+        const t = (julian - julian1900) / 36525;
+        // avg node len moon
+        const om = 259.183275 - 1934.142008333206 * t + 0.0020777778 * t * t + 0.0000022222222 * t * t * t;
+        // avg len sun
+        const ls = 279.696678 + 36000.76892 * t + 0.0003025 * t * t;
+        const ayanamsa = 17.23 * sin(om) + 1.27 * sin(ls * 2) - (5025.64 + 1.11 * t) * t;
+
+        return ((ayanamsa - 80861.27) / 3600.0); // 84038.27 = Fagan-Bradley, 80861.27 = Lahiri;
+    }
+
     private callback = (date: Date) => {
         const julian = julianDay(date);
-        const julianDayAtStart = julianDay(new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+        const julianDayAtStartUTC = this.getJulianUTC(date);
+        const ayanamsa = this.getAyanamsa(julianDayAtStartUTC);
         this.setVaara(julian);
+
         const year = date.getFullYear();
         const tithi = this.getTithi(date.getDate(), date.getMonth(), year);
         // this.getSunRiseAndSet(date);

@@ -66,6 +66,74 @@ export enum ConstructorTypes {
     Matrix = 'Matrix'
 }
 
+export enum TradeType {
+    intraday = 'intraday',
+    positional = 'positional',
+    futures = 'futures',
+    options = 'options'
+}
+
+//#endregion
+
+//#region types
+
+type BrokarageType = {
+    buyValue: number,
+    sellValue: number,
+    quantity: number
+};
+
+type ChargeSegments = {
+    /**
+     * @summary sum of buy price and sell price into quantity
+     * @template (buyValue + sellValue) * quantity
+     */
+    Turnover: number,
+    /**
+     * @summary
+     */
+    Brokerage: number,
+    /**
+     * @name SecuritiesTransactionTaxTotal
+     * @summary
+     */
+    STTTotal: number,
+    /**
+     * @summary
+     */
+    ExchangeTransactionCharge: number,
+    /**
+     * @summary
+     */
+    ClearingCharge: number,
+    /**
+     * @name GoodsAndServicesTax
+     * @summary
+     */
+    GST: number,
+    /**
+     * @name SecuritiesAndExchangeBoardOfIndiaCharges
+     * @summary
+     */
+    SEBICharges: number,
+    /**
+     * @summary
+     */
+    StampDuty: number,
+    /**
+     * @summary
+     */
+    TotalTaxAndCharges: number,
+    /**
+     * @summary
+     */
+    PointsToBreakeven: number,
+    /**
+     * @summary
+     */
+    NetProfitAndLose: number
+};
+
 //#endregion
 
 //#region constants
@@ -128,6 +196,104 @@ type ConstType = keyof (typeof _constants);
 //#endregion
 
 //#region classes
+
+export class BestBrokarage {
+
+    //#region members
+
+    buyValue: number;
+
+    sellValue: number;
+
+    quantity: number;
+
+    //#endregion
+
+    //#region constructor
+
+    constructor(props: BrokarageType) {
+        this.buyValue = props.buyValue;
+        this.sellValue = props.sellValue;
+        this.quantity = props.quantity;
+    }
+
+    //#endregion
+
+    //#region static functions
+
+    static intraDay = (): ChargeSegments => ({
+        Brokerage: 0,
+        ClearingCharge: 0,
+        ExchangeTransactionCharge: 0,
+        GST: 0,
+        NetProfitAndLose: 0,
+        PointsToBreakeven: 0,
+        SEBICharges: 0,
+        STTTotal: 0,
+        StampDuty: 0,
+        TotalTaxAndCharges: 0,
+        Turnover: 0
+    });
+
+    static zerodha = (): ChargeSegments => ({
+        Brokerage: 0,
+        ClearingCharge: 0,
+        ExchangeTransactionCharge: 0,
+        GST: 0,
+        NetProfitAndLose: 0,
+        PointsToBreakeven: 0,
+        SEBICharges: 0,
+        STTTotal: 0,
+        StampDuty: 0,
+        TotalTaxAndCharges: 0,
+        Turnover: 0
+    });
+
+    static angelBroking = (): ChargeSegments => ({
+        Brokerage: 0,
+        ClearingCharge: 0,
+        ExchangeTransactionCharge: 0,
+        GST: 0,
+        NetProfitAndLose: 0,
+        PointsToBreakeven: 0,
+        SEBICharges: 0,
+        STTTotal: 0,
+        StampDuty: 0,
+        TotalTaxAndCharges: 0,
+        Turnover: 0
+    });
+
+    static aliceBlue = (): ChargeSegments => ({
+        Brokerage: 0,
+        ClearingCharge: 0,
+        ExchangeTransactionCharge: 0,
+        GST: 0,
+        NetProfitAndLose: 0,
+        PointsToBreakeven: 0,
+        SEBICharges: 0,
+        STTTotal: 0,
+        StampDuty: 0,
+        TotalTaxAndCharges: 0,
+        Turnover: 0
+    });
+
+    static upStocks = (): ChargeSegments => ({
+        Brokerage: 0,
+        ClearingCharge: 0,
+        ExchangeTransactionCharge: 0,
+        GST: 0,
+        NetProfitAndLose: 0,
+        PointsToBreakeven: 0,
+        SEBICharges: 0,
+        STTTotal: 0,
+        StampDuty: 0,
+        TotalTaxAndCharges: 0,
+        Turnover: 0
+    });
+
+    //#endregion
+
+}
 
 export class Economy {
 

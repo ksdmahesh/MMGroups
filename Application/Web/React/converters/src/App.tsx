@@ -7,7 +7,7 @@ import { JsontoXml, XmltoJson } from './convert/JsontoXml';
 import { JsontoCsv, CsvtoJson } from './convert/JsontoCsv';
 import { getDefaultPath, readStream, writeStream } from './server/service-call';
 import { Panchangam } from './convert/panchangam';
-import TypeCheck from "./convert/TypeChecker";
+import Astro from './convert/astro';
 
 class App extends React.Component {
 
@@ -340,44 +340,13 @@ class App extends React.Component {
   }
 
   checkPanchanga = () => {
-    // const { ASin, ACos, Sin, Cos, Tan, RadToDeg } = Maths;
-    // const { PI } = Math;
+    const wn: any = window;
+    const pa = new Panchangam({ date: wn['currentDate'] });
+  }
 
-    // // // declation 1
-    // const N = Date.now() - 1;
-    // const a = (360 / (RadToDeg(PI) as number));
-    // const b = RadToDeg(0.0167) as number;
-    // const c = (360 / (RadToDeg(365.24) as number));
-    // const d = a * b * (Sin(c * (N - 2), Mode.Degree) as number);
-    // const e = Cos((c * (N + 10)) + d, Mode.Degree) as number;
-    // const f = (Sin(-23.44, Mode.Degree) as number) * e;
-    // const g = -1 * (ASin(f, Mode.Degree) as number);
-
-    // console.log(g);
-    // declation 2
-
-    // const n = (TypeCheck.toOADate(new Date(Date.now())) + 2415018.5) - 2451545 + (71.684 / 86400);
-    // const JS = n - ((RadToDeg(79.419182) as number) / 360);
-    // const M = (357.5291 + 0.98560028 * JS) % 360;
-    // const C = 1.9148 * (Sin(M, Mode.Degree) as number) + 0.02 * (Sin(2 * M, Mode.Degree) as number) + 0.0003 * (Sin(3 * M, Mode.Degree) as number);
-    // const lm = (M + C + 180 + 102.9372) % 360;
-    // const JT = 2451545.0 + JS + 0.0053 * (Sin(M, Mode.Degree) as number) - 0.0069 * (Sin(2 * lm, Mode.Degree) as number);
-    // const g1 = ASin((Sin(lm, Mode.Degree) as number) * (Sin(23.44, Mode.Degree) as number), Mode.Degree) as number;
-
-    // console.log(g, g1);
-    // hour angle
-
-    // const w = ACos((Sin(-0.83, Mode.Degree) as number) - ((Sin(13.628756, Mode.Degree) as number) * (Sin(g1, Mode.Degree) as number)), Mode.Degree) as number;
-
-
-    // sunrise, set
-
-    // const JR = Panchangam.gregorianDay(JT - (w / 360));
-    // const JS1 = Panchangam.gregorianDay(JT + (w / 360));
-
-    // console.log({ g, g1, w, JR, JS1 });
-    const panchanga = new Panchangam({});
-    console.log(panchanga.properties);
+  checkAstro = () => {
+    const astro = new Astro({});
+    console.log(astro.properties);
   }
 
   convertors = {
@@ -408,6 +377,9 @@ class App extends React.Component {
     },
     Panchanga: {
       fnName: this.checkPanchanga
+    },
+    Astro: {
+      fnName: this.checkAstro
     },
     XmltoJson: {
       fnName: XmltoJson,
@@ -442,7 +414,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.init(this.convertors.Panchanga);
+    this.init(this.convertors.Astro);
   }
 
   init = async (activeConvertor: { fnName: Function, read?: string, write?: string, options?: object, includeDefault?: boolean }) => {
