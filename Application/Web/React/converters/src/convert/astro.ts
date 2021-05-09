@@ -45,7 +45,9 @@ type PlanetProps = {
     azimuth?: number,
     height?: number,
     transit?: number,
-    elongation?: { e1: number, e2: number }
+    elongation?: { e1: number, e2: number },
+    longitude?: number,
+    latitude?: number
 };
 
 type Properties = {
@@ -362,22 +364,23 @@ export default class Astro {
         const solarTransit = this.getSolarTransit(meanSolarTime, solarMeanAnomaly, eclipticLongitude);
         const AU = 1.00014 - (0.01671 * cos(solarMeanAnomaly)) - (0.00014 * cos(2 * solarMeanAnomaly));
         const obliquityOfEcliptic = this.POE.Earth.Obliquity - (0.0000004 * meanSolarTime);
-        return { rightAscension: degToHour(atan((cos(obliquityOfEcliptic)) * tan(eclipticLongitude))), declination: asin(sin(eclipticLongitude) * sin(obliquityOfEcliptic)), solarTransit, AU };
+        return { rightAscension: degToHour(atan((cos(obliquityOfEcliptic)) * tan(eclipticLongitude))), declination: asin(sin(eclipticLongitude) * sin(obliquityOfEcliptic)), solarTransit, AU, eclipticLongitude };
     }
 
     private getSolarMeanHourAndTransit = (date: Date) => {
-        const { declination, rightAscension, solarTransit, AU } = this.getSunRightAscensionDeclinationAndTransit(date);
+        const { declination, rightAscension, solarTransit, AU, eclipticLongitude } = this.getSunRightAscensionDeclinationAndTransit(date);
         const elevationOfObserver = this.getElevationOfObserver(declination);
-        return { meanHour: acos((sin(this.RHA.Earth.h0) - (sin(this.properties.latitude || 0) * sin(declination))) / ((cos(this.properties.latitude || 0) * cos(declination)))), solarTransit, elevationOfObserver, AU, declination: decimalToDeg(declination), rightAscension: decimalToDeg(rightAscension) };
+        return { meanHour: acos((sin(this.RHA.Earth.h0) - (sin(this.properties.latitude || 0) * sin(declination))) / ((cos(this.properties.latitude || 0) * cos(declination)))), solarTransit, elevationOfObserver, AU, declination: decimalToDeg(declination), rightAscension: decimalToDeg(rightAscension), eclipticLongitude };
     }
 
     private getSunRiseAndSet = (date: Date, utc: number) => {
-        const { meanHour, solarTransit, elevationOfObserver, AU, declination, rightAscension } = this.getSolarMeanHourAndTransit(date);
+        const { meanHour, solarTransit, elevationOfObserver, AU, declination, rightAscension, eclipticLongitude } = this.getSolarMeanHourAndTransit(date);
         const transit = new Date(solarTransit);
         transit.setMinutes(utc);
         return {
+            longitude: eclipticLongitude,
             rise: gregorianDay((solarTransit - ((meanHour / 360) * this.JT.Earth.J3))),
-            set: gregorianDay((solarTransit + ((meanHour / 360) * this.JT.Earth.J3))), elevationOfObserver, distance: AUToKM(AU), declination, rightAscension, transit: (transit.getHours() + (transit.getMinutes() / 60) + (transit.getSeconds() / 3600) + (transit.getMinutes() / 3600000))
+            set: gregorianDay((solarTransit + ((meanHour / 360) * this.JT.Earth.J3))), elevationOfObserver, distance: AUToKM(AU), declination, rightAscension, transit: this.getUtcDate(transit)
         };
     }
 
@@ -522,11 +525,13 @@ export default class Astro {
         const { azimuth, height } = this.getHeightAndAzimuth(hourAngle, declination);
         const lunarTransit = this.getLunarTransit(rightAscension, meanAnomaly);
         const elongation = this.getElongation(latitude, longitude, eclipticLongitude);
-        return { meanHour: acos((sin(this.RHA.Earth.h0) - (sin(this.properties.latitude || 0) * sin(declination))) / ((cos(this.properties.latitude || 0) * cos(declination)))), declination: decimalToDeg(declination), rightAscension: decimalToDeg(rightAscension), lunarTransit, elevationOfObserver, AU: distance.r, azimuth, height, elongation };
+        return {
+            meanHour: acos((sin(this.RHA.Earth.h0) - (sin(this.properties.latitude || 0) * sin(declination))) / ((cos(this.properties.latitude || 0) * cos(declination)))), declination: decimalToDeg(declination), rightAscension: decimalToDeg(rightAscension), lunarTransit, elevationOfObserver, AU: distance.r, azimuth, height, elongation, latitude, longitude
+        };
     }
 
     private getMoonRiseAndSet = (date: Date) => {
-        const { meanHour, declination, rightAscension, lunarTransit, elevationOfObserver, AU, azimuth, height, elongation } = this.getLunarMeanHourAndTransit(date, Planets.Earth);
+        const { meanHour, declination, rightAscension, lunarTransit, elevationOfObserver, AU, azimuth, height, elongation, latitude, longitude } = this.getLunarMeanHourAndTransit(date, Planets.Earth);
         const rise = new Date();
         rise.setHours((lunarTransit - meanHour) / 15);
         const set = new Date();
@@ -534,13 +539,15 @@ export default class Astro {
         return {
             rise,
             set,
-            elevationOfObserver, distance: AUToKM(AU), declination, rightAscension, azimuth, height, transit: lunarTransit / 15, elongation
+            elevationOfObserver, distance: AUToKM(AU), declination, rightAscension, azimuth, height, transit: lunarTransit / 15, elongation, latitude, longitude
         };
     }
 
     //#endregion
 
     //#region common
+
+    private getUtcDate = (date: Date) => (((date.getHours()) + (date.getMinutes() / 60) + (date.getSeconds() / 3600) + (date.getMilliseconds() / 3600000)));
 
     private callback = (date: Date) => {
         const dateAtStart = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());

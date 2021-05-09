@@ -77,12 +77,6 @@ export enum TradeType {
 
 //#region types
 
-type BrokarageType = {
-    buyValue: number,
-    sellValue: number,
-    quantity: number
-};
-
 type ChargeSegments = {
     /**
      * @summary sum of buy price and sell price into quantity
@@ -199,54 +193,133 @@ type ConstType = keyof (typeof _constants);
 
 export class BestBrokarage {
 
-    //#region members
+    //#region private functions
 
-    buyValue: number;
+    //#region zerodha
 
-    sellValue: number;
+    private static brokerageBuy = (buyPrice: number, quantity: number) => Math.min(20, buyPrice * quantity * 0.0003);
 
-    quantity: number;
+    private static brokerageSell = (sellPrice: number, quantity: number) => Math.min(20, sellPrice * quantity * 0.0003);
+
+    private static intraDay = (buyPrice: number, sellPrice: number, quantity: number): ChargeSegments => {
+        const Turnover = (buyPrice + sellPrice) * quantity;
+        const Brokerage = BestBrokarage.brokerageBuy(buyPrice, quantity) + BestBrokarage.brokerageSell(sellPrice, quantity);
+        const STTTotal = (sellPrice * quantity) * 0.00025;
+        const ExchangeTransactionCharge = 0.0000345 * Turnover;
+        const ClearingCharge = 0;
+        const GST = 0.18 * (Brokerage + ExchangeTransactionCharge);
+        const SEBICharges = Turnover * 0.000001;
+        const StampDuty = (buyPrice * quantity) * 0.00003;
+        const TotalTaxAndCharges = Brokerage + STTTotal + ExchangeTransactionCharge + GST + SEBICharges + StampDuty;
+        const PointsToBreakeven = TotalTaxAndCharges / quantity;
+        const NetProfitAndLose = ((sellPrice - buyPrice) * quantity) - TotalTaxAndCharges;
+        return ({
+            Turnover,
+            Brokerage,
+            STTTotal,
+            ExchangeTransactionCharge,
+            ClearingCharge,
+            GST,
+            SEBICharges,
+            StampDuty,
+            TotalTaxAndCharges,
+            PointsToBreakeven: isNaN(PointsToBreakeven) ? 0 : PointsToBreakeven,
+            NetProfitAndLose
+        });
+    }
+
+    private static deliveryEquity = (buyPrice: number, sellPrice: number, quantity: number): ChargeSegments => {
+        const Turnover = (buyPrice + sellPrice) * quantity;
+        const Brokerage = 0;
+        const STTTotal = (Turnover * 0.001);
+        const ExchangeTransactionCharge = 0.0000345 * Turnover;
+        const ClearingCharge = 0;
+        const GST = 0.18 * (Brokerage + ExchangeTransactionCharge);
+        const SEBICharges = Turnover * 0.000001;
+        const StampDuty = buyPrice * quantity * 0.00015;
+        const TotalTaxAndCharges = Brokerage + STTTotal + ExchangeTransactionCharge + ClearingCharge + GST + SEBICharges + StampDuty;
+        const PointsToBreakeven = TotalTaxAndCharges / quantity;
+        const NetProfitAndLose = ((sellPrice - buyPrice) * quantity) - TotalTaxAndCharges;
+        return ({
+            Turnover,
+            Brokerage,
+            STTTotal,
+            ExchangeTransactionCharge,
+            ClearingCharge,
+            GST,
+            SEBICharges,
+            StampDuty,
+            TotalTaxAndCharges,
+            PointsToBreakeven: isNaN(PointsToBreakeven) ? 0 : PointsToBreakeven,
+            NetProfitAndLose
+        });
+    }
+
+    private static foFutures = (buyPrice: number, sellPrice: number, quantity: number, nse: boolean = false): ChargeSegments => {
+        const Turnover = (buyPrice + sellPrice) * quantity;
+        const Brokerage = BestBrokarage.brokerageBuy(buyPrice, quantity) + BestBrokarage.brokerageSell(sellPrice, quantity);
+        const STTTotal = sellPrice * quantity * 0.0001;
+        const ExchangeTransactionCharge = nse ? (0.00002 * Turnover) : 0;
+        const ClearingCharge = 0;
+        const GST = 0.18 * (Brokerage + ExchangeTransactionCharge);
+        const SEBICharges = Turnover * 0.000001;
+        const StampDuty = buyPrice * quantity * 0.00002;
+        const TotalTaxAndCharges = Brokerage + STTTotal + ExchangeTransactionCharge + GST + SEBICharges + StampDuty;
+        const PointsToBreakeven = TotalTaxAndCharges / quantity;
+        const NetProfitAndLose = ((sellPrice - buyPrice) * quantity) - TotalTaxAndCharges;
+        return ({
+            Turnover,
+            Brokerage,
+            STTTotal,
+            ExchangeTransactionCharge,
+            ClearingCharge,
+            GST,
+            SEBICharges,
+            StampDuty,
+            TotalTaxAndCharges,
+            PointsToBreakeven: isNaN(PointsToBreakeven) ? 0 : PointsToBreakeven,
+            NetProfitAndLose
+        });
+    }
+
+    private static foOptions = (buyPrice: number, sellPrice: number, quantity: number, nse: boolean = false): ChargeSegments => {
+        const Turnover = (buyPrice + sellPrice) * quantity;
+        const Brokerage = BestBrokarage.brokerageBuy(buyPrice, quantity) + BestBrokarage.brokerageSell(sellPrice, quantity);
+        const STTTotal = sellPrice * quantity * 0.0005;
+        const ExchangeTransactionCharge = nse ? (0.00053 * Turnover) : 0;
+        const ClearingCharge = 0;
+        const GST = 0.18 * (Brokerage + ExchangeTransactionCharge);
+        const SEBICharges = Turnover * 0.000001;
+        const StampDuty = buyPrice * quantity * 0.00003;
+        const TotalTaxAndCharges = Brokerage + STTTotal + ExchangeTransactionCharge + GST + SEBICharges + StampDuty;
+        const PointsToBreakeven = TotalTaxAndCharges / quantity;
+        const NetProfitAndLose = ((sellPrice - buyPrice) * quantity) - TotalTaxAndCharges;
+        return ({
+            Turnover,
+            Brokerage,
+            STTTotal,
+            ExchangeTransactionCharge,
+            ClearingCharge,
+            GST,
+            SEBICharges,
+            StampDuty,
+            TotalTaxAndCharges,
+            PointsToBreakeven: isNaN(PointsToBreakeven) ? 0 : PointsToBreakeven,
+            NetProfitAndLose
+        });
+    }
 
     //#endregion
-
-    //#region constructor
-
-    constructor(props: BrokarageType) {
-        this.buyValue = props.buyValue;
-        this.sellValue = props.sellValue;
-        this.quantity = props.quantity;
-    }
 
     //#endregion
 
     //#region static functions
 
-    static intraDay = (): ChargeSegments => ({
-        Brokerage: 0,
-        ClearingCharge: 0,
-        ExchangeTransactionCharge: 0,
-        GST: 0,
-        NetProfitAndLose: 0,
-        PointsToBreakeven: 0,
-        SEBICharges: 0,
-        STTTotal: 0,
-        StampDuty: 0,
-        TotalTaxAndCharges: 0,
-        Turnover: 0
-    });
-
-    static zerodha = (): ChargeSegments => ({
-        Brokerage: 0,
-        ClearingCharge: 0,
-        ExchangeTransactionCharge: 0,
-        GST: 0,
-        NetProfitAndLose: 0,
-        PointsToBreakeven: 0,
-        SEBICharges: 0,
-        STTTotal: 0,
-        StampDuty: 0,
-        TotalTaxAndCharges: 0,
-        Turnover: 0
+    static zerodha = (buyPrice: number, sellPrice: number, quantity: number, nse: boolean = false) => ({
+        intraDay: BestBrokarage.intraDay(buyPrice, sellPrice, quantity),
+        deliveryEquity: BestBrokarage.deliveryEquity(buyPrice, sellPrice, quantity),
+        foFutures: BestBrokarage.foFutures(buyPrice, sellPrice, quantity, nse),
+        foOptions: BestBrokarage.foOptions(buyPrice, sellPrice, quantity, nse)
     });
 
     static angelBroking = (): ChargeSegments => ({
@@ -2825,6 +2898,14 @@ export default class Maths {
 
     //#region public functions
 
+    static AliceBlue = BestBrokarage.aliceBlue;
+
+    static AngelBroking = BestBrokarage.angelBroking;
+
+    static UpStocks = BestBrokarage.upStocks;
+
+    static Zerodha = BestBrokarage.zerodha;
+
     static SimpleInterest = Economy.simpleInterest;
 
     static ComponentInterest = Economy.componentInterest;
@@ -3370,41 +3451,5 @@ export default class Maths {
     //#endregion
 
 }
-
-//#endregion
-
-//#region Extensions
-
-// Complex.prototype.valueOf = function () {
-//     Complex.operands.push(this);
-//     return 3;
-// }
-
-// Object.defineProperty(Complex.prototype, '_', {
-//     set: function (value) {
-//         const ops = Complex.operands;
-//         let operator: Function;
-//         if (ops.length === 2 && value === 0) { // 3 - 3
-//             operator = this.subtract;
-//         } else if (ops.length === 2 && value === 1) { // 3 / 3
-//             operator = this.divide;
-//         } else if (ops.length >= 2 && (value === 3 * ops.length)) {
-//             // 3 + 3 + 3 + ...
-//             operator = this.add;
-//         } else if (ops.length >= 2 && (value === Math.pow(3, ops.length))) {
-//             // 3 * 3 * 3 * ...
-//             operator = this.multiply;
-//         } else {
-//             throw new Error("Unsupported operation (code " + value + ")");
-//         }
-//         Complex.operands = []; // reset
-//         Complex.result = operator.apply(this, [ops]);
-//     },
-//     get: function () {
-//         return Complex.result;
-//     },
-//     enumerable: true,
-//     configurable: true,
-// });
 
 //#endregion
