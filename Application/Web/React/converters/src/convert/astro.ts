@@ -29,35 +29,28 @@ type AstroProps = {
     date?: Date
 };
 
-type Properties = {
-    planet?: {
-        rise?: Date,
-        set?: Date,
-        elevationOfObserver?: number,
-        distance?: number,
-        declination?: {
-            degree: string,
-            decimal: number
-        },
-        rightAscension?: {
-            degree: string,
-            decimal: number
-        }
+type PlanetProps = {
+    rise?: Date,
+    set?: Date,
+    elevationOfObserver?: number,
+    distance?: number,
+    declination?: {
+        degree: string,
+        decimal: number
     },
-    lunar?: {
-        rise?: Date,
-        set?: Date,
-        elevationOfObserver?: number,
-        distance?: number,
-        declination?: {
-            degree: string,
-            decimal: number
-        },
-        rightAscension?: {
-            degree: string,
-            decimal: number
-        }
-    }
+    rightAscension?: {
+        degree: string,
+        decimal: number
+    },
+    azimuth?: number,
+    height?: number,
+    transit?: number,
+    elongation?: { e1: number, e2: number }
+};
+
+type Properties = {
+    planet?: PlanetProps,
+    lunar?: PlanetProps
 };
 
 type Coordinates = { x: number, y: number, z: number };
@@ -91,6 +84,8 @@ const degToHour = (a?: number) => Maths.DegToHour(a || 0);
 const decimalToDeg = (a?: number) => Maths.DecimalToDeg(a || 0) as { degree: string, decimal: number };
 
 const degToRad = (a?: number) => Maths.DegToRad(a || 0);
+
+const radToDeg = (a?: number) => Maths.RadToDeg(a || 0);
 
 const minuteToDeg = (a?: number) => Maths.MinuteToDeg(a || 0);
 
@@ -376,11 +371,13 @@ export default class Astro {
         return { meanHour: acos((sin(this.RHA.Earth.h0) - (sin(this.properties.latitude || 0) * sin(declination))) / ((cos(this.properties.latitude || 0) * cos(declination)))), solarTransit, elevationOfObserver, AU, declination: decimalToDeg(declination), rightAscension: decimalToDeg(rightAscension) };
     }
 
-    private getSunRiseAndSet = (date: Date) => {
+    private getSunRiseAndSet = (date: Date, utc: number) => {
         const { meanHour, solarTransit, elevationOfObserver, AU, declination, rightAscension } = this.getSolarMeanHourAndTransit(date);
+        const transit = new Date(solarTransit);
+        transit.setMinutes(utc);
         return {
             rise: gregorianDay((solarTransit - ((meanHour / 360) * this.JT.Earth.J3))),
-            set: gregorianDay((solarTransit + ((meanHour / 360) * this.JT.Earth.J3))), elevationOfObserver, distance: AUToKM(AU), declination, rightAscension
+            set: gregorianDay((solarTransit + ((meanHour / 360) * this.JT.Earth.J3))), elevationOfObserver, distance: AUToKM(AU), declination, rightAscension, transit: (transit.getHours() + (transit.getMinutes() / 60) + (transit.getSeconds() / 3600) + (transit.getMinutes() / 3600000))
         };
     }
 
@@ -388,23 +385,23 @@ export default class Astro {
 
     //#region Moon
 
-    private getHelioCentricCoordinatesFromSun = (distance: number, trueAnomaly: number) => ({
-        x: (distance * cos(this.MEC.Earth?.omg) * cos((this.MEC.Earth?.w || 0) + trueAnomaly)) - (cos(this.MEC.Earth?.i) * sin(this.MEC.Earth?.omg) * sin((this.MEC.Earth?.w || 0) + trueAnomaly)),
-        y: (distance * sin(this.MEC.Earth?.omg) * cos((this.MEC.Earth?.w || 0) + trueAnomaly)) - (cos(this.MEC.Earth?.i) * cos(this.MEC.Earth?.omg) * sin((this.MEC.Earth?.w || 0) + trueAnomaly)),
-        z: (distance * sin(this.MEC.Earth?.i) * sin((this.MEC.Earth?.w || 0) + trueAnomaly))
+    private getHelioCentricCoordinatesFromSun = (distance: number, trueAnomaly: number, planet: Planets) => ({
+        x: (distance * cos(this.MEC[planet]?.omg) * cos((this.MEC[planet]?.w || 0) + trueAnomaly)) - (cos(this.MEC[planet]?.i) * sin(this.MEC[planet]?.omg) * sin((this.MEC[planet]?.w || 0) + trueAnomaly)),
+        y: (distance * sin(this.MEC[planet]?.omg) * cos((this.MEC[planet]?.w || 0) + trueAnomaly)) + (cos(this.MEC[planet]?.i) * cos(this.MEC[planet]?.omg) * sin((this.MEC[planet]?.w || 0) + trueAnomaly)),
+        z: (distance * sin(this.MEC[planet]?.i) * sin((this.MEC[planet]?.w || 0) + trueAnomaly))
     });
 
-    private getHelioCentricCoordinatesFromEarth = (helioCentricCoordinatesFromSun: Coordinates) => {
-        const helioCentricCoordinatesFromEarth = this.getHelioCentricCoordinatesFromSun(0, 0);
+    private getHelioCentricCoordinatesFromEarth = (helioCentricCoordinatesFromPlanet: Coordinates, distance: number, trueAnomaly: number) => {
+        const helioCentricCoordinatesFromEarth = this.getHelioCentricCoordinatesFromSun(distance, trueAnomaly, Planets.Earth);
         return {
-            x: helioCentricCoordinatesFromSun.x - helioCentricCoordinatesFromEarth.x,
-            y: helioCentricCoordinatesFromSun.y - helioCentricCoordinatesFromEarth.y,
-            z: helioCentricCoordinatesFromSun.z - helioCentricCoordinatesFromEarth.z
+            x: helioCentricCoordinatesFromPlanet.x - helioCentricCoordinatesFromEarth.x,
+            y: helioCentricCoordinatesFromPlanet.y - helioCentricCoordinatesFromEarth.y,
+            z: helioCentricCoordinatesFromPlanet.z - helioCentricCoordinatesFromEarth.z
         };
     };
 
     private getDistanceAndCoordinates = (eccentricity: number, semiMajorAxis: number, trueAnomaly: number) => {
-        const r = (semiMajorAxis * (1 - (eccentricity * eccentricity))) / (1 + (eccentricity * cos(trueAnomaly)));
+        const r = (semiMajorAxis * (1 - sq(eccentricity))) / (1 + (eccentricity * cos(trueAnomaly)));
         return ({
             r,
             x: r * cos(trueAnomaly),
@@ -415,16 +412,24 @@ export default class Astro {
     private getLatitudeAndLongitude = (helioCentricCoordinatesFromEarth: Coordinates) => {
         const { x, y, z } = helioCentricCoordinatesFromEarth;
         return {
-            latitude: atan(y / x),
-            longitude: z / (sqrt(sq(x) + sq(y) + sq(z)))
+            latitude: degToRad(atan2(y, x)),
+            longitude: asin(z / (sqrt(sq(x) + sq(y) + sq(z))))
         };
     }
+
+    private getTrueAnomalyByMeanAnamoly = (eccentricity: number, meanAnomaly: number) => (
+        meanAnomaly +
+        (((2 * eccentricity) - (cb(eccentricity) / 4)) * sin(meanAnomaly)) +
+        (((5 * sq(eccentricity)) / 4) * sin(2 * meanAnomaly)) +
+        (((13 * cb(eccentricity)) / 12) * sin(3 * meanAnomaly))
+    );
 
     private getTrueAnomaly = (eccentricity: number, time: number) => {
         const e = 2.2e-16;
         if (eccentricity >= 0 && eccentricity < 1) {
             const excess = abs(eccentricity - 1);
-            let meanAnomaly = time * sqrt(this.GVT.Earth.g / cb(this.MEC.Earth?.a || 0));
+            const a = 1 / excess;
+            let meanAnomaly = time * sqrt(this.GVT.Earth.g / cb(a));
             const sign = Math.sign(meanAnomaly);
             meanAnomaly = abs(meanAnomaly);
             while (meanAnomaly > 180) {
@@ -438,7 +443,7 @@ export default class Astro {
             const Es = T * sqrt(2 * excess);
             const s0 = eccentricity * sin(Es);
             const c0 = 1 - (eccentricity * cos(Es));
-            const d0 = meanAnomaly - Es + s0;
+            const d0 = meanAnomaly - Es - s0;
             const de0 = d0 / c0;
             const E0 = Es + de0;
             const B0 = (2 * e * E0 * c0) / s0;
@@ -446,7 +451,7 @@ export default class Astro {
             while (sq(de1) > abs(B1)) {
                 s1 = eccentricity * sin(E1);
                 c1 = 1 - (eccentricity * cos(E1));
-                d1 = meanAnomaly - E1 + s1;
+                d1 = meanAnomaly - E1 - s1;
                 de1 = d1 / c1;
                 E1 = E1 + de1;
                 B1 = (2 * e * E1 * c1) / s1;
@@ -459,60 +464,77 @@ export default class Astro {
         return 0;
     }
 
-    private getTraverseAngle = (semiMajorAxis: number) => (0.9856076686 / sqrt(cb(semiMajorAxis)));
+    private getMeanLunarDay = (date: Date, planet: Planets = Planets.Earth) => (julianDay(date) - 2451545 + (69.184 / 86400) - (((this.properties.longitude || 0) * (this.JT[planet]?.J3 || 0)) / 360));
 
-    private getMeanLunarDay = (date: Date) => (julianDay(date) - 2451545);
+    private getMoonRightAscensionDeclinationAndTransit = (latitude: number, longitude: number, planet: Planets) => ({
+        declination: asin((sin(latitude) * cos(this.POE[planet].Obliquity)) + (cos(latitude) * sin(this.POE[planet].Obliquity) * sin(longitude))),
+        rightAscension: degToRad(atan2(((sin(longitude) * cos(this.POE[planet].Obliquity)) - (tan(latitude) * sin(this.POE[planet].Obliquity))), (cos(longitude))))
+    });
 
-    private getMoonRightAscensionDeclinationAndTransit = (latitude: number, longitude: number) => {
-        return {
-            declination: asin((sin(latitude) * cos(this.POE.Earth.Obliquity)) + (cos(latitude) * sin(this.POE.Earth.Obliquity) * sin(longitude))),
-            rightAscension: atan(((sin(longitude) * cos(this.POE.Earth.Obliquity)) - (tan(latitude) * sin(this.POE.Earth.Obliquity))) / (cos(longitude)))
-        };
-    }
+    private getSiderealTime = (date: Date, meanTime: number) => ((this.Obs.Earth.theta0 + this.Obs.Earth.theta1 * meanTime - ((this.properties.longitude || 0) * this.JT.Earth.J3)) % 360);
 
-    private getSiderealTime = (date: Date) => {
-        const meanSolarTime = this.getMeanSolarDay(date);
-        return (this.MA.Earth.M0 + this.MA.Earth.M1 * meanSolarTime) % 360;
-    }
-
-    private getHeightAndAzimuth = (hourAngle: number, declination: number) => {
-        return {
-            azimuth: atan(sin(hourAngle) / ((cos(hourAngle) * sin(this.properties.latitude)) - (tan(declination) * cos(this.properties.latitude)))),
-            height: asin((sin(declination) * sin(this.properties.latitude)) + (cos(declination) * cos(this.properties.latitude) * cos(hourAngle)))
-        };
-    }
+    private getHeightAndAzimuth = (hourAngle: number, declination: number) => ({
+        azimuth: degToRad(atan2(sin(hourAngle), ((cos(hourAngle) * sin(this.properties.latitude)) - (tan(declination) * cos(this.properties.latitude))))),
+        height: asin((sin(declination) * sin(this.properties.latitude)) + (cos(declination) * cos(this.properties.latitude) * cos(hourAngle)))
+    });
 
     private getElongation = (latitude: number, longitude: number, sunLongitude: number) => {
         return {
-            e1: acos(cos(latitude) - cos(longitude - sunLongitude)),
+            e1: acos(cos(latitude) * cos(longitude - sunLongitude)),
             e2: longitude - sunLongitude
         };
     }
 
-    private getLunarTransit = (rightAscension: number, meanAnomaly: number) => (((rightAscension + (this.properties.longitude || 0) - meanAnomaly) / 15) + 17.13750000);
+    private getLunarTransit = (rightAscension: number, meanAnomaly: number) => (((rightAscension + (this.properties.longitude || 0) - meanAnomaly) / 15) + (this.MEC.Earth?.omg || 0));
 
-    private getLunarMeanHourAndTransit = (date: Date) => {
+    private getLunarMeanHourAndTransit = (date: Date, planet: Planets) => {
+        const meanSolarTime = this.getMeanSolarDay(date);
+        const solarMeanAnomaly = (this.MA.Earth.M0 + this.MA.Earth.M1 * meanSolarTime) % 360;
+        const equationOfCenter = (this.EC.Earth.C1 * sin(solarMeanAnomaly)) + (this.EC.Earth.C2 * sin(2 * solarMeanAnomaly)) + ((this.EC.Earth.C3 || 0) * sin(3 * solarMeanAnomaly));
+        const eclipticLongitude = (solarMeanAnomaly + equationOfCenter + 180 + this.POE.Earth.Perihelion) % 360;
+
         const eccentricity = this.MEC.Earth?.e || 0;
         const semiMajorAxis = this.MEC.Earth?.a || 0;
-        const meanAnomaly = this.getMeanLunarDay(date);
-        const trueAnomaly = this.getTrueAnomaly(eccentricity, date.getTime());
+        const meanTime = this.getMeanLunarDay(date);
+        const meanAnomaly = (this.MA.Earth.M0 + this.MA.Earth.M1 * meanTime) % 360;
+        // const trueAnomaly = this.getTrueAnomaly(eccentricity, date.getTime());
+        const trueAnomaly = this.getTrueAnomalyByMeanAnamoly(eccentricity, meanAnomaly);
         const distance = this.getDistanceAndCoordinates(eccentricity, semiMajorAxis, trueAnomaly);
-        const helioCentricCoordinatesFromSun = this.getHelioCentricCoordinatesFromSun(distance.r, trueAnomaly);
-        const helioCentricCoordinatesFromEarth = this.getHelioCentricCoordinatesFromEarth(helioCentricCoordinatesFromSun);
+        let helioCentricCoordinatesFromPlanet = { x: 0, y: 0, z: 0 };
+        if (planet !== 'Earth') {
+            const eccentricityFromPlanet = this.MEC[planet]?.e || 0;
+            const semiMajorAxisFromPlanet = this.MEC[planet]?.a || 0;
+            const meanTimeFromPlanet = this.getMeanLunarDay(date, planet);
+            const meanAnomalyFromPlanet = (this.MA[planet].M0 + this.MA[planet].M1 * meanTimeFromPlanet) % 360;
+            // const trueAnomalyFromPlanet = this.getTrueAnomaly(eccentricityFromPlanet, date.getTime());
+            const trueAnomalyFromPlanet = this.getTrueAnomalyByMeanAnamoly(eccentricityFromPlanet, meanAnomalyFromPlanet);
+            const distanceFromPlanet = this.getDistanceAndCoordinates(eccentricityFromPlanet, semiMajorAxisFromPlanet, trueAnomalyFromPlanet);
+            helioCentricCoordinatesFromPlanet = this.getHelioCentricCoordinatesFromSun(distanceFromPlanet.r, trueAnomalyFromPlanet, planet);
+        }
+
+        const helioCentricCoordinatesFromEarth = this.getHelioCentricCoordinatesFromEarth(helioCentricCoordinatesFromPlanet, distance.r, trueAnomaly);
+
         const { latitude, longitude } = this.getLatitudeAndLongitude(helioCentricCoordinatesFromEarth);
-        const { declination, rightAscension } = this.getMoonRightAscensionDeclinationAndTransit(latitude, longitude);
+        const { declination, rightAscension } = this.getMoonRightAscensionDeclinationAndTransit(latitude, longitude, Planets.Earth);
         const elevationOfObserver = this.getElevationOfObserver(declination);
-        const siderealTime = this.getSiderealTime(date);
+        const siderealTime = this.getSiderealTime(date, meanTime);
         const hourAngle = siderealTime - rightAscension;
+        const { azimuth, height } = this.getHeightAndAzimuth(hourAngle, declination);
         const lunarTransit = this.getLunarTransit(rightAscension, meanAnomaly);
-        return { meanHour: acos((sin(this.RHA.Earth.h0) - (sin(this.properties.latitude || 0) * sin(declination))) / ((cos(this.properties.latitude || 0) * cos(declination)))), declination: decimalToDeg(declination), rightAscension: decimalToDeg(rightAscension), lunarTransit, elevationOfObserver, AU: distance.r };
+        const elongation = this.getElongation(latitude, longitude, eclipticLongitude);
+        return { meanHour: acos((sin(this.RHA.Earth.h0) - (sin(this.properties.latitude || 0) * sin(declination))) / ((cos(this.properties.latitude || 0) * cos(declination)))), declination: decimalToDeg(declination), rightAscension: decimalToDeg(rightAscension), lunarTransit, elevationOfObserver, AU: distance.r, azimuth, height, elongation };
     }
 
     private getMoonRiseAndSet = (date: Date) => {
-        const { meanHour, declination, rightAscension, lunarTransit, elevationOfObserver, AU } = this.getLunarMeanHourAndTransit(date);
+        const { meanHour, declination, rightAscension, lunarTransit, elevationOfObserver, AU, azimuth, height, elongation } = this.getLunarMeanHourAndTransit(date, Planets.Earth);
+        const rise = new Date();
+        rise.setHours((lunarTransit - meanHour) / 15);
+        const set = new Date();
+        set.setHours((lunarTransit + meanHour) / 15);
         return {
-            rise: gregorianDay((lunarTransit - ((meanHour / 360) * this.JT.Earth.J3))),
-            set: gregorianDay((lunarTransit + ((meanHour / 360) * this.JT.Earth.J3))), elevationOfObserver, distance: AUToKM(AU), declination, rightAscension
+            rise,
+            set,
+            elevationOfObserver, distance: AUToKM(AU), declination, rightAscension, azimuth, height, transit: lunarTransit / 15, elongation
         };
     }
 
@@ -525,16 +547,16 @@ export default class Astro {
         dateAtStart.setMinutes(-dateAtStart.getTimezoneOffset());
 
         const planetLocation = this.getSunRightAscensionDeclinationAndTransit(date);
-        this.properties.planet = this.getSunRiseAndSet(dateAtStart);
+        this.properties.planet = this.getSunRiseAndSet(dateAtStart, -dateAtStart.getTimezoneOffset());
         this.properties.planet.declination = decimalToDeg(planetLocation.declination);
         this.properties.planet.rightAscension = decimalToDeg(planetLocation.rightAscension);
         this.properties.planet.distance = AUToKM(planetLocation.AU);
 
-        this.properties.lunar = this.getMoonRiseAndSet(date);
-        const LunarLocation = this.getMoonRiseAndSet(dateAtStart);
-        this.properties.lunar.declination = decimalToDeg(LunarLocation.declination.decimal);
-        this.properties.lunar.rightAscension = decimalToDeg(LunarLocation.rightAscension.decimal);
-        this.properties.lunar.distance = LunarLocation.distance;
+        const lunarLocation = this.getMoonRiseAndSet(date);
+        this.properties.lunar = this.getMoonRiseAndSet(dateAtStart);
+        this.properties.lunar.declination = decimalToDeg(lunarLocation.declination.decimal);
+        this.properties.lunar.rightAscension = decimalToDeg(lunarLocation.rightAscension.decimal);
+        this.properties.lunar.distance = lunarLocation.distance;
     }
 
     private setProperties = () => {

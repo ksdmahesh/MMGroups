@@ -345,7 +345,7 @@ class App extends React.Component {
   }
 
   checkAstro = () => {
-    const astro = new Astro({});
+    const astro = new Astro({ });
     console.log(astro.properties);
   }
 
