@@ -549,9 +549,9 @@ export default class Astro {
 
     private getMoonPosition = (date: Date) => {
         const meanTime = this.getMeanPlanetDay(date);
-        const eclipticLongitude = this.LMF.L.C0 + (this.LMF.L.C1 * meanTime);
-        const meanAnomaly = this.LMF.M.C0 + (this.LMF.M.C1 * meanTime);
-        const meanDistance = this.LMF.F.C0 + (this.LMF.F.C1 * meanTime);
+        const eclipticLongitude = radToDeg(this.LMF.L.C0 + (this.LMF.L.C1 * meanTime));
+        const meanAnomaly = radToDeg(this.LMF.M.C0 + (this.LMF.M.C1 * meanTime));
+        const meanDistance = radToDeg(this.LMF.F.C0 + (this.LMF.F.C1 * meanTime));
         const latitude = 5.128 * sin(meanDistance);
         const longitude = eclipticLongitude + 6.289 * sin(meanAnomaly);
         const distance = 385001 - (20905 * cos(meanAnomaly));
@@ -566,12 +566,12 @@ export default class Astro {
 
         return {
             latitude, longitude, elevationOfObserver, azimuth, height, planetTransit, elongation,
-            meanHour: acos((sin(this.RHA.Earth.h0) - (sin(this.properties.latitude || 0) * sin(declination))) / ((cos(this.properties.latitude || 0) * cos(declination)))), declination: decimalToDeg(declination), rightAscension: decimalToDeg(rightAscension / 15), AU: distance
+            meanHour: acos((sin(this.RHA.Earth.h0) - (sin(this.properties.latitude || 0) * sin(declination))) / ((cos(this.properties.latitude || 0) * cos(declination)))), declination: decimalToDeg(declination), rightAscension: decimalToDeg(rightAscension), distance
         };
     }
 
     private getMoonRiseAndSet = (date: Date) => {
-        const { meanHour, declination, rightAscension, planetTransit, elevationOfObserver, AU, azimuth, height, elongation, latitude, longitude } = this.getMoonPosition(date);
+        const { meanHour, declination, rightAscension, planetTransit, elevationOfObserver, distance, azimuth, height, elongation, latitude, longitude } = this.getMoonPosition(date);
         const rise = new Date();
         rise.setHours((planetTransit - meanHour) / 15);
         const set = new Date();
@@ -579,7 +579,7 @@ export default class Astro {
         return {
             rise,
             set,
-            elevationOfObserver, distance: AUToKM(AU), declination, rightAscension, azimuth, height, transit: planetTransit / 15, elongation, latitude, longitude
+            elevationOfObserver, distance, declination, rightAscension, azimuth, height, transit: planetTransit / 15, elongation, latitude, longitude
         };
     }
 

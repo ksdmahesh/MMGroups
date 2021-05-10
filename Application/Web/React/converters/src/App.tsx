@@ -346,7 +346,7 @@ class App extends React.Component {
   }
 
   checkAstro = () => {
-    const astro = new Astro({ latitude: 52, longitude: -5, date: new Date(2004, 0, 1) });
+    const astro = new Astro({});
     console.log(astro.properties);
   }
 
