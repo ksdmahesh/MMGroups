@@ -8,6 +8,7 @@ import { JsontoCsv, CsvtoJson } from './convert/JsontoCsv';
 import { getDefaultPath, readStream, writeStream } from './server/service-call';
 import { Panchangam } from './convert/panchangam';
 import Astro from './convert/astro';
+import { BestBrokarage } from './convert/Trade';
 
 class App extends React.Component {
 
@@ -345,8 +346,13 @@ class App extends React.Component {
   }
 
   checkAstro = () => {
-    const astro = new Astro({ });
+    const astro = new Astro({ latitude: 52, longitude: -5, date: new Date(2004, 0, 1) });
     console.log(astro.properties);
+  }
+
+  checkBestBrokarage = () => {
+    console.log(BestBrokarage.zerodha(100, 101, 100))
+    console.log(BestBrokarage.zerodha(100, 101, 100, true))
   }
 
   convertors = {
@@ -374,6 +380,9 @@ class App extends React.Component {
     },
     Math: {
       fnName: this.checkMath
+    },
+    BestBrokarage: {
+      fnName: this.checkBestBrokarage
     },
     Panchanga: {
       fnName: this.checkPanchanga
