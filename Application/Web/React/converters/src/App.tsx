@@ -341,8 +341,13 @@ class App extends React.Component {
   }
 
   checkPanchanga = () => {
-    const wn: any = window;
-    const pa = new Panchangam({ date: wn['currentDate'] });
+    const pa1 = new Panchangam({ date: new Date(2021, 4, 15), language: 'telugu' });
+    const pa2 = new Panchangam({ date: new Date(2021, 4, 16), language: 'telugu' });
+    const pa3 = new Panchangam({ date: new Date(2021, 4, 17), language: 'telugu' });
+    const pa4 = new Panchangam({ date: new Date(2021, 4, 18), language: 'telugu' });
+    const pa5 = new Panchangam({ date: new Date(2021, 4, 19), language: 'telugu' });
+    const pa6 = new Panchangam({ date: new Date(2021, 4, 20), language: 'telugu' });
+    const pa7 = new Panchangam({ date: new Date(2021, 4, 21), language: 'telugu' });
   }
 
   checkAstro = () => {
@@ -423,7 +428,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.init(this.convertors.Astro);
+    this.init(this.convertors.Panchanga);
   }
 
   init = async (activeConvertor: { fnName: Function, read?: string, write?: string, options?: object, includeDefault?: boolean }) => {
