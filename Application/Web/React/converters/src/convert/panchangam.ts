@@ -594,6 +594,39 @@ export enum Nakshatra {
     revati = 'revati',
 }
 
+export enum Muhurta {
+    rudra = 'rudra',
+    aahi = 'aahi',
+    mitra = 'mitra',
+    pitr = 'pitr',
+    vasu = 'vasu',
+    vaaraaha = 'vaaraaha',
+    visvedeva = 'visvedeva',
+    vidhi = 'vidhi',
+    sutamukhī = 'sutamukhī',
+    puruhuta = 'puruhuta',
+    vaahini = 'vaahini',
+    naktanakara = 'naktanakara',
+    varuna = 'varuna',
+    aryaman = 'aryaman',
+    bhaga = 'bhaga',
+    girisa = 'girisa',
+    ajapaada = 'ajapaada',
+    ahirBudhnya = 'ahirBudhnya',
+    pusya = 'pusya',
+    asvini = 'asvini',
+    yama = 'yama',
+    agni = 'agni',
+    vidhaatr = 'vidhaatr',
+    kanda = 'kanda',
+    aditi = 'aditi',
+    amrta = 'amrta',
+    vishnu = 'vishnu',
+    dyumadgadyuti = 'dyumadgadyuti',
+    brahma = 'brahma',
+    samudra = 'samudra'
+}
+
 export enum CalendarType {
     saka = 'saka',
     vikrama = 'vikrama',
@@ -649,12 +682,13 @@ type Properties = {
     paksha?: keyof PakshaType,
     tithi?: string[],
     nakshatra?: string[],
+    paada?: number,
     graha?: string,
     rahuKaala?: { from: { degree: string, decimal: number }, to: { degree: string, decimal: number } },
     yamaGanda?: { from: { degree: string, decimal: number }, to: { degree: string, decimal: number } },
     guliKaala?: { from: { degree: string, decimal: number }, to: { degree: string, decimal: number } },
-    abhijit?: { from: { degree: string, decimal: number }, to: { degree: string, decimal: number } },
-    durMuhurta?: { from: { degree: string, decimal: number }, to: { degree: string, decimal: number } },
+    abhijit?: { from: { degree: string, decimal: number }, to: { degree: string, decimal: number }, bad: boolean },
+    muhurta?: { name: string[], from: { degree: string, decimal: number }, to: { degree: string, decimal: number } },
     vyavadhi?: { dina: { degree: string, decimal: number }, raatri: { degree: string, decimal: number } },
     suryodhaya?: Date,
     suryaasthama?: Date,
@@ -666,7 +700,8 @@ type Properties = {
         kpOld: { degree: string, decimal: number },
         kpNew: { degree: string, decimal: number },
         khullar: { degree: string, decimal: number }
-    }
+    },
+    samayam?: { degree: string, decimal: number }
 } & PanchangaType;
 
 type Name = {
@@ -708,7 +743,7 @@ type RtuType = { [key in keyof typeof Rtu]: Name };
 
 type AayanaType = { [key in keyof typeof Aayana]: Name };
 
-type VaaraType = { [key in keyof typeof Vaara]: Name & { graha: string, rahuKaala: string, yamaGanda: string, guliKaala: string, abhijit: string, durMuhurta: string[] } };
+type VaaraType = { [key in keyof typeof Vaara]: Name & { graha: string } };
 
 type MaasaType = { [key in keyof typeof Maasa]: Name & { suryaMaasa: RasiType['mesha'], rtu: RtuType['hemanta'], aayana: AayanaType['uthara'][] } };
 
@@ -717,6 +752,8 @@ type PakshaType = { [key in keyof typeof Paksha]: Name };
 type TithiType = { [key in keyof typeof Tithi]: Name & { diety: string, karana: { [Paksha.shukla]: KaranaType['bava'][], [Paksha.krshna]: KaranaType['bava'][] } } };
 
 type NakshatraType = { [key in keyof typeof Nakshatra]: Name & { pada: string[], description: string, associatedStars: string, graha: string, deity: string[], symbol: string, zodiac: { from: { angle: string, rasi: RasiType['mesha'] }, to: { angle: string, rasi: RasiType['mesha'] } }, westernZodiac: { from: { angle: string, rasi: RasiType['mesha'] }, to: { angle: string, rasi: RasiType['mesha'] } }, gana: string, jaati: string, vrksha: string, pashu: string, pakshi: string, nadi: string, varna: string, ratna: string } };
+
+type MuhurtaType = { [key in keyof typeof Muhurta]: Name };
 
 //#endregion
 
@@ -761,6 +798,10 @@ const sqrt = Math.sqrt;
 const cbrt = Math.cbrt;
 
 const floor = Math.floor;
+
+const sign = Math.sign;
+
+const round = Math.round;
 
 const PI = Math.PI;
 
@@ -3510,12 +3551,7 @@ export class Panchangam {
                 chinese: ['日曜日'],
                 tibetan: ['གཟའ་ཉི་མ།']
             },
-            graha: Graha.surya,
-            rahuKaala: '04:30-06:00',
-            yamaGanda: '12:00-13:30',
-            guliKaala: '15:00-16:30',
-            abhijit: '',
-            durMuhurta: []
+            graha: Graha.surya
         },
         [Vaara.soma]: {
             name: {
@@ -3532,12 +3568,7 @@ export class Panchangam {
                 chinese: ['月曜日'],
                 tibetan: ['གཟའ་ཟླ་བ།']
             },
-            graha: Graha.chandra,
-            rahuKaala: '07:30-09:00',
-            yamaGanda: '10:30-12:00',
-            guliKaala: '13:30-15:00',
-            abhijit: '',
-            durMuhurta: []
+            graha: Graha.chandra
         },
         [Vaara.mangala]: {
             name: {
@@ -3554,12 +3585,7 @@ export class Panchangam {
                 chinese: ['火曜日'],
                 tibetan: ['གཟའ་མིག་དམར།']
             },
-            graha: Graha.mangala,
-            rahuKaala: '03:00-04:30',
-            yamaGanda: '09:00-10:30',
-            guliKaala: '12:00-13:30',
-            abhijit: '',
-            durMuhurta: []
+            graha: Graha.mangala
         },
         [Vaara.budha]: {
             name: {
@@ -3576,12 +3602,7 @@ export class Panchangam {
                 chinese: ['水曜日'],
                 tibetan: ['གཟའ་ལྷག་པ།']
             },
-            graha: Graha.budha,
-            rahuKaala: '01:30-03:00',
-            yamaGanda: '07:30-09:00',
-            guliKaala: '10:30-12:00',
-            abhijit: '',
-            durMuhurta: []
+            graha: Graha.budha
         },
         [Vaara.guru]: {
             name: {
@@ -3598,12 +3619,7 @@ export class Panchangam {
                 chinese: ['木曜日'],
                 tibetan: ['གཟའ་ཕུར་བུ།']
             },
-            graha: Graha.guru,
-            rahuKaala: '12:00-01:30',
-            yamaGanda: '06:00-07:30',
-            guliKaala: '09:00-10:30',
-            abhijit: '',
-            durMuhurta: []
+            graha: Graha.guru
         },
         [Vaara.shukra]: {
             name: {
@@ -3620,12 +3636,7 @@ export class Panchangam {
                 chinese: ['金曜日'],
                 tibetan: ['གཟའ་པ་སངས།']
             },
-            graha: Graha.shukra,
-            rahuKaala: '10:30-12:00',
-            yamaGanda: '15:00-16:30',
-            guliKaala: '07:30-09:00',
-            abhijit: '',
-            durMuhurta: []
+            graha: Graha.shukra
         },
         [Vaara.shani]: {
             name: {
@@ -3642,12 +3653,7 @@ export class Panchangam {
                 chinese: ['土曜日'],
                 tibetan: ['གཟའ་སྤེན་པ།']
             },
-            graha: Graha.shani,
-            rahuKaala: '09:00-10:30',
-            yamaGanda: '13:30-15:00',
-            guliKaala: '06:00-07:30',
-            abhijit: '',
-            durMuhurta: []
+            graha: Graha.shani
         }
     }
 
@@ -5153,6 +5159,489 @@ export class Panchangam {
         }
     }
 
+    Muhurta: MuhurtaType = {
+        [Muhurta.rudra]: {
+            name: {
+                sanskrit: ['रुद्र'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.aahi]: {
+            name: {
+                sanskrit: ['आहि'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.mitra]: {
+            name: {
+                sanskrit: ['मित्र'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.pitr]: {
+            name: {
+                sanskrit: ['पितृ'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.vasu]: {
+            name: {
+                sanskrit: ['वसु'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.vaaraaha]: {
+            name: {
+                sanskrit: ['वाराह'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.visvedeva]: {
+            name: {
+                sanskrit: ['विश्वेदेवा'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.vidhi]: {
+            name: {
+                sanskrit: ['विधि'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.sutamukhī]: {
+            name: {
+                sanskrit: ['सतमुखी'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.puruhuta]: {
+            name: {
+                sanskrit: ['पुरुहूत'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.vaahini]: {
+            name: {
+                sanskrit: ['वाहिनी'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.naktanakara]: {
+            name: {
+                sanskrit: ['नक्तनकरा'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.varuna]: {
+            name: {
+                sanskrit: ['वरुण'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.aryaman]: {
+            name: {
+                sanskrit: ['अर्यमन्'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.bhaga]: {
+            name: {
+                sanskrit: ['भग'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.girisa]: {
+            name: {
+                sanskrit: ['गिरीश'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.ajapaada]: {
+            name: {
+                sanskrit: ['अजपाद'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.ahirBudhnya]: {
+            name: {
+                sanskrit: ['अहिर्बुध्न्य'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.pusya]: {
+            name: {
+                sanskrit: ['पुष्य'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.asvini]: {
+            name: {
+                sanskrit: ['अश्विनी'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.yama]: {
+            name: {
+                sanskrit: ['यम'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.agni]: {
+            name: {
+                sanskrit: ['अग्नि'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.vidhaatr]: {
+            name: {
+                sanskrit: ['विधातृ'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.kanda]: {
+            name: {
+                sanskrit: ['क्ण्ड'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.aditi]: {
+            name: {
+                sanskrit: ['अदिति'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.amrta]: {
+            name: {
+                sanskrit: ['जीव/अमृत'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.vishnu]: {
+            name: {
+                sanskrit: ['विष्णु'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.dyumadgadyuti]: {
+            name: {
+                sanskrit: ['द्युमद्गद्युति'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.brahma]: {
+            name: {
+                sanskrit: ['ब्रह्म'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        },
+        [Muhurta.samudra]: {
+            name: {
+                sanskrit: ['समुद्र'],
+                odia: [''],
+                malayalam: [''],
+                tamil: [''],
+                sinhala: [''],
+                dhivehi: [''],
+                telugu: [''],
+                kannada: [''],
+                bengali: [''],
+                mongolian: [''],
+                chinese: [''],
+                tibetan: ['']
+            }
+        }
+    }
+
     //#endregion
 
     //#endregion
@@ -5205,15 +5694,15 @@ export class Panchangam {
             index = tithi - 1;
         }
         this.properties.paksha = 'shukla';
-        this.properties.tithi = this.getName(allTithis[Math.round(index)]?.[1]);
-        return allTithis[Math.round(index)]?.[1];
+        this.properties.tithi = this.getName(allTithis[round(index)]?.[1]);
+        return allTithis[round(index)]?.[1];
     }
 
     // 27 with 800' each total 360deg 1/60deg of each
     private setYoga = () => {
         const yoga = (((this.astro?.properties.lunar?.longitude || 0)) / minuteToDeg(800));
         const allYogas = Object.entries(this.Yoga);
-        this.properties.yoga = this.getName(allYogas[Math.round(yoga - 1)]?.[1]);
+        this.properties.yoga = this.getName(allYogas[round(yoga - 1)]?.[1]);
     }
 
     private setKarana = (tithi: TithiType['prathama']) => {
@@ -5223,19 +5712,23 @@ export class Panchangam {
     // 27 with 800' each total 360deg 1/60deg of each
     private setNakshatra = () => {
         const nakshatra = ((this.astro?.properties.lunar?.longitude || 0) / minuteToDeg(800));
+        const paada = +(`0.${`${nakshatra}`.split('.')[1] || 0}`) * 4;
         const allNakshatras = Object.entries(this.Nakshatra);
-        this.properties.nakshatra = this.getName(allNakshatras[Math.round(nakshatra - 1)]?.[1]);
-        // this.properties.abhijit = abhijit;
+        this.properties.nakshatra = this.getName(allNakshatras[floor(nakshatra - 1)]?.[1]);
+        this.properties.paada = paada;
         // this.properties.durMuhurta = durMuhurta;
     }
 
     private setMaasa = () => {
-        const maasa = Math.round(((this.astro?.properties.lunar?.longitude || 0) / 36) - 1);
+        let maasa = round(((this.astro?.properties.lunar?.longitude || 0) / 36) - 1);
         const allMaasas = Object.entries(this.Maasa);
-        this.properties.maasa = this.getName(allMaasas[maasa][1]);
-        this.properties.suryaMaasa = this.getName(allMaasas[maasa][1].suryaMaasa);
-        this.properties.aayana = allMaasas[maasa][1].aayana.map(a => this.getName(a));
-        this.properties.rtu = this.getName(allMaasas[maasa][1].rtu);
+        if (sign(maasa) === -1) {
+            maasa = 12 + maasa;
+        }
+        this.properties.maasa = this.getName(allMaasas[maasa]?.[1]);
+        this.properties.suryaMaasa = this.getName(allMaasas[maasa]?.[1]?.suryaMaasa);
+        this.properties.aayana = allMaasas[maasa]?.[1]?.aayana?.map(a => this.getName(a));
+        this.properties.rtu = this.getName(allMaasas[maasa]?.[1]?.rtu);
         return maasa;
     }
 
@@ -5265,7 +5758,7 @@ export class Panchangam {
         }
         this.properties.samvatsara = {
             year: currentYear,
-            name: this.getName(allSamvatsaras[Math.round(index) - 1][1])
+            name: this.getName(allSamvatsaras[round(index) - 1][1])
         };
     }
 
@@ -5285,19 +5778,39 @@ export class Panchangam {
     private setVaara = (julian: number) => {
         const day = getWeekDay(julian);
         const vaara = Object.entries(this.Vaara)[day][1];
+        this.properties.vaara = this.getName(vaara);
+        return { vaara, day };
+    }
+
+    private setMuhurtas = (props: { vaara: VaaraType['aadi'], day: number }) => {
+        const { vaara, day } = props;
+        const muhurtas = Object.entries(this.Muhurta);
+
         const suryodhaya = this.properties.suryodhaya || new Date();
         const suryaasthama = this.properties.suryaasthama || new Date();
         const suryodhayaNext = this.astroNext?.properties.planet?.rise || new Date();
+
         const kaalaVyavadhi = this.getKaalaVyavadhi(suryodhaya, suryaasthama);
         const kaalaVyavadhiNext = this.getKaalaVyavadhi(suryaasthama, suryodhayaNext);
         const rahuIndex = this.RahuOrder.indexOf(vaara) + 1;
         const yamaIndex = this.YamaOrder.indexOf(vaara) + 2;
         const guliIndex = this.GuliOrder.indexOf(vaara) + 2;
-        this.properties.vaara = this.getName(vaara);
+
         const suryaasthamakaala = this.getTime(suryaasthama);
+        const suryodhayakaala = this.getTime(suryodhaya);
         const rahuFrom = 12 + suryaasthamakaala - (rahuIndex * kaalaVyavadhi);
         const yamaFrom = 12 + suryaasthamakaala - (yamaIndex * kaalaVyavadhi);
         const guliFrom = 12 + suryaasthamakaala - (guliIndex * kaalaVyavadhi);
+        const abhijit = (suryaasthamakaala + suryodhayakaala) / 2;
+
+        const currentTime = this.getTime(this.properties.date || new Date());
+        let muhurtaIndex = floor(((currentTime / minuteToDeg(48))) - (suryodhayakaala - 12) - 2);
+        if (sign(muhurtaIndex) === -1) {
+            muhurtaIndex = 30 + muhurtaIndex;
+        }
+        const muhurta = muhurtas[muhurtaIndex][1];
+        const muhurtaFrom = (suryodhayakaala - 12) + (muhurtaIndex * minuteToDeg(48));
+
         this.properties.rahuKaala = {
             from: decimalToDeg(rahuFrom),
             to: decimalToDeg(rahuFrom + kaalaVyavadhi)
@@ -5314,6 +5827,16 @@ export class Panchangam {
             dina: decimalToDeg(kaalaVyavadhi * 8),
             raatri: decimalToDeg(kaalaVyavadhiNext * 8)
         };
+        this.properties.abhijit = {
+            from: decimalToDeg(abs(abhijit - minuteToDeg(48 / 2))),
+            to: decimalToDeg(abs(abhijit + minuteToDeg(48 / 2))),
+            bad: day === 3
+        };
+        this.properties.muhurta = {
+            name: this.getName(muhurta),
+            from: decimalToDeg(abs(muhurtaFrom)),
+            to: decimalToDeg(abs(muhurtaFrom) + minuteToDeg(48))
+        };
     }
 
     private setAyanamsa = (julian: number) => {
@@ -5322,7 +5845,7 @@ export class Panchangam {
         const lm = 259.183275 - 1934.142008333206 * t + 0.0020777778 * t * t + 0.0000022222222 * t * t * t;
         // avg len sun
         const ls = 279.696678 + 36000.76892 * t + 0.0003025 * t * t;
-        const ayanamsa = Math.abs(((17.23 * sin(lm) + 1.27 * sin(ls * 2) - (5025.64 + 1.11 * t) * t) - 80861.27) / 3600.0);
+        const ayanamsa = abs(((17.23 * sin(lm) + 1.27 * sin(ls * 2) - (5025.64 + 1.11 * t) * t) - 80861.27) / 3600.0);
         this.properties.ayanamsa = {
             lahiri: decimalToDeg(ayanamsa),
             khullar: decimalToDeg(ayanamsa - secondToDeg(38)),
@@ -5339,20 +5862,23 @@ export class Panchangam {
         this.properties.chandraasthama = this.astro?.properties.lunar?.set;
     }
 
-    private setKaala = (seconds: number) => VedaKaalaGhataka.samvatsara * seconds;
+    private setKaala = () => {
+        const currentTime = this.getTime(this.properties.date || new Date());
+        this.properties.samayam = decimalToDeg(currentTime * 2.5);
+    }
 
     private callback = (date: Date) => {
         const julian = julianDay(date);
         const year = date.getFullYear();
         this.setUdayaasthama();
-        this.setVaara(julian);
+        this.setMuhurtas(this.setVaara(julian));
         this.setKarana(this.setTithi());
         this.setYoga();
         this.setNakshatra();
         this.setSamvatsara(year, this.setMaasa());
         this.setYuga(Yuga.kali, year);
         this.setAyanamsa(julian);
-        this.setKaala(1);
+        this.setKaala();
     }
 
     private setProperties = () => {
