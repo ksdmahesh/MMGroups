@@ -395,10 +395,14 @@ export default class Astro {
         const { meanHour, solarTransit, elevationOfObserver, AU, declination, rightAscension, eclipticLongitude } = this.getSolarMeanHourAndTransit(date);
         const transit = new Date(solarTransit);
         transit.setMinutes(utc);
+        let rise = gregorianDay((solarTransit - ((meanHour / 360) * this.JT.Earth.J3)));
+        rise.setHours(rise.getHours() + 12);
+        let set = gregorianDay((solarTransit + ((meanHour / 360) * this.JT.Earth.J3)));
+        set.setHours(set.getHours() + 12);
         return {
             longitude: eclipticLongitude,
-            rise: gregorianDay((solarTransit - ((meanHour / 360) * this.JT.Earth.J3))),
-            set: gregorianDay((solarTransit + ((meanHour / 360) * this.JT.Earth.J3))), elevationOfObserver, distance: AUToKM(AU), declination, rightAscension, transit: this.getUtcDate(transit)
+            rise,
+            set, elevationOfObserver, distance: AUToKM(AU), declination, rightAscension, transit: this.getUtcDate(transit)
         };
     }
 
