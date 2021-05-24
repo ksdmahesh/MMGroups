@@ -301,6 +301,8 @@ export class Complex {
 
     static trunc = (value: Complex) => new Complex(Math.trunc(value.realNumber), Math.trunc(value.imaginaryNumber));
 
+    static truncDecimal = (value: Complex) => new Complex(+(`0.${`${value.realNumber}`.split('.')[1] || 0}`), +(`0.${`${value.imaginaryNumber}`.split('.')[1] || 0}`));
+
     static pow = (value: Complex, power: Complex) => {
         const log = Math.log(Math.sqrt(Math.pow(value.realNumber, 2) + Math.pow(value.imaginaryNumber, 2)));
         const arg = Complex.arg(value);
@@ -363,15 +365,18 @@ export class Complex {
         return new Complex(realNumber / 2, ((value.realNumber > 1 && 0 === value.imaginaryNumber) ? -1 : 1) * Complex.arg(angleValue) / 2);
     }
 
-    static decimalToDeg = (a: Complex) => {
+    static decimalToDeg = (a: Complex, hrs: boolean = false) => {
         const degrees = Complex.trunc(a);
-        const b = { realNumber: `0.${`${a.realNumber}`.split('.')[1]}`, imaginaryNumber: `0.${`${a.imaginaryNumber}`.split('.')[1]}` };
+        const truncDecimalA = Complex.truncDecimal(a);
+        const b = { realNumber: truncDecimalA.realNumber, imaginaryNumber: truncDecimalA.imaginaryNumber };
         const c = { realNumber: b.realNumber ? (+b.realNumber * 60) : +b.realNumber, imaginaryNumber: b.imaginaryNumber ? (+b.imaginaryNumber * 60) : +b.imaginaryNumber };
-        const minutes = Complex.trunc(new Complex(isNaN(c.realNumber) ? 0 : c.realNumber, isNaN(c.imaginaryNumber) ? 0 : c.imaginaryNumber));
-        const d = { realNumber: `0.${`${c.realNumber}`.split('.')[1]}`, imaginaryNumber: `0.${`${c.imaginaryNumber}`.split('.')[1]}` };
+        const cc = new Complex(isNaN(c.realNumber) ? 0 : c.realNumber, isNaN(c.imaginaryNumber) ? 0 : c.imaginaryNumber);
+        const minutes = Complex.trunc(cc);
+        const truncDecimalC = Complex.truncDecimal(cc);
+        const d = { realNumber: truncDecimalC.realNumber, imaginaryNumber: truncDecimalC.imaginaryNumber };
         const e = { realNumber: d.realNumber ? (+d.realNumber * 60) : +d.realNumber, imaginaryNumber: d.imaginaryNumber ? (+d.imaginaryNumber * 60) : +d.imaginaryNumber };
         const seconds = new Complex(isNaN(e.realNumber) ? 0 : e.realNumber, isNaN(e.imaginaryNumber) ? 0 : e.imaginaryNumber);
-        return { degree: `${degrees.toString()}°${minutes.toString()}'${seconds.toString()}"`, decimal: a };
+        return { degree: `${degrees.toString()}${hrs ? 'h' : '°'}${minutes.toString()}${hrs ? 'm' : '\''}${seconds.toString()}${hrs ? 's' : '"'}`, decimal: a };
     }
 
     static degToHour = (a: Complex) => a.divide(new Complex(15, 0));
@@ -945,14 +950,16 @@ export class Algebra {
 
     static log = (value: number, base: number) => (Math.log(value) / Math.log(base));
 
-    static decimalToDeg = (a: number) => {
+    static truncDecimal = (value: number) => (+(`0.${`${value}`.split('.')[1] || 0}`));
+
+    static decimalToDeg = (a: number, hrs: boolean = false) => {
         const degrees = Math.trunc(a);
-        const b = `0.${`${a}`.split('.')[1]}`;
+        const b = Algebra.truncDecimal(a);
         const c = b ? (+b * 60) : +b;
         const minutes = Math.trunc(c);
-        const d = `0.${`${c}`.split('.')[1]}`;
+        const d = Algebra.truncDecimal(c);
         const seconds = d ? (+d * 60) : +d;
-        return { degree: `${degrees}°${minutes || 0}'${seconds || 0}"`, decimal: a };
+        return { degree: `${degrees}${hrs ? 'h' : '°'}${minutes || 0}${hrs ? 'm' : '\''}${seconds || 0}${hrs ? 's' : '"'}`, decimal: a };
     }
 
     static timeToHour = (a: Date) => (a.getUTCHours() + (a.getUTCMinutes() / 60) + (a.getUTCSeconds() / 3600) + (a.getUTCMilliseconds() / 3600000));
@@ -2928,12 +2935,23 @@ export default class Maths {
         }
     }
 
-    static DecimalToDeg = <T extends Complex | number>(a: T) => {
+    static TruncDecimal = <T extends Complex | number>(a: T) => {
         switch (a.constructor.name) {
             case ConstructorTypes.Number:
-                return Algebra.decimalToDeg(a as number);
+                return Algebra.truncDecimal(a as number) as T;
             case ConstructorTypes.Complex:
-                return Complex.decimalToDeg(a as Complex);
+                return Complex.truncDecimal(a as Complex) as T;
+            default:
+                throw new Error('Invalid Type Passed');
+        }
+    }
+
+    static DecimalToDeg = <T extends Complex | number>(a: T, b: boolean = false) => {
+        switch (a.constructor.name) {
+            case ConstructorTypes.Number:
+                return Algebra.decimalToDeg(a as number, b);
+            case ConstructorTypes.Complex:
+                return Complex.decimalToDeg(a as Complex, b);
             default:
                 throw new Error('Invalid Type Passed');
         }

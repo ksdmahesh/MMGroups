@@ -669,10 +669,8 @@ type PanchangaType = {
 };
 
 type Properties = {
-    rasi?: string,
+    rasi?: { name: string[], graha: string[] },
     yuga?: { name: string[], currentYear: number, startsOn: Date, endsOn: Date },
-    yugaStartedOn?: string,
-    yugaEndsOn?: string,
     samvatsara?: { name: string[], year: number },
     yoga?: DecimalDegree & { name: string[] },
     karana?: Array<DecimalDegree & { name: string[] }>,
@@ -683,7 +681,6 @@ type Properties = {
     suryaMaasa?: string[],
     tithi?: DecimalDegree & { name: string[], paksha?: keyof PakshaType },
     nakshatra?: DecimalDegree & { name: string[], paada: number },
-    graha?: string,
     rahuKaala?: DecimalDegree,
     yamaGanda?: DecimalDegree,
     guliKaala?: DecimalDegree,
@@ -701,7 +698,9 @@ type Properties = {
         kpNew: DecimalDegree['from'],
         khullar: DecimalDegree['from']
     },
-    samayam?: DecimalDegree['from']
+    samayam?: DecimalDegree['from'],
+    suryarekamsa?: number,
+    chandrarekamsa?: number
 } & PanchangaType;
 
 type Name = {
@@ -779,7 +778,9 @@ const atan = (a: number) => Maths.ATan(a, Mode.Degree);
 
 const degToHour = (a: number) => Maths.DegToHour(a);
 
-const decimalToDeg = (a: number) => Maths.DecimalToDeg(a) as DecimalDegree['from'];
+const decimalToDeg = (a: number, b: boolean = false) => Maths.DecimalToDeg(a) as DecimalDegree['from'];
+
+const truncDecimal = (a: number) => Maths.TruncDecimal(a);
 
 const degToRad = (a: number) => Maths.DegToRad(a);
 
@@ -798,6 +799,12 @@ const sqrt = Math.sqrt;
 const cbrt = Math.cbrt;
 
 const floor = Math.floor;
+
+const ceil = Math.ceil;
+
+const max = Math.max;
+
+const min = Math.min;
 
 const sign = Math.sign;
 
@@ -826,6 +833,7 @@ export class Panchangam {
     properties: Properties = {};
 
     astro?: Astro;
+
     astroNext?: Astro;
 
     //#region Members
@@ -5701,6 +5709,8 @@ export class Panchangam {
         next?.setDate(next.getDate() + 1);
         this.astro = new Astro({ date: this.properties.date, latitude: this.properties.akshamsha, longitude: this.properties.rekamsha });
         this.astroNext = new Astro({ date: next, latitude: this.properties.akshamsha, longitude: this.properties.rekamsha });
+        this.properties.suryarekamsa = this.astro.properties.planet?.longitude;
+        this.properties.chandrarekamsa = this.astro.properties.lunar?.longitude;
         this.setProperties();
     }
 
@@ -5709,10 +5719,9 @@ export class Panchangam {
         const year = date.getFullYear();
         this.setUdayaasthama();
         this.setMuhurtas(this.setVaara(julian));
-        this.setKarana(this.setTithi());
         this.setYoga();
         this.setNakshatra();
-        this.setSamvatsara(year, this.setMaasa());
+        this.setSamvatsara(year, this.setMaasa(this.setTithi()));
         this.setYuga(Yuga.kali, year);
         this.setAyanamsa(julian);
         this.setKaala();
@@ -5767,7 +5776,7 @@ export class Panchangam {
         }
         this.properties.samvatsara = {
             year: currentYear,
-            name: this.getName(allSamvatsaras[round(index) - 1][1])
+            name: this.getName(allSamvatsaras[ceil(index) - 1][1])
         };
     }
 
@@ -5787,17 +5796,53 @@ export class Panchangam {
         };
     }
 
-    private setMaasa = () => {
-        let maasa = round(((this.astro?.properties.lunar?.longitude || 0) / 36) - 1);
+    private setMaasa = (tithi: number) => {
         const allMaasas = Object.entries(this.Maasa);
-        if (sign(maasa) === -1) {
-            maasa = 12 + maasa;
+        const chandrarekamsa = this.properties.chandrarekamsa || 0;
+        const suryarekamsa = this.properties.suryarekamsa || 0;
+        const maasa = (suryarekamsa / 30);
+
+        let index;
+        let diff = 0;
+        
+        let suryam = tithi <= 15 ? ceil(suryarekamsa) : floor(suryarekamsa);
+        let chandram = tithi <= 15 ? ceil(chandrarekamsa) : floor(chandrarekamsa);
+        if (suryarekamsa > 0 && suryarekamsa <= 90) {
+            diff = (90 + 90 - suryam - chandram) / 360;
+        } else if (suryarekamsa > 90 && suryarekamsa <= 180) {
+            diff = (180 + 180 - suryam - chandram) / 360;
+        } else if (suryarekamsa > 180 && suryarekamsa <= 270) {
+            diff = (270 + 270 - suryam - chandram) / 360;
+        } else if (suryarekamsa > 270 && suryarekamsa <= 360) {
+            diff = (360 + 360 - suryam - chandram) / 360;
         }
-        this.properties.maasa = this.getName(allMaasas[maasa]?.[1]);
-        this.properties.suryaMaasa = this.getName(allMaasas[maasa]?.[1]?.suryaMaasa);
-        this.properties.aayana = allMaasas[maasa]?.[1]?.aayana?.map(a => this.getName(a));
-        this.properties.rtu = this.getName(allMaasas[maasa]?.[1]?.rtu);
-        return maasa;
+        if (tithi <= 15) {
+            index = ceil(maasa - (tithi / 15) + diff) - 1;
+        } else {
+            index = floor(maasa + diff) - 1;
+        }
+
+        if (sign(index) === -1) {
+            index = 12 + index;
+        }
+
+        let f: any = window;
+        if (!f['fl']) {
+            f['fl'] = index;
+        }
+        if (index !== f['fl']) {
+            if (tithi === 1) {
+                f['fl'] = index;
+            } else {
+                // debugger
+            }
+        }
+
+        this.properties.maasa = this.getName(allMaasas[index]?.[1]);
+        this.properties.suryaMaasa = this.getName(allMaasas[index]?.[1]?.suryaMaasa);
+        this.properties.aayana = allMaasas[index]?.[1]?.aayana?.map(a => this.getName(a));
+        this.properties.rtu = this.getName(allMaasas[index]?.[1]?.rtu);
+        return index;
     }
 
     private setVaara = (julian: number) => {
@@ -5820,29 +5865,39 @@ export class Panchangam {
     }
 
     private setTithi = () => {
-        const tithi = (((this.astro?.properties.lunar?.longitude || 0) - (this.astro?.properties.planet?.longitude || 0)) / 12);
+        let tithi = (((this.astro?.properties.lunar?.longitude || 0) - (this.astro?.properties.planet?.longitude || 0)) / 12);
+        tithi = ceil(sign(tithi) === -1 ? (30 + tithi) : tithi);
         const allTithis = Object.entries(this.Tithi);
+
         let index;
         let paksha = Paksha.shukla;
         if (tithi > 15) {
             paksha = Paksha.krshna;
             if (tithi === 30) {
-                index = 16;
+                index = 15;
             }
             else {
-                index = abs(15 - tithi - 1);
+                index = abs(15 - tithi) - 1;
             }
         } else {
-            index = tithi - 1;
+            index = abs(tithi - 1);
         }
-        debugger
+        const startsOn = (1 - truncDecimal(tithi)) * 100;
+
+        // gregorianDay(julianDay - 2415018.54 + (tithi/24))
+        // gregorianDay(julianDay - 2415018.54 + ((16+tithi)/24))
+
+        // decimalToDeg(this.getTime(this.properties.suryodhaya)+this.getTime(this.properties.date)-(this.getTime(this.properties.suryodhaya)*startsOn/100), true)
         this.properties.tithi = {
-            name: this.getName(allTithis[round(index)]?.[1]),
+            name: this.getName(allTithis[ceil(index)]?.[1]),
             paksha,
             from: decimalToDeg(1),
             to: decimalToDeg(1)
         };
-        return allTithis[round(index)]?.[1];
+
+        this.setKarana(allTithis[ceil(index)]?.[1]);
+
+        return tithi;
     }
 
     /**
@@ -5852,7 +5907,7 @@ export class Panchangam {
         const yoga = (((this.astro?.properties.lunar?.longitude || 0)) / minuteToDeg(800));
         const allYogas = Object.entries(this.Yoga);
         this.properties.yoga = {
-            name: this.getName(allYogas[round(yoga - 1)]?.[1]),
+            name: this.getName(allYogas[ceil(yoga - 1)]?.[1]),
             from: decimalToDeg(1),
             to: decimalToDeg(1)
         };
@@ -5867,7 +5922,7 @@ export class Panchangam {
      */
     private setNakshatra = () => {
         const nakshatra = ((this.astro?.properties.lunar?.longitude || 0) / minuteToDeg(800));
-        const paada = +(`0.${`${nakshatra}`.split('.')[1] || 0}`) * 4;
+        const paada = ceil(truncDecimal(nakshatra) * 4);
         const allNakshatras = Object.entries(this.Nakshatra);
         this.properties.nakshatra = {
             name: this.getName(allNakshatras[floor(nakshatra - 1)]?.[1]),
@@ -5934,6 +5989,13 @@ export class Panchangam {
             to: decimalToDeg(abs(muhurtaFrom) + minuteToDeg(48)),
             bad: muhurta.bad.includes(vaara)
         };
+    }
+
+    private setRaasi = () => {
+        this.properties.rasi = {
+            name: [],
+            graha: []
+        }
     }
 
     //#endregion

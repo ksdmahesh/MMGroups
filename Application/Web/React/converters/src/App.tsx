@@ -341,15 +341,20 @@ class App extends React.Component {
   }
 
   checkPanchanga = () => {
-    const pa1 = new Panchangam({ date: new Date(2021, 4, 15, 5, 54, 30, 500) });
-    const pa2 = new Panchangam({ date: new Date(2021, 4, 16, 6, 54, 30, 500) });
-    const pa3 = new Panchangam({ date: new Date(2021, 4, 17, 7, 54, 30, 500) });
-    const pa4 = new Panchangam({ date: new Date(2021, 4, 18, 8, 54, 30, 500) });
-    const pa5 = new Panchangam({ date: new Date(2021, 4, 19, 9, 54, 30, 500) });
-    const pa6 = new Panchangam({ date: new Date(2021, 4, 20, 10, 54, 30, 500) });
-    const pa7 = new Panchangam({ date: new Date(2021, 4, 21, 11, 54, 30, 500) });
-    const pa8 = new Panchangam({ date: new Date(2021, 4, 8, 12, 54, 30, 500) });
-    console.log(pa1.properties, pa2.properties, pa3.properties, pa4.properties, pa5.properties, pa6.properties, pa7.properties, pa8.properties);
+    let j = 0;
+    const mnt = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    let item = 0;
+    let a = [];
+    for (const iterator of Array<number>(365).fill(1).map((_, i) => i + 1)) {
+      let i = iterator - item;
+      const pa = new Panchangam({ akshamsha: 13.067455, rekamsha: 78.974617, date: new Date(2021, j, i, 5, 54, 30, 500), language: 'telugu' });
+      a[iterator] = pa;
+      if (iterator - item === mnt[j]) {
+        j++;
+        item = mnt.slice(0, j).reduce((a, b) => a + b);
+      }
+    }
+    console.log(a.map(pa => ({ date: pa.properties.date?.toLocaleDateString('en-GB'), tithi: `${pa.properties.tithi?.paksha} - ${pa.properties.tithi?.name?.[0]}`, moon: pa.properties.chandrarekamsa, sun: pa.properties.suryarekamsa, maasa: pa.properties.maasa?.[0] })));
   }
 
   checkAstro = () => {
